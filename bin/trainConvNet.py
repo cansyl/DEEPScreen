@@ -68,18 +68,22 @@ def trainModelTarget(model_name, target, optimizer, learning_rate, epch):
     train, test = getTrainDataBinary("{}/{}".format(Y_IMG_PATH,target), target )
     train_comp_name = [i[2] for i in train]
 
-
+    """
+    model.fit(X, Y, n_epoch=epch, validation_set=({'input': test_x}, {'targets': test_y}),
+              show_metric=True, batch_size=32, snapshot_step=200,
+              snapshot_epoch=True, run_id="{}_{}_{}_{}_{}_id".format(model_name, target, optimizer, learning_rate ,epch))
     # first get all chembl compounds for kegg targets
-    kegg_target_chembl_dict, unique_comp_set = getKEGGDrugChemblAssocDict()
-    kegg_valid = getPosNegTestData(Y_IMG_PATH_TEST, kegg_target_chembl_dict, target)
+    #kegg_target_chembl_dict, unique_comp_set = getKEGGDrugChemblAssocDict()
+    #kegg_valid = getPosNegTestData(Y_IMG_PATH_TEST, kegg_target_chembl_dict, target)
 
 
-    kegg_valid_x = np.array([i[0] for i in kegg_valid]).reshape(-1,IMG_SIZE,IMG_SIZE,1)
-    kegg_valid_y = [i[1] for i in kegg_valid]
-    kegg_comp_name = [i[2] for i in kegg_valid]
+    #kegg_valid_x = np.array([i[0] for i in kegg_valid]).reshape(-1,IMG_SIZE,IMG_SIZE,1)
+    #kegg_valid_y = [i[1] for i in kegg_valid]
+    #kegg_comp_name = [i[2] for i in kegg_valid]
 
 
     # remove kegg compounds from training
+
     for k_c_i in range(len(kegg_comp_name)):
         if kegg_comp_name[k_c_i] in train_comp_name:
             ind_comp_in_train = train_comp_name.index(kegg_comp_name[k_c_i])
@@ -101,10 +105,10 @@ def trainModelTarget(model_name, target, optimizer, learning_rate, epch):
 
 
     # recreate
-    train_comp_name = []
-    for i in train:
-        if i[0].shape != ():
-            train_comp_name.append(i[2])
+    #train_comp_name = []
+    #for i in train:
+    #    if i[0].shape != ():
+    #        train_comp_name.append(i[2])
 
 
 
@@ -113,33 +117,31 @@ def trainModelTarget(model_name, target, optimizer, learning_rate, epch):
     # train_comp_name = [i[2] for i in train]
 
 
-    test_x = []
-    for i in test:
-        if i[0].shape!=():
-            test_x.append(i[0])
+    #test_x = []
+    #for i in test:
+    #    if i[0].shape!=():
+    #        test_x.append(i[0])
 
-    test_x = np.array(test_x).reshape(-1, IMG_SIZE, IMG_SIZE, 1)
+    #test_x = np.array(test_x).reshape(-1, IMG_SIZE, IMG_SIZE, 1)
 
-    test_y = []
-    for i in test:
-        if i[0].shape != ():
-            test_y.append(i[1])
+    #test_y = []
+    #for i in test:
+    #    if i[0].shape != ():
+    #        test_y.append(i[1])
 
 
-    test_comp_name = []
-    for i in test:
-        if i[0].shape != ():
-            test_comp_name.append(i[2])
+    #test_comp_name = []
+    #for i in test:
+    #    if i[0].shape != ():
+    #        test_comp_name.append(i[2])
 
 
     #test_x = np.array([i[0] for i in test]).reshape(-1,IMG_SIZE,IMG_SIZE,1)
     #test_y = [i[1] for i in test]
     #test_comp_name = [i[2] for i in test]
+    """
 
 
-    model.fit(X, Y, n_epoch=epch, validation_set=({'input': test_x}, {'targets': test_y}),
-              show_metric=True, batch_size=32, snapshot_step=200,
-              snapshot_epoch=True, run_id="{}_{}_{}_{}_{}_id".format(model_name, target, optimizer, learning_rate ,epch))
 
     #model.fit({'input': X}, {'targets': Y}, n_epoch=200, validation_set=({'input': test_x}, {'targets': test_y}),
     #    snapshot_step=500, show_metric=True, run_id="conv_test2")
