@@ -23,7 +23,7 @@ from tflearn.utils import repeat
 
 import subprocess
 from dataProcessing import getActInactiveDictForAllTargets, getActInactFromFileForATarget, getKEGGDrugChemblAssocDict
-from dataProcessing import getPosNegTestData, getTestData, getTrainDataBinary, getTrainDataFamily, getTrainDataChEMBLMultiTask
+from dataProcessing import getPosNegTestData, getTestData, getTrainDataBinary, getTrainDataFamily, getTrainDataChEMBLMultiTask,constructDataMatricesForATarget
 from PIL import Image
 from models import ImageNetInceptionV2, AlexNetModel, CNNModel, CNNModel2
 
@@ -38,7 +38,7 @@ images_path = "../images200"
 yamanishi_path = "../Yamanishi"
 Y_IMG_PATH = "../images200Yamanishi"
 Y_IMG_PATH_TEST = "../images200Yamanishi/KEGGGoldDrugs"
-
+TEMP_IMG_OUTPUT_PATH = "../tempImage"
 
 
 
@@ -65,8 +65,50 @@ def trainModelTarget(model_name, target, optimizer, learning_rate, epch):
     else:
         pass
 
-    train, test = getTrainDataBinary("{}/{}".format(Y_IMG_PATH,target), target )
+    #train, test = getTrainDataBinary("{}/{}".format(Y_IMG_PATH,target), target )
+    train, test = constructDataMatricesForATarget(TEMP_IMG_OUTPUT_PATH, target)
     train_comp_name = [i[2] for i in train]
+
+    X = []
+    for i in train:
+        if i[0].shape!=():
+            X.append(i[0])
+
+    X = np.array(X).reshape(-1, IMG_SIZE, IMG_SIZE, 1)
+
+    Y = []
+    for i in train:
+        if i[0].shape != ():
+            Y.append(i[1])
+
+
+    test_x = []
+    for i in test:
+        if i[0].shape!=():
+            test_x.append(i[0])
+
+    test_x = np.array(test_x).reshape(-1, IMG_SIZE, IMG_SIZE, 1)
+
+    test_y = []
+    for i in test:
+        if i[0].shape != ():
+            test_y.append(i[1])
+
+
+    test_comp_name = []
+    for i in test:
+        if i[0].shape != ():
+            test_comp_name.append(i[2])
+
+
+    test_x = np.array([i[0] for i in test]).reshape(-1,IMG_SIZE,IMG_SIZE,1)
+    test_y = [i[1] for i in test]
+    test_comp_name = [i[2] for i in test]
+
+
+    model.fit(X, Y, n_epoch=epch, validation_set=({'input': test_x}, {'targets': test_y}),
+              show_metric=True, batch_size=32, snapshot_step=200,
+              snapshot_epoch=True, run_id="{}_{}_{}_{}_{}_id".format(model_name, target, optimizer, learning_rate ,epch))
 
     """
     model.fit(X, Y, n_epoch=epch, validation_set=({'input': test_x}, {'targets': test_y}),
