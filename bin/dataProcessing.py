@@ -18,6 +18,101 @@ Y_IMG_PATH = "../images200Yamanishi"
 Y_IMG_PATH_TEST = "../images200Yamanishi/KEGGGoldDrugs"
 TEMP_IMG_OUTPUT_PATH = "../tempImage"
 
+def constructDataMatricesForATargetWorkingOld(output_path, target_id, rotate=False):
+    train_test_data = []
+    prob_count = 0
+    count = 0
+    compound_smiles_dict = getSMILEsForAllChEMBL()
+    compound_set = set()
+    act_set = set()
+    inact_set = set()
+    act_set, inact_set = getActInactFromFileForATarget(target_id)
+    #compound_set = compound_set|act_set|inact_set
+
+    act_list = list(act_set)
+    inact_list = list(inact_set)
+
+
+    for pos_comp in act_list:
+        #print(pos_comp)
+        label = [1, 0]
+        try:
+            count += 1
+            # print(count)
+            # print(output_path,compound_smiles_dict[comp], comp)
+            img_arr = drawPictureandReturnImgMatrix(output_path, compound_smiles_dict[pos_comp], pos_comp)
+
+
+            print(type(img_arr))
+            #img = Image.fromarray(img_arr)
+            train_test_data.append([np.array(img_arr/255.0), np.array(label), pos_comp])
+            rows, cols = img_arr.shape
+            #img.show()
+            if rotate:
+                for angle in np.arange(45, 316, 45):
+                    print("rotated")
+                    rotation_matrix= cv2.getRotationMatrix2D((cols / 2, rows / 2), angle, 1)
+                    rotated_image_array = cv2.warpAffine(img_arr, rotation_matrix, (cols, rows),cv2.INTER_LINEAR, borderValue=255)#cv2.BORDER_CONSTANT, 255)
+                    train_test_data.append([np.array(rotated_image_array/255.0), np.array(label), pos_comp])
+
+                    print((type(rotated_image_array)))
+                    print(rotated_image_array/255.0)
+                    cv2.imshow("Rotated (Correct)", rotated_image_array)
+                    cv2.waitKey(0)
+
+            cv2.imshow("Rotated (Original)", img_arr/255.0)
+            cv2.waitKey(0)
+
+        except Exception as e:
+            print(str(e))
+            prob_count += 1
+            # print("Prob", prob_count)
+            pass
+
+    for neg_comp in inact_list:
+        #print(pos_comp)
+        label = [0, 1]
+        try:
+            count += 1
+            img_arr = drawPictureandReturnImgMatrix(output_path, compound_smiles_dict[neg_comp], neg_comp)
+            #img = Image.fromarray(img_arr)
+            #img.show()
+            train_test_data.append([np.array(img_arr/255.0), np.array(label), neg_comp])
+
+            rows, cols = img_arr.shape
+            # img.show()
+            for angle in np.arange(45, 316, 45):
+                # rotated = imutils.rotate( img_arr, angle)
+                print("rotated")
+                # cv2.imshow("Rotated (Correct)", rotated)
+                rotation_matrix = cv2.getRotationMatrix2D((cols / 2, rows / 2), angle, 1)
+                rotated_image_array = cv2.warpAffine(img_arr, rotation_matrix, (cols, rows), cv2.INTER_LINEAR,
+                                                     borderValue=255)  # cv2.BORDER_CONSTANT, 255)
+                train_test_data.append([np.array(rotated_image_array/255.0), np.array(label), neg_comp])
+
+                # print((type(rotated_image_array)))
+                # cv2.imshow("Rotated (Correct)", rotated_image_array)
+                # cv2.waitKey(0)
+
+        except:
+            prob_count += 1
+            #print("problem",problem_count)
+            pass
+
+    random.shuffle(train_test_data)
+
+    training_size = int(0.8 * len(train_test_data))
+    training_data = train_test_data[-training_size:]
+    test_data = train_test_data[:-training_size]
+
+    print("all", train_test_data)
+    print(len(train_test_data))
+    #print("train", training_data)
+    #print("test", test_data)
+    # np.save('train_data.npy', training_data)
+    # print(len(train_test_data),len(training_data), len(test_data))
+    return training_data, test_data
+
 
 def getChEMBLTargetIDUniProtMapping():
     compound_uniprot_dict = dict()
@@ -130,23 +225,7 @@ def getActInctForAFamily(fl,family_uniprot_id_set):
     return family_chembl_ids_set, all_act_comp_set, all_inact_comp_set
 
 
-def getActInactFromFileForATarget(target):
-    active_inactive_path = "../activeInactive"
-    pos_fl = open(os.path.join(active_inactive_path,"{}_act.txt".format(target)), "r")
-    lst_pos_fl = pos_fl.read().split("\n")
-    pos_fl.close()
 
-    while "" in lst_pos_fl:
-        lst_pos_fl.remove("")
-
-    neg_fl = open(os.path.join(active_inactive_path, "{}_inact.txt".format(target)), "r")
-    lst_neg_fl = neg_fl.read().split("\n")
-    neg_fl.close()
-
-    while "" in lst_pos_fl:
-        lst_neg_fl.remove("")
-
-    return set(lst_pos_fl), set(lst_neg_fl)
 
 
 def createActInactFilesForYamanishiTargets(family):
@@ -651,12 +730,34 @@ def getPosNegTestData(img_path, all_test_target_dict, target):
     # np.save('train_data.npy', training_data)
     return test_data
 
+
+
+
+
+def getActInactFromFileForATarget(target):
+    active_inactive_path = "../activeInactive"
+    pos_fl = open(os.path.join(active_inactive_path,"{}_act.txt".format(target)), "r")
+    lst_pos_fl = pos_fl.read().split("\n")
+    pos_fl.close()
+
+    while "" in lst_pos_fl:
+        lst_pos_fl.remove("")
+
+    neg_fl = open(os.path.join(active_inactive_path, "{}_inact.txt".format(target)), "r")
+    lst_neg_fl = neg_fl.read().split("\n")
+    neg_fl.close()
+
+    while "" in lst_pos_fl:
+        lst_neg_fl.remove("")
+
+    return set(lst_pos_fl), set(lst_neg_fl)
+
+
 def drawMolFromSmiles(output_path,smiles, id):
     mol = Chem.MolFromSmiles(smiles)
     DrawingOptions.atomLabelFontSize = 55
     DrawingOptions.dotsPerAngstrom = 100
     DrawingOptions.bondLineWidth = 1.0
-    #Draw.MolToFile(mol,  "../images/deneme.png", size= ( size , size ))
     Draw.MolToFile(mol, "{}/{}.svg".format(output_path,id), size= ( IMG_SIZE , IMG_SIZE ))
     cairosvg.svg2png(url='{}/{}.svg'.format(output_path,id), write_to="{}/{}.png".format(output_path,id))
     subprocess.call(["rm","{}/{}.svg".format(output_path,id)])
@@ -668,102 +769,65 @@ def drawPictureandReturnImgMatrix(temp_output_path, smiles, id):
     try:
         path = os.path.join(temp_output_path, "{}.png".format(id))
         img_arr = cv2.imread(path, cv2.IMREAD_GRAYSCALE)
-
-
-
-        # delete below
-        ######
-        #img = Image.fromarray(img_arr)
-        #img.show()
-        ########
-
         img_arr = np.array(img_arr)
 
-        #subprocess.call(["rm", "{}/{}.png".format(temp_output_path, id)])
+        #cv2.imshow("Original {}".format(id), img_arr)
+        #cv2.waitKey(0)
+
+        subprocess.call(["rm", "{}/{}.png".format(temp_output_path, id)])
     except:
         img_arr = -1
-        #print("There is a problem!")
         pass
     return img_arr
 
 
-def constructDataMatricesForATarget(output_path, target_id):
+def rotateImageReturnMatrix(train_test_data_list, img_arr, lbl, comp_id):
+    rows, cols = img_arr.shape
+    for angle in np.arange(45, 316, 45):
+        rotation_matrix = cv2.getRotationMatrix2D((cols / 2, rows / 2), angle, 1)
+        rotated_image_array = cv2.warpAffine(img_arr, rotation_matrix, (cols, rows), cv2.INTER_LINEAR,
+                                             borderValue=255)  # cv2.BORDER_CONSTANT, 255)
+
+        train_test_data_list.append([np.array(rotated_image_array / 255.0), np.array(lbl), comp_id])
+        #cv2.imshow("Rotated (Correct) {} {}".format(comp_id, str(lbl)), rotated_image_array)
+        #cv2.waitKey(0)
+
+def constructDataMatricesForATarget(output_path, target_id, rotate=False):
     train_test_data = []
     prob_count = 0
     count = 0
     compound_smiles_dict = getSMILEsForAllChEMBL()
-    compound_set = set()
-    act_set = set()
-    inact_set = set()
     act_set, inact_set = getActInactFromFileForATarget(target_id)
-    #compound_set = compound_set|act_set|inact_set
-
-    act_list = list(act_set)
-    inact_list = list(inact_set)
+    act_list, inact_list = list(act_set), list(inact_set)
 
 
     for pos_comp in act_list:
-        #print(pos_comp)
         label = [1, 0]
         try:
             count += 1
-            # print(count)
-            # print(output_path,compound_smiles_dict[comp], comp)
+            print(count)
             img_arr = drawPictureandReturnImgMatrix(output_path, compound_smiles_dict[pos_comp], pos_comp)
-            print(type(img_arr))
-            #img = Image.fromarray(img_arr)
-            train_test_data.append([np.array(img_arr), np.array(label), pos_comp])
-            rows, cols = img_arr.shape
-            #img.show()
-            for angle in np.arange(45, 316, 45):
-                #rotated = imutils.rotate( img_arr, angle)
-                print("rotated")
-                #cv2.imshow("Rotated (Correct)", rotated)
-                rotation_matrix= cv2.getRotationMatrix2D((cols / 2, rows / 2), angle, 1)
-                rotated_image_array = cv2.warpAffine(img_arr, rotation_matrix, (cols, rows),cv2.INTER_LINEAR, borderValue=255)#cv2.BORDER_CONSTANT, 255)
-                train_test_data.append([np.array(rotated_image_array), np.array(label), pos_comp])
+            train_test_data.append([np.array(img_arr/255.0), np.array(label), pos_comp])
 
-                #print((type(rotated_image_array)))
-                #cv2.imshow("Rotated (Correct)", rotated_image_array)
-                #cv2.waitKey(0)
-
-            #img = Image.fromarray(img_arr)
-            #img.show()
+            if rotate:
+                rotateImageReturnMatrix(train_test_data, img_arr, label, pos_comp)
 
         except Exception as e:
             print(str(e))
             prob_count += 1
-            # print("Prob", prob_count)
             pass
 
     for neg_comp in inact_list:
-        #print(pos_comp)
         label = [0, 1]
         try:
             count += 1
             img_arr = drawPictureandReturnImgMatrix(output_path, compound_smiles_dict[neg_comp], neg_comp)
-            #img = Image.fromarray(img_arr)
-            #img.show()
-            train_test_data.append([np.array(img_arr), np.array(label), neg_comp])
+            train_test_data.append([np.array(img_arr/255.0), np.array(label), neg_comp])
 
-            rows, cols = img_arr.shape
-            # img.show()
-            for angle in np.arange(45, 316, 45):
-                # rotated = imutils.rotate( img_arr, angle)
-                print("rotated")
-                # cv2.imshow("Rotated (Correct)", rotated)
-                rotation_matrix = cv2.getRotationMatrix2D((cols / 2, rows / 2), angle, 1)
-                rotated_image_array = cv2.warpAffine(img_arr, rotation_matrix, (cols, rows), cv2.INTER_LINEAR,
-                                                     borderValue=255)  # cv2.BORDER_CONSTANT, 255)
-                train_test_data.append([np.array(rotated_image_array), np.array(label), pos_comp])
-
-                # print((type(rotated_image_array)))
-                # cv2.imshow("Rotated (Correct)", rotated_image_array)
-                # cv2.waitKey(0)
-
+            if rotate:
+                rotateImageReturnMatrix(train_test_data, img_arr, label, neg_comp)
         except:
             prob_count += 1
-            #print("problem",problem_count)
             pass
 
     random.shuffle(train_test_data)
@@ -772,21 +836,25 @@ def constructDataMatricesForATarget(output_path, target_id):
     training_data = train_test_data[-training_size:]
     test_data = train_test_data[:-training_size]
 
-    print("all", train_test_data)
-    print(len(train_test_data))
-    #print("train", training_data)
-    #print("test", test_data)
-    # np.save('train_data.npy', training_data)
-    # print(len(train_test_data),len(training_data), len(test_data))
+    #print("all", train_test_data)
+    #print(len(train_test_data))
+
+    new_count = 0
+    for item in train_test_data:
+        new_count += 1
+        print(new_count)
+        cv2.imshow("Train_test {} {}".format(item[1], item[2]), item[0])
+        cv2.waitKey(0)
+
     return training_data, test_data
 
 
 target_ = "CHEMBLXXX"
-
+target__ = "CHEMBL1293317"
 #, "CHEMBL1795087","CHEMBL5501", "CHEMBL2007625"]
 
 
-constructDataMatricesForATarget(TEMP_IMG_OUTPUT_PATH, target_)
+constructDataMatricesForATarget(TEMP_IMG_OUTPUT_PATH, target__, rotate=False)
 
-
+#drawPictureandReturnImgMatrix(TEMP_IMG_OUTPUT_PATH, "C[C@H]1CN(CCC(=O)N[C@@H](CCc2ccccc2)C(=O)O)CC[C@@]1(C)c3cccc(O)c3", "deneme")
 

@@ -254,3 +254,6 @@ def constructImagesForKEGGGoldDrugSet(output_path):
 
 target_list = ["CHEMBL1293317", "CHEMBL1795087","CHEMBL5501", "CHEMBL2007625"]
 
+
+smiles = "N[C@](C)(F)C(=O)O"
+drawMolFromSmiles("/Users/trman/Desktop",smiles, "deneme")
