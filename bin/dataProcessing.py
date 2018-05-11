@@ -18,6 +18,12 @@ Y_IMG_PATH = "../images200Yamanishi"
 Y_IMG_PATH_TEST = "../images200Yamanishi/KEGGGoldDrugs"
 TEMP_IMG_OUTPUT_PATH = "../tempImage"
 
+
+"""
+################### OLD Functions ###################
+################### OLD Functions ###################
+################### OLD Functions ###################
+
 def constructDataMatricesForATargetWorkingOld(output_path, target_id, rotate=False):
     train_test_data = []
     prob_count = 0
@@ -114,89 +120,6 @@ def constructDataMatricesForATargetWorkingOld(output_path, target_id, rotate=Fal
     return training_data, test_data
 
 
-def getChEMBLTargetIDUniProtMapping():
-    compound_uniprot_dict = dict()
-    mapping_fl = open("{}/{}".format(training_dataset_path, "chemblid_uniprot_mapping.txt"),"r")
-    lst_mapping_fl = mapping_fl.read().split("\n")
-    mapping_fl.close()
-
-    while "" in lst_mapping_fl:
-        lst_mapping_fl.remove("")
-
-    for line in lst_mapping_fl:
-        comp_ids, uniprot_id = line.split("\t")
-        lst_comp_ids = comp_ids.split(",")
-
-        while "" in lst_comp_ids:
-            lst_comp_ids.remove("")
-        for comp_id in lst_comp_ids:
-            try:
-                compound_uniprot_dict[comp_id].append(uniprot_id)
-                #print("varmis", comp_id, uniprot_id)
-            except:
-                compound_uniprot_dict[comp_id] = [uniprot_id]
-
-
-        #print(comp_id,uniprot_id)
-    #print(compound_uniprot_dict)
-    return compound_uniprot_dict
-
-
-def getUniProtChEMBLTargetIDMapping():
-    uniprot_chembl_id = dict()
-    mapping_fl = open("{}/{}".format(training_dataset_path, "chemblid_uniprot_mapping.txt"),"r")
-    lst_mapping_fl = mapping_fl.read().split("\n")
-    mapping_fl.close()
-
-    while "" in lst_mapping_fl:
-        lst_mapping_fl.remove("")
-
-    for line in lst_mapping_fl:
-        comp_ids, uniprot_id = line.split("\t")
-        lst_comp_ids = comp_ids.split(",")
-
-        while "" in lst_comp_ids:
-            lst_comp_ids.remove("")
-
-        for comp_id in lst_comp_ids:
-            try:
-                uniprot_chembl_id[uniprot_id].append(comp_id)
-                #print("varmis", comp_id, uniprot_id)
-            except:
-                uniprot_chembl_id[uniprot_id] = [comp_id]
-
-    #print(uniprot_chembl_id)
-    return uniprot_chembl_id
-
-
-def getSMILEsForAllChEMBL():
-    isFirst = True
-    prob_count = 0
-
-    compound_smiles_dict = dict()
-    with open("../trainingFiles/chembl_23_chemreps.txt") as f:
-        for line in f:
-            if isFirst:
-                isFirst = False
-            else:
-                chembl_id, smiles, _, _ = line.split("\t")
-                # print(chembl_id, smiles)
-                compound_smiles_dict[chembl_id] = smiles
-    return compound_smiles_dict
-
-
-def createActInactFileForATarget(target, pos_neg_lst):
-    active_inactive_path = "../activeInactive"
-    pos_fl = open(os.path.join(active_inactive_path,"{}_act.txt".format(target)), "w")
-    for cmp in pos_neg_lst[0]:
-        pos_fl.write("{}\n".format(cmp))
-    pos_fl.close()
-
-    neg_fl = open(os.path.join(active_inactive_path, "{}_inact.txt".format(target)), "w")
-    for cmp in pos_neg_lst[1]:
-        neg_fl.write("{}\n".format(cmp))
-    neg_fl.close()
-
 def createActInactFilesForTarget(fl):
 
     target_dict = getActInactiveDictForAllTargets(fl)
@@ -223,9 +146,6 @@ def getActInctForAFamily(fl,family_uniprot_id_set):
             pass
 
     return family_chembl_ids_set, all_act_comp_set, all_inact_comp_set
-
-
-
 
 
 def createActInactFilesForYamanishiTargets(family):
@@ -364,53 +284,6 @@ def getActInctForAllFamilies(fl, isWriteActInact=False):
 # createActInactFilesForYamanishiTargets("ionchannel")
 # createActInactFilesForYamanishiTargets("nuclearreceptor")
 # createActInactFilesForYamanishiTargets("enzymes")
-
-def getActInactiveDictForAllTargets(fl):
-    isFirst = True
-    target_dict = dict()
-    fl_first_part = fl.split(".")[0]
-    with open("%s/%s" % (training_dataset_path, fl)) as f:
-        for line in f:
-            # print(line)
-            if isFirst:
-                fields = line.split("\n")[0].split("\t")
-                isFirst = False
-            else:
-                temp = line.split("\n")[0].split("\t")
-                # print(temp)
-                chembl_tid = temp[0]
-                chembl_cid = temp[1]
-                pchembl_value = temp[2]
-                chembl_aid = temp[3]
-                ass_type = temp[4]
-                std_type = temp[5]
-                standard_value = temp[6]
-                standard_units = temp[7]
-                ass_tax = temp[8]
-                target_tax = temp[9]
-                conf_score = temp[10]
-                target_type = temp[11]
-                src_compound_id = temp[12]
-                src_assay_id = temp[13]
-                src_id = temp[14]
-                src_description = temp[15]
-                standard_relation = temp[16]
-                activity_comment = temp[17]
-                description = temp[18]
-                standard_value = float(standard_value)
-
-                if round(standard_value, 2) <= 10.00:
-                    try:
-                        target_dict[chembl_tid][0].append(chembl_cid)
-                    except:
-                        target_dict[chembl_tid] = [[chembl_cid], []]
-                elif round(standard_value, 2) >= 20.00:
-                    try:
-                        target_dict[chembl_tid][1].append(chembl_cid)
-                    except:
-                        target_dict[chembl_tid] = [[], [chembl_cid]]
-    return target_dict
-
 
 def getGoldStandardFromYamanishiForAllTargets(family):
     gold_fl = open("{}/{}_gold_standard.txt".format(yamanishi_path,family))
@@ -730,8 +603,142 @@ def getPosNegTestData(img_path, all_test_target_dict, target):
     # np.save('train_data.npy', training_data)
     return test_data
 
+################### OLD Functions ###################
+################### OLD Functions ###################
+################### OLD Functions ###################
+"""
+
+def getChEMBLTargetIDUniProtMapping():
+    compound_uniprot_dict = dict()
+    mapping_fl = open("{}/{}".format(training_dataset_path, "chemblid_uniprot_mapping.txt"),"r")
+    lst_mapping_fl = mapping_fl.read().split("\n")
+    mapping_fl.close()
+
+    while "" in lst_mapping_fl:
+        lst_mapping_fl.remove("")
+
+    for line in lst_mapping_fl:
+        comp_ids, uniprot_id = line.split("\t")
+        lst_comp_ids = comp_ids.split(",")
+
+        while "" in lst_comp_ids:
+            lst_comp_ids.remove("")
+        for comp_id in lst_comp_ids:
+            try:
+                compound_uniprot_dict[comp_id].append(uniprot_id)
+                #print("varmis", comp_id, uniprot_id)
+            except:
+                compound_uniprot_dict[comp_id] = [uniprot_id]
 
 
+        #print(comp_id,uniprot_id)
+    #print(compound_uniprot_dict)
+    return compound_uniprot_dict
+
+
+def getUniProtChEMBLTargetIDMapping():
+    uniprot_chembl_id = dict()
+    mapping_fl = open("{}/{}".format(training_dataset_path, "chemblid_uniprot_mapping.txt"),"r")
+    lst_mapping_fl = mapping_fl.read().split("\n")
+    mapping_fl.close()
+
+    while "" in lst_mapping_fl:
+        lst_mapping_fl.remove("")
+
+    for line in lst_mapping_fl:
+        comp_ids, uniprot_id = line.split("\t")
+        lst_comp_ids = comp_ids.split(",")
+
+        while "" in lst_comp_ids:
+            lst_comp_ids.remove("")
+
+        for comp_id in lst_comp_ids:
+            try:
+                uniprot_chembl_id[uniprot_id].append(comp_id)
+                #print("varmis", comp_id, uniprot_id)
+            except:
+                uniprot_chembl_id[uniprot_id] = [comp_id]
+
+    #print(uniprot_chembl_id)
+    return uniprot_chembl_id
+
+
+def getSMILEsForAllChEMBL():
+    isFirst = True
+    prob_count = 0
+
+    compound_smiles_dict = dict()
+    with open("../trainingFiles/chembl_23_chemreps.txt") as f:
+        for line in f:
+            if isFirst:
+                isFirst = False
+            else:
+                chembl_id, smiles, _, _ = line.split("\t")
+                # print(chembl_id, smiles)
+                compound_smiles_dict[chembl_id] = smiles
+    return compound_smiles_dict
+
+
+def createActInactFileForATarget(target, pos_neg_lst):
+    active_inactive_path = "../activeInactive"
+    pos_fl = open(os.path.join(active_inactive_path,"{}_act.txt".format(target)), "w")
+    for cmp in pos_neg_lst[0]:
+        pos_fl.write("{}\n".format(cmp))
+    pos_fl.close()
+
+    neg_fl = open(os.path.join(active_inactive_path, "{}_inact.txt".format(target)), "w")
+    for cmp in pos_neg_lst[1]:
+        neg_fl.write("{}\n".format(cmp))
+    neg_fl.close()
+
+
+
+
+def getActInactiveDictForAllTargets(fl):
+    isFirst = True
+    target_dict = dict()
+    fl_first_part = fl.split(".")[0]
+    with open("%s/%s" % (training_dataset_path, fl)) as f:
+        for line in f:
+            # print(line)
+            if isFirst:
+                fields = line.split("\n")[0].split("\t")
+                isFirst = False
+            else:
+                temp = line.split("\n")[0].split("\t")
+                # print(temp)
+                chembl_tid = temp[0]
+                chembl_cid = temp[1]
+                pchembl_value = temp[2]
+                chembl_aid = temp[3]
+                ass_type = temp[4]
+                std_type = temp[5]
+                standard_value = temp[6]
+                standard_units = temp[7]
+                ass_tax = temp[8]
+                target_tax = temp[9]
+                conf_score = temp[10]
+                target_type = temp[11]
+                src_compound_id = temp[12]
+                src_assay_id = temp[13]
+                src_id = temp[14]
+                src_description = temp[15]
+                standard_relation = temp[16]
+                activity_comment = temp[17]
+                description = temp[18]
+                standard_value = float(standard_value)
+
+                if round(standard_value, 2) <= 10.00:
+                    try:
+                        target_dict[chembl_tid][0].append(chembl_cid)
+                    except:
+                        target_dict[chembl_tid] = [[chembl_cid], []]
+                elif round(standard_value, 2) >= 20.00:
+                    try:
+                        target_dict[chembl_tid][1].append(chembl_cid)
+                    except:
+                        target_dict[chembl_tid] = [[], [chembl_cid]]
+    return target_dict
 
 
 def getActInactFromFileForATarget(target):
@@ -832,21 +839,25 @@ def constructDataMatricesForATarget(output_path, target_id, rotate=False):
 
     random.shuffle(train_test_data)
 
-    training_size = int(0.8 * len(train_test_data))
+    training_validation_size = int(0.8 * len(train_test_data))
+    test_size = len(train_test_data) - training_validation_size
+    training_size = int(0.8 * training_validation_size)
+    validation_size = training_validation_size - training_size
     training_data = train_test_data[-training_size:]
-    test_data = train_test_data[:-training_size]
+    validation_data = train_test_data[-(training_size + test_size):-training_size]
+    test_data = train_test_data[:-training_validation_size]
 
-    #print("all", train_test_data)
-    #print(len(train_test_data))
 
+    """
     new_count = 0
     for item in train_test_data:
         new_count += 1
         print(new_count)
         cv2.imshow("Train_test {} {}".format(item[1], item[2]), item[0])
         cv2.waitKey(0)
+    """
 
-    return training_data, test_data
+    return training_data, validation_data, test_data
 
 
 target_ = "CHEMBLXXX"

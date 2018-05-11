@@ -35,7 +35,7 @@ Y_IMG_PATH_TEST = "../images200Yamanishi/KEGGGoldDrugs"
 
 
 
-def ImageNetInceptionV2(outnode, model_name,  target, opt, learn_r, epch):
+def ImageNetInceptionV2(outnode, model_name,  target, opt, learn_r, epch, dropout_keep_rate, save_model=False):
     def block35(net, scale=1.0, activation="relu"):
         tower_conv = relu(batch_normalization(conv_2d(net, 32, 1, bias=False, activation=None, name='Conv2d_1x1')))
         tower_conv1_0 = relu(batch_normalization(conv_2d(net, 32, 1, bias=False, activation=None, name='Conv2d_0a_1x1')))
@@ -96,10 +96,8 @@ def ImageNetInceptionV2(outnode, model_name,  target, opt, learn_r, epch):
                 raise ValueError("Invalid Activation.")
         return net
 
-    #X, Y = oxflower17.load_data(one_hot=True, resize_pics=(299, 299))
-
-    #num_classes = 17
-    dropout_keep_prob = 0.8
+    # default = 0.8
+    dropout_keep_prob = dropout_keep_rate
 
     network = input_data(shape=[None, IMG_SIZE, IMG_SIZE, 1], name='input')
     conv1a_3_3 = relu(batch_normalization(
@@ -178,18 +176,23 @@ def ImageNetInceptionV2(outnode, model_name,  target, opt, learn_r, epch):
     net = dropout(net, dropout_keep_prob)
     loss = fully_connected(net, outnode, activation='softmax')
 
+    str_model_name = "{}_{}_{}_{}_{}_{}".format(model_name,  target, opt, learn_r, epch, dropout_keep_rate)
+
     network = tflearn.regression(loss, optimizer=opt,
                                  loss='categorical_crossentropy',
                                  learning_rate=learn_r, name='targets')
-    model = tflearn.DNN(network, checkpoint_path='./tflearnModels/{}_{}_{}_{}_{}'.format(model_name,  target, opt, learn_r, epch), best_checkpoint_path='./tflearnModels/bestModels/best_{}_{}_{}_{}_{}'.format(model_name,  target, opt, learn_r, epch),
-                        max_checkpoints=2, tensorboard_verbose=0, tensorboard_dir="./tflearnLogs/{}_{}_{}_{}_{}/".format(model_name,  target, opt, learn_r, epch))
+    model = None
+    if save_model:
+        model = tflearn.DNN(network, checkpoint_path='../tflearnModels/{}'.format(str_model_name), best_checkpoint_path='../tflearnModels/bestModels/best_{}'.format(str_model_name),
+                        max_checkpoints=2, tensorboard_verbose=0, tensorboard_dir="../tflearnLogs/{}/".format(str_model_name))
+    else:
+        model = tflearn.DNN(network)
 
-    #model = tflearn.DNN(network)
     return model
 #createActInactFilesForTarget("chembl_preprocessed_sp_b_f_std_val_data.txt")
 
 
-def AlexNetModel(outnode, model_name,  target, opt, learn_r, epch):
+def AlexNetModel(outnode, model_name,  target, opt, learn_r, epch,  n_of_h1, n_of_h2, dropout_keep_rate, save_model=False):
     network = input_data(shape=[None, IMG_SIZE, IMG_SIZE, 1], name='input')
     network = conv_2d(network, 96, 11, strides=4, activation='relu')
     network = max_pool_2d(network, 3, strides=2)
@@ -202,21 +205,27 @@ def AlexNetModel(outnode, model_name,  target, opt, learn_r, epch):
     network = conv_2d(network, 256, 3, activation='relu')
     network = max_pool_2d(network, 3, strides=2)
     network = local_response_normalization(network)
-    network = fully_connected(network, 2048, activation='tanh')
+    network = fully_connected(network, n_of_h1, activation='tanh')
     network = dropout(network, 0.5)
-    network = fully_connected(network, 2048, activation='tanh')
+    network = fully_connected(network, n_of_h2, activation='tanh')
     network = dropout(network, 0.5)
     network = fully_connected(network, outnode, activation='softmax')
     network = regression(network, optimizer=opt,
                          loss='categorical_crossentropy',
                          learning_rate=learn_r, name='targets')
-    model = tflearn.DNN(network, checkpoint_path='./tflearnModels/{}_{}_{}_{}_{}'.format(model_name,  target, opt, learn_r, epch), best_checkpoint_path='./tflearnModels/bestModels/best_{}_{}_{}_{}_{}'.format(model_name,  target, opt, learn_r, epch),
-                        max_checkpoints=2, tensorboard_verbose=0, tensorboard_dir="./tflearnLogs/{}_{}_{}_{}_{}/".format(model_name,  target, opt, learn_r, epch))
 
+    str_model_name = "{}_{}_{}_{}_{}_{}_{}_{}".format(model_name,  target, opt, learn_r, epch, n_of_h1, n_of_h2, dropout_keep_rate)
+
+    model = None
+    if save_model:
+        model = tflearn.DNN(network, checkpoint_path='../tflearnModels/{}'.format(str_model_name), best_checkpoint_path='../tflearnModels/bestModels/best_{}'.format(str_model_name),
+                        max_checkpoints=2, tensorboard_verbose=0, tensorboard_dir="../tflearnLogs/{}/".format(str_model_name))
+    else:
+        model = tflearn.DNN(network)
     return model
 
 #createActInactFilesForTarget("chembl_preprocessed_sp_b_f_std_val_data.txt")
-def CNNModel2(outnode, model_name,  target, opt, learn_r, epch):
+def CNNModel2(outnode, model_name,  target, opt, learn_r, epch, n_of_h1, dropout_keep_rate, save_model=False):
     convnet = input_data(shape=[None, IMG_SIZE, IMG_SIZE, 1], name='input')
 
     convnet = conv_2d(convnet, 5, 128, activation='relu')
@@ -240,12 +249,26 @@ def CNNModel2(outnode, model_name,  target, opt, learn_r, epch):
     convnet = fully_connected(convnet, outnode, activation='softmax')
     convnet = regression(convnet, optimizer=opt, learning_rate=learn_r, loss='categorical_crossentropy', name='targets')
 
-    model = tflearn.DNN(convnet, checkpoint_path='./tflearnModels/{}_{}_{}_{}_{}'.format(model_name,  target, opt, learn_r, epch), best_checkpoint_path='./tflearnModels/bestModels/best_{}_{}_{}_{}_{}'.format(model_name,  target, opt, learn_r, epch),
-                        max_checkpoints=2, tensorboard_verbose=0, tensorboard_dir="./tflearnLogs/{}_{}_{}_{}_{}/".format(model_name,  target, opt, learn_r, epch))
+
+
+    str_model_name = "{}_{}_{}_{}_{}_{}_{}_{}".format(model_name,  target, opt, learn_r, epch, n_of_h1, dropout_keep_rate, save_model)
+
+    model = None
+    if save_model:
+        model = tflearn.DNN(convnet,
+                            checkpoint_path='../tflearnModels/{}'.format(str_model_name),
+                            best_checkpoint_path='../tflearnModels/bestModels/best_{}'.format(str_model_name),
+                            max_checkpoints=2, tensorboard_verbose=0,
+                            tensorboard_dir="../tflearnLogs/{}/".format(str_model_name))
+    else:
+        model = tflearn.DNN(convnet)
+
+
+
     return model
 
 
-def CNNModel(outnode, model_name,  target, opt, learn_r, epch):
+def CNNModel(outnode, model_name,  target, opt, learn_r, epch, n_of_h1, dropout_keep_rate, save_model=False):
     convnet = input_data(shape=[None, IMG_SIZE, IMG_SIZE, 1], name='input')
 
     convnet = conv_2d(convnet, 32, 5, activation='relu')
@@ -269,6 +292,14 @@ def CNNModel(outnode, model_name,  target, opt, learn_r, epch):
     convnet = fully_connected(convnet, outnode, activation='softmax')
     convnet = regression(convnet, optimizer=opt, learning_rate=learn_r, loss='categorical_crossentropy', name='targets')
 
-    model = tflearn.DNN(convnet, checkpoint_path='./tflearnModels/{}_{}_{}_{}_{}'.format(model_name,  target, opt, learn_r, epch), best_checkpoint_path='./tflearnModels/bestModels/best_{}_{}_{}_{}_{}'.format(model_name,  target, opt, learn_r, epch),
-                        max_checkpoints=2, tensorboard_verbose=0, tensorboard_dir="./tflearnLogs/{}_{}_{}_{}_{}/".format(model_name,  target, opt, learn_r, epch))
+    str_model_name = "{}_{}_{}_{}_{}_{}_{}_{}".format(model_name,  target, opt, learn_r, epch, n_of_h1, dropout_keep_rate, save_model)
+
+    model = None
+
+    if save_model:
+        model = tflearn.DNN(convnet, checkpoint_path='../tflearnModels/{}'.format(str_model_name), best_checkpoint_path='../tflearnModels/bestModels/best_{}'.format(str_model_name),
+                        max_checkpoints=2, tensorboard_verbose=0, tensorboard_dir="../tflearnLogs/{}/".format(str_model_name))
+    else:
+        model = tflearn.DNN(convnet)
+
     return model
