@@ -202,7 +202,10 @@ trgt = sys.argv[2]
 optim = sys.argv[3]
 learning_rate = float(sys.argv[4])
 n_epoch = int(sys.argv[5])
-
+n_of_h1 = int(sys.argv[6])
+n_of_h2 = int(sys.argv[7])
+dropout_keep_rate = int(sys.argv[8])
+save_model=bool(sys.argv[9])
 
 # trainModelTarget("hsa:xxx")
 # trainModelTarget("hsa:246")
