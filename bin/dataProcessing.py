@@ -1,5 +1,4 @@
 from random import shuffle
-from getDataFromKEGG import getProteinFamilyIDsForChEMBLTargets
 import random
 import numpy as np
 import subprocess
@@ -17,12 +16,32 @@ yamanishi_path = "../Yamanishi"
 Y_IMG_PATH = "../images200Yamanishi"
 Y_IMG_PATH_TEST = "../images200Yamanishi/KEGGGoldDrugs"
 TEMP_IMG_OUTPUT_PATH = "../tempImage"
+training_files_path = "../trainingFiles"
 
 
 """
 ################### OLD Functions ###################
 ################### OLD Functions ###################
 ################### OLD Functions ###################
+def getActInactFromFileForATarget(target):
+    active_inactive_path = "../activeInactive"
+    pos_fl = open(os.path.join(active_inactive_path,"{}_act.txt".format(target)), "r")
+    lst_pos_fl = pos_fl.read().split("\n")
+    pos_fl.close()
+
+    while "" in lst_pos_fl:
+        lst_pos_fl.remove("")
+
+    neg_fl = open(os.path.join(active_inactive_path, "{}_inact.txt".format(target)), "r")
+    lst_neg_fl = neg_fl.read().split("\n")
+    neg_fl.close()
+
+    while "" in lst_pos_fl:
+        lst_neg_fl.remove("")
+
+    return set(lst_pos_fl), set(lst_neg_fl)
+
+
 
 def constructDataMatricesForATargetWorkingOld(output_path, target_id, rotate=False):
     train_test_data = []
@@ -609,32 +628,29 @@ def getPosNegTestData(img_path, all_test_target_dict, target):
 """
 
 def getChEMBLTargetIDUniProtMapping():
-    compound_uniprot_dict = dict()
-    mapping_fl = open("{}/{}".format(training_dataset_path, "chemblid_uniprot_mapping.txt"),"r")
-    lst_mapping_fl = mapping_fl.read().split("\n")
-    mapping_fl.close()
+    chembl_uniprot_dict = dict()
 
-    while "" in lst_mapping_fl:
-        lst_mapping_fl.remove("")
+    with open("{}/{}".format(training_files_path, "chembl_uniprot_mapping.txt")) as f:
+        for line in f:
+            if not line.startswith("#") and line != "":
+                line=line.split("\n")[0]
+                #print(line.split("\t"))
+                u_id, chembl_id, defin, target_type = line.split("\t")
 
-    for line in lst_mapping_fl:
-        comp_ids, uniprot_id = line.split("\t")
-        lst_comp_ids = comp_ids.split(",")
+                if target_type=='SINGLE PROTEIN':
 
-        while "" in lst_comp_ids:
-            lst_comp_ids.remove("")
-        for comp_id in lst_comp_ids:
-            try:
-                compound_uniprot_dict[comp_id].append(uniprot_id)
-                #print("varmis", comp_id, uniprot_id)
-            except:
-                compound_uniprot_dict[comp_id] = [uniprot_id]
+                    try:
+                        chembl_uniprot_dict[chembl_id].append(u_id)
+                        #print("varmis", comp_id, uniprot_id)
+                    except:
+                        chembl_uniprot_dict[chembl_id] = [u_id]
+    #for key in chembl_uniprot_dict.keys():
+    #    if len(chembl_uniprot_dict[key])!=1:
+    #        print(key, chembl_uniprot_dict[key])
 
+    return chembl_uniprot_dict
 
-        #print(comp_id,uniprot_id)
-    #print(compound_uniprot_dict)
-    return compound_uniprot_dict
-
+getChEMBLTargetIDUniProtMapping()
 
 def getUniProtChEMBLTargetIDMapping():
     uniprot_chembl_id = dict()
@@ -677,20 +693,6 @@ def getSMILEsForAllChEMBL():
                 # print(chembl_id, smiles)
                 compound_smiles_dict[chembl_id] = smiles
     return compound_smiles_dict
-
-
-def createActInactFileForATarget(target, pos_neg_lst):
-    active_inactive_path = "../activeInactive"
-    pos_fl = open(os.path.join(active_inactive_path,"{}_act.txt".format(target)), "w")
-    for cmp in pos_neg_lst[0]:
-        pos_fl.write("{}\n".format(cmp))
-    pos_fl.close()
-
-    neg_fl = open(os.path.join(active_inactive_path, "{}_inact.txt".format(target)), "w")
-    for cmp in pos_neg_lst[1]:
-        neg_fl.write("{}\n".format(cmp))
-    neg_fl.close()
-
 
 
 
@@ -741,23 +743,25 @@ def getActInactiveDictForAllTargets(fl):
     return target_dict
 
 
-def getActInactFromFileForATarget(target):
-    active_inactive_path = "../activeInactive"
-    pos_fl = open(os.path.join(active_inactive_path,"{}_act.txt".format(target)), "r")
-    lst_pos_fl = pos_fl.read().split("\n")
-    pos_fl.close()
 
-    while "" in lst_pos_fl:
-        lst_pos_fl.remove("")
+def getActInactListForATarget(target, fl):
+    act_list = []
+    inact_list = []
 
-    neg_fl = open(os.path.join(active_inactive_path, "{}_inact.txt".format(target)), "r")
-    lst_neg_fl = neg_fl.read().split("\n")
-    neg_fl.close()
+    with open("{}/{}".format(training_files_path, fl))  as f:
+        for line in f:
+            if line != "":
+                line=line.split("\n")[0]
+                chembl_part, comps = line.split("\t")
+                chembl_target_id, act_inact = chembl_part.split("_")
+                if chembl_target_id == target:
+                    if act_inact == "act":
+                        act_list = comps.split(",")
+                    else:
+                        inact_list = comps.split(",")
+                        break
 
-    while "" in lst_pos_fl:
-        lst_neg_fl.remove("")
-
-    return set(lst_pos_fl), set(lst_neg_fl)
+    return act_list, inact_list
 
 
 def drawMolFromSmiles(output_path,smiles, id):
@@ -860,12 +864,13 @@ def constructDataMatricesForATarget(output_path, target_id, rotate=False):
     return training_data, validation_data, test_data
 
 
-target_ = "CHEMBLXXX"
+
+target_ = "CHEMBLXXXX"
 target__ = "CHEMBL1293317"
 #, "CHEMBL1795087","CHEMBL5501", "CHEMBL2007625"]
 
-
-constructDataMatricesForATarget(TEMP_IMG_OUTPUT_PATH, target__, rotate=False)
+#print(getActInactListForATarget(target_, "act_inact_10_20_chembl_preprocessed_sp_b_pchembl_data.txt" ))
+#constructDataMatricesForATarget(TEMP_IMG_OUTPUT_PATH, target__, rotate=False)
 
 #drawPictureandReturnImgMatrix(TEMP_IMG_OUTPUT_PATH, "C[C@H]1CN(CCC(=O)N[C@@H](CCc2ccccc2)C(=O)O)CC[C@@]1(C)c3cccc(O)c3", "deneme")
 
