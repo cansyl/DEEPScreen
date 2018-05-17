@@ -10,11 +10,8 @@ from rdkit.Chem import Draw
 from rdkit.Chem.Draw import DrawingOptions
 
 IMG_SIZE = 200
-training_dataset_path = "/Users/trman/OneDrive/Projects/DrugDiscovery/TrainingDatasets"
-images_path = "../images200"
+training_dataset_path = "/Users/trman/OneDrive/Projects/DrugDiscovery/TrainingDatasets/ChEMBL"
 yamanishi_path = "../Yamanishi"
-Y_IMG_PATH = "../images200Yamanishi"
-Y_IMG_PATH_TEST = "../images200Yamanishi/KEGGGoldDrugs"
 TEMP_IMG_OUTPUT_PATH = "../tempImage"
 training_files_path = "../trainingFiles"
 
@@ -650,33 +647,23 @@ def getChEMBLTargetIDUniProtMapping():
 
     return chembl_uniprot_dict
 
-getChEMBLTargetIDUniProtMapping()
+#getChEMBLTargetIDUniProtMapping()
 
 def getUniProtChEMBLTargetIDMapping():
-    uniprot_chembl_id = dict()
-    mapping_fl = open("{}/{}".format(training_dataset_path, "chemblid_uniprot_mapping.txt"),"r")
-    lst_mapping_fl = mapping_fl.read().split("\n")
-    mapping_fl.close()
+    uniprot_chembl_dict = dict()
+    with open("{}/{}".format(training_files_path, "chembl_uniprot_mapping.txt")) as f:
+        for line in f:
+            if not line.startswith("#") and line != "":
+                line = line.split("\n")[0]
+                u_id, chembl_id, defin, target_type = line.split("\t")
 
-    while "" in lst_mapping_fl:
-        lst_mapping_fl.remove("")
+                if target_type == 'SINGLE PROTEIN':
 
-    for line in lst_mapping_fl:
-        comp_ids, uniprot_id = line.split("\t")
-        lst_comp_ids = comp_ids.split(",")
-
-        while "" in lst_comp_ids:
-            lst_comp_ids.remove("")
-
-        for comp_id in lst_comp_ids:
-            try:
-                uniprot_chembl_id[uniprot_id].append(comp_id)
-                #print("varmis", comp_id, uniprot_id)
-            except:
-                uniprot_chembl_id[uniprot_id] = [comp_id]
-
-    #print(uniprot_chembl_id)
-    return uniprot_chembl_id
+                    try:
+                        uniprot_chembl_dict[u_id].append(chembl_id)
+                    except:
+                        uniprot_chembl_dict[u_id] = [chembl_id]
+    return uniprot_chembl_dict
 
 
 def getSMILEsForAllChEMBL():
@@ -808,15 +795,15 @@ def constructDataMatricesForATarget(output_path, target_id, rotate=False):
     prob_count = 0
     count = 0
     compound_smiles_dict = getSMILEsForAllChEMBL()
-    act_set, inact_set = getActInactFromFileForATarget(target_id)
-    act_list, inact_list = list(act_set), list(inact_set)
+    act_list, inact_list = getActInactListForATarget(target_id, "act_inact_10_20_chembl_preprocessed_sp_b_pchembl_data.txt")
+
 
 
     for pos_comp in act_list:
         label = [1, 0]
         try:
             count += 1
-            print(count)
+            #print(count)
             img_arr = drawPictureandReturnImgMatrix(output_path, compound_smiles_dict[pos_comp], pos_comp)
             train_test_data.append([np.array(img_arr/255.0), np.array(label), pos_comp])
 
@@ -824,7 +811,7 @@ def constructDataMatricesForATarget(output_path, target_id, rotate=False):
                 rotateImageReturnMatrix(train_test_data, img_arr, label, pos_comp)
 
         except Exception as e:
-            print(str(e))
+            #print(str(e))
             prob_count += 1
             pass
 
@@ -851,7 +838,6 @@ def constructDataMatricesForATarget(output_path, target_id, rotate=False):
     validation_data = train_test_data[-(training_size + test_size):-training_size]
     test_data = train_test_data[:-training_validation_size]
 
-
     """
     new_count = 0
     for item in train_test_data:
@@ -863,14 +849,133 @@ def constructDataMatricesForATarget(output_path, target_id, rotate=False):
 
     return training_data, validation_data, test_data
 
+def createActiveInactiveBlastNeighborThreshold():
 
+    return 0
+
+def createActiveInactiveFilesForAllTargets(fl, act_threshold, inact_threshold):
+    isFirst = True
+    target_dict = dict()
+
+    fl_first_part = fl.split(".")[0]
+    with open("%s/%s" % (training_dataset_path, fl)) as f:
+        for line in f:
+            # print(line)
+            if isFirst:
+                fields = line.split("\n")[0].split("\t")
+                isFirst = False
+            else:
+                temp = line.split("\n")[0].split("\t")
+                # print(temp)
+                chembl_tid = temp[0]
+                chembl_cid = temp[1]
+                pchembl_value = temp[2]
+                chembl_aid = temp[3]
+                ass_type = temp[4]
+                std_type = temp[5]
+                standard_value = temp[6]
+                standard_units = temp[7]
+                ass_tax = temp[8]
+                target_tax = temp[9]
+                conf_score = temp[10]
+                target_type = temp[11]
+                src_compound_id = temp[12]
+                src_assay_id = temp[13]
+                src_id = temp[14]
+                src_description = temp[15]
+                standard_relation = temp[16]
+                activity_comment = temp[17]
+                description = temp[18]
+                standard_value = float(standard_value)
+
+                if round(standard_value,2) <=float(act_threshold):
+                    try:
+                        target_dict[chembl_tid][0].add(chembl_cid)
+                    except:
+                        target_dict[chembl_tid] = [set(), set()]
+                        target_dict[chembl_tid][0].add(chembl_cid)
+
+                elif round(standard_value,2) >=float(inact_threshold):
+                    try:
+                        target_dict[chembl_tid][1].add(chembl_cid)
+                    except:
+                        target_dict[chembl_tid] = [set(), set()]
+                        target_dict[chembl_tid][1].add(chembl_cid)
+
+    act_inact_comp_fl = open("{}/act_inact_comps_{}_{}_{}".format(training_files_path, act_threshold, inact_threshold, fl), "w")
+    act_inact_count_fl = open("{}/act_inact_count_{}_{}_{}".format(training_files_path, act_threshold, inact_threshold, fl), "w")
+
+    for key in target_dict.keys():
+
+        str_act = "{}_act\t".format(key)
+        for item in target_dict[key][0]:
+            str_act += "{},".format(item)
+        if str_act[-1] == ",":
+            str_act = str_act[:-1]
+            act_inact_comp_fl.write("{}\n".format(str_act))
+
+        str_inact = "{}_inact\t".format(key)
+        for item in target_dict[key][1]:
+            str_inact += "{},".format(item)
+        if str_inact[-1] == ",":
+            str_inact = str_inact[:-1]
+            act_inact_comp_fl.write("{}\n".format(str_inact))
+
+        # write act inact count
+        str_act_inact_count = "{}\t{}\t{}\n".format(key, len(target_dict[key][0]), len(target_dict[key][1]))
+        act_inact_count_fl.write(str_act_inact_count)
+
+    act_inact_count_fl.close()
+    act_inact_comp_fl.close()
+
+    return target_dict
+
+def getActInactListForATargetNeighbourThreshold(chembl_target_id, act_inact_fl, blast_sim_fl, sim_threshold):
+    uniprot_chemblid_dict = getUniProtChEMBLTargetIDMapping()
+    chemblid_uniprot_dict = getChEMBLTargetIDUniProtMapping()
+    target_uniprot_id_lst = chemblid_uniprot_dict[chembl_target_id]
+    target_act_list, target_inact_list = getActInactListForATarget(chembl_target_id, act_inact_fl)
+    print(target_uniprot_id_lst, target_inact_list)
+    with open("{}/{}".format(training_files_path, blast_sim_fl)) as f:
+        for line in f:
+            parts = line.split("\t")
+            #print(parts)
+            u_id1, u_id2, score = parts[0].split("|")[1], parts[1].split("|")[1], float(parts[2])
+            for u_id in target_uniprot_id_lst:
+                if (u_id1 != u_id2) and (u_id1 == u_id or u_id2==u_id):# and score >= sim_threshold:
+
+                    other_target_u_id = u_id1 if u_id!=u_id1 else u_id2
+                    #print(target_uniprot_id_lst, other_target_u_id, score)
+                    #print(u_id, u_id1, u_id2)
+                    try:
+                        other_target_chembl_id_lst = uniprot_chemblid_dict[other_target_u_id]
+                        for other_target_chembl_id in other_target_chembl_id_lst:
+                            other_act_lst, other_inact_lst = getActInactListForATarget(other_target_chembl_id, act_inact_fl)
+                            print(other_target_chembl_id, other_inact_lst)
+                            set_non_act_inact = set(other_inact_lst) - set(target_act_list)
+                            set_new_inacts =set_non_act_inact - (set(target_inact_list)&set_non_act_inact)
+                            target_inact_list.extend(list(set_new_inacts))
+                    except Exception as e:
+                        print(e)
+                        pass
+
+    print("Final", chembl_target_id, target_inact_list)
+
+
+getActInactListForATargetNeighbourThreshold("CHEMBL4799", "act_inact_comps_10.0_20.0_chembl_preprocessed_sp_b_pchembl_data.txt", "chembl_23_uniprot_mapping_against_chembl_23_uniprot_mapping_blast.out", 90)
+# createActiveInactiveFilesForAllTargets("chembl_preprocessed_sp_b_pchembl_data.txt", 10.00, 20.00)
+
+#writeDictToFile(target_dict, "{}/{}_pos_neg_40.txt".format(path, fl_first_part))
+# 5
+# getPosNegForTarget("chembl_preprocessed_sp_b_f_std_val_data.txt")
+# getPosNegForTarget("chembl_preprocessed_sp_b_f_pchembl_data.txt")
 
 target_ = "CHEMBLXXXX"
 target__ = "CHEMBL1293317"
 #, "CHEMBL1795087","CHEMBL5501", "CHEMBL2007625"]
 
 #print(getActInactListForATarget(target_, "act_inact_10_20_chembl_preprocessed_sp_b_pchembl_data.txt" ))
-#constructDataMatricesForATarget(TEMP_IMG_OUTPUT_PATH, target__, rotate=False)
+#constructDataMatricesForATarget(TEMP_IMG_OUTPUT_PATH, target_, rotate=True)
 
 #drawPictureandReturnImgMatrix(TEMP_IMG_OUTPUT_PATH, "C[C@H]1CN(CCC(=O)N[C@@H](CCc2ccccc2)C(=O)O)CC[C@@]1(C)c3cccc(O)c3", "deneme")
 

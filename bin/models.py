@@ -22,13 +22,10 @@ from tflearn.layers.normalization import batch_normalization
 from tflearn.utils import repeat
 
 IMG_SIZE = 200
-LR = 1e-3
 
 training_dataset_path = "/Users/trman/OneDrive/Projects/DrugDiscovery/TrainingDatasets"
 images_path = "../images200"
 yamanishi_path = "../Yamanishi"
-Y_IMG_PATH = "../images200Yamanishi"
-Y_IMG_PATH_TEST = "../images200Yamanishi/KEGGGoldDrugs"
 
 
 
@@ -189,7 +186,6 @@ def ImageNetInceptionV2(outnode, model_name,  target, opt, learn_r, epch, dropou
         model = tflearn.DNN(network)
 
     return model
-#createActInactFilesForTarget("chembl_preprocessed_sp_b_f_std_val_data.txt")
 
 
 def AlexNetModel(outnode, model_name,  target, opt, learn_r, epch,  n_of_h1, n_of_h2, dropout_keep_rate, save_model=False):
@@ -224,7 +220,6 @@ def AlexNetModel(outnode, model_name,  target, opt, learn_r, epch,  n_of_h1, n_o
         model = tflearn.DNN(network)
     return model
 
-#createActInactFilesForTarget("chembl_preprocessed_sp_b_f_std_val_data.txt")
 def CNNModel2(outnode, model_name,  target, opt, learn_r, epch, n_of_h1, dropout_keep_rate, save_model=False):
     convnet = input_data(shape=[None, IMG_SIZE, IMG_SIZE, 1], name='input')
 

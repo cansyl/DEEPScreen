@@ -35,9 +35,6 @@ LR = 1e-3
 
 training_dataset_path = "/Users/trman/OneDrive/Projects/DrugDiscovery/TrainingDatasets"
 images_path = "../images200"
-yamanishi_path = "../Yamanishi"
-Y_IMG_PATH = "../images200Yamanishi"
-Y_IMG_PATH_TEST = "../images200Yamanishi/KEGGGoldDrugs"
 TEMP_IMG_OUTPUT_PATH = "../tempImage"
 
 
@@ -66,7 +63,7 @@ def trainModelTarget(model_name, target, optimizer, learning_rate, epch):
         pass
 
     #train, test = getTrainDataBinary("{}/{}".format(Y_IMG_PATH,target), target )
-    train, test = constructDataMatricesForATarget(TEMP_IMG_OUTPUT_PATH, target)
+    train, validation, test = constructDataMatricesForATarget(TEMP_IMG_OUTPUT_PATH, target)
     train_comp_name = [i[2] for i in train]
 
     X = []
@@ -197,7 +194,7 @@ def trainModelTarget(model_name, target, optimizer, learning_rate, epch):
     #print(test_y)
 
 
-model_name =  sys.argv[1]
+model_name = sys.argv[1]
 trgt = sys.argv[2]
 optim = sys.argv[3]
 learning_rate = float(sys.argv[4])
@@ -205,12 +202,13 @@ n_epoch = int(sys.argv[5])
 n_of_h1 = int(sys.argv[6])
 n_of_h2 = int(sys.argv[7])
 dropout_keep_rate = int(sys.argv[8])
-save_model=bool(sys.argv[9])
+rotate = bool(sys.argv[9])
+save_model = bool(sys.argv[10])
 
 # trainModelTarget("hsa:xxx")
 # trainModelTarget("hsa:246")
 
-trainModelTarget(model_name, trgt, optim, learning_rate, n_epoch)
+trainModelTarget(model_name, trgt, optim, learning_rate, n_epoch, n_of_h1, n_of_h2, dropout_keep_rate, rotate, save_model)
 
 
 # hsa:763 229 103
