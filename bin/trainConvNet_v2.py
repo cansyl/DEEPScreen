@@ -30,7 +30,7 @@ from evaluationMetrics import calculatePrecision, calculateRecall, calculateF1Sc
 
 import sys
 
-IMG_SIZE = 266
+IMG_SIZE = 200
 LR = 1e-3
 
 training_dataset_path = "/Users/trman/OneDrive/Projects/DrugDiscovery/TrainingDatasets"
@@ -66,6 +66,7 @@ def trainModelTarget(model_name, target, optimizer, learning_rate, epch,  n_of_h
     train, validation, test = constructDataMatricesForATarget(TEMP_IMG_OUTPUT_PATH, target, rotate)
     train_comp_name = [i[2] for i in train]
 
+    print(train[0][0].shape)
     X = []
     for i in train:
         if i[0].shape!=():

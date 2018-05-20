@@ -56,7 +56,7 @@ for rot in rotate:
 							for drp in dropout_keep_list:
 								for sv in save:
 									count  += 1
-									print("bsub -q research-rh7 -R 'select[nprocs<=2]' -M 10240  -o ./LOGS/convnetRun_{}.out \"python trainConvNet.py {} {} {} {} {} {} {} {} {} {}\"".format(count, mod, trg, opt, l_r, epoch, hd12[0], hd12[1], drp, rot, sv))
+									print("bsub -q research-rh7 -R 'select[nprocs<=2]' -M 10240  -o ../LOGS/convnetRun_{}.out \"python trainConvNet.py {} {} {} {} {} {} {} {} {} {}\"".format(count, mod, trg, opt, l_r, epoch, hd12[0], hd12[1], drp, rot, sv))
 									print("sleep 5")
 # hsa:763 229 103
 # hsa:775 107 105
