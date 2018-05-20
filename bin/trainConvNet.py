@@ -22,10 +22,10 @@ from tflearn.layers.normalization import batch_normalization
 from tflearn.utils import repeat
 
 import subprocess
-from dataProcessing import getActInactiveDictForAllTargets, getActInactFromFileForATarget, getKEGGDrugChemblAssocDict
-from dataProcessing import getPosNegTestData, getTestData, getTrainDataBinary, getTrainDataFamily, getTrainDataChEMBLMultiTask,constructDataMatricesForATarget
+from dataProcessing import constructDataMatricesForATarget
 from PIL import Image
 from models import ImageNetInceptionV2, AlexNetModel, CNNModel, CNNModel2
+from evaluationMetrics import calculatePrecision, calculateRecall, calculateF1Score, calculateAccuracy, calculateMCC
 
 
 import sys
@@ -42,7 +42,7 @@ TEMP_IMG_OUTPUT_PATH = "../tempImage"
 
 
 
-def trainModelTarget(model_name, target, optimizer, learning_rate, epch):
+def trainModelTarget(model_name, target, optimizer, learning_rate, epch,  n_of_h1, n_of_h2, dropout_keep_rate, rotate, save_model):
 
     #target_only_alpnum = ''.join(ch for ch in target if ch.isalnum())
     model = None
@@ -52,18 +52,18 @@ def trainModelTarget(model_name, target, optimizer, learning_rate, epch):
     # CNNModel
 
     if model_name=="ImageNetInceptionV2":
-        model = ImageNetInceptionV2(2, model_name, target, optimizer, learning_rate, epch)
+        model = ImageNetInceptionV2(2, model_name, target, optimizer, learning_rate, epch, dropout_keep_rate, save_model)
     elif model_name == "AlexNetModel":
-        model = AlexNetModel(2, model_name, target, optimizer, learning_rate, epch)
+        model = AlexNetModel(2, model_name, target, optimizer, learning_rate, epch, n_of_h1, n_of_h2, dropout_keep_rate, save_model=False)
     elif model_name == "CNNModel":
-        model = CNNModel(2, model_name, target, optimizer, learning_rate, epch)
+        model = CNNModel(2, model_name,  target, optimizer, learning_rate, epch, n_of_h1, dropout_keep_rate, save_model)
     elif model_name == "CNNModel2":
-        model = CNNModel2(2, model_name, target, optimizer, learning_rate, epch)
+        model = CNNModel2(2, model_name, target, optimizer, learning_rate, epch, n_of_h1, dropout_keep_rate, save_model)
     else:
         pass
 
     #train, test = getTrainDataBinary("{}/{}".format(Y_IMG_PATH,target), target )
-    train, validation, test = constructDataMatricesForATarget(TEMP_IMG_OUTPUT_PATH, target)
+    train, validation, test = constructDataMatricesForATarget(TEMP_IMG_OUTPUT_PATH, target, rotate)
     train_comp_name = [i[2] for i in train]
 
     X = []
@@ -78,6 +78,24 @@ def trainModelTarget(model_name, target, optimizer, learning_rate, epch):
         if i[0].shape != ():
             Y.append(i[1])
 
+
+    validation_x = []
+    for i in validation:
+        if i[0].shape!=():
+            validation_x.append(i[0])
+
+    validation_x = np.array(validation_x).reshape(-1, IMG_SIZE, IMG_SIZE, 1)
+
+    validation_y = []
+    for i in validation:
+        if i[0].shape != ():
+            validation_y.append(i[1])
+
+
+    validation_comp_name = []
+    for i in validation:
+        if i[0].shape != ():
+            validation_comp_name.append(i[2])
 
     test_x = []
     for i in test:
@@ -103,95 +121,183 @@ def trainModelTarget(model_name, target, optimizer, learning_rate, epch):
     test_comp_name = [i[2] for i in test]
 
 
-    model.fit(X, Y, n_epoch=epch, validation_set=({'input': test_x}, {'targets': test_y}),
+    if save_model:
+        model.fit(X, Y, n_epoch=epch, validation_set=({'input': validation_x}, {'targets': validation_y}),
               show_metric=True, batch_size=32, snapshot_step=200,
-              snapshot_epoch=True, run_id="{}_{}_{}_{}_{}_id".format(model_name, target, optimizer, learning_rate ,epch))
+              snapshot_epoch=True, run_id="{}_{}_{}_{}_{}_{}_{}_{}_{}_{}_id".format(model_name, target, optimizer, learning_rate, epch,  n_of_h1, n_of_h2, dropout_keep_rate, rotate, save_model))
+    else:
+        model.fit(X, Y, n_epoch=epch, validation_set=({'input': validation_x}, {'targets': validation_y}),
+                  show_metric=True, batch_size=32)
+    test_predictions = model.predict(test_x)
+    validation_predictions = model.predict(validation_x)
 
-    """
-    model.fit(X, Y, n_epoch=epch, validation_set=({'input': test_x}, {'targets': test_y}),
-              show_metric=True, batch_size=32, snapshot_step=200,
-              snapshot_epoch=True, run_id="{}_{}_{}_{}_{}_id".format(model_name, target, optimizer, learning_rate ,epch))
-    # first get all chembl compounds for kegg targets
-    #kegg_target_chembl_dict, unique_comp_set = getKEGGDrugChemblAssocDict()
-    #kegg_valid = getPosNegTestData(Y_IMG_PATH_TEST, kegg_target_chembl_dict, target)
+    threshold = 1.00
 
+    # f1score, mcc, accuracy, precision, recall, tp, fp, tn, fn, threshold
 
-    #kegg_valid_x = np.array([i[0] for i in kegg_valid]).reshape(-1,IMG_SIZE,IMG_SIZE,1)
-    #kegg_valid_y = [i[1] for i in kegg_valid]
-    #kegg_comp_name = [i[2] for i in kegg_valid]
+    best_test_accuracy_list = [-1, -1, -1, -1, -1, -1,-1, -1, -1, -1]
+    best_test_f1score_list = [-1, -1, -1, -1, -1, -1,-1, -1, -1, -1]
+    best_test_mcc_list = [-1, -1, -1, -1, -1, -1,-1, -1, -1, -1]
 
-
-    # remove kegg compounds from training
-
-    for k_c_i in range(len(kegg_comp_name)):
-        if kegg_comp_name[k_c_i] in train_comp_name:
-            ind_comp_in_train = train_comp_name.index(kegg_comp_name[k_c_i])
-            del train[ind_comp_in_train]
-            del train_comp_name[ind_comp_in_train]
-
-
-    X = []
-    for i in train:
-        if i[0].shape!=():
-            X.append(i[0])
-
-    X = np.array(X).reshape(-1, IMG_SIZE, IMG_SIZE, 1)
-
-    Y = []
-    for i in train:
-        if i[0].shape != ():
-            Y.append(i[1])
-
-
-    # recreate
-    #train_comp_name = []
-    #for i in train:
-    #    if i[0].shape != ():
-    #        train_comp_name.append(i[2])
+    best_validation_accuracy_list = [-1, -1, -1, -1, -1, -1,-1, -1, -1, -1]
+    best_validation_f1score_list = [-1, -1, -1, -1, -1, -1,-1, -1, -1, -1]
+    best_validation_mcc_list = [-1, -1, -1, -1, -1, -1,-1, -1, -1, -1]
 
 
 
-    #X = np.array([i[0] for i in train]).reshape(-1, IMG_SIZE, IMG_SIZE, 1)
-    #Y = [i[1] for i in train]
-    # train_comp_name = [i[2] for i in train]
+    while threshold>=0.00:
+        test_tp = 1
+        test_fp = 1
+        test_tn = 1
+        test_fn = 1
+
+        for i in range(len(test_predictions)):
+            temp_pos_pred = round(test_predictions[i][0], 3)
+
+            if test_y[i][0] == 1 and temp_pos_pred >= threshold:
+                test_tp += 1
+                # print(test_y[i], "TP", temp_pos_pred, threshold)
+            elif test_y[i][0] == 1 and temp_pos_pred < threshold:
+                test_fn += 1
+                # print(test_y[i], "FN", temp_pos_pred, threshold)
+
+            elif test_y[i][1] == 1 and temp_pos_pred <= threshold:
+                test_tn += 1
+                # print(test_y[i], "TN", temp_pos_pred, threshold)
+
+            elif test_y[i][1] == 1 and temp_pos_pred > threshold:
+                test_fp += 1
+                # print(test_y[i], "FP", temp_pos_pred, threshold)
+
+        try:
+
+            precision = calculatePrecision(test_tp, test_fp)
+            recall = calculateRecall(test_tp, test_fn)
+            f1score = calculateF1Score(test_tp, test_fp, test_fn)
+            accuracy = calculateAccuracy(test_tp, test_fp, test_tn, test_fn)
+            mcc = calculateMCC(test_tp, test_fp, test_tn, test_fn)
+
+            if f1score > best_test_f1score_list[0]:
+                best_test_f1score_list = [f1score, mcc, accuracy, precision, recall, test_tp, test_fp, test_tn, test_fn,
+                                          threshold]
+
+            if mcc > best_test_mcc_list[1]:
+                best_test_mcc_list = [f1score, mcc, accuracy, precision, recall, test_tp, test_fp, test_tn, test_fn,
+                                          threshold]
+
+            if accuracy > best_test_accuracy_list[2]:
+                best_test_accuracy_list = [f1score, mcc, accuracy, precision, recall, test_tp, test_fp, test_tn, test_fn, threshold]
 
 
-    #test_x = []
-    #for i in test:
-    #    if i[0].shape!=():
-    #        test_x.append(i[0])
 
-    #test_x = np.array(test_x).reshape(-1, IMG_SIZE, IMG_SIZE, 1)
+        except:
+            # print("ERROR", tp, fp, tn, fn)
+            pass
 
-    #test_y = []
-    #for i in test:
-    #    if i[0].shape != ():
-    #        test_y.append(i[1])
+        validation_tp = 1
+        validation_fp = 1
+        validation_tn = 1
+        validation_fn = 1
+
+        for i in range(len(validation_predictions)):
+            temp_pos_pred = round(validation_predictions[i][0], 3)
+
+            if validation_y[i][0] == 1 and temp_pos_pred >= threshold:
+                validation_tp += 1
+                # print(test_y[i], "TP", temp_pos_pred, threshold)
+            elif validation_y[i][0] == 1 and temp_pos_pred < threshold:
+                validation_fn += 1
+                # print(test_y[i], "FN", temp_pos_pred, threshold)
+
+            elif validation_y[i][1] == 1 and temp_pos_pred <= threshold:
+                validation_tn += 1
+                # print(test_y[i], "TN", temp_pos_pred, threshold)
+
+            elif validation_y[i][1] == 1 and temp_pos_pred > threshold:
+                validation_fp += 1
+                # print(test_y[i], "FP", temp_pos_pred, threshold)
+
+        try:
+
+            precision = calculatePrecision(validation_tp, validation_fp)
+            recall = calculateRecall(validation_tp, validation_fn)
+            f1score = calculateF1Score(validation_tp, validation_fp, validation_fn)
+            accuracy = calculateAccuracy(validation_tp, validation_fp, validation_tn, validation_fn)
+            mcc = calculateMCC(validation_tp, validation_fp, validation_tn, validation_fn)
+
+            if f1score > best_validation_f1score_list[0]:
+                best_validation_f1score_list = [f1score, mcc, accuracy, precision, recall, validation_tp, validation_fp,
+                                          validation_tn, validation_fn,
+                                          threshold]
+
+            if mcc > best_validation_mcc_list[1]:
+                best_validation_mcc_list = [f1score, mcc, accuracy, precision, recall, validation_tp, validation_fp,
+                                      validation_tn, validation_fn,
+                                      threshold]
+
+            if accuracy > best_validation_accuracy_list[2]:
+                best_validation_accuracy_list = [f1score, mcc, accuracy, precision, recall, validation_tp, validation_fp,
+                                           validation_tn, validation_fn, threshold]
 
 
-    #test_comp_name = []
-    #for i in test:
-    #    if i[0].shape != ():
-    #        test_comp_name.append(i[2])
+        except:
+            # print("ERROR", tp, fp, tn, fn)
+            pass
 
+        threshold -= 0.01
 
-    #test_x = np.array([i[0] for i in test]).reshape(-1,IMG_SIZE,IMG_SIZE,1)
-    #test_y = [i[1] for i in test]
-    #test_comp_name = [i[2] for i in test]
-    """
+    print("BestTestF1Score\t{}\t{}\t{}\t{}\t{}\t{}\t{}\t{}\t{}\t{}".format(
+        round(best_test_f1score_list[0], 2), round(best_test_f1score_list[1], 2), round(best_test_f1score_list[2], 2),
+        round(best_test_f1score_list[3], 2), round(best_test_f1score_list[4], 2), int(best_test_f1score_list[5]),
+        int(best_test_f1score_list[6]),
+        int(best_test_f1score_list[7]),
+        int(best_test_f1score_list[8]),
+        round(best_test_f1score_list[9], 2)))
 
+    print("BestTestMCCScore\t{}\t{}\t{}\t{}\t{}\t{}\t{}\t{}\t{}\t{}".format(
+        round(best_test_mcc_list[0], 2), round(best_test_mcc_list[1], 2), round(best_test_mcc_list[2], 2),
+        round(best_test_mcc_list[3], 2), round(best_test_mcc_list[4], 2), int(best_test_mcc_list[5]),
+        int(best_test_mcc_list[6]),
+        int(best_test_mcc_list[7]),
+        int(best_test_mcc_list[8]),
+        round(best_test_mcc_list[9], 2)))
 
+    print("BestTestAccuracyScore\t{}\t{}\t{}\t{}\t{}\t{}\t{}\t{}\t{}\t{}".format(
+        round(best_test_accuracy_list[0], 2), round(best_test_accuracy_list[1], 2),
+        round(best_test_accuracy_list[2], 2), round(best_test_accuracy_list[3], 2),
+        round(best_test_accuracy_list[4], 2), int(best_test_accuracy_list[5]),
+        int(best_test_accuracy_list[6]),
+        int(best_test_accuracy_list[7]),
+        int(best_test_accuracy_list[8]),
+        round(best_test_accuracy_list[9], 2)))
 
-    #model.fit({'input': X}, {'targets': Y}, n_epoch=200, validation_set=({'input': test_x}, {'targets': test_y}),
-    #    snapshot_step=500, show_metric=True, run_id="conv_test2")
+    print("BestValidationF1Score\t{}\t{}\t{}\t{}\t{}\t{}\t{}\t{}\t{}\t{}".format(
+        round(best_validation_f1score_list[0], 2), round(best_validation_f1score_list[1], 2),
+        round(best_validation_f1score_list[2], 2), round(best_validation_f1score_list[3], 2),
+        round(best_validation_f1score_list[4], 2), int(best_validation_f1score_list[5]),
+        int(best_validation_f1score_list[6]),
+        int(best_validation_f1score_list[7]),
+        int(best_validation_f1score_list[8]),
+        round(best_validation_f1score_list[9], 2)))
 
-    #model.fit({'input': X}, {'targets': Y}, n_epoch=20, validation_set=({'input': kegg_valid_x}, {'targets': kegg_valid_y}),
-    #    snapshot_step = 500, show_metric = True, run_id = "conv_test2")
+    print("BestValidationMCC\t{}\t{}\t{}\t{}\t{}\t{}\t{}\t{}\t{}\t{}".format(
+        round(best_validation_mcc_list[0], 2), round(best_validation_mcc_list[1], 2),
+        round(best_validation_mcc_list[2], 2), round(best_validation_mcc_list[3], 2),
+        round(best_validation_mcc_list[4], 2), int(best_validation_mcc_list[5]),
+        int(best_validation_mcc_list[6]),
+        int(best_validation_mcc_list[7]),
+        int(best_validation_mcc_list[8]),
+        round(best_validation_mcc_list[9], 2)))
 
-    #print(model.predict(kegg_valid_x))
-    #print(kegg_valid_y)
-    #print(model.evaluate(kegg_valid_x, kegg_valid_y))
-    #print(test_y)
+    print("BestValidationAccuracy\t{}\t{}\t{}\t{}\t{}\t{}\t{}\t{}\t{}\t{}".format(
+        round(best_validation_accuracy_list[0], 2), round(best_validation_accuracy_list[1], 2),
+        round(best_validation_accuracy_list[2], 2), round(best_validation_accuracy_list[3], 2),
+        round(best_validation_accuracy_list[4], 2), int(best_validation_accuracy_list[5]),
+        int(best_validation_accuracy_list[6]),
+        int(best_validation_accuracy_list[7]),
+        int(best_validation_accuracy_list[8]),
+        round(best_validation_accuracy_list[9], 2)))
+
 
 
 model_name = sys.argv[1]
@@ -201,20 +307,19 @@ learning_rate = float(sys.argv[4])
 n_epoch = int(sys.argv[5])
 n_of_h1 = int(sys.argv[6])
 n_of_h2 = int(sys.argv[7])
-dropout_keep_rate = int(sys.argv[8])
-rotate = bool(sys.argv[9])
-save_model = bool(sys.argv[10])
+dropout_keep_rate = float(sys.argv[8])
+rotate = bool(int(sys.argv[9]))
+save_model = bool(int(sys.argv[10]))
 
-# trainModelTarget("hsa:xxx")
-# trainModelTarget("hsa:246")
-
+print(model_name, trgt, optim, learning_rate, n_epoch, n_of_h1, n_of_h2, dropout_keep_rate, rotate, save_model)
 trainModelTarget(model_name, trgt, optim, learning_rate, n_epoch, n_of_h1, n_of_h2, dropout_keep_rate, rotate, save_model)
 
+# CHEMBL1075138	3377	6073
+# CHEMBL2949	455	796
+# CHEMBL5077	359	408
+# CHEMBL221	738	783
+# CHEMBL3638364	140	122
 
-# hsa:763 229 103
-# hsa:775 107 105
-# RMSprop, momentum, adam
-# 0.0001, 0.001, 0.01, 0.0005, 0.005
 
 
 # tensorboard --logdir=/Users/trman/OneDrive/Projects/Tensorflow_RDKit/bin/log

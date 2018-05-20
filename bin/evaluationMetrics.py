@@ -15,7 +15,7 @@ def calculateRecall(tp, fn):
     return float(tp)/(float(tp) + float(fn))
 
 
-def calculateFScore(tp, fp, fn):
+def calculateF1Score(tp, fp, fn):
     precision = calculatePrecision(tp, fp)
     recall = calculateRecall(tp, fn)
 
