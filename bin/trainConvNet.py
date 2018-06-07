@@ -30,6 +30,7 @@ from evaluationMetrics import calculatePrecision, calculateRecall, calculateF1Sc
 
 import sys
 
+#IMG_SIZE = 200
 IMG_SIZE = 266
 LR = 1e-3
 
@@ -245,6 +246,37 @@ def trainModelTarget(model_name, target, optimizer, learning_rate, epch,  n_of_h
             pass
 
         threshold -= 0.01
+
+    test_best_tp = 1
+    test_best_fp = 1
+    test_best_tn = 1
+    test_best_fn = 1
+    best_test_threshold = best_test_mcc_list[-1]
+    str_predictions = ""
+    print("TestPredictions (Threshold:{})".format(best_test_threshold))
+    for i in range(len(test_predictions)):
+        temp_pos_pred = round(test_predictions[i][0], 3)
+
+        if test_y[i][0] == 1 and temp_pos_pred >= best_test_threshold:
+            test_best_tp += 1
+            str_predictions += "{},{},{},{}\t".format(test_comp_name[i],"TP","ACT",temp_pos_pred)
+            # print(test_y[i], "TP", temp_pos_pred, threshold)
+        elif test_y[i][0] == 1 and temp_pos_pred < best_test_threshold:
+            test_best_fn += 1
+            str_predictions += "{},{},{},{}\t".format(test_comp_name[i], "FN", "ACT", temp_pos_pred)
+            # print(test_y[i], "FN", temp_pos_pred, threshold)
+
+        elif test_y[i][1] == 1 and temp_pos_pred <= best_test_threshold:
+            test_best_tn += 1
+            str_predictions += "{},{},{},{}\t".format(test_comp_name[i], "TN", "INACT", temp_pos_pred)
+            # print(test_y[i], "TN", temp_pos_pred, threshold)
+
+        elif test_y[i][1] == 1 and temp_pos_pred > best_test_threshold:
+            test_best_fp += 1
+            str_predictions += "{},{},{},{}\t".format(test_comp_name[i], "FP", "INACT", temp_pos_pred)
+            # print(test_y[i], "FP", temp_pos_pred, threshold)
+    print(calculateF1Score(test_best_tp, test_best_fp, test_best_fn))
+    print(str_predictions)
 
     print("BestTestF1Score\t{}\t{}\t{}\t{}\t{}\t{}\t{}\t{}\t{}\t{}".format(
         round(best_test_f1score_list[0], 2), round(best_test_f1score_list[1], 2), round(best_test_f1score_list[2], 2),

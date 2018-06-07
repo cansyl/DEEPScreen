@@ -813,10 +813,15 @@ def constructDataMatricesForATarget(output_path, target_id, rotate=False):
     prob_count = 0
     count = 0
     compound_smiles_dict = getSMILEsForAllChEMBL()
-    act_list, inact_list = getActInactListForATarget(target_id, "act_inact_comps_10.0_20.0_chembl_preprocessed_sp_b_pchembl_data_blast_comp_90.txt")
+    act_list, inact_list = getActInactListForATarget(target_id, "act_inact_comps_10.0_20.0_chembl_preprocessed_sp_b_pchembl_data_blast_comp_20.txt")
 
+    if len(inact_list) >= len(act_list):
+        inact_list = inact_list[:len(act_list)]
+    else:
+        act_list = act_list[:int(len(inact_list)*1.5)]
 
-
+    print("Number of active compounds :\t{}".format(len(act_list)))
+    print("Number of inactive compounds :\t{}".format(len(inact_list)))
     for pos_comp in act_list:
         label = [1, 0]
         try:
@@ -1023,7 +1028,7 @@ def createActInactFilesForAllTargetNeighbourThreshold(act_inact_fl, blast_sim_fl
 
 
 
-#createActInactFilesForAllTargetNeighbourThreshold("act_inact_comps_10.0_20.0_chembl_preprocessed_sp_b_pchembl_data.txt", "chembl_23_uniprot_mapping_sp_against_chembl_23_uniprot_mapping_sp_blast.out", 0)
+#createActInactFilesForAllTargetNeighbourThreshold("act_inact_comps_10.0_20.0_chembl_preprocessed_sp_b_pchembl_data.txt", "chembl_23_uniprot_mapping_sp_against_chembl_23_uniprot_mapping_sp_blast.out", 20)
 
 #writeDictToFile(target_dict, "{}/{}_pos_neg_40.txt".format(path, fl_first_part))
 # 5

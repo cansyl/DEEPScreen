@@ -21,8 +21,8 @@ from tflearn.layers.merge_ops import merge
 from tflearn.layers.normalization import batch_normalization
 from tflearn.utils import repeat
 
+#IMG_SIZE = 200
 IMG_SIZE = 266
-
 training_dataset_path = "/Users/trman/OneDrive/Projects/DrugDiscovery/TrainingDatasets"
 images_path = "../images200"
 yamanishi_path = "../Yamanishi"
