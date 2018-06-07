@@ -77,17 +77,17 @@ for rot in rotate:
 									count  += 1
 									if mod=="ImageNetInceptionV2":
 										print(
-											"bsub -q research-rh7 -R 'select[nprocs<=2]' -M 30720  -o ../LOGS/convnetFinalRun_{}.out \"python trainConvNet.py {} {} {} {} {} {} {} {} {} {}\"".format(
+											"bsub -q research-rh7 -R 'select[nprocs<=2]' -M 30720  -o ../ImageNetLOGS/convnetFinalRun_{}.out \"python trainConvNet.py {} {} {} {} {} {} {} {} {} {}\"".format(
 												count, mod, trg, opt, l_r, epoch, hd12[0], hd12[1], drp, rot, sv))
 										print("sleep 3")
 									else:
 										print(
-											"bsub -q research-rh7 -R 'select[nprocs<=2]' -M 15360  -o ../LOGS/convnetFinalRun_{}.out \"python trainConvNet.py {} {} {} {} {} {} {} {} {} {}\"".format(
+											"bsub -q research-rh7 -R 'select[nprocs<=2]' -M 15360  -o ../OtherLOGS/convnetFinalRun_{}.out \"python trainConvNet.py {} {} {} {} {} {} {} {} {} {}\"".format(
 												count, mod, trg, opt, l_r, epoch, hd12[0], hd12[1], drp, rot, sv))
 										print("sleep 3")
 									"""
 									if rot == 1 and (trg=="CHEMBL1075138" or trg=="CHEMBL221"):
-										print("bsub -q research-rh7 -R 'select[nprocs<=2]' -M 40960  -o ../LOGS/convnetRun_{}.out \"python trainConvNet.py {} {} {} {} {} {} {} {} {} {}\"".format(count, mod, trg, opt, l_r, epoch, hd12[0], hd12[1], drp, rot, sv))
+										print("bsub -q research-rh7 -R 'select[nprocs<=2]' -M 40960  -o ../FinalLOGS/convnetRun_{}.out \"python trainConvNet.py {} {} {} {} {} {} {} {} {} {}\"".format(count, mod, trg, opt, l_r, epoch, hd12[0], hd12[1], drp, rot, sv))
 										print("sleep 5")
 									elif rot == 1:
 										print("bsub -q research-rh7 -R 'select[nprocs<=2]' -M 20480  -o ../LOGS/convnetRun_{}.out \"python trainConvNet.py {} {} {} {} {} {} {} {} {} {}\"".format(
