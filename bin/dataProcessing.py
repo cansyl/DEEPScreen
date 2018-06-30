@@ -13,7 +13,7 @@ IMG_SIZE = 200
 training_dataset_path = "/Users/trman/OneDrive/Projects/DrugDiscovery/TrainingDatasets/ChEMBL"
 TEMP_IMG_OUTPUT_PATH = "../tempImage"
 training_files_path = "../trainingFiles"
-
+result_files_path = "../resultFiles"
 
 """
 ################### OLD Functions ###################
@@ -778,6 +778,39 @@ def drawMolFromSmiles(output_path,smiles, id):
     cairosvg.svg2png(url='{}/{}.svg'.format(output_path,id), write_to="{}/{}.png".format(output_path,id))
     subprocess.call(["rm","{}/{}.svg".format(output_path,id)])
 
+
+
+"""
+chembl_smiles_1 = "CC(C)(C)OC(=O)N[C@@H](Cc1ccccc1)C(=O)N[C@H]2CCC(=O)NCCC[C@H](O)[C@H](O)[C@H](CC3CCCCC3)NC2=O"
+drawMolFromSmiles(TEMP_IMG_OUTPUT_PATH,chembl_smiles_1, "CHEMBL90266")
+# 0.65
+
+chembl_smiles_2 = "COCCCOc1cc(ccc1OC)C(=O)N(C[C@@H]2CNC[C@H]2OCc3cccc(c3)n4cccc4)C(C)C"
+drawMolFromSmiles(TEMP_IMG_OUTPUT_PATH,chembl_smiles_2, "CHEMBL3403987")
+# 0.085
+
+chembl_smiles_3 = "CCCc1ccnc2c1c(C(=O)N3CCNCC3)c(Oc4cc(F)ccc4C)n2c5ccccc5"
+drawMolFromSmiles(TEMP_IMG_OUTPUT_PATH,chembl_smiles_3, "CHEMBL18246333")
+# 1.85
+
+
+chembl_smiles_4 = "CC(C)CN[C@@H](Cc1ccccc1)C(=O)N[C@@H](Cc2c[nH]cn2)C(=O)N[C@@H](CC3CCCCC3)[C@@H](O)[C@@H](O)CC(C)C"
+drawMolFromSmiles(TEMP_IMG_OUTPUT_PATH,chembl_smiles_4, "CHEMBL3348544")
+# 0.0003
+"""
+chembl_smiles_5 = "NC1=N[C@@](C(F)F)([C@H]2C[C@H]2O1)c3cc(NC(=O)C4=CCCCC4)ccc3F"
+drawMolFromSmiles(TEMP_IMG_OUTPUT_PATH,chembl_smiles_5, "CHEMBL3688671")
+
+
+chembl_smiles_6 = "COc1ccc2Oc3ccc(cc3C4(COC(=N4)N)c2c1)c5cncnc5"
+drawMolFromSmiles(TEMP_IMG_OUTPUT_PATH,chembl_smiles_6, "CHEMBL2177339")
+
+chembl_smiles_7 = "NC(=O)C(Cc1ccccc1)NC(=O)c2ccc(cc2)c3cccs3"
+drawMolFromSmiles(TEMP_IMG_OUTPUT_PATH,chembl_smiles_7, "CHEMBL1215515")
+
+chembl_smiles_8 = "CC(C)C[C@@H](CO)C(=O)N[C@H](Cc1c[nH]cn1)C(=O)N[C@H](Cc2ccccc2)C(=O)NCC(C)(C)C"
+drawMolFromSmiles(TEMP_IMG_OUTPUT_PATH,chembl_smiles_8, "CHEMBL12155")
+
 def drawPictureandReturnImgMatrix(temp_output_path, smiles, id):
     drawMolFromSmiles(temp_output_path, smiles, id)
 
@@ -1027,7 +1060,73 @@ def createActInactFilesForAllTargetNeighbourThreshold(act_inact_fl, blast_sim_fl
     act_inact_comp_fl.close()
 
 
+def getTrainedTargetUniProtMapping(trainedModelFile):
+    chemblUniProtMappingDict = getChEMBLTargetIDUniProtMapping()
+    trained_chembl_id_lst = []
+    with open(os.path.join(result_files_path,trainedModelFile)) as f:
+        for line in f:
+            parts = line.split("\t")
+            chembl_target_id = parts[2]
+            #print(chembl_target_id)
+            trained_chembl_id_lst.append(chembl_target_id)
 
+    for c_id in trained_chembl_id_lst:
+        if c_id!="target":
+            print(c_id, chemblUniProtMappingDict[c_id][0])
+
+# getTrainedTargetUniProtMapping("bestModelResults2.txt")
+
+def getFamilyBasedPerformances(trainedModelFile):
+    chemblUniProtMappingDict = getChEMBLTargetIDUniProtMapping()
+    trained_chembl_id_lst = []
+    families = ["enzyme", "gpcr", "ionchannel", "nuclearreceptor"]
+    fam_perf_dict = dict()
+    fam_perf_dict["others"] = [[],[]]
+    chemblid_family_dict = dict()
+
+    for fam in families:
+        fam_perf_dict[fam] = [[],[]]
+        fam_fl = open(os.path.join(training_files_path,"{}_targets.txt".format(fam)))
+        lst_fam_fl = fam_fl.read().split("\n")
+        fam_fl.close()
+        while "" in lst_fam_fl:
+            lst_fam_fl.remove("")
+
+        for line in lst_fam_fl[1:]:
+            chembl_id = line.split("\t")[0]
+            chemblid_family_dict[chembl_id] = fam
+
+    isFirst = True
+    with open(os.path.join(result_files_path,trainedModelFile)) as f:
+        for line in f:
+            if isFirst:
+                isFirst = False
+            else:
+                log_fl, modelname, target, optimizer, learning_rate, epoch, hidden1, hidden2, dropout, rotate, save_model, testf1score_f1score, testf1score_mcc, testf1score_accuracy, testf1score_precision, testf1score_recall, testf1score_validation_tp, testf1score_validation_fp, testf1score_validation_tn, testf1score_validation_fn, testf1score_threshold, testmcc_f1score, testmcc_mcc, testmcc_accuracy, testmcc_precision, testmcc_recall, testmcc_validation_tp, testmcc_validation_fp, testmcc_validation_tn, testmcc_validation_fn, testmcc_threshold, testacc_f1score, testacc_mcc, testacc_accuracy, testacc_precision, testacc_recall, testacc_validation_tp, testacc_validation_fp, testacc_validation_tn, testacc_validation_fn, testacc_threshold, valf1score_f1score, valf1score_mcc, valf1score_accuracy, valf1score_precision, valf1score_recall, valf1score_validation_tp, valf1score_validation_fp, valf1score_validation_tn, valf1score_validation_fn, valf1score_threshold, valmcc_f1score, valmcc_mcc, valmcc_accuracy, valmcc_precision, valmcc_recall, valmcc_validation_tp, valmcc_validation_fp, valmcc_validation_tn, valmcc_validation_fn, valmcc_threshold, valacc_f1score, valacc_mcc, valacc_accuracy, valacc_precision, valacc_recall, valacc_validation_tp, valacc_validation_fp, valacc_validation_tn, valacc_validation_fn, valacc_threshold = line.split("\t")
+                try:
+                    chemblid_family_dict[target]
+                    fam_perf_dict[chemblid_family_dict[target]][0].append(float(testmcc_f1score))
+                    fam_perf_dict[chemblid_family_dict[target]][1].append(float(testmcc_mcc))
+                except:
+                    fam_perf_dict["others"][0].append(float(testmcc_f1score))
+                    fam_perf_dict["others"][1].append(float(testmcc_mcc))
+            #testmcc_f1score
+            #testmcc_mcc
+            # chembl_target_id = parts[2]
+            # print(chembl_target_id)
+            # trained_chembl_id_lst.append(chembl_target_id)
+    #print(fam_perf_dict)
+    for fam in fam_perf_dict.keys():
+        if len(fam_perf_dict[fam][0])!=0:
+            ave_f1 = sum(fam_perf_dict[fam][0])/len(fam_perf_dict[fam][0])
+            ave_mcc = sum(fam_perf_dict[fam][1])/len(fam_perf_dict[fam][1])
+            print("{}\t{}\t{}\t{}".format(fam, len(fam_perf_dict[fam][0]), round(ave_f1, 2), round(ave_mcc, 2) ))
+    """
+    for c_id in trained_chembl_id_lst:
+        if c_id!="target":
+            print(c_id, chemblUniProtMappingDict[c_id][0])
+    """
+getFamilyBasedPerformances("bestModelResults2.txt")
 #createActInactFilesForAllTargetNeighbourThreshold("act_inact_comps_10.0_20.0_chembl_preprocessed_sp_b_pchembl_data.txt", "chembl_23_uniprot_mapping_sp_against_chembl_23_uniprot_mapping_sp_blast.out", 20)
 
 #writeDictToFile(target_dict, "{}/{}_pos_neg_40.txt".format(path, fl_first_part))
