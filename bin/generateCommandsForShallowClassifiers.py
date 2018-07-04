@@ -13,5 +13,5 @@ while "" in lst_best_result_fl:
 for line in lst_best_result_fl:
 	if line.startswith("convnetFinalRun"):
 		line = line.split("\t")
-		print("bsub -q research-rh7 -R 'select[nprocs<=2]' -M 30720  -o ../LOGS/ShallowLOGS/shallow_{}.out \"python train_other_classifiers.py {}\"".format(line[2],line[2]))
+		print("bsub -q research-rh7 -R 'select[nprocs<=2]' -M 30720  -o ../LOGS/ShallowLOGS/shallow_{}.out \"python train_other_classifiers.py {} > ../LOGS/ShallowLOGS/{}_shallow.txt\"".format(line[2],line[2], line[2]))
 		print("sleep 2")
