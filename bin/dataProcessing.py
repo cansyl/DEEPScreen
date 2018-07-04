@@ -797,19 +797,20 @@ drawMolFromSmiles(TEMP_IMG_OUTPUT_PATH,chembl_smiles_3, "CHEMBL18246333")
 chembl_smiles_4 = "CC(C)CN[C@@H](Cc1ccccc1)C(=O)N[C@@H](Cc2c[nH]cn2)C(=O)N[C@@H](CC3CCCCC3)[C@@H](O)[C@@H](O)CC(C)C"
 drawMolFromSmiles(TEMP_IMG_OUTPUT_PATH,chembl_smiles_4, "CHEMBL3348544")
 # 0.0003
+
+chembl_smiles_5 = "CCCCNC(=O)[C@H](C)C[C@H](O)[C@@H](N)CC1CCCCC1"
+drawMolFromSmiles(TEMP_IMG_OUTPUT_PATH,chembl_smiles_5, "CHEMBL288434")
+
+
+chembl_smiles_6 = "COc1ccc(cc1C)C2(N=C(N)N(C)C2=O)c3ccc(F)c(c3)c4cccnc4F"
+drawMolFromSmiles(TEMP_IMG_OUTPUT_PATH,chembl_smiles_6, "CHEMBL584926")
+
+chembl_smiles_7 = "CCOP(=O)(OCC)[C@@H](O)[C@H](CC1CCCCC1)NC(=O)[C@H](CC(C)C)NC(=O)[C@H](Cc2ccccc2)NC(=O)OC(C)(C)C"
+drawMolFromSmiles(TEMP_IMG_OUTPUT_PATH,chembl_smiles_7, "CHEMBL140146")
+
+chembl_smiles_8 = "CCCCNC(=O)C(C)C[C@H](O)[C@@H](N)CC(Cc1ccc(cc1)C(C)(C)C)c2ccccc2"
+drawMolFromSmiles(TEMP_IMG_OUTPUT_PATH,chembl_smiles_8, "CHEMBL90306")
 """
-chembl_smiles_5 = "NC1=N[C@@](C(F)F)([C@H]2C[C@H]2O1)c3cc(NC(=O)C4=CCCCC4)ccc3F"
-drawMolFromSmiles(TEMP_IMG_OUTPUT_PATH,chembl_smiles_5, "CHEMBL3688671")
-
-
-chembl_smiles_6 = "COc1ccc2Oc3ccc(cc3C4(COC(=N4)N)c2c1)c5cncnc5"
-drawMolFromSmiles(TEMP_IMG_OUTPUT_PATH,chembl_smiles_6, "CHEMBL2177339")
-
-chembl_smiles_7 = "NC(=O)C(Cc1ccccc1)NC(=O)c2ccc(cc2)c3cccs3"
-drawMolFromSmiles(TEMP_IMG_OUTPUT_PATH,chembl_smiles_7, "CHEMBL1215515")
-
-chembl_smiles_8 = "CC(C)C[C@@H](CO)C(=O)N[C@H](Cc1c[nH]cn1)C(=O)N[C@H](Cc2ccccc2)C(=O)NCC(C)(C)C"
-drawMolFromSmiles(TEMP_IMG_OUTPUT_PATH,chembl_smiles_8, "CHEMBL12155")
 
 def drawPictureandReturnImgMatrix(temp_output_path, smiles, id):
     drawMolFromSmiles(temp_output_path, smiles, id)
@@ -1102,7 +1103,7 @@ def getFamilyBasedPerformances(trainedModelFile):
             if isFirst:
                 isFirst = False
             else:
-                log_fl, modelname, target, optimizer, learning_rate, epoch, hidden1, hidden2, dropout, rotate, save_model, testf1score_f1score, testf1score_mcc, testf1score_accuracy, testf1score_precision, testf1score_recall, testf1score_validation_tp, testf1score_validation_fp, testf1score_validation_tn, testf1score_validation_fn, testf1score_threshold, testmcc_f1score, testmcc_mcc, testmcc_accuracy, testmcc_precision, testmcc_recall, testmcc_validation_tp, testmcc_validation_fp, testmcc_validation_tn, testmcc_validation_fn, testmcc_threshold, testacc_f1score, testacc_mcc, testacc_accuracy, testacc_precision, testacc_recall, testacc_validation_tp, testacc_validation_fp, testacc_validation_tn, testacc_validation_fn, testacc_threshold, valf1score_f1score, valf1score_mcc, valf1score_accuracy, valf1score_precision, valf1score_recall, valf1score_validation_tp, valf1score_validation_fp, valf1score_validation_tn, valf1score_validation_fn, valf1score_threshold, valmcc_f1score, valmcc_mcc, valmcc_accuracy, valmcc_precision, valmcc_recall, valmcc_validation_tp, valmcc_validation_fp, valmcc_validation_tn, valmcc_validation_fn, valmcc_threshold, valacc_f1score, valacc_mcc, valacc_accuracy, valacc_precision, valacc_recall, valacc_validation_tp, valacc_validation_fp, valacc_validation_tn, valacc_validation_fn, valacc_threshold = line.split("\t")
+                log_fl, modelname, target, optimizer, learning_rate, epoch, hidden1, hidden2, dropout, rotate, save_model, valmcc_f1score, valmcc_mcc, valmcc_accuracy, valmcc_precision, valmcc_recall, valmcc_validation_tp, valmcc_validation_fp, valmcc_validation_tn, valmcc_validation_fn, valmcc_threshold, testmcc_f1score, testmcc_mcc, testmcc_accuracy, testmcc_precision, testmcc_recall, testmcc_test_tp, testmcc_test_fp, testmcc_test_tn, testmcc_test_fn, testmcc_threshold, _ = line.split("\t")
                 try:
                     chemblid_family_dict[target]
                     fam_perf_dict[chemblid_family_dict[target]][0].append(float(testmcc_f1score))
@@ -1126,7 +1127,7 @@ def getFamilyBasedPerformances(trainedModelFile):
         if c_id!="target":
             print(c_id, chemblUniProtMappingDict[c_id][0])
     """
-getFamilyBasedPerformances("bestModelResults2.txt")
+#getFamilyBasedPerformances("bestModelResultsAll.txt")
 #createActInactFilesForAllTargetNeighbourThreshold("act_inact_comps_10.0_20.0_chembl_preprocessed_sp_b_pchembl_data.txt", "chembl_23_uniprot_mapping_sp_against_chembl_23_uniprot_mapping_sp_blast.out", 20)
 
 #writeDictToFile(target_dict, "{}/{}_pos_neg_40.txt".format(path, fl_first_part))
@@ -1143,3 +1144,51 @@ target__ = "CHEMBL1293317"
 
 #drawPictureandReturnImgMatrix(TEMP_IMG_OUTPUT_PATH, "C[C@H]1CN(CCC(=O)N[C@@H](CCc2ccccc2)C(=O)O)CC[C@@]1(C)c3cccc(O)c3", "deneme")
 
+def constructDataMatricesForATargetOtherClassifier(output_path, target_id, rotate=False):
+    train_test_data = []
+    prob_count = 0
+    count = 0
+    compound_smiles_dict = getSMILEsForAllChEMBL()
+    act_list, inact_list = getActInactListForATarget(target_id, "act_inact_comps_10.0_20.0_chembl_preprocessed_sp_b_pchembl_data_blast_comp_20.txt")
+
+    if len(inact_list) >= len(act_list):
+        inact_list = inact_list[:len(act_list)]
+    else:
+        act_list = act_list[:int(len(inact_list)*1.5)]
+
+    #print("Number of active compounds :\t{}".format(len(act_list)))
+    #print("Number of inactive compounds :\t{}".format(len(inact_list)))
+    for pos_comp in act_list:
+        label = [1, 0]
+        try:
+            count += 1
+            #print(count)
+            img_arr = drawPictureandReturnImgMatrix(output_path, compound_smiles_dict[pos_comp], pos_comp)
+            train_test_data.append([np.array(img_arr/255.0), np.array(label), pos_comp])
+
+            if rotate:
+                rotateImageReturnMatrix(train_test_data, img_arr, label, pos_comp)
+
+        except Exception as e:
+            #print(str(e))
+            prob_count += 1
+            pass
+
+    for neg_comp in inact_list:
+        label = [0, 1]
+        try:
+            count += 1
+            img_arr = drawPictureandReturnImgMatrix(output_path, compound_smiles_dict[neg_comp], neg_comp)
+            train_test_data.append([np.array(img_arr/255.0), np.array(label), neg_comp])
+
+            if rotate:
+                rotateImageReturnMatrix(train_test_data, img_arr, label, neg_comp)
+        except:
+            prob_count += 1
+            pass
+
+    #random.shuffle(train_test_data)
+
+    #training_validation_size = int(0.8 * len(train_test_data))
+    #return train_test_data[:training_validation_size], train_test_data[training_validation_size:]
+    return train_test_data
