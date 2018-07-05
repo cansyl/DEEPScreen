@@ -10,8 +10,9 @@ modelTypeLOG = ["ImageNetLOGS", "OtherLOGS"]
 
 for pt in log_path:
 	for mtl in modelTypeLOG:
-		log_fl_path = "../ResultFiles/{}/{}".format(pt, mtl)
+		log_fl_path = "../resultFiles/LOGS/{}/{}".format(pt, mtl)
 		for fl in os.listdir(log_fl_path):
+			#if True or fl=="convnetFinalRun_44924.out":
 			try:
 				#print(fl)
 				log_fl = open("{}/{}".format(log_fl_path, fl), "r")
@@ -36,31 +37,36 @@ for pt in log_path:
 					while "" in lst_test_predictions:
 						lst_test_predictions.remove("")
 
-
+					#print(len(lst_test_predictions))
 					# recalculate test predictions based on validation threshold! May bad :(
 
 					test_tp = 1
 					test_fp = 1
 					test_tn = 1
 					test_fn = 1
-
+					#print(lst_test_predictions)
 					for pred in lst_test_predictions:
 						comp_id,_,act_inact,score = pred.split(",")
 						temp_pos_pred = float(score)
 
 						if act_inact == "ACT" and temp_pos_pred >= mcc_based_threshold:
 							test_tp += 1
-						# print(test_y[i], "TP", temp_pos_pred, threshold)
+							#print(comp_id, "ACT", temp_pos_pred,mcc_based_threshold)
+							#print(test_y[i], "TP", temp_pos_pred, threshold)
 						elif act_inact == "ACT" and temp_pos_pred < mcc_based_threshold:
 							test_fn += 1
-						# print(test_y[i], "FN", temp_pos_pred, threshold)
+							#print(comp_id, "ACT", temp_pos_pred, mcc_based_threshold)
+							#print(test_y[i], "FN", temp_pos_pred, threshold)
 
-						elif act_inact == "INACT" and temp_pos_pred <= mcc_based_threshold:
+						elif act_inact == "INACT" and temp_pos_pred < mcc_based_threshold:
 							test_tn += 1
+							#print(comp_id, "INACT", temp_pos_pred, mcc_based_threshold)
 						# print(test_y[i], "TN", temp_pos_pred, threshold)
 
-						elif act_inact == "INACT" and temp_pos_pred > mcc_based_threshold:
+						elif act_inact == "INACT" and temp_pos_pred >= mcc_based_threshold:
 							test_fp += 1
+							#print(comp_id, "INACT", temp_pos_pred, mcc_based_threshold)
+
 						# print(test_y[i], "FP", temp_pos_pred, threshold)
 
 					precision = calculatePrecision(test_tp, test_fp)
@@ -70,7 +76,7 @@ for pt in log_path:
 					mcc = calculateMCC(test_tp, test_fp, test_tn, test_fn)
 					test_results = [round(f1score, 2), round(mcc, 2), round(accuracy, 2), round(precision, 2), round(recall, 2), test_tp, test_fp, test_tn, test_fn, mcc_based_threshold]
 
-
+					#print(test_tp+test_fp+test_tn+test_fn)
 					str_line = "{}\t".format(str(fl))
 					for p in params:
 						str_line += "{}\t".format(p)

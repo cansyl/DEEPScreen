@@ -162,11 +162,11 @@ def trainModelTarget(model_name, target, optimizer, learning_rate, epch,  n_of_h
                 test_fn += 1
                 # print(test_y[i], "FN", temp_pos_pred, threshold)
 
-            elif test_y[i][1] == 1 and temp_pos_pred <= threshold:
+            elif test_y[i][1] == 1 and temp_pos_pred < threshold:
                 test_tn += 1
                 # print(test_y[i], "TN", temp_pos_pred, threshold)
 
-            elif test_y[i][1] == 1 and temp_pos_pred > threshold:
+            elif test_y[i][1] == 1 and temp_pos_pred >= threshold:
                 test_fp += 1
                 # print(test_y[i], "FP", temp_pos_pred, threshold)
 

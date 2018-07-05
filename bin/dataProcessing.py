@@ -1127,10 +1127,10 @@ def getFamilyBasedPerformances(trainedModelFile):
         if c_id!="target":
             print(c_id, chemblUniProtMappingDict[c_id][0])
     """
-#getFamilyBasedPerformances("bestModelResultsAll.txt")
-#createActInactFilesForAllTargetNeighbourThreshold("act_inact_comps_10.0_20.0_chembl_preprocessed_sp_b_pchembl_data.txt", "chembl_23_uniprot_mapping_sp_against_chembl_23_uniprot_mapping_sp_blast.out", 20)
+# getFamilyBasedPerformances("bestModelResultsAll.txt")
+# createActInactFilesForAllTargetNeighbourThreshold("act_inact_comps_10.0_20.0_chembl_preprocessed_sp_b_pchembl_data.txt", "chembl_23_uniprot_mapping_sp_against_chembl_23_uniprot_mapping_sp_blast.out", 20)
 
-#writeDictToFile(target_dict, "{}/{}_pos_neg_40.txt".format(path, fl_first_part))
+# writeDictToFile(target_dict, "{}/{}_pos_neg_40.txt".format(path, fl_first_part))
 # 5
 # getPosNegForTarget("chembl_preprocessed_sp_b_f_std_val_data.txt")
 # getPosNegForTarget("chembl_preprocessed_sp_b_f_pchembl_data.txt")

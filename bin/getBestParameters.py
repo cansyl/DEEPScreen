@@ -3,7 +3,7 @@ fl_path = "../resultFiles"
 isFirst = True
 param_dict = dict()
 best_model_dict = dict()
-with open("{}/all_results_combined.txt".format(fl_path )) as f:
+with open("{}/allResultsCombined.txt".format(fl_path )) as f:
     for line in f:
         if isFirst:
             isFirst = False

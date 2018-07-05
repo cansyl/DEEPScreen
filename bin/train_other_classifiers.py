@@ -26,18 +26,19 @@ TEMP_IMG_OUTPUT_PATH = "../tempImage"
 
 
 def copyBestModelLOG(target):
-    best_result_fl = open("../resultFiles/bestModelResultsAll.txt","r")
+    best_result_fl = open("../resultFiles/bestModelResultsAll.txt", "r")
     lst_best_result_fl = best_result_fl.read().split("\n")
     best_result_fl.close()
 
     log_fl_name = ""
     for line in lst_best_result_fl:
         line = line.split("\t")
+        print(line)
         if line[2]==target:
             log_fl_name = line[0]
             break
 
-    #print(log_fl_name)
+    print(log_fl_name)
 
     log_path = ["rahmetCLUSTERLOGS", "tdoganYODALOGS"]
     modelTypeLOG = ["ImageNetLOGS", "OtherLOGS"]
@@ -46,8 +47,8 @@ def copyBestModelLOG(target):
     test_line = ""
     for lgp in log_path:
         for mdltype in modelTypeLOG:
-            if os.path.exists("../resultFiles/{}/{}/{}".format(lgp, mdltype,log_fl_name)):
-                subprocess.call(["cp","../resultFiles/{}/{}/{}".format(lgp, mdltype,log_fl_name),"../resultFiles/bestModelLOGS"])
+            if os.path.exists("../resultFiles/LOGS/{}/{}/{}".format(lgp, mdltype,log_fl_name)):
+                subprocess.call(["cp","../resultFiles/LOGS/{}/{}/{}".format(lgp, mdltype,log_fl_name),"../resultFiles/LOGS/bestModelLOGS"])
 
 def getTestCompounds(target):
     best_result_fl = open("../resultFiles/bestModelResultsAll.txt","r")
@@ -64,12 +65,12 @@ def getTestCompounds(target):
     #print(log_fl_name)
 
     test_line = ""
-    log_fl = open("../resultFiles/bestModelLOGS/{}".format(log_fl_name),"r")
+    log_fl = open("../resultFiles/LOGS/bestModelLOGS/{}".format(log_fl_name),"r")
     lst_log_fl = log_fl.read().split("\n")
     log_fl.close()
 
     for line in lst_log_fl:
-        if "TP,ACT," in line:
+        if "ACT," in line:
             test_line = line
             break
 
@@ -152,11 +153,16 @@ def trainModelTarget(target, rotate=False):
 trgt = sys.argv[1]
 
 """
-lst_targ_lst = trgt_list.split(",")
-
+lst_targ_lst = trgt.split(",")
+print(lst_targ_lst)
 while "" in lst_targ_lst:
     lst_targ_lst.remove("")
+
+count = 0
 for trg in lst_targ_lst:
+    count += 1
+    # print(count)
+    # print(len(getTestCompounds(trg)))
     copyBestModelLOG(trg)
 """
 trainModelTarget(trgt)
