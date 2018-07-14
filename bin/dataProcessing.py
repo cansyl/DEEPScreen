@@ -1192,3 +1192,146 @@ def constructDataMatricesForATargetOtherClassifier(output_path, target_id, rotat
     #training_validation_size = int(0.8 * len(train_test_data))
     #return train_test_data[:training_validation_size], train_test_data[training_validation_size:]
     return train_test_data
+
+
+
+def getLenselinksActInactData(targetid="CHEMBL209"):
+    gerard_fl =  open("{}/Gerard_Dataset_Files/data/DNN_paper/dataset/curated_set_with_publication_year.sd".format(training_files_path), "r")
+    lst_gerard_fl = gerard_fl.read().split("\n")
+    gerard_fl.close()
+    bioactivity_dict = dict()
+    target_chembl_id = ""
+    comp_chembl_id = ""
+    for line_ind in range(len(lst_gerard_fl)):
+        if "> <TC_key>" in lst_gerard_fl[line_ind]:
+            target_chembl_id, comp_chembl_id =lst_gerard_fl[line_ind+1].split(" - ")
+            try:
+                bioactivity_dict[target_chembl_id].append([comp_chembl_id])
+            except:
+                bioactivity_dict[target_chembl_id] = [[comp_chembl_id]]
+
+            #print(target_chembl_id, comp_chembl_id)
+
+        if "> <BIOACT_PCHEMBL_VALUE>" in lst_gerard_fl[line_ind]:
+            pchembl_val = lst_gerard_fl[line_ind+1].strip()
+            bioactivity_dict[target_chembl_id][-1].append(pchembl_val)
+
+        if "> <DOC_YEAR>" in lst_gerard_fl[line_ind]:
+            doc_year = lst_gerard_fl[line_ind+1].strip()
+            bioactivity_dict[target_chembl_id][-1].append(doc_year)
+
+    del lst_gerard_fl
+    bioactivity_active_inactive_train_dict = dict()
+    bioactivity_active_inactive_test_dict = dict()
+
+    for key in bioactivity_dict.keys():
+        # first list holds actives the other is inactive
+        bioactivity_active_inactive_train_dict[key] = [[], []]
+        bioactivity_active_inactive_test_dict[key] = [[], []]
+        for bioac in bioactivity_dict[key]:
+            if float(bioac[1])>=6.5 and int(bioac[2])<2013:
+                bioactivity_active_inactive_train_dict[key][0].append(bioac)
+            elif float(bioac[1])>=6.5 and int(bioac[2])>=2013:
+                bioactivity_active_inactive_test_dict[key][0].append(bioac)
+            elif float(bioac[1])<6.5 and int(bioac[2])<2013:
+                bioactivity_active_inactive_train_dict[key][1].append(bioac)
+            elif float(bioac[1]) < 6.5 and int(bioac[2]) >= 2013:
+                bioactivity_active_inactive_test_dict[key][1].append(bioac)
+    training_targets = []
+    for key in bioactivity_active_inactive_train_dict.keys():
+        if len(bioactivity_active_inactive_train_dict[key][0])>=100 and len(bioactivity_active_inactive_train_dict[key][1])>=100 and len(bioactivity_active_inactive_test_dict[key][0])>=10 and len(bioactivity_active_inactive_test_dict[key][1])>=10:
+            training_targets.append(key)
+            #print(key, len(bioactivity_active_inactive_train_dict[key][0]),len(bioactivity_active_inactive_train_dict[key][1]))
+            #print(key, len(bioactivity_active_inactive_test_dict[key][0]), len(bioactivity_active_inactive_test_dict[key][1]))
+
+    return bioactivity_active_inactive_train_dict[targetid][0], bioactivity_active_inactive_train_dict[targetid][1], bioactivity_active_inactive_test_dict[targetid][0], bioactivity_active_inactive_test_dict[targetid][1], training_targets
+    #print(bioactivity_dict["CHEMBL209"])
+
+#getLenselinksActInactData("CHEMBL209")
+
+
+def constructDataMatricesForATargetLenselinksStudy(output_path, target_id, rotate=False):
+    train_data = []
+    test_data = []
+    prob_count = 0
+    count = 0
+    compound_smiles_dict = getSMILEsForAllChEMBL()
+    train_act_list, train_inact_list, test_act_list, test_inact_list, _ = getLenselinksActInactData(target_id)
+
+
+    if len(train_inact_list) >= len(train_act_list):
+        train_inact_list = train_inact_list[:int(len(train_act_list)*1.5)]
+    else:
+        train_act_list = train_act_list[:int(len(train_inact_list)*1.5)]
+
+    print("Number of active compounds :\t{}".format(len(train_act_list)))
+    print("Number of inactive compounds :\t{}".format(len(train_inact_list)))
+    print("Number of active test compounds :\t{}".format(len(test_act_list)))
+    print("Number of inactive test compounds :\t{}".format(len(test_inact_list)))
+    for pos_comp in train_act_list:
+        #print(pos_comp)
+        label = [1, 0]
+        try:
+            count += 1
+            #print(count)
+            img_arr = drawPictureandReturnImgMatrix(output_path, compound_smiles_dict[pos_comp[0]], pos_comp[0])
+            train_data.append([np.array(img_arr/255.0), np.array(label), pos_comp[0]])
+
+            if rotate:
+                rotateImageReturnMatrix(train_data, img_arr, label, pos_comp[0])
+
+        except Exception as e:
+            #print(str(e))
+            prob_count += 1
+            pass
+
+    for neg_comp in train_inact_list:
+        label = [0, 1]
+        try:
+            count += 1
+            img_arr = drawPictureandReturnImgMatrix(output_path, compound_smiles_dict[neg_comp[0]], neg_comp[0])
+            train_data.append([np.array(img_arr/255.0), np.array(label), neg_comp[0]])
+
+            if rotate:
+                rotateImageReturnMatrix(train_data, img_arr, label, neg_comp[0])
+        except:
+            prob_count += 1
+            pass
+
+    for pos_comp in test_act_list:
+        label = [1, 0]
+        try:
+            count += 1
+            #print(count)
+            img_arr = drawPictureandReturnImgMatrix(output_path, compound_smiles_dict[pos_comp[0]], pos_comp[0])
+            test_data.append([np.array(img_arr/255.0), np.array(label), pos_comp[0]])
+
+            if rotate:
+                rotateImageReturnMatrix(test_data, img_arr, label, pos_comp[0])
+
+        except Exception as e:
+            #print(str(e))
+            prob_count += 1
+            pass
+
+    for neg_comp in test_inact_list:
+        label = [0, 1]
+        try:
+            count += 1
+            img_arr = drawPictureandReturnImgMatrix(output_path, compound_smiles_dict[neg_comp[0]], neg_comp[0])
+            test_data.append([np.array(img_arr/255.0), np.array(label), neg_comp[0]])
+
+            if rotate:
+                rotateImageReturnMatrix(test_data, img_arr, label, neg_comp[0])
+        except:
+            prob_count += 1
+            pass
+
+
+    random.shuffle(train_data)
+    #print(len(train_data), len(test_data))
+
+
+    return train_data, test_data, test_data
+
+#constructDataMatricesForATargetLenselinksStudy(TEMP_IMG_OUTPUT_PATH, "CHEMBL262", rotate=False)

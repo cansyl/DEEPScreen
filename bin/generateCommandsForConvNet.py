@@ -1,5 +1,5 @@
 
-
+import sys
 print("#!/bin/bash")
 """
 model_name = sys.argv[1] # mod
@@ -25,22 +25,26 @@ lst_act_inact_fl = act_inact_fl.read().split("\n")
 act_inact_fl.close()
 target_count = 0
 target_list = []
+
+all_compound_set = []
+
 for i in range(len(lst_act_inact_fl)):
 	if "_act" in lst_act_inact_fl[i]:
 		chembl_target_id, comp_list = lst_act_inact_fl[i].split("\t")
 		chembl_target_id = chembl_target_id.split("_")[0]
 		comp_list = comp_list.split(",")
-
+		all_compound_set.extend(comp_list)
 		_, inact_comp_list = lst_act_inact_fl[i+1].split("\t")
 		inact_comp_list = inact_comp_list.split(",")
 
+		all_compound_set.extend(inact_comp_list)
 		if len(comp_list)>=100 and len(inact_comp_list)>=100:
 			target_count += 1
 			target_list.append(chembl_target_id)
 			#print(chembl_target_id, len(comp_list))
 
-#print(target_list)
-
+print(len(set(all_compound_set)))
+sys.exit(0)
 #target_list = ["CHEMBL3638364", "CHEMBL5077", "CHEMBL2949", "CHEMBL221", "CHEMBL1075138"]
 optimizers = ["adam", "momentum", "RMSprop"]
 optimizers = ["adam", "RMSprop"]
