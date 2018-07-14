@@ -43,12 +43,12 @@ for rot in rotate:
 									count  += 1
 									if mod=="ImageNetInceptionV2":
 										print(
-											"bsub -q research-rh7 -M 30720 -R 'rusage[mem=30720]'  -o ../ImageNetLOGS/convnetLenselinkFinalRun_{}.out \"python trainConvNetLenselink.py {} {} {} {} {} {} {} {} {} {}\"".format(
+											"bsub -q research-rh7 -M 30720 -R 'rusage[mem=30720]'  -o ../LOGS/ImageNetLOGS/convnetLenselinkFinalRun_{}.out \"python trainConvNetLenselink.py {} {} {} {} {} {} {} {} {} {}\"".format(
 												count, mod, trg, opt, l_r, epoch, hd12[0], hd12[1], drp, rot, sv))
 										print("sleep 3")
 									else:
 										print(
-											"bsub -q research-rh7 -M 15360 -R 'rusage[mem=15360]' -o ../OtherLOGS/convnetLenselinkFinalRun_{}.out \"python trainConvNetLenselink.py {} {} {} {} {} {} {} {} {} {}\"".format(
+											"bsub -q research-rh7 -M 15360 -R 'rusage[mem=15360]' -o ../LOGS/OtherLOGS/convnetLenselinkFinalRun_{}.out \"python trainConvNetLenselink.py {} {} {} {} {} {} {} {} {} {}\"".format(
 												count, mod, trg, opt, l_r, epoch, hd12[0], hd12[1], drp, rot, sv))
 										print("sleep 3")
 
