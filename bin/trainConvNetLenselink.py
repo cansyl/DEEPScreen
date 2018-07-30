@@ -1,11 +1,18 @@
 import numpy as np
 from models import ImageNetInceptionV2, AlexNetModel, CNNModel, CNNModel2
-from evaluationMetrics import calculatePrecision, calculateRecall, calculateF1Score, calculateAccuracy, calculateMCC
 from dataProcessing import constructDataMatricesForATargetLenselinksStudy
+from sklearn.metrics import roc_auc_score
+from sklearn.metrics import matthews_corrcoef
+from sklearn.metrics import f1_score
+from sklearn.metrics import average_precision_score
+from sklearn.metrics import accuracy_score
+from sklearn.metrics import precision_score, recall_score
+from sklearn.metrics import confusion_matrix
+#from skchem.metrics import bedroc_score
 
 import sys
 
-#IMG_SIZE = 200
+# IMG_SIZE = 200
 IMG_SIZE = 266
 LR = 1e-3
 
@@ -107,6 +114,12 @@ def trainModelTarget(model_name, target, optimizer, learning_rate, epch,  n_of_h
     test_predictions = model.predict(test_x)
     validation_predictions = model.predict(validation_x)
 
+    test_predictions = test_predictions[:,0]
+    validation_predictions = validation_predictions[:,0]
+    #print(validation_predictions)
+    test_y = [i[0] for i in test_y]
+    validation_y = [i[0] for i in validation_y]
+
     threshold = 1.00
 
     # f1score, mcc, accuracy, precision, recall, tp, fp, tn, fn, threshold
@@ -119,139 +132,63 @@ def trainModelTarget(model_name, target, optimizer, learning_rate, epch,  n_of_h
     best_validation_f1score_list = [-1, -1, -1, -1, -1, -1,-1, -1, -1, -1]
     best_validation_mcc_list = [-1, -1, -1, -1, -1, -1,-1, -1, -1, -1]
 
+    validation_auc = roc_auc_score(validation_y, validation_predictions)
+    validation_auprc = average_precision_score(validation_y, validation_predictions)
+    # validation_bedroc = bedroc_score(validation_y, validation_predictions)
+    test_auc = roc_auc_score(test_y, test_predictions)
+    test_auprc = average_precision_score(test_y, test_predictions)
+    # test_bedroc = bedroc_score(test_y, test_predictions)
+    print("Validation AUC:{}\nValidation AUPRC:{}\nTest AUC:{}\nTest AUPRC:{}".format(validation_auc, validation_auprc, test_auc, test_auprc))
+    while threshold >= 0.00:
+        validation_pred_labels = [int(round(i,2)>=threshold) for i in validation_predictions]
+        test_pred_labels = [int(round(i,2)>=threshold) for i in test_predictions]
+        #print(threshold)
+        #print(test_pred_labels)
 
 
-    while threshold>=0.00:
-        test_tp = 1
-        test_fp = 1
-        test_tn = 1
-        test_fn = 1
+        val_precision = precision_score(validation_y, validation_pred_labels)
+        val_recall = recall_score(validation_y, validation_pred_labels)
+        val_f1score = f1_score(validation_y, validation_pred_labels)
+        val_accuracy = accuracy_score(validation_y, validation_pred_labels)
+        val_mcc = matthews_corrcoef(validation_y, validation_pred_labels)
+        validation_tn, validation_fp, validation_fn, validation_tp = confusion_matrix(validation_y, validation_pred_labels).ravel()
 
-        for i in range(len(test_predictions)):
-            temp_pos_pred = round(test_predictions[i][0], 3)
+        test_precision = precision_score(test_y, test_pred_labels)
+        test_recall = recall_score(test_y, test_pred_labels)
+        test_f1score = f1_score(test_y, test_pred_labels)
+        test_accuracy = accuracy_score(test_y, test_pred_labels)
+        test_mcc = matthews_corrcoef(test_y, test_pred_labels)
+        test_tn, test_fp, test_fn, test_tp = confusion_matrix(test_y, test_pred_labels).ravel()
+        #print(test_tn, test_fp, test_fn, test_tp)
 
-            if test_y[i][0] == 1 and temp_pos_pred >= threshold:
-                test_tp += 1
-                # print(test_y[i], "TP", temp_pos_pred, threshold)
-            elif test_y[i][0] == 1 and temp_pos_pred < threshold:
-                test_fn += 1
-                # print(test_y[i], "FN", temp_pos_pred, threshold)
+        if val_f1score > best_validation_f1score_list[0]:
+            best_validation_f1score_list = [val_f1score, val_mcc, val_accuracy, val_precision, val_recall, validation_tp, validation_fp,
+                                            validation_tn, validation_fn,
+                                            threshold]
+            best_test_f1score_list = [test_f1score, test_mcc, test_accuracy, test_precision, test_recall, test_tp, test_fp,
+                                            test_tn, test_fn,
+                                            threshold]
 
-            elif test_y[i][1] == 1 and temp_pos_pred < threshold:
-                test_tn += 1
-                # print(test_y[i], "TN", temp_pos_pred, threshold)
-
-            elif test_y[i][1] == 1 and temp_pos_pred >= threshold:
-                test_fp += 1
-                # print(test_y[i], "FP", temp_pos_pred, threshold)
-
-        try:
-
-            precision = calculatePrecision(test_tp, test_fp)
-            recall = calculateRecall(test_tp, test_fn)
-            f1score = calculateF1Score(test_tp, test_fp, test_fn)
-            accuracy = calculateAccuracy(test_tp, test_fp, test_tn, test_fn)
-            mcc = calculateMCC(test_tp, test_fp, test_tn, test_fn)
-
-            if f1score > best_test_f1score_list[0]:
-                best_test_f1score_list = [f1score, mcc, accuracy, precision, recall, test_tp, test_fp, test_tn, test_fn,
-                                          threshold]
-
-            if mcc > best_test_mcc_list[1]:
-                best_test_mcc_list = [f1score, mcc, accuracy, precision, recall, test_tp, test_fp, test_tn, test_fn,
-                                          threshold]
-
-            if accuracy > best_test_accuracy_list[2]:
-                best_test_accuracy_list = [f1score, mcc, accuracy, precision, recall, test_tp, test_fp, test_tn, test_fn, threshold]
-
-
-
-        except:
-            # print("ERROR", tp, fp, tn, fn)
-            pass
-
-        validation_tp = 1
-        validation_fp = 1
-        validation_tn = 1
-        validation_fn = 1
-
-        for i in range(len(validation_predictions)):
-            temp_pos_pred = round(validation_predictions[i][0], 3)
-
-            if validation_y[i][0] == 1 and temp_pos_pred >= threshold:
-                validation_tp += 1
-                # print(test_y[i], "TP", temp_pos_pred, threshold)
-            elif validation_y[i][0] == 1 and temp_pos_pred < threshold:
-                validation_fn += 1
-                # print(test_y[i], "FN", temp_pos_pred, threshold)
-
-            elif validation_y[i][1] == 1 and temp_pos_pred <= threshold:
-                validation_tn += 1
-                # print(test_y[i], "TN", temp_pos_pred, threshold)
-
-            elif validation_y[i][1] == 1 and temp_pos_pred > threshold:
-                validation_fp += 1
-                # print(test_y[i], "FP", temp_pos_pred, threshold)
-
-        try:
-
-            precision = calculatePrecision(validation_tp, validation_fp)
-            recall = calculateRecall(validation_tp, validation_fn)
-            f1score = calculateF1Score(validation_tp, validation_fp, validation_fn)
-            accuracy = calculateAccuracy(validation_tp, validation_fp, validation_tn, validation_fn)
-            mcc = calculateMCC(validation_tp, validation_fp, validation_tn, validation_fn)
-
-            if f1score > best_validation_f1score_list[0]:
-                best_validation_f1score_list = [f1score, mcc, accuracy, precision, recall, validation_tp, validation_fp,
-                                          validation_tn, validation_fn,
-                                          threshold]
-
-            if mcc > best_validation_mcc_list[1]:
-                best_validation_mcc_list = [f1score, mcc, accuracy, precision, recall, validation_tp, validation_fp,
-                                      validation_tn, validation_fn,
+        if val_mcc > best_validation_mcc_list[1]:
+            best_validation_mcc_list = [val_f1score, val_mcc, val_accuracy, val_precision, val_recall, validation_tp, validation_fp,
+                                        validation_tn, validation_fn,
+                                        threshold]
+            best_test_mcc_list = [test_f1score, test_mcc, test_accuracy, test_precision, test_recall, test_tp,
+                                      test_fp,
+                                      test_tn, test_fn,
                                       threshold]
 
-            if accuracy > best_validation_accuracy_list[2]:
-                best_validation_accuracy_list = [f1score, mcc, accuracy, precision, recall, validation_tp, validation_fp,
-                                           validation_tn, validation_fn, threshold]
+        if val_accuracy > best_validation_accuracy_list[2]:
+            best_validation_accuracy_list = [val_f1score, val_mcc, val_accuracy, val_precision, val_recall, validation_tp, validation_fp,
+                                             validation_tn, validation_fn, threshold]
 
-
-        except:
-            # print("ERROR", tp, fp, tn, fn)
-            pass
-
+            best_test_accuracy_list = [test_f1score, test_mcc, test_accuracy, test_precision, test_recall, test_tp,
+                                  test_fp,
+                                  test_tn, test_fn,
+                                  threshold]
         threshold -= 0.01
 
-    test_best_tp = 1
-    test_best_fp = 1
-    test_best_tn = 1
-    test_best_fn = 1
-    best_test_threshold = best_test_mcc_list[-1]
-    str_predictions = ""
-    print("TestPredictions (Threshold:{})".format(best_test_threshold))
-    for i in range(len(test_predictions)):
-        temp_pos_pred = round(test_predictions[i][0], 3)
 
-        if test_y[i][0] == 1 and temp_pos_pred >= best_test_threshold:
-            test_best_tp += 1
-            str_predictions += "{},{},{},{}\t".format(test_comp_name[i],"TP","ACT",temp_pos_pred)
-            # print(test_y[i], "TP", temp_pos_pred, threshold)
-        elif test_y[i][0] == 1 and temp_pos_pred < best_test_threshold:
-            test_best_fn += 1
-            str_predictions += "{},{},{},{}\t".format(test_comp_name[i], "FN", "ACT", temp_pos_pred)
-            # print(test_y[i], "FN", temp_pos_pred, threshold)
-
-        elif test_y[i][1] == 1 and temp_pos_pred <= best_test_threshold:
-            test_best_tn += 1
-            str_predictions += "{},{},{},{}\t".format(test_comp_name[i], "TN", "INACT", temp_pos_pred)
-            # print(test_y[i], "TN", temp_pos_pred, threshold)
-
-        elif test_y[i][1] == 1 and temp_pos_pred > best_test_threshold:
-            test_best_fp += 1
-            str_predictions += "{},{},{},{}\t".format(test_comp_name[i], "FP", "INACT", temp_pos_pred)
-            # print(test_y[i], "FP", temp_pos_pred, threshold)
-    print(calculateF1Score(test_best_tp, test_best_fp, test_best_fn))
-    print(str_predictions)
 
     print("BestTestF1Score\t{}\t{}\t{}\t{}\t{}\t{}\t{}\t{}\t{}\t{}".format(
         round(best_test_f1score_list[0], 2), round(best_test_f1score_list[1], 2), round(best_test_f1score_list[2], 2),
@@ -306,6 +243,24 @@ def trainModelTarget(model_name, target, optimizer, learning_rate, epch,  n_of_h
         round(best_validation_accuracy_list[9], 2)))
 
 
+    best_test_threshold = round(best_test_mcc_list[-1],2)
+    str_predictions = ""
+    print("TestPredictions (Threshold:{})".format(best_test_threshold))
+    for i in range(len(test_predictions)):
+        temp_pos_pred = round(test_predictions[i], 2)
+
+        if test_y[i] == 1 and temp_pos_pred >= best_test_threshold:
+            str_predictions += "{},{},{},{}\t".format(test_comp_name[i],"TP","ACT",temp_pos_pred)
+
+        elif test_y[i] == 1 and temp_pos_pred < best_test_threshold:
+            str_predictions += "{},{},{},{}\t".format(test_comp_name[i], "FN", "ACT", temp_pos_pred)
+
+        elif test_y[i] == 0 and temp_pos_pred < best_test_threshold:
+            str_predictions += "{},{},{},{}\t".format(test_comp_name[i], "TN", "INACT", temp_pos_pred)
+
+        elif test_y[i] == 0 and temp_pos_pred >= best_test_threshold:
+            str_predictions += "{},{},{},{}\t".format(test_comp_name[i], "FP", "INACT", temp_pos_pred)
+    print(str_predictions)
 
 model_name = sys.argv[1]
 trgt = sys.argv[2]
