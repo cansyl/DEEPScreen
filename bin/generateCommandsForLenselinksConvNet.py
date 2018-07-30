@@ -7,8 +7,8 @@ target_list = []
 all_compound_set = []
 
 _, _, _, _, target_list = getLenselinksActInactData()
-
-#target_list = ["CHEMBL3638364", "CHEMBL5077", "CHEMBL2949", "CHEMBL221", "CHEMBL1075138"]
+# print(len(target_list))
+# target_list = ["CHEMBL3638364", "CHEMBL5077", "CHEMBL2949", "CHEMBL221", "CHEMBL1075138"]
 optimizers = ["adam", "momentum", "RMSprop"]
 optimizers = ["adam", "RMSprop"]
 learning_rates = [0.0001, 0.001, 0.01, 0.0005, 0.005]
