@@ -1239,11 +1239,12 @@ def getLenselinksActInactData(targetid="CHEMBL209"):
                 bioactivity_active_inactive_test_dict[key][1].append(bioac)
     training_targets = []
     for key in bioactivity_active_inactive_train_dict.keys():
-        if len(bioactivity_active_inactive_train_dict[key][0])>=100 and len(bioactivity_active_inactive_train_dict[key][1])>=100 and len(bioactivity_active_inactive_test_dict[key][0])>=10 and len(bioactivity_active_inactive_test_dict[key][1])>=10:
+        # if len(bioactivity_active_inactive_train_dict[key][0])>=100 and len(bioactivity_active_inactive_train_dict[key][1])>=100 and len(bioactivity_active_inactive_test_dict[key][0])>=10 and len(bioactivity_active_inactive_test_dict[key][1])>=10:
+        if len(bioactivity_active_inactive_train_dict[key][0]) >= 30 and len(bioactivity_active_inactive_train_dict[key][1]) >= 30 and (len(bioactivity_active_inactive_train_dict[key][0]) < 100 or len(bioactivity_active_inactive_train_dict[key][1]) < 100) and len(bioactivity_active_inactive_test_dict[key][0]) >= 10 and len(bioactivity_active_inactive_test_dict[key][1]) >= 10:
             training_targets.append(key)
             #print(key, len(bioactivity_active_inactive_train_dict[key][0]),len(bioactivity_active_inactive_train_dict[key][1]))
             #print(key, len(bioactivity_active_inactive_test_dict[key][0]), len(bioactivity_active_inactive_test_dict[key][1]))
-
+    # print(len(training_targets))
     return bioactivity_active_inactive_train_dict[targetid][0], bioactivity_active_inactive_train_dict[targetid][1], bioactivity_active_inactive_test_dict[targetid][0], bioactivity_active_inactive_test_dict[targetid][1], training_targets
     #print(bioactivity_dict["CHEMBL209"])
 
@@ -1335,3 +1336,5 @@ def constructDataMatricesForATargetLenselinksStudy(output_path, target_id, rotat
     return train_data, test_data, test_data
 
 #constructDataMatricesForATargetLenselinksStudy(TEMP_IMG_OUTPUT_PATH, "CHEMBL262", rotate=False)
+
+

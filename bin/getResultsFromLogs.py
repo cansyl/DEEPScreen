@@ -8,13 +8,16 @@ print(header)
 log_path = ["rahmetCLUSTERLOGS", "tdoganYODALOGS"]
 modelTypeLOG = ["ImageNetLOGS", "OtherLOGS"]
 
+log_path = ["rahmetCLUSTERLOGS"]
+modelTypeLOG = ["ImageNetLOGS_Lenselink", "OtherLOGS_Lenselink"]
+
 for pt in log_path:
 	for mtl in modelTypeLOG:
 		log_fl_path = "../resultFiles/LOGS/{}/{}".format(pt, mtl)
 		for fl in os.listdir(log_fl_path):
 			#if True or fl=="convnetFinalRun_44924.out":
 			try:
-				#print(fl)
+
 				log_fl = open("{}/{}".format(log_fl_path, fl), "r")
 				lst_log_fl = log_fl.read()
 				if "Successfully completed" in lst_log_fl:
@@ -27,7 +30,7 @@ for pt in log_path:
 						if lst_log_fl[line_ind].startswith("BestTestF1Score"):
 							result_ind = line_ind
 							results = lst_log_fl[line_ind:(line_ind+6)]
-						if lst_log_fl[line_ind].startswith("python trainConvNet.py "):
+						if lst_log_fl[line_ind].startswith("python trainConvNetLenselink.py "):
 							params = lst_log_fl[line_ind].split(" ")[2:]
 
 					mcc_scores = lst_log_fl[result_ind+4]
