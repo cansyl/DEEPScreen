@@ -94,7 +94,7 @@ def loadModel(target):
 
         for i in range(len(test_predictions)):
             if test_pred_labels[i] == 1:
-                print("{}/t{}".format(test_comp_name[i], test_pred_labels[i]))
+                print("{}\t{}\t{}\t{}".format(test_comp_name[i], test_pred_labels[i], test_predictions[i], chembl_target_threshold_dict[target]))
     print("PREDICTIONS:{}".format(target))
     """
     while count < num_of_comps:
