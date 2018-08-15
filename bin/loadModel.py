@@ -72,7 +72,7 @@ def loadModel(target):
 
 
 
-    iter_count = 0
+    pred_count = 0
     count = 0
     print("PREDICTIONS:{}".format(target))
     for comp_id in comp_id_list:
@@ -94,7 +94,8 @@ def loadModel(target):
 
         for i in range(len(test_predictions)):
             if test_pred_labels[i] == 1:
-                print("{}\t{}\t{}\t{}".format(test_comp_name[i], test_pred_labels[i], test_predictions[i], chembl_target_threshold_dict[target]))
+                pred_count += 1
+                print("{}\t{}\t{}\t{}\t{}/{}".format(test_comp_name[i], test_pred_labels[i], test_predictions[i], chembl_target_threshold_dict[target], pred_count, count))
     print("PREDICTIONS:{}".format(target))
     """
     while count < num_of_comps:
