@@ -665,12 +665,12 @@ def getUniProtChEMBLTargetIDMapping():
     return uniprot_chembl_dict
 
 
-def getSMILEsForAllChEMBL():
+def getSMILEsForAllChEMBL(rep_fl):
     isFirst = True
     prob_count = 0
 
     compound_smiles_dict = dict()
-    with open("../trainingFiles/chembl_23_chemreps.txt") as f:
+    with open("../trainingFiles/{}".format(rep_fl)) as f:
         for line in f:
             if isFirst:
                 isFirst = False
@@ -846,7 +846,7 @@ def constructDataMatricesForATarget(output_path, target_id, rotate=False):
     train_test_data = []
     prob_count = 0
     count = 0
-    compound_smiles_dict = getSMILEsForAllChEMBL()
+    compound_smiles_dict = getSMILEsForAllChEMBL("chembl_23_chemreps.txt")
     act_list, inact_list = getActInactListForATarget(target_id, "act_inact_comps_10.0_20.0_chembl_preprocessed_sp_b_pchembl_data_blast_comp_20.txt")
 
     if len(inact_list) >= len(act_list):
@@ -1148,7 +1148,7 @@ def constructDataMatricesForATargetOtherClassifier(output_path, target_id, rotat
     train_test_data = []
     prob_count = 0
     count = 0
-    compound_smiles_dict = getSMILEsForAllChEMBL()
+    compound_smiles_dict = getSMILEsForAllChEMBL("chembl_23_chemreps.txt")
     act_list, inact_list = getActInactListForATarget(target_id, "act_inact_comps_10.0_20.0_chembl_preprocessed_sp_b_pchembl_data_blast_comp_20.txt")
 
     if len(inact_list) >= len(act_list):
@@ -1256,7 +1256,7 @@ def constructDataMatricesForATargetLenselinksStudy(output_path, target_id, rotat
     test_data = []
     prob_count = 0
     count = 0
-    compound_smiles_dict = getSMILEsForAllChEMBL()
+    compound_smiles_dict = getSMILEsForAllChEMBL("chembl_23_chemreps.txt")
     train_act_list, train_inact_list, test_act_list, test_inact_list, _ = getLenselinksActInactData(target_id)
 
 
@@ -1335,6 +1335,71 @@ def constructDataMatricesForATargetLenselinksStudy(output_path, target_id, rotat
 
     return train_data, test_data, test_data
 
+
 #constructDataMatricesForATargetLenselinksStudy(TEMP_IMG_OUTPUT_PATH, "CHEMBL262", rotate=False)
 
 
+def moveActiveInactiveFilesDUDEDataset():
+    for fold in os.listdir("{}/DUDEDatasetFiles/all".format(training_files_path)):
+        print(fold)
+        subprocess.call(["cp", "{}/DUDEDatasetFiles/all/{}/actives_final.ism".format(training_files_path, fold), "{}/DUDEDatasetFiles/{}_actives_final.ism".format(training_files_path, fold)])
+        subprocess.call(["cp", "{}/DUDEDatasetFiles/all/{}/decoys_final.ism".format(training_files_path, fold),
+                         "{}/DUDEDatasetFiles/{}_decoys_final.ism".format(training_files_path, fold)])
+#moveActiveInactiveFilesDUDEDataset()
+
+
+
+def getDUDEActInactData():
+    target_act_inact =dict()
+    for fl in os.listdir("{}/DUDEDatasetFiles".format(training_files_path)):
+        if fl.endswith("ism"):
+            target_name = fl.split("_")[0]
+            if target_name not in target_act_inact.keys():
+                # first actives then inactives
+                target_act_inact[target_name] = [[],[]]
+                act_fl = open("{}/DUDEDatasetFiles/{}_actives_final.ism".format(training_files_path,target_name), "r")
+                lst_act_fl = act_fl.read().split("\n")
+                act_fl.close()
+                while "" in lst_act_fl:
+                    lst_act_fl.remove("")
+
+                inact_fl = open("{}/DUDEDatasetFiles/{}_decoys_final.ism".format(training_files_path, target_name), "r")
+                lst_inact_fl = inact_fl.read().split("\n")
+                inact_fl.close()
+
+                while "" in lst_inact_fl:
+                    lst_inact_fl.remove("")
+
+                for line in lst_act_fl:
+                    #print(target_name, line.split(" "))
+                    smiles_str, chembl_id = line.split(" ")[0],line.split(" ")[-1]
+                    target_act_inact[target_name][0].append([smiles_str, chembl_id])
+                for line in lst_inact_fl:
+                    #print(target_name, line.split(" "))
+                    smiles_str, chembl_id = line.split(" ")[0],line.split(" ")[-1]
+                    target_act_inact[target_name][1].append([smiles_str, chembl_id])
+    for key in target_act_inact.keys():
+        if len(target_act_inact[key][0]) >= 50 and len(target_act_inact[key][1]) >= 50:
+            print(key, len(target_act_inact[key][0]), len(target_act_inact[key][1]))
+
+
+#getDUDEActInactData()
+
+
+def getModelThresholds(bestModelFile):
+    #ChEMBLBestModelResultsBest.txt
+    best_fl = open("{}/{}".format(result_files_path, bestModelFile), "r")
+    lst_best_fl = best_fl.read().split("\n")
+    best_fl.close()
+
+    while "" in lst_best_fl:
+        lst_best_fl.remove("")
+
+    chembl_target_threshold_dict = dict()
+    for line in lst_best_fl[1:]:
+        log_fl, modelname, target, optimizer, learning_rate, epoch, hidden1, hidden2, dropout, rotate, save_model, test_f1score, test_mcc, test_accuracy, test_precision, test_recall, test_tp, test_fp, test_tn, test_fn, test_threshold, val_auc, val_auprc, test_auc, test_auprc = line.split("\t")
+        chembl_target_threshold_dict[target] = float(test_threshold)
+
+    return chembl_target_threshold_dict
+
+#getModelThresholds("ChEMBLBestModelResultsBest.txt")
