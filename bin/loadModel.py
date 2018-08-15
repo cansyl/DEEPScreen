@@ -74,7 +74,7 @@ def loadModel(target):
 
     iter_count = 0
     count = 0
-
+    print("######### PREDICTIONS #########")
     for comp_id in comp_id_list:
         count += 1
         #print(count)
@@ -95,6 +95,7 @@ def loadModel(target):
         for i in range(len(test_predictions)):
             if test_pred_labels[i] == 1:
                 print("{}/t{}".format(test_comp_name[i], test_pred_labels[i]))
+    print("######### PREDICTIONS #########")
     """
     while count < num_of_comps:
         iter_count += 1
