@@ -77,7 +77,7 @@ def loadModel(target):
 
     for comp_id in comp_id_list:
         count += 1
-        print(count)
+        #print(count)
         test_data = []
 
         try:
