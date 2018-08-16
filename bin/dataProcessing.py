@@ -8,7 +8,7 @@ import cairosvg
 from rdkit import Chem
 from rdkit.Chem import Draw
 from rdkit.Chem.Draw import DrawingOptions
-
+# MUV dataset files were downloaded from https://jcheminf.springeropen.com/articles/10.1186/1758-2946-5-26
 IMG_SIZE = 200
 training_dataset_path = "/Users/trman/OneDrive/Projects/DrugDiscovery/TrainingDatasets/ChEMBL"
 TEMP_IMG_OUTPUT_PATH = "../tempImage"
@@ -1349,7 +1349,7 @@ def moveActiveInactiveFilesDUDEDataset():
 
 
 
-def getDUDEActInactData():
+def getDUDEActInactData(target_name="aa2ar"):
     target_act_inact =dict()
     for fl in os.listdir("{}/DUDEDatasetFiles".format(training_files_path)):
         if fl.endswith("ism"):
@@ -1378,12 +1378,103 @@ def getDUDEActInactData():
                     #print(target_name, line.split(" "))
                     smiles_str, chembl_id = line.split(" ")[0],line.split(" ")[-1]
                     target_act_inact[target_name][1].append([smiles_str, chembl_id])
+
+    target_list = []
     for key in target_act_inact.keys():
-        if len(target_act_inact[key][0]) >= 50 and len(target_act_inact[key][1]) >= 50:
-            print(key, len(target_act_inact[key][0]), len(target_act_inact[key][1]))
+        random.shuffle(target_act_inact[key][0])
+        random.shuffle(target_act_inact[key][1])
+        target_list.append(key)
+
+    act_train_size = int(0.8 * len(target_act_inact[target_name][0]))
+    train_act_list = target_act_inact[target_name][0][:act_train_size]
+    test_act_list = target_act_inact[target_name][0][act_train_size:]
+    inact_train_size = int(len(target_act_inact[target_name][0]) * 1.5)
+    train_inact_list = target_act_inact[target_name][1][:int(inact_train_size * 0.8)]
+    test_inact_list = target_act_inact[target_name][1][int(inact_train_size * 0.8):int(inact_train_size)]
+    # print(len(train_act_list), len(test_act_list), len(train_inact_list), len(test_inact_list))
+    return train_act_list, test_act_list, train_inact_list, test_inact_list, target_list
 
 
-#getDUDEActInactData()
+# getDUDEActInactData("aa2ar")
+
+def constructDataMatricesForDUDEDataset(output_path, target_id, rotate=False):
+    train_data = []
+    test_data = []
+    prob_count = 0
+    count = 0
+    train_act_list, test_act_list, train_inact_list, test_inact_list, _ = getDUDEActInactData(target_id)
+
+
+    print("Number of active compounds :\t{}".format(len(train_act_list)))
+    print("Number of inactive compounds :\t{}".format(len(train_inact_list)))
+    print("Number of active test compounds :\t{}".format(len(test_act_list)))
+    print("Number of inactive test compounds :\t{}".format(len(test_inact_list)))
+    for pos_comp in train_act_list:
+        #print(pos_comp)
+        label = [1, 0]
+        try:
+            count += 1
+            #print(count)
+            img_arr = drawPictureandReturnImgMatrix(output_path, pos_comp[0], pos_comp[1])
+            train_data.append([np.array(img_arr/255.0), np.array(label), pos_comp[1]])
+
+            if rotate:
+                rotateImageReturnMatrix(train_data, img_arr, label, pos_comp[1])
+
+        except Exception as e:
+            #print(str(e))
+            prob_count += 1
+            pass
+
+    for neg_comp in train_inact_list:
+        label = [0, 1]
+        try:
+            count += 1
+            img_arr = drawPictureandReturnImgMatrix(output_path, neg_comp[0], neg_comp[1])
+            train_data.append([np.array(img_arr/255.0), np.array(label), neg_comp[1]])
+
+            if rotate:
+                rotateImageReturnMatrix(train_data, img_arr, label, neg_comp[1])
+        except:
+            prob_count += 1
+            pass
+
+    for pos_comp in test_act_list:
+        label = [1, 0]
+        try:
+            count += 1
+            #print(count)
+            img_arr = drawPictureandReturnImgMatrix(output_path, pos_comp[0], pos_comp[1])
+            test_data.append([np.array(img_arr/255.0), np.array(label), pos_comp[1]])
+
+            if rotate:
+                rotateImageReturnMatrix(test_data, img_arr, label, pos_comp[1])
+
+        except Exception as e:
+            #print(str(e))
+            prob_count += 1
+            pass
+
+    for neg_comp in test_inact_list:
+        label = [0, 1]
+        try:
+            count += 1
+            img_arr = drawPictureandReturnImgMatrix(output_path, neg_comp[0], neg_comp[1])
+            test_data.append([np.array(img_arr/255.0), np.array(label), neg_comp[1]])
+
+            if rotate:
+                rotateImageReturnMatrix(test_data, img_arr, label, neg_comp[1])
+        except:
+            prob_count += 1
+            pass
+
+
+    random.shuffle(train_data)
+    random.shuffle(test_data)
+    #print(len(train_data), len(test_data))
+
+
+    return train_data, test_data, test_data
 
 
 def getModelThresholds(bestModelFile):
@@ -1403,3 +1494,132 @@ def getModelThresholds(bestModelFile):
     return chembl_target_threshold_dict
 
 #getModelThresholds("ChEMBLBestModelResultsBest.txt")
+
+def getMUVActInactData(target_id = "MUV_852"):
+    target_act_inact =dict()
+    for fl in os.listdir("{}/MUVDatasetFiles".format(training_files_path)):
+        if fl.endswith("dat"):
+            fl_name_fields = fl.split("_")
+            target_name = "{}_{}".format(fl_name_fields[2], fl_name_fields[3])
+            if target_name not in target_act_inact.keys():
+                # first actives then inactives
+                target_act_inact[target_name] = [[],[]]
+                act_fl = open("{}/MUVDatasetFiles/cmp_list_{}_actives.dat".format(training_files_path,target_name), "r")
+                lst_act_fl = act_fl.read().split("\n")
+                act_fl.close()
+                while "" in lst_act_fl:
+                    lst_act_fl.remove("")
+
+                inact_fl = open("{}/MUVDatasetFiles/cmp_list_{}_decoys.dat".format(training_files_path, target_name), "r")
+                lst_inact_fl = inact_fl.read().split("\n")
+                inact_fl.close()
+
+                while "" in lst_inact_fl:
+                    lst_inact_fl.remove("")
+
+                for line in lst_act_fl[1:]:
+                    #print(target_name, line.split(" "))
+                    pubchem_id, muv_id, smiles_str = line.split("\t")
+                    target_act_inact[target_name][0].append([smiles_str, "{}_{}".format(pubchem_id, muv_id)])
+                for line in lst_inact_fl:
+                    #print(target_name, line.split(" "))
+                    pubchem_id, muv_id, smiles_str = line.split("\t")
+                    target_act_inact[target_name][1].append([smiles_str, "{}_{}".format(pubchem_id, muv_id)])
+    target_list = []
+    for key in target_act_inact.keys():
+        target_list.append(key)
+        random.shuffle(target_act_inact[key][0])
+        random.shuffle(target_act_inact[key][1])
+
+
+
+    act_train_size = int(0.8 * len(target_act_inact[target_id][0]))
+    train_act_list = target_act_inact[target_id][0][:act_train_size]
+    test_act_list = target_act_inact[target_id][0][act_train_size:]
+    inact_train_size = int(len(target_act_inact[target_id][0])*1.5)
+    train_inact_list = target_act_inact[target_id][1][:int(inact_train_size*0.8)]
+    test_inact_list = target_act_inact[target_id][1][int(inact_train_size*0.8):int(inact_train_size)]
+    #print(len(train_act_list), len(test_act_list), len(train_inact_list), len(test_inact_list))
+    return train_act_list, test_act_list, train_inact_list, test_inact_list, target_list
+
+# getMUVActInactData("MUV_852")
+
+
+def constructDataMatricesForMUVDataset(output_path, target_id, rotate=False):
+    train_data = []
+    test_data = []
+    prob_count = 0
+    count = 0
+    train_act_list, test_act_list, train_inact_list, test_inact_list, _ = getMUVActInactData(target_id)
+
+
+    print("Number of active compounds :\t{}".format(len(train_act_list)))
+    print("Number of inactive compounds :\t{}".format(len(train_inact_list)))
+    print("Number of active test compounds :\t{}".format(len(test_act_list)))
+    print("Number of inactive test compounds :\t{}".format(len(test_inact_list)))
+    for pos_comp in train_act_list:
+        #print(pos_comp)
+        label = [1, 0]
+        #try:
+        count += 1
+        #print(count)
+        img_arr = drawPictureandReturnImgMatrix(output_path, pos_comp[0], pos_comp[1])
+        train_data.append([np.array(img_arr/255.0), np.array(label), pos_comp[1]])
+
+        if rotate:
+            rotateImageReturnMatrix(train_data, img_arr, label, pos_comp[1])
+
+        #except Exception as e:
+        #    #print(str(e))
+        #    prob_count += 1
+        #    pass
+
+    for neg_comp in train_inact_list:
+        label = [0, 1]
+        #try:
+        count += 1
+        img_arr = drawPictureandReturnImgMatrix(output_path, neg_comp[0], neg_comp[1])
+        train_data.append([np.array(img_arr/255.0), np.array(label), neg_comp[1]])
+
+        if rotate:
+            rotateImageReturnMatrix(train_data, img_arr, label, neg_comp[1])
+        #except:
+        #    prob_count += 1
+        #    pass
+
+    for pos_comp in test_act_list:
+        label = [1, 0]
+        try:
+            count += 1
+            #print(count)
+            img_arr = drawPictureandReturnImgMatrix(output_path, pos_comp[0], pos_comp[1])
+            test_data.append([np.array(img_arr/255.0), np.array(label), pos_comp[1]])
+
+            if rotate:
+                rotateImageReturnMatrix(test_data, img_arr, label, pos_comp[1])
+
+        except Exception as e:
+            #print(str(e))
+            prob_count += 1
+            pass
+
+    for neg_comp in test_inact_list:
+        label = [0, 1]
+        try:
+            count += 1
+            img_arr = drawPictureandReturnImgMatrix(output_path, neg_comp[0], neg_comp[1])
+            test_data.append([np.array(img_arr/255.0), np.array(label), neg_comp[1]])
+
+            if rotate:
+                rotateImageReturnMatrix(test_data, img_arr, label, neg_comp[1])
+        except:
+            prob_count += 1
+            pass
+
+
+    random.shuffle(train_data)
+    random.shuffle(test_data)
+    # print(len(train_data), len(test_data))
+
+
+    return train_data, test_data, test_data
