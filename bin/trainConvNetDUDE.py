@@ -12,8 +12,8 @@ from sklearn.metrics import confusion_matrix
 
 import sys
 
-IMG_SIZE = 200
-# IMG_SIZE = 266
+# IMG_SIZE = 200
+IMG_SIZE = 266
 LR = 1e-3
 
 training_dataset_path = "/Users/trman/OneDrive/Projects/DrugDiscovery/TrainingDatasets"
