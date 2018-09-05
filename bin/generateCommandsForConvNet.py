@@ -44,6 +44,7 @@ for i in range(len(lst_act_inact_fl)):
 			#print(chembl_target_id, len(comp_list))
 
 print(len(set(all_compound_set)))
+print(len(target_list))
 sys.exit(0)
 #target_list = ["CHEMBL3638364", "CHEMBL5077", "CHEMBL2949", "CHEMBL221", "CHEMBL1075138"]
 optimizers = ["adam", "momentum", "RMSprop"]

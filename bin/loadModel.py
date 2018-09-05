@@ -3,13 +3,15 @@ import os
 from models import ImageNetInceptionV2, AlexNetModel, CNNModel, CNNModel2
 from dataProcessing import getSMILEsForAllChEMBL, getModelThresholds, drawPictureandReturnImgMatrix
 import sys
-#IMG_SIZE = 200
+# IMG_SIZE = 200
 IMG_SIZE = 266
 training_dataset_path = "/Users/trman/OneDrive/Projects/DrugDiscovery/TrainingDatasets"
 images_path = "../images200"
 result_files_path = "../resultFiles"
 model_files_path = "../tflearnModels"
 TEMP_IMG_OUTPUT_PATH = "../tempImage"
+
+
 
 def getBestModelFileName(model_name):
     max_snapshot_number = -1
@@ -50,6 +52,7 @@ def loadModel(target):
     print(model_fl)
     params = model_fl.split("-")[0].split("_")
     model_name = params[0]
+    print(params)
     model = None
     #outnode, model_name, target, opt, learn_r, epch, dropout_keep_rate, save_model = False
     if model_name=="ImageNetInceptionV2":
@@ -65,7 +68,7 @@ def loadModel(target):
 
     chembl_target_threshold_dict = getModelThresholds("ChEMBLBestModelResultsBest.txt")
 
-    compound_smiles_dict = getSMILEsForAllChEMBL("chembl_24_1_chemreps.txt")
+    compound_smiles_dict = getSMILEsForAllChEMBL(test_fl)
     comp_id_list = list(compound_smiles_dict.keys())
     num_of_comps = len(comp_id_list)
     print(num_of_comps)
@@ -128,6 +131,7 @@ def loadModel(target):
 
 
 chembl_target = sys.argv[1]
+test_fl  = sys.argv[2]
 loadModel(chembl_target)
 # trainModelTarget("hsa:xxx")
 # trainModelTarget("hsa:246")

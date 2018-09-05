@@ -664,18 +664,21 @@ def getUniProtChEMBLTargetIDMapping():
                         uniprot_chembl_dict[u_id] = [chembl_id]
     return uniprot_chembl_dict
 
-
+# the name of this function should be changed
 def getSMILEsForAllChEMBL(rep_fl):
     isFirst = True
     prob_count = 0
-
+    # there should be a header in the smiles file
     compound_smiles_dict = dict()
     with open("../trainingFiles/{}".format(rep_fl)) as f:
         for line in f:
             if isFirst:
                 isFirst = False
             else:
-                chembl_id, smiles, _, _ = line.split("\t")
+                temp_parts = line.split("\t")
+                print(temp_parts)
+                chembl_id, smiles = temp_parts[0], temp_parts[1]
+                #chembl_id, smiles, _, _ = line.split("\t")
                 # print(chembl_id, smiles)
                 compound_smiles_dict[chembl_id] = smiles
     return compound_smiles_dict
@@ -1623,3 +1626,55 @@ def constructDataMatricesForMUVDataset(output_path, target_id, rotate=False):
 
 
     return train_data, test_data, test_data
+
+
+def activeInactiveDatasetForGerard():
+    act_inact_fl = open(
+        "../trainingFiles/act_inact_comps_10.0_20.0_chembl_preprocessed_sp_b_pchembl_data_blast_comp_20.txt", "r")
+    lst_act_inact_fl = act_inact_fl.read().split("\n")
+    act_inact_fl.close()
+    all_compound_set = []
+    target_count = 0
+    target_list = []
+    for i in range(len(lst_act_inact_fl)):
+        if "_act" in lst_act_inact_fl[i]:
+            chembl_target_id, comp_list = lst_act_inact_fl[i].split("\t")
+            chembl_target_id = chembl_target_id.split("_")[0]
+            comp_list = comp_list.split(",")
+            all_compound_set.extend(comp_list)
+            _, inact_comp_list = lst_act_inact_fl[i + 1].split("\t")
+            inact_comp_list = inact_comp_list.split(",")
+
+            all_compound_set.extend(inact_comp_list)
+            if len(comp_list) >= 100 and len(inact_comp_list) >= 100:
+                target_count += 1
+                # print(target_count)
+                target_list.append(chembl_target_id)
+
+                train_test_data = []
+                prob_count = 0
+                count = 0
+                compound_smiles_dict = getSMILEsForAllChEMBL("chembl_23_chemreps.txt")
+                act_list, inact_list = getActInactListForATarget(chembl_target_id, "act_inact_comps_10.0_20.0_chembl_preprocessed_sp_b_pchembl_data_blast_comp_20.txt")
+
+                if len(inact_list) >= len(act_list):
+                    inact_list = inact_list[:len(act_list)]
+                else:
+                    act_list = act_list[:int(len(inact_list)*1.5)]
+
+                str_act_line = "{}_act\t".format(chembl_target_id)
+                for comp in act_list:
+                    str_act_line += "{},".format(comp)
+
+                str_inact_line = "{}_inact\t".format(chembl_target_id)
+                for comp in inact_list:
+                    str_inact_line += "{},".format(comp)
+
+                print(str_act_line[:-1])
+                print(str_inact_line[:-1])
+
+
+    # print(target_count)
+
+
+#activeInactiveDatasetForGerard()
