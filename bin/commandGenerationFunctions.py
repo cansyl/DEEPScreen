@@ -421,3 +421,31 @@ def generateCommandsForShallowClasssifiers():
                 "bsub -q research-rh7 -R 'select[nprocs<=2]' -M 30720  -o ../LOGS/ShallowLOGS/shallow_{}.out \"python train_other_classifiers.py {} > ../LOGS/ShallowLOGS/{}_shallow.txt\"".format(
                     line[2], line[2], line[2]))
             print("sleep 2")
+
+
+
+def generateCommandsForMissingModels():
+    print("#!/bin/bash")
+    import os
+
+    command_fl = open("./clusterBashScripts/JobCommandsYODATop5.sh","r")
+    lst_command_fl = command_fl.read().split("\n")
+    command_fl.close()
+
+    for line in lst_command_fl:
+        if line.startswith("bsub"):
+            log_path = line.split(" ")[9]
+            if os.path.exists(log_path):
+                log_fl = open(log_path, "r")
+                str_log_fl = log_fl.read()
+                log_fl.close()
+                if "Successfully completed." not in str_log_fl:
+                    print(line)
+                    print("sleep 3")
+
+            else:
+                print(line)
+                print("sleep 3")
+
+
+generateCommandsForMissingModels()
