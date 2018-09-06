@@ -181,7 +181,7 @@ def ImageNetInceptionV2(outnode, model_name,  target, opt, learn_r, epch, dropou
     model = None
     if save_model:
         model = tflearn.DNN(network, checkpoint_path='../tflearnModels/{}'.format(str_model_name), best_checkpoint_path='../tflearnModels/bestModels/best_{}'.format(str_model_name),
-                        max_checkpoints=2, tensorboard_verbose=0, tensorboard_dir="../tflearnLogs/{}/".format(str_model_name))
+                        max_checkpoints=1, tensorboard_verbose=0, tensorboard_dir="../tflearnLogs/{}/".format(str_model_name))
     else:
         model = tflearn.DNN(network)
 
@@ -215,7 +215,7 @@ def AlexNetModel(outnode, model_name,  target, opt, learn_r, epch,  n_of_h1, n_o
     model = None
     if save_model:
         model = tflearn.DNN(network, checkpoint_path='../tflearnModels/{}'.format(str_model_name), best_checkpoint_path='../tflearnModels/bestModels/best_{}'.format(str_model_name),
-                        max_checkpoints=2, tensorboard_verbose=0, tensorboard_dir="../tflearnLogs/{}/".format(str_model_name))
+                        max_checkpoints=1, tensorboard_verbose=0, tensorboard_dir="../tflearnLogs/{}/".format(str_model_name))
     else:
         model = tflearn.DNN(network)
     return model
@@ -253,7 +253,7 @@ def CNNModel2(outnode, model_name,  target, opt, learn_r, epch, n_of_h1, dropout
         model = tflearn.DNN(convnet,
                             checkpoint_path='../tflearnModels/{}'.format(str_model_name),
                             best_checkpoint_path='../tflearnModels/bestModels/best_{}'.format(str_model_name),
-                            max_checkpoints=2, tensorboard_verbose=0,
+                            max_checkpoints=1, tensorboard_verbose=0,
                             tensorboard_dir="../tflearnLogs/{}/".format(str_model_name))
     else:
         model = tflearn.DNN(convnet)
@@ -293,7 +293,7 @@ def CNNModel(outnode, model_name,  target, opt, learn_r, epch, n_of_h1, dropout_
 
     if save_model:
         model = tflearn.DNN(convnet, checkpoint_path='../tflearnModels/{}'.format(str_model_name), best_checkpoint_path='../tflearnModels/bestModels/best_{}'.format(str_model_name),
-                        max_checkpoints=2, tensorboard_verbose=0, tensorboard_dir="../tflearnLogs/{}/".format(str_model_name))
+                        max_checkpoints=1, tensorboard_verbose=0, tensorboard_dir="../tflearnLogs/{}/".format(str_model_name))
     else:
         model = tflearn.DNN(convnet)
 
