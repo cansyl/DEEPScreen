@@ -3,8 +3,8 @@ import os
 from models import ImageNetInceptionV2, AlexNetModel, CNNModel, CNNModel2
 from dataProcessing import getSMILEsForAllChEMBL, getModelThresholds, drawPictureandReturnImgMatrix
 import sys
-# IMG_SIZE = 200
-IMG_SIZE = 266
+IMG_SIZE = 200
+# IMG_SIZE = 266
 training_dataset_path = "/Users/trman/OneDrive/Projects/DrugDiscovery/TrainingDatasets"
 images_path = "../images200"
 result_files_path = "../resultFiles"

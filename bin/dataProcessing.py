@@ -646,6 +646,29 @@ def getChEMBLTargetIDUniProtMapping():
 
     return chembl_uniprot_dict
 
+
+def getChEMBLTargetIDProteinNameMapping():
+    chembl_def_dict = dict()
+
+    with open("{}/{}".format(training_files_path, "chembl_uniprot_mapping.txt")) as f:
+        for line in f:
+            if not line.startswith("#") and line != "":
+                line=line.split("\n")[0]
+                #print(line.split("\t"))
+                u_id, chembl_id, defin, target_type = line.split("\t")
+
+                if target_type=='SINGLE PROTEIN':
+
+                    try:
+                        chembl_def_dict[chembl_id].append(defin)
+                        #print("varmis", comp_id, uniprot_id)
+                    except:
+                        chembl_def_dict[chembl_id] = [defin]
+    #for key in chembl_uniprot_dict.keys():
+    #    if len(chembl_uniprot_dict[key])!=1:
+    #        print(key, chembl_uniprot_dict[key])
+
+    return chembl_def_dict
 #getChEMBLTargetIDUniProtMapping()
 
 def getUniProtChEMBLTargetIDMapping():
@@ -675,8 +698,9 @@ def getSMILEsForAllChEMBL(rep_fl):
             if isFirst:
                 isFirst = False
             else:
+                line = line.split("\n")[0]
                 temp_parts = line.split("\t")
-                print(temp_parts)
+                # print(temp_parts)
                 chembl_id, smiles = temp_parts[0], temp_parts[1]
                 #chembl_id, smiles, _, _ = line.split("\t")
                 # print(chembl_id, smiles)
@@ -1678,3 +1702,18 @@ def activeInactiveDatasetForGerard():
 
 
 #activeInactiveDatasetForGerard()
+
+def getModelPerformances(bestModelFile):
+    result_fl = open("{}/{}".format(result_files_path, bestModelFile), "r")
+    lst_result_fl = result_fl.read().split("\n")
+    result_fl.close()
+
+    target_perf_dict = dict()
+
+    for line in lst_result_fl[1:-1]:
+        log_fl, modelname, target, optimizer, learning_rate, epoch, hidden1, hidden2, dropout, rotate, save_model, test_f1score, test_mcc, test_accuracy, test_precision, test_recall, test_tp, test_fp, test_tn, test_fn, test_threshold, val_auc, val_auprc, test_auc, test_auprc = line.split("\t")
+        target_perf_dict[target] = float(test_mcc)
+        # print(target, test_mcc, test_threshold)
+    return target_perf_dict
+
+# getModelPerformances("ChEMBLBestModelResultsBest.txt")
