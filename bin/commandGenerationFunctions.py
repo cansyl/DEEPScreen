@@ -423,6 +423,7 @@ def generateCommandsForShallowClasssifiers():
             print("sleep 2")
 
 
+# generate the commands and remove the file from cluster
 
 def generateCommandsForMissingModels():
     print("#!/bin/bash")
