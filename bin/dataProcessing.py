@@ -934,7 +934,6 @@ def constructDataMatricesForATarget(output_path, target_id, rotate=False):
     return training_data, validation_data, test_data
 
 
-
 def createActiveInactiveFilesForAllTargets(fl, act_threshold, inact_threshold):
     isFirst = True
     target_dict = dict()
@@ -1717,3 +1716,97 @@ def getModelPerformances(bestModelFile):
     return target_perf_dict
 
 # getModelPerformances("ChEMBLBestModelResultsBest.txt")
+
+def getMatchingGenesProteins():
+    import pandas as pd
+    from pandas import read_csv
+    path_cu = "{}/chembl_uniprot_mapping_single_protein_with_header.txt".format(training_files_path)
+    df_cu = read_csv(path_cu, sep="\t")
+
+    path_tt = "{}/trainedTargetList.txt".format(training_files_path)
+    df_tt = read_csv(path_tt, sep="\t", header=None)
+    df_tt.columns = ["ChEMBLTargetID"]
+    df_all_trained = pd.merge(df_cu, df_tt, on=["ChEMBLTargetID"])
+
+    path_pc = "{}/paneCancerGenesUniProtMapping.txt".format(training_files_path)
+    df_pc = read_csv(path_pc, sep="\t")
+    df_pc_human = df_pc.loc[df_pc['Organism'] == "Homo sapiens (Human)"]
+    # print(df_pc_human)
+
+    result = pd.merge(df_all_trained, df_pc_human, on=["UniProtAccession"])
+    path_pcg = "{}/panecancer_genes.txt".format(training_files_path)
+    df_pcg = read_csv(path_pcg, sep="\t")
+    result = pd.merge(result, df_pcg, on=["GeneSymbol"])
+
+
+    #print(df_pc_human.columns)
+    #print(df_cu.columns)
+
+
+    print(result.describe())
+    print(result.columns)
+    print(len(result))
+    print(len(set(result["ChEMBLTargetID"].tolist())))
+    result.to_csv("{}/trained_chembl_targets_pancancer_mapping.txt".format(training_files_path), sep="\t", index=False)
+
+
+#getMatchingGenesProteins()
+
+
+def getMismatchingGenesProteins():
+    import pandas as pd
+    from pandas import read_csv
+    path_matching_genes = "{}/trained_chembl_targets_pancancer_mapping.txt".format(training_files_path)
+    df_matching_genes = read_csv(path_matching_genes, sep="\t")
+
+    print(df_matching_genes.columns)
+    path_pcg = "{}/panecancer_genes.txt".format(training_files_path)
+    df_pcg = read_csv(path_pcg, sep="\t")
+
+    mismatching_set = set(df_pcg['GeneSymbol'].tolist())-set(df_matching_genes['GeneSymbol'].tolist())
+    df_mismatching_genes = pd.DataFrame.from_dict({'GeneSymbol':list(mismatching_set)})
+
+    result = pd.merge(df_pcg, df_mismatching_genes, on=["GeneSymbol"])
+    result.to_csv("{}/nontrained_pancancer_genes.txt".format(training_files_path), sep="\t", index=False)
+
+
+    #print(result)
+    #df = pd.DataFrame.from_dict(sales)
+    print(len(mismatching_set))
+    print(len(set(df_matching_genes['GeneSymbol'])))
+
+# getMismatchingGenesProteins()
+
+def getTrainedButNotPanCancerProteins():
+    import pandas as pd
+    from pandas import read_csv
+    path_cu = "{}/chembl_uniprot_mapping_single_protein_with_header.txt".format(training_files_path)
+    df_cu = read_csv(path_cu, sep="\t")
+
+    path_tt = "{}/trainedTargetList.txt".format(training_files_path)
+    df_tt = read_csv(path_tt, sep="\t", header=None )
+    df_tt.columns = ["ChEMBLTargetID"]
+    df_all_trained = pd.merge(df_cu, df_tt, on=["ChEMBLTargetID"])
+    print(df_all_trained)
+
+    path_overlap = "{}/trained_chembl_targets_pancancer_mapping.txt".format(training_files_path)
+    df_overlap = read_csv(path_overlap, sep="\t")
+    all_chembl_id_set = set(df_all_trained["ChEMBLTargetID"])
+    trained_chembl_id_set = set(df_overlap["ChEMBLTargetID"])
+    # print(len(all_chembl_id_set),len(trained_chembl_id_set))
+    # print(len(all_chembl_id_set.intersection(trained_chembl_id_set)))
+    trained_but_no_overlap_chembl_id_set = all_chembl_id_set - trained_chembl_id_set
+
+    dict_trained_but_no_overlap_chembl_id = {"ChEMBLTargetID": list(trained_but_no_overlap_chembl_id_set)}
+    df_trained_but_no_overlap_chembl_id = pd.DataFrame.from_dict(dict_trained_but_no_overlap_chembl_id)
+
+
+    df_no_overlap_trained = pd.merge(df_cu, df_trained_but_no_overlap_chembl_id, on=["ChEMBLTargetID"])
+    print(df_no_overlap_trained)
+    df_no_overlap_trained.to_csv("{}/trained_no_overlap_with_pancancer_genes.txt".format(training_files_path), sep="\t", index=False)
+    #df = pd.DataFrame.from_dict(sales)
+    #pd.merge(df_all_trained, df_nontrained, on=["ChEMBLTargetID"])
+
+# getTrainedButNotPanCancerProteins()
+
+# df_count = df.groupby("Organism").size()

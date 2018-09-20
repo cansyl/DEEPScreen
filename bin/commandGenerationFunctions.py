@@ -386,8 +386,8 @@ def generateCommandsForLoadingModel():
     print("#!/bin/bash")
 
     result_files_path = "../resultFiles"
-
-    best_fl = open("{}/ChEMBLBestModelResultsBest.txt".format(result_files_path), "r")
+    #best_fl = open("{}/ChEMBLBestModelResultsBest.txt".format(result_files_path), "r")
+    best_fl = open("{}/ChEMBLBestModelResultsAll_v2.txt".format(result_files_path), "r")
     lst_best_fl = best_fl.read().split("\n")
     best_fl.close()
 
@@ -401,8 +401,9 @@ def generateCommandsForLoadingModel():
         print(
             "bsub -q research -R 'select[nprocs<=2]' -M 10240 -R 'rusage[mem=10240]'  -o ../LOGS/LoadModels/testDrugs_{}.out \"python loadModel.py {} drugs_case_study.txt\"".format(
                 target, target))
-        print("sleep 5")
+        print("sleep 3")
 
+generateCommandsForLoadingModel()
 
 def generateCommandsForShallowClasssifiers():
     print("#!/bin/bash")
@@ -449,4 +450,4 @@ def generateCommandsForMissingModels():
                 print("sleep 3")
 
 
-generateCommandsForMissingModels()
+# generateCommandsForMissingModels()
