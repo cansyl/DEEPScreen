@@ -414,7 +414,7 @@ def generateCommandsForLoadingModel():
                 model_fl, target, model_fl))
         print("sleep 3")
 
-generateCommandsForLoadingModel()
+# generateCommandsForLoadingModel()
 
 def generateCommandsForShallowClasssifiers():
     print("#!/bin/bash")
@@ -441,13 +441,14 @@ def generateCommandsForMissingModels():
     print("#!/bin/bash")
     import os
 
-    command_fl = open("./clusterBashScripts/JobCommandsYODATop5.sh","r")
+    command_fl = open("./JobCommandsForAllTop5ModelsDrugCase.sh","r")
     lst_command_fl = command_fl.read().split("\n")
     command_fl.close()
 
     for line in lst_command_fl:
         if line.startswith("bsub"):
-            log_path = line.split(" ")[9]
+            log_path = line.split(" ")[11]
+            #print(log_path)
             if os.path.exists(log_path):
                 log_fl = open(log_path, "r")
                 str_log_fl = log_fl.read()
@@ -461,4 +462,4 @@ def generateCommandsForMissingModels():
                 print("sleep 3")
 
 
-# generateCommandsForMissingModels()
+generateCommandsForMissingModels()

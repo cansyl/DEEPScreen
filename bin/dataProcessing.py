@@ -1810,3 +1810,53 @@ def getTrainedButNotPanCancerProteins():
 # getTrainedButNotPanCancerProteins()
 
 # df_count = df.groupby("Organism").size()
+
+def evaluateBioactivities():
+    import pandas as pd
+    from pandas import read_csv
+    drug_files = ["CHEMBL76_bioactivity-18_15_46_32.txt",
+    "CHEMBL468_bioactivity-18_8_48_55.txt",
+    "CHEMBL535_bioactivity-18_8_51_48.txt",
+    "CHEMBL21333_bioactivity-18_8_50_43.txt",
+    "CHEMBL1289601_bioactivity-18_8_45_16.txt",
+    "CHEMBL1946170_bioactivity-18_8_47_18.txt",
+    "CHEMBL3545311_bioactivity-18_11_44_28.txt"]
+    df_all_drug_bioactivities = pd.DataFrame( columns=["CMPD_CHEMBLID","TARGET_CHEMBLID", "STANDARD_TYPE", "RELATION", "STANDARD_VALUE", "STANDARD_UNITS", "PCHEMBL_VALUE"])
+    for dfl in drug_files:
+        comp_id = dfl.split("_")[0]
+        path_bioact = "{}/{}".format(training_files_path,dfl)
+        df_bioact = read_csv(path_bioact, sep="\t")[["CMPD_CHEMBLID","TARGET_CHEMBLID", "STANDARD_TYPE", "RELATION", "STANDARD_VALUE", "STANDARD_UNITS", "PCHEMBL_VALUE"]]
+        df_comp_bioact = df_bioact.loc[df_bioact['CMPD_CHEMBLID'] == comp_id]
+        df_comp_bioact = df_bioact.loc[df_bioact["STANDARD_UNITS"]=="nM"]
+        df_comp_bioact = df_comp_bioact[np.isfinite(df_comp_bioact['PCHEMBL_VALUE'])]
+        #df_comp_bioact = df_bioact.loc[df_bioact["PCHEMBL_VALUE"] != ""]
+        path_tt = "{}/trainedTargetList.txt".format(training_files_path)
+        df_tt = read_csv(path_tt, sep="\t", header=None )
+        df_tt.columns = ["TARGET_CHEMBLID"]
+        df_comp_bioact_intersect_trained = pd.merge(df_comp_bioact, df_tt, on=["TARGET_CHEMBLID"])
+        df_all_drug_bioactivities = df_all_drug_bioactivities.append(df_comp_bioact_intersect_trained)
+        print(df_comp_bioact_intersect_trained)
+
+    print(df_all_drug_bioactivities)
+    """
+    path_overlap = "{}/trained_chembl_targets_pancancer_mapping.txt".format(training_files_path)
+    df_overlap = read_csv(path_overlap, sep="\t")
+    all_chembl_id_set = set(df_all_trained["ChEMBLTargetID"])
+    trained_chembl_id_set = set(df_overlap["ChEMBLTargetID"])
+    # print(len(all_chembl_id_set),len(trained_chembl_id_set))
+    # print(len(all_chembl_id_set.intersection(trained_chembl_id_set)))
+    trained_but_no_overlap_chembl_id_set = all_chembl_id_set - trained_chembl_id_set
+
+    dict_trained_but_no_overlap_chembl_id = {"ChEMBLTargetID": list(trained_but_no_overlap_chembl_id_set)}
+    df_trained_but_no_overlap_chembl_id = pd.DataFrame.from_dict(dict_trained_but_no_overlap_chembl_id)
+
+
+    df_no_overlap_trained = pd.merge(df_cu, df_trained_but_no_overlap_chembl_id, on=["ChEMBLTargetID"])
+    print(df_no_overlap_trained)
+    df_no_overlap_trained.to_csv("{}/trained_no_overlap_with_pancancer_genes.txt".format(training_files_path), sep="\t", index=False)
+    #df = pd.DataFrame.from_dict(sales)
+    #pd.merge(df_all_trained, df_nontrained, on=["ChEMBLTargetID"])
+    """
+# getTrainedButNotPanCancerProteins()
+evaluateBioactivities()
+# df_count = df.groupby("Organism").size()
