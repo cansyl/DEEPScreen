@@ -5,7 +5,7 @@ from dataProcessing import getSMILEsForAllChEMBL, getModelThresholds, drawPictur
 import sys
 # IMG_SIZE = 200
 IMG_SIZE = 266
-training_dataset_path = "/Users/trman/OneDrive/Projects/DrugDiscovery/TrainingDatasets"
+# training_dataset_path = "/Users/trman/OneDrive/Projects/DrugDiscovery/TrainingDatasets"
 images_path = "../images200"
 result_files_path = "../resultFiles"
 model_files_path = "../tflearnModels"
@@ -13,7 +13,7 @@ TEMP_IMG_OUTPUT_PATH = "../tempImage"
 
 
 
-def getBestModelFileName(model_name):
+def getBestModelFileNameOld(model_name):
     max_snapshot_number = -1
     latest_model_fl = ""
     for fl in os.listdir(model_files_path):
@@ -24,8 +24,8 @@ def getBestModelFileName(model_name):
                 latest_model_fl = str(fl)
     return latest_model_fl
 
-def getTargetModel(target):
-    best_result_fl = open("{}/ChEMBLBestModelResultsBest.txt".format(result_files_path), "r")
+def getTargetModelOld(target):
+    best_result_fl = open("{}/ChEMBLBestModelResultsAll_v2.txt".format(result_files_path), "r")
     lst_best_result = best_result_fl.read().split("\n")
     best_result_fl.close()
     target_fl_name = ""
@@ -47,8 +47,21 @@ def getTargetModel(target):
     return target_fl_name
 
 
-def loadModel(target):
-    model_fl = getTargetModel(target)
+
+def getBestModelFileName(model_name):
+    max_snapshot_number = -1
+    latest_model_fl = ""
+    for fl in os.listdir(model_files_path):
+        if fl.startswith(model_name) and ".data" in str(fl):
+            snapshot_number = int((str(fl).split(".data")[0]).split("-")[1])
+            if snapshot_number>max_snapshot_number:
+                max_snapshot_number = snapshot_number
+                latest_model_fl = str(fl)
+    return latest_model_fl
+
+
+def loadModel(target, model_fl):
+    model_fl = getBestModelFileName(model_fl)
     print(model_fl)
     params = model_fl.split("-")[0].split("_")
     model_name = params[0]
@@ -66,7 +79,7 @@ def loadModel(target):
 
     model.load("{}/{}".format(model_files_path, model_fl))
 
-    chembl_target_threshold_dict = getModelThresholds("ChEMBLBestModelResultsBest.txt")
+    chembl_target_threshold_dict = getModelThresholds("ChEMBLBestModelResultsAll_v2.txt")
 
     compound_smiles_dict = getSMILEsForAllChEMBL(test_fl)
     comp_id_list = list(compound_smiles_dict.keys())
@@ -131,8 +144,9 @@ def loadModel(target):
 
 
 chembl_target = sys.argv[1]
-test_fl  = sys.argv[2]
-loadModel(chembl_target)
+model_fl = sys.argv[2]
+test_fl  = sys.argv[3]
+loadModel(chembl_target, model_fl)
 # trainModelTarget("hsa:xxx")
 # trainModelTarget("hsa:246")
 # best_ImageNetInceptionV2_hsa:5340_RMSprop_0.01_207739
