@@ -1715,6 +1715,20 @@ def getModelPerformances(bestModelFile):
         # print(target, test_mcc, test_threshold)
     return target_perf_dict
 
+def getModelPerformancesByModelName(bestModelFile):
+    result_fl = open("{}/{}".format(result_files_path, bestModelFile), "r")
+    lst_result_fl = result_fl.read().split("\n")
+    result_fl.close()
+
+    target_perf_dict = dict()
+
+    for line in lst_result_fl[1:-1]:
+        log_fl, modelname, target, optimizer, learning_rate, epoch, hidden1, hidden2, dropout, rotate, save_model, test_f1score, test_mcc, test_accuracy, test_precision, test_recall, test_tp, test_fp, test_tn, test_fn, test_threshold, val_auc, val_auprc, test_auc, test_auprc = line.split("\t")
+
+        target_perf_dict[target] = float(test_mcc)
+        # print(target, test_mcc, test_threshold)
+    return target_perf_dict
+
 # getModelPerformances("ChEMBLBestModelResultsBest.txt")
 
 def getMatchingGenesProteins():
@@ -1811,9 +1825,142 @@ def getTrainedButNotPanCancerProteins():
 
 # df_count = df.groupby("Organism").size()
 
+
+
+def getTopNModels(N):
+    #print("#!/bin/bash")
+    from operator import itemgetter
+    top5LogPath = "../resultFiles/LOGS/bestModelLOGSTop5"
+    result_files_path = "../resultFiles"
+    # best_fl = open("{}/ChEMBLBestModelResultsBest.txt".format(result_files_path), "r")
+    best_fl = open("{}/ChEMBLBestModelResultsAll_v2.txt".format(result_files_path), "r")
+    lst_best_fl = best_fl.read().split("\n")
+    best_fl.close()
+    target_perf_dict = dict()
+    model_perf_dict = dict()
+    while "" in lst_best_fl:
+        lst_best_fl.remove("")
+    count = 0
+    for line in lst_best_fl[1:]:
+        count += 1
+
+        log_fl, modelname, target, optimizer, learning_rate, epoch, hidden1, hidden2, dropout, rotate, save_model, test_f1score, test_mcc, test_accuracy, test_precision, test_recall, test_tp, test_fp, test_tn, test_fn, test_threshold, val_auc, val_auprc, test_auc, test_auprc = line.split(
+            "\t")
+        # print(log_fl)
+        if target not in target_perf_dict.keys():
+            target_perf_dict[target] = []
+
+        log_fl = open("{}/{}".format(top5LogPath, log_fl), "r")
+        lst_log_fl = log_fl.read().split("\n")
+        log_fl.close()
+        model_fl = ""
+        for line in lst_log_fl:
+            if line.startswith("Log directory:"):
+                model_fl = line.split("/")[-2]
+                # print(model_fl)
+        target_perf_dict[target].append([model_fl, float(test_mcc)])
+        #model_perf_dict[model_fl] = float(test_mcc)
+    for key in target_perf_dict.keys():
+        target_perf_dict[key] = sorted(target_perf_dict[key], key=itemgetter(1), reverse=True)
+        target_perf_dict[key] = target_perf_dict[key][:N]
+        for item in target_perf_dict[key]:
+            model_perf_dict[item[0]] = item[1]
+    #print(target_perf_dict)
+    return target_perf_dict, model_perf_dict
+
+
+#getTopNModels(3)
+
+def getPredictions(topN):
+    import pandas as pd
+    from pandas import read_csv
+    from math import ceil
+
+    chembl_def_dict = getChEMBLTargetIDProteinNameMapping()
+    chembl_uniprot_dict = getChEMBLTargetIDUniProtMapping()
+    target_perf_dict, model_perf_dict = getTopNModels(topN)
+    # print(model_perf_dict["CNNModel_CHEMBL4630_adam_0.0001_30_256_0.8_True"])
+
+    path_predictions = "/Users/trman/OneDrive/Projects/DEEPScreen/resultFiles/drug_case_study_top5_chembl_id_separated.txt"
+    df_predictions = read_csv(path_predictions, sep="\t")
+    df_predictions.columns = ["XXX", "MODEL", "TARGET_CHEMBLID", "COMPOUND_CHEMBLID", "DRUG_NAME","a","PRED_SCORE","THRESHOLD","XXX1"]
+
+    lines_before_majority = []
+    predictions = []
+
+    vote_dict = dict()
+    #print("ChMEBLTargetID\tUniProt Accession\tTarget Definition\tCompoundID_Name\tModelMCCPerformance")
+    for index, row in df_predictions.iterrows():
+       model = row["MODEL"].split("-")[0]
+       target_name = row["TARGET_CHEMBLID"]
+       comp_id = row["COMPOUND_CHEMBLID"]
+       drug_name = row["DRUG_NAME"]
+       pred_score = row["PRED_SCORE"]
+       threshold= row["THRESHOLD"]
+
+       if model in model_perf_dict.keys():
+           if float(threshold) <= 0.25:
+               if float(pred_score) >= 0.50:
+                   #print(model)
+                   # print("{}\t{}\t{}\t{}\t{}\t{}".format(target_name, chembl_def_dict[target_name][0], chembl_perf_dict[target_name], comp_id, pred_score, threshold))
+                   #print("{}\t{}\t{}\t{}\t{}".format(target_name, chembl_uniprot_dict[target_name][0],chembl_def_dict[target_name][0], comp_id, model_perf_dict[model]))
+                   lines_before_majority.append([target_name, chembl_uniprot_dict[target_name][0],
+                                                     chembl_def_dict[target_name][0], comp_id, model_perf_dict[model]])
+
+                   try:
+                       vote_dict["{},{}".format(target_name,comp_id)].append([target_name, chembl_uniprot_dict[target_name][0],
+                                                     chembl_def_dict[target_name][0], comp_id, model_perf_dict[model]])
+                   except:
+                       vote_dict["{},{}".format(target_name,comp_id)] = [[target_name, chembl_uniprot_dict[target_name][0],
+                                                     chembl_def_dict[target_name][0], comp_id, model_perf_dict[model]]]
+           else:
+               # print("{}\t{}\t{}\t{}\t{}\t{}".format(target_name, chembl_def_dict[target_name][0], model_perf_dict[target_name], comp_id, pred_score, threshold))
+               #print("{}\t{}\t{}\t{}\t{}".format(target_name, chembl_uniprot_dict[target_name][0],chembl_def_dict[target_name][0], comp_id, model_perf_dict[model]))
+               lines_before_majority.append([target_name, chembl_uniprot_dict[target_name][0],
+                                             chembl_def_dict[target_name][0], comp_id, model_perf_dict[model]])
+               try:
+                   vote_dict["{},{}".format(target_name, comp_id)].append(
+                       [target_name, chembl_uniprot_dict[target_name][0],
+                        chembl_def_dict[target_name][0], comp_id, model_perf_dict[model]])
+               except:
+                   vote_dict["{},{}".format(target_name, comp_id)] = [[target_name, chembl_uniprot_dict[target_name][0],
+                                                                       chembl_def_dict[target_name][0], comp_id,
+                                                                       model_perf_dict[model]]]
+
+    #print(vote_dict)
+    voting_factor = ceil(topN/2)
+    for key in vote_dict.keys():
+        #print(target_name, uniprot_id, defin, comp_id, model_perf)
+        #print(item)
+        if len(vote_dict[key]) >= voting_factor:
+            #print(len(vote_dict[key]))
+            total_mcc = 0.0
+            for pred_line in vote_dict[key]:
+                target_name, uniprot_id, defin, comp_id, model_perf = pred_line
+                total_mcc += float(model_perf)
+            average_mcc = total_mcc/len(vote_dict[key])
+            target_name, uniprot_id, defin, comp_id, _ = vote_dict[key][0]
+            #print("{}\t{}\t{}\t{}\t{}".format(target_name, uniprot_id, defin, comp_id, average_mcc))
+            predictions.append([target_name, uniprot_id, defin, comp_id, average_mcc])
+
+    #print(len(lines_before_majority))
+       #print(model, target_id, comp_id)
+
+    df_final_predictions = pd.DataFrame(predictions, columns=["ChEMBLTargetID", "UniProtAccession", "Target Definition", "CMPD_CHEMBLID", "MCCScore"])
+    #print(df_final_predictions)
+    path_overlap = "{}/trained_chembl_targets_pancancer_mapping.txt".format(training_files_path)
+    df_overlap = read_csv(path_overlap, sep="\t")
+    df_pred_trained_pancancer_overlap = pd.merge(df_final_predictions, df_overlap, on=["ChEMBLTargetID"])
+    # df_pred_trained_pancancer_overlap.to_csv("{}/testDrugPredictionsPanCancerOverlapTop1Models.txt".format(training_files_path), sep="\t", index=False)
+    return df_final_predictions
+    #print(df_pred_trained_pancancer_overlap)
+# print(getPredictions())
+
 def evaluateBioactivities():
     import pandas as pd
     from pandas import read_csv
+    from operator import itemgetter
+
     drug_files = ["CHEMBL76_bioactivity-18_15_46_32.txt",
     "CHEMBL468_bioactivity-18_8_48_55.txt",
     "CHEMBL535_bioactivity-18_8_51_48.txt",
@@ -1835,9 +1982,68 @@ def evaluateBioactivities():
         df_tt.columns = ["TARGET_CHEMBLID"]
         df_comp_bioact_intersect_trained = pd.merge(df_comp_bioact, df_tt, on=["TARGET_CHEMBLID"])
         df_all_drug_bioactivities = df_all_drug_bioactivities.append(df_comp_bioact_intersect_trained)
-        print(df_comp_bioact_intersect_trained)
+        # print(df_comp_bioact_intersect_trained)
 
-    print(df_all_drug_bioactivities)
+    lst_all_drug_bioactivities = df_all_drug_bioactivities.values.tolist()
+    comp_targ_pair_bioactivity_dict = dict()
+    for item in lst_all_drug_bioactivities:
+        str_comp_target = "{}\t{}".format(item[0],item[1])
+        try:
+            comp_targ_pair_bioactivity_dict[str_comp_target].append(item[4]/1000.0)
+        except:
+            comp_targ_pair_bioactivity_dict[str_comp_target] = [item[4] / 1000.0]
+
+    target_comp_std_val_lst =[]
+    for key in comp_targ_pair_bioactivity_dict.keys():
+        comp_targ_pair_bioactivity_dict[key] = sorted(comp_targ_pair_bioactivity_dict[key], reverse=True)
+        drug_id, target_id = key.split("\t")
+        if len(comp_targ_pair_bioactivity_dict[key]) > 1:
+            if len(comp_targ_pair_bioactivity_dict[key]) % 2 == 1:
+                median = int(len(comp_targ_pair_bioactivity_dict[key]) / 2)
+                median_std_val = comp_targ_pair_bioactivity_dict[key][median]
+                #print(key, median_std_val)
+                comp_targ_pair_bioactivity_dict[key] = median_std_val
+                target_comp_std_val_lst.append([target_id, drug_id, median_std_val])
+                # print(key, comp_targ_pair_bioactivity_dict[key])
+            else:
+                median = int(len(comp_targ_pair_bioactivity_dict[key]) / 2)
+                median_std_val = (comp_targ_pair_bioactivity_dict[key][median] + comp_targ_pair_bioactivity_dict[key][median - 1]) / 2
+                # print(key, comp_targ_pair_bioactivity_dict[key])
+                comp_targ_pair_bioactivity_dict[key] = median_std_val
+                # print(key, comp_targ_pair_bioactivity_dict[key])
+                target_comp_std_val_lst.append([target_id, drug_id, median_std_val])
+        else:
+            comp_targ_pair_bioactivity_dict[key] = comp_targ_pair_bioactivity_dict[key][0]
+            target_comp_std_val_lst.append([target_id, drug_id, comp_targ_pair_bioactivity_dict[key]])
+
+    df_target_comp_std_val = pd.DataFrame(target_comp_std_val_lst, columns=["ChEMBLTargetID",
+                                                              "CMPD_CHEMBLID", "STANDARD_VALUE"])
+    df_predictions = getPredictions(3)
+    print(df_target_comp_std_val.columns)
+    print(df_predictions.columns)
+    df_comp_bioact_intersect_trained = pd.merge(df_predictions, df_target_comp_std_val, on=["ChEMBLTargetID","CMPD_CHEMBLID"])
+    print(df_comp_bioact_intersect_trained)
+    """
+    target_pos_neg_dict = dict()
+    pos_count = 0
+    neg_count = 1
+    for com_trg in comp_targ_pair_bioactivity_dict.keys():
+        #print(comp_targ_pair_bioactivity_dict[com_trg])
+        comp_id, tar_id = com_trg.split("\t")
+        try:
+            target_pos_neg_dict[tar_id]
+        except:
+            target_pos_neg_dict[tar_id] = [[],[]]
+
+        if round(comp_targ_pair_bioactivity_dict[com_trg], 2) <= 10.00:
+            pos_count += 1
+            target_pos_neg_dict[tar_id][0].append(comp_id)
+        elif round(comp_targ_pair_bioactivity_dict[com_trg], 2) >= 20.00:
+            target_pos_neg_dict[tar_id][1].append(comp_id)
+            neg_count += 1
+
+    print(pos_count, neg_count)
+    """
     """
     path_overlap = "{}/trained_chembl_targets_pancancer_mapping.txt".format(training_files_path)
     df_overlap = read_csv(path_overlap, sep="\t")
@@ -1857,6 +2063,5 @@ def evaluateBioactivities():
     #df = pd.DataFrame.from_dict(sales)
     #pd.merge(df_all_trained, df_nontrained, on=["ChEMBLTargetID"])
     """
-# getTrainedButNotPanCancerProteins()
-evaluateBioactivities()
-# df_count = df.groupby("Organism").size()
+
+#evaluateBioactivities()
