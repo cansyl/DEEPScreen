@@ -1090,18 +1090,19 @@ def createActInactFilesForAllTargetNeighbourThreshold(act_inact_fl, blast_sim_fl
 def getTrainedTargetUniProtMapping(trainedModelFile):
     chemblUniProtMappingDict = getChEMBLTargetIDUniProtMapping()
     trained_chembl_id_lst = []
-    with open(os.path.join(result_files_path,trainedModelFile)) as f:
+    print("ChEMBLTargetID\tUniProtAccession")
+    with open(os.path.join(training_files_path,trainedModelFile)) as f:
         for line in f:
+            line =line.split("\n")[0]
             parts = line.split("\t")
-            chembl_target_id = parts[2]
+            chembl_target_id = parts[0]
             #print(chembl_target_id)
             trained_chembl_id_lst.append(chembl_target_id)
 
     for c_id in trained_chembl_id_lst:
-        if c_id!="target":
-            print(c_id, chemblUniProtMappingDict[c_id][0])
+        print(c_id, chemblUniProtMappingDict[c_id][0])
 
-# getTrainedTargetUniProtMapping("bestModelResults2.txt")
+getTrainedTargetUniProtMapping("trainedTargetList.txt")
 
 def getFamilyBasedPerformances(trainedModelFile):
     chemblUniProtMappingDict = getChEMBLTargetIDUniProtMapping()
@@ -1866,10 +1867,14 @@ def getTopNModels(N):
         for item in target_perf_dict[key]:
             model_perf_dict[item[0]] = item[1]
     #print(target_perf_dict)
+    #print(target_perf_dict["CHEMBL3081"])
+    for key in target_perf_dict.keys():
+        if target_perf_dict[key][0][1]>=.7:
+            print(target_perf_dict[key])
     return target_perf_dict, model_perf_dict
 
 
-#getTopNModels(3)
+#getTopNModels(1)
 
 def getPredictions(topN):
     import pandas as pd
@@ -1899,32 +1904,32 @@ def getPredictions(topN):
        threshold= row["THRESHOLD"]
 
        if model in model_perf_dict.keys():
-           if float(threshold) <= 0.25:
+           if float(threshold) <= 0.25 and False:
                if float(pred_score) >= 0.50:
                    #print(model)
                    # print("{}\t{}\t{}\t{}\t{}\t{}".format(target_name, chembl_def_dict[target_name][0], chembl_perf_dict[target_name], comp_id, pred_score, threshold))
                    #print("{}\t{}\t{}\t{}\t{}".format(target_name, chembl_uniprot_dict[target_name][0],chembl_def_dict[target_name][0], comp_id, model_perf_dict[model]))
                    lines_before_majority.append([target_name, chembl_uniprot_dict[target_name][0],
-                                                     chembl_def_dict[target_name][0], comp_id, model_perf_dict[model]])
+                                                     chembl_def_dict[target_name][0], comp_id, drug_name, model_perf_dict[model]])
 
                    try:
                        vote_dict["{},{}".format(target_name,comp_id)].append([target_name, chembl_uniprot_dict[target_name][0],
-                                                     chembl_def_dict[target_name][0], comp_id, model_perf_dict[model]])
+                                                     chembl_def_dict[target_name][0], comp_id, drug_name, model_perf_dict[model]])
                    except:
                        vote_dict["{},{}".format(target_name,comp_id)] = [[target_name, chembl_uniprot_dict[target_name][0],
-                                                     chembl_def_dict[target_name][0], comp_id, model_perf_dict[model]]]
+                                                     chembl_def_dict[target_name][0], comp_id, drug_name, model_perf_dict[model]]]
            else:
                # print("{}\t{}\t{}\t{}\t{}\t{}".format(target_name, chembl_def_dict[target_name][0], model_perf_dict[target_name], comp_id, pred_score, threshold))
                #print("{}\t{}\t{}\t{}\t{}".format(target_name, chembl_uniprot_dict[target_name][0],chembl_def_dict[target_name][0], comp_id, model_perf_dict[model]))
                lines_before_majority.append([target_name, chembl_uniprot_dict[target_name][0],
-                                             chembl_def_dict[target_name][0], comp_id, model_perf_dict[model]])
+                                             chembl_def_dict[target_name][0], comp_id, drug_name, model_perf_dict[model]])
                try:
                    vote_dict["{},{}".format(target_name, comp_id)].append(
                        [target_name, chembl_uniprot_dict[target_name][0],
-                        chembl_def_dict[target_name][0], comp_id, model_perf_dict[model]])
+                        chembl_def_dict[target_name][0], comp_id, drug_name, model_perf_dict[model]])
                except:
                    vote_dict["{},{}".format(target_name, comp_id)] = [[target_name, chembl_uniprot_dict[target_name][0],
-                                                                       chembl_def_dict[target_name][0], comp_id,
+                                                                       chembl_def_dict[target_name][0], comp_id, drug_name,
                                                                        model_perf_dict[model]]]
 
     #print(vote_dict)
@@ -1936,25 +1941,35 @@ def getPredictions(topN):
             #print(len(vote_dict[key]))
             total_mcc = 0.0
             for pred_line in vote_dict[key]:
-                target_name, uniprot_id, defin, comp_id, model_perf = pred_line
+                target_name, uniprot_id, defin, comp_id, drug_name, model_perf = pred_line
                 total_mcc += float(model_perf)
+            print(len(vote_dict[key]))
             average_mcc = total_mcc/len(vote_dict[key])
-            target_name, uniprot_id, defin, comp_id, _ = vote_dict[key][0]
+            target_name, uniprot_id, defin, comp_id, drug_name, _ = vote_dict[key][0]
             #print("{}\t{}\t{}\t{}\t{}".format(target_name, uniprot_id, defin, comp_id, average_mcc))
-            predictions.append([target_name, uniprot_id, defin, comp_id, average_mcc])
+            predictions.append([comp_id, drug_name, uniprot_id, target_name, defin, average_mcc])
 
     #print(len(lines_before_majority))
        #print(model, target_id, comp_id)
 
-    df_final_predictions = pd.DataFrame(predictions, columns=["ChEMBLTargetID", "UniProtAccession", "Target Definition", "CMPD_CHEMBLID", "MCCScore"])
-    #print(df_final_predictions)
     path_overlap = "{}/trained_chembl_targets_pancancer_mapping.txt".format(training_files_path)
-    df_overlap = read_csv(path_overlap, sep="\t")
-    df_pred_trained_pancancer_overlap = pd.merge(df_final_predictions, df_overlap, on=["ChEMBLTargetID"])
-    # df_pred_trained_pancancer_overlap.to_csv("{}/testDrugPredictionsPanCancerOverlapTop1Models.txt".format(training_files_path), sep="\t", index=False)
+    df_overlap = read_csv(path_overlap, sep="\t")[["UniProtAccession", "ChEMBLTargetID", "GeneSymbol"]]
+
+    for pred_ind in range(len(predictions)):
+        comp_id, drug_name, uniprot_id, target_name, defin, average_mcc = predictions[pred_ind]
+        if uniprot_id in df_overlap["UniProtAccession"].tolist():
+            gene_symbol = df_overlap.loc[df_overlap['UniProtAccession'] == uniprot_id, "GeneSymbol"].iloc[0]
+            predictions[pred_ind] = [comp_id, drug_name, uniprot_id, target_name, defin, gene_symbol, average_mcc ]
+        else:
+            predictions[pred_ind] = [comp_id, drug_name, uniprot_id, target_name, defin, "", average_mcc]
+    df_final_predictions = pd.DataFrame(predictions, columns=["CMPD_CHEMBLID", "DRUG_NAME", "UniProtAccession", "ChEMBLTargetID",  "Target Definition", "GeneSymbol",  "MCCScore"])
+    df_final_predictions.to_csv("{}/testDrugPredictionsTop{}Models.txt".format(training_files_path, topN), sep="\t", index=False)
+    #print(df_overlap)
+    #df_pred_trained_pancancer_overlap = pd.merge(df_final_predictions, df_overlap, on=["ChEMBLTargetID"])
+    #df_pred_trained_pancancer_overlap.to_csv("{}/testDrugPredictionsPanCancerOverlapTop{}ModelsNoFixedThreshold.txt".format(training_files_path, topN), sep="\t", index=False)
     return df_final_predictions
     #print(df_pred_trained_pancancer_overlap)
-# print(getPredictions())
+#getPredictions(3)
 
 def evaluateBioactivities():
     import pandas as pd

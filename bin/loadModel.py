@@ -112,6 +112,11 @@ def loadModel(target, model_fl):
             if test_pred_labels[i] == 1:
                 pred_count += 1
                 print("ACTPRED\t{}\t{}\t{}\t{}\t{}\t{}\t{}/{}".format(model_fl, target, test_comp_name[i], test_pred_labels[i], test_predictions[i], chembl_target_threshold_dict[target], pred_count, count))
+            else:
+                print("INACTPRED\t{}\t{}\t{}\t{}\t{}\t{}\t{}/{}".format(model_fl, target, test_comp_name[i],
+                                                                      test_pred_labels[i], test_predictions[i],
+                                                                      chembl_target_threshold_dict[target], pred_count,
+                                                                      count))
     print("PREDICTIONS:{}".format(target))
     """
     while count < num_of_comps:
