@@ -1102,7 +1102,7 @@ def getTrainedTargetUniProtMapping(trainedModelFile):
     for c_id in trained_chembl_id_lst:
         print(c_id, chemblUniProtMappingDict[c_id][0])
 
-getTrainedTargetUniProtMapping("trainedTargetList.txt")
+# getTrainedTargetUniProtMapping("trainedTargetList.txt")
 
 def getFamilyBasedPerformances(trainedModelFile):
     chemblUniProtMappingDict = getChEMBLTargetIDUniProtMapping()
