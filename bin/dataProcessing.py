@@ -1868,9 +1868,11 @@ def getTopNModels(N):
             model_perf_dict[item[0]] = item[1]
     #print(target_perf_dict)
     #print(target_perf_dict["CHEMBL3081"])
-    for key in target_perf_dict.keys():
-        if target_perf_dict[key][0][1]>=.7:
-            print(target_perf_dict[key])
+    #print("ChEMBLTargetID\tMCCScore")
+    #for key in target_perf_dict.keys():
+    #    print("{}\t{}".format(target_perf_dict[key][0][0].split("_")[1],target_perf_dict[key][0][1]))
+    #    if target_perf_dict[key][0][1]>=.7:
+    #
     return target_perf_dict, model_perf_dict
 
 
@@ -1888,7 +1890,7 @@ def getPredictions(topN):
 
     path_predictions = "/Users/trman/OneDrive/Projects/DEEPScreen/resultFiles/drug_case_study_top5_chembl_id_separated.txt"
     df_predictions = read_csv(path_predictions, sep="\t")
-    df_predictions.columns = ["XXX", "MODEL", "TARGET_CHEMBLID", "COMPOUND_CHEMBLID", "DRUG_NAME","a","PRED_SCORE","THRESHOLD","XXX1"]
+    df_predictions.columns = ["ACTINACT", "MODEL", "TARGET_CHEMBLID", "COMPOUND_CHEMBLID", "DRUG_NAME","a","PRED_SCORE","THRESHOLD","XXX1"]
 
     lines_before_majority = []
     predictions = []
@@ -1897,6 +1899,7 @@ def getPredictions(topN):
     #print("ChMEBLTargetID\tUniProt Accession\tTarget Definition\tCompoundID_Name\tModelMCCPerformance")
     for index, row in df_predictions.iterrows():
        model = row["MODEL"].split("-")[0]
+       actinact = row["ACTINACT"].split("-")[0]
        target_name = row["TARGET_CHEMBLID"]
        comp_id = row["COMPOUND_CHEMBLID"]
        drug_name = row["DRUG_NAME"]
@@ -1909,46 +1912,90 @@ def getPredictions(topN):
                    #print(model)
                    # print("{}\t{}\t{}\t{}\t{}\t{}".format(target_name, chembl_def_dict[target_name][0], chembl_perf_dict[target_name], comp_id, pred_score, threshold))
                    #print("{}\t{}\t{}\t{}\t{}".format(target_name, chembl_uniprot_dict[target_name][0],chembl_def_dict[target_name][0], comp_id, model_perf_dict[model]))
-                   lines_before_majority.append([target_name, chembl_uniprot_dict[target_name][0],
-                                                     chembl_def_dict[target_name][0], comp_id, drug_name, model_perf_dict[model]])
+                   lines_before_majority.append([actinact, target_name, chembl_uniprot_dict[target_name][0],
+                                                     chembl_def_dict[target_name][0], comp_id, drug_name, model_perf_dict[model], pred_score, threshold, model])
 
                    try:
-                       vote_dict["{},{}".format(target_name,comp_id)].append([target_name, chembl_uniprot_dict[target_name][0],
-                                                     chembl_def_dict[target_name][0], comp_id, drug_name, model_perf_dict[model]])
+                       vote_dict["{},{}".format(target_name,comp_id)].append([actinact, target_name, chembl_uniprot_dict[target_name][0],
+                                                     chembl_def_dict[target_name][0], comp_id, drug_name, model_perf_dict[model], pred_score, threshold, model])
                    except:
-                       vote_dict["{},{}".format(target_name,comp_id)] = [[target_name, chembl_uniprot_dict[target_name][0],
-                                                     chembl_def_dict[target_name][0], comp_id, drug_name, model_perf_dict[model]]]
+                       vote_dict["{},{}".format(target_name,comp_id)] = [[actinact, target_name, chembl_uniprot_dict[target_name][0],
+                                                     chembl_def_dict[target_name][0], comp_id, drug_name, model_perf_dict[model], pred_score, threshold, model]]
            else:
                # print("{}\t{}\t{}\t{}\t{}\t{}".format(target_name, chembl_def_dict[target_name][0], model_perf_dict[target_name], comp_id, pred_score, threshold))
                #print("{}\t{}\t{}\t{}\t{}".format(target_name, chembl_uniprot_dict[target_name][0],chembl_def_dict[target_name][0], comp_id, model_perf_dict[model]))
-               lines_before_majority.append([target_name, chembl_uniprot_dict[target_name][0],
-                                             chembl_def_dict[target_name][0], comp_id, drug_name, model_perf_dict[model]])
+               lines_before_majority.append([actinact, target_name, chembl_uniprot_dict[target_name][0],
+                                                     chembl_def_dict[target_name][0], comp_id, drug_name, model_perf_dict[model], pred_score, threshold, model])
                try:
                    vote_dict["{},{}".format(target_name, comp_id)].append(
-                       [target_name, chembl_uniprot_dict[target_name][0],
-                        chembl_def_dict[target_name][0], comp_id, drug_name, model_perf_dict[model]])
+                       [actinact, target_name, chembl_uniprot_dict[target_name][0],
+                        chembl_def_dict[target_name][0], comp_id, drug_name, model_perf_dict[model], pred_score, threshold, model])
                except:
-                   vote_dict["{},{}".format(target_name, comp_id)] = [[target_name, chembl_uniprot_dict[target_name][0],
-                                                                       chembl_def_dict[target_name][0], comp_id, drug_name,
-                                                                       model_perf_dict[model]]]
+                   vote_dict["{},{}".format(target_name, comp_id)] = [[actinact, target_name, chembl_uniprot_dict[target_name][0],
+                                                     chembl_def_dict[target_name][0], comp_id, drug_name, model_perf_dict[model], pred_score, threshold, model]]
 
     #print(vote_dict)
-    voting_factor = ceil(topN/2)
+    voting_factor = ceil(topN/2) if topN%2==1 else ceil(topN/2)+1
+    # print(voting_factor)
     for key in vote_dict.keys():
         #print(target_name, uniprot_id, defin, comp_id, model_perf)
         #print(item)
+        act_count, inact_count = 0, 0
+        for pred_line in vote_dict[key]:
+            actinact, target_name, uniprot_id, defin, comp_id, drug_name, model_perf, pred_score, threshold, model = pred_line
+            if actinact=="ACTPRED":
+                act_count += 1
+            else:
+                inact_count += 1
+        str_act_model_names, str_inact_model_names = "", ""
+        str_act_model_perfs, str_inact_model_perfs = "", ""
+        str_act_model_thresholds, str_inact_model_thresholds = "", ""
+        str_act_pred_scores, str_inact_pred_scores = "", ""
+        total_act_mcc, total_inact_mcc = 0.0, 0.0
+
+        for pred_line in vote_dict[key]:
+            actinact, target_name, uniprot_id, defin, comp_id, drug_name, model_perf, pred_score, threshold, model = pred_line
+
+            if actinact == "ACTPRED":
+                str_act_model_names = "{},{}".format(str_act_model_names,model)
+                str_act_model_perfs = "{},{}".format(str_act_model_perfs,model_perf)
+                str_act_model_thresholds = "{},{}".format(str_act_model_thresholds,threshold)
+                str_act_pred_scores = "{},{}".format(str_act_pred_scores, pred_score)
+
+                total_act_mcc += float(model_perf)
+            else:
+                str_inact_model_names = "{},{}".format(str_inact_model_names, model)
+                str_inact_model_perfs = "{},{}".format(str_inact_model_perfs, model_perf)
+                str_inact_model_thresholds = "{},{}".format(str_inact_model_thresholds, threshold)
+                str_inact_pred_scores = "{},{}".format(str_inact_pred_scores, pred_score)
+                total_inact_mcc += float(model_perf)
+        average_act_mcc = 0.0 if act_count==0 else total_act_mcc/act_count
+        average_inact_mcc = 0.0 if inact_count == 0 else total_inact_mcc / inact_count
+
+        if act_count>inact_count:
+            actinact, target_name, uniprot_id, defin, comp_id, drug_name, model_perf, pred_score, threshold, model = vote_dict[key][0]
+            predictions.append(["ACTPRED", comp_id, drug_name, uniprot_id, target_name, defin, average_act_mcc, str_act_model_names[1:], str_act_model_perfs[1:], str_act_model_thresholds[1:], str_act_pred_scores[1:]])
+        else:
+            actinact, target_name, uniprot_id, defin, comp_id, drug_name, model_perf, pred_score, threshold, model = vote_dict[key][0]
+            predictions.append(
+                ["INACTPRED", comp_id, drug_name, uniprot_id, target_name, defin, average_inact_mcc, str_inact_model_names[1:],
+                 str_inact_model_perfs[1:], str_inact_model_thresholds[1:], str_inact_pred_scores[1:]])
+
+
+
+        """
         if len(vote_dict[key]) >= voting_factor:
             #print(len(vote_dict[key]))
             total_mcc = 0.0
             for pred_line in vote_dict[key]:
-                target_name, uniprot_id, defin, comp_id, drug_name, model_perf = pred_line
+                actinact, target_name, uniprot_id, defin, comp_id, drug_name, model_perf, pred_score, threshold = pred_line
                 total_mcc += float(model_perf)
-            print(len(vote_dict[key]))
+            #print(len(vote_dict[key]))
             average_mcc = total_mcc/len(vote_dict[key])
-            target_name, uniprot_id, defin, comp_id, drug_name, _ = vote_dict[key][0]
+            actinact, target_name, uniprot_id, defin, comp_id, drug_name, _, pred_score, threshold = vote_dict[key][0]
             #print("{}\t{}\t{}\t{}\t{}".format(target_name, uniprot_id, defin, comp_id, average_mcc))
-            predictions.append([comp_id, drug_name, uniprot_id, target_name, defin, average_mcc])
-
+            predictions.append([actinact, comp_id, drug_name, uniprot_id, target_name, defin, average_mcc, pred_score, threshold])
+        """
     #print(len(lines_before_majority))
        #print(model, target_id, comp_id)
 
@@ -1956,21 +2003,190 @@ def getPredictions(topN):
     df_overlap = read_csv(path_overlap, sep="\t")[["UniProtAccession", "ChEMBLTargetID", "GeneSymbol"]]
 
     for pred_ind in range(len(predictions)):
-        comp_id, drug_name, uniprot_id, target_name, defin, average_mcc = predictions[pred_ind]
+        #actinact, comp_id, drug_name, uniprot_id, target_name, defin, average_mcc, pred_score, threshold = predictions[pred_ind]
+        actinact, comp_id, drug_name, uniprot_id, target_name, defin, average_mcc, actinact_model_names, actinact_model_perfs, actinact_model_thresholds, actinact_pred_scores = predictions[pred_ind]
+
         if uniprot_id in df_overlap["UniProtAccession"].tolist():
             gene_symbol = df_overlap.loc[df_overlap['UniProtAccession'] == uniprot_id, "GeneSymbol"].iloc[0]
-            predictions[pred_ind] = [comp_id, drug_name, uniprot_id, target_name, defin, gene_symbol, average_mcc ]
+            #predictions[pred_ind] = [actinact, comp_id, drug_name, uniprot_id, target_name, defin, gene_symbol, average_mcc, pred_score, threshold ]
+            predictions[pred_ind] = [actinact, comp_id, drug_name, uniprot_id, target_name, defin, gene_symbol,
+                                     average_mcc, actinact_model_names, actinact_model_perfs, actinact_model_thresholds, actinact_pred_scores]
+
         else:
-            predictions[pred_ind] = [comp_id, drug_name, uniprot_id, target_name, defin, "", average_mcc]
-    df_final_predictions = pd.DataFrame(predictions, columns=["CMPD_CHEMBLID", "DRUG_NAME", "UniProtAccession", "ChEMBLTargetID",  "Target Definition", "GeneSymbol",  "MCCScore"])
-    df_final_predictions.to_csv("{}/testDrugPredictionsTop{}Models.txt".format(training_files_path, topN), sep="\t", index=False)
+            #predictions[pred_ind] = [actinact, comp_id, drug_name, uniprot_id, target_name, defin, "", average_mcc, pred_score, threshold]
+            predictions[pred_ind] = [actinact, comp_id, drug_name, uniprot_id, target_name, defin, "",
+                                     average_mcc, actinact_model_names, actinact_model_perfs, actinact_model_thresholds,
+                                     actinact_pred_scores]
+
+    df_final_predictions = pd.DataFrame(predictions, columns=["ACTINACT", "CMPD_CHEMBLID", "DRUG_NAME", "UniProtAccession", "ChEMBLTargetID",  "Target Definition", "GeneSymbol",  "AverageMCCScore", "MODEL_NAMES", "MODEL_PERFORMANCES", "MODEL_THRESHOLDS",
+                                     "PREDICTION_SCORES"])
+    df_final_predictions.to_csv("{}/drug_case_study_predictions/testDrugPredictionsTop{}ModelsNew.txt".format(result_files_path, topN), sep="\t", index=False)
     #print(df_overlap)
     #df_pred_trained_pancancer_overlap = pd.merge(df_final_predictions, df_overlap, on=["ChEMBLTargetID"])
     #df_pred_trained_pancancer_overlap.to_csv("{}/testDrugPredictionsPanCancerOverlapTop{}ModelsNoFixedThreshold.txt".format(training_files_path, topN), sep="\t", index=False)
     return df_final_predictions
     #print(df_pred_trained_pancancer_overlap)
-#getPredictions(3)
 
+"""
+getPredictions(1)
+getPredictions(2)
+getPredictions(3)
+"""
+
+def getPredictionsGood(topN, strict=False):
+    import pandas as pd
+    from pandas import read_csv
+    from math import ceil
+
+    relaxation_factor  = .05
+
+    chembl_def_dict = getChEMBLTargetIDProteinNameMapping()
+    chembl_uniprot_dict = getChEMBLTargetIDUniProtMapping()
+    target_perf_dict, model_perf_dict = getTopNModels(topN)
+    # print(model_perf_dict["CNNModel_CHEMBL4630_adam_0.0001_30_256_0.8_True"])
+    #print(target_perf_dict["CHEMBL4306"])
+    path_predictions = "/Users/trman/OneDrive/Projects/DEEPScreen/resultFiles/drug_case_study_top5_chembl_id_separated.txt"
+    df_predictions = read_csv(path_predictions, sep="\t")
+    df_predictions.columns = ["ACTINACT", "MODEL", "TARGET_CHEMBLID", "COMPOUND_CHEMBLID", "DRUG_NAME","a","PRED_SCORE","THRESHOLD","XXX1"]
+
+    lines_before_majority = []
+    predictions = []
+    lst_models_to_be_considered = []
+    for tar in target_perf_dict.keys():
+        lst_models_to_be_considered.append(target_perf_dict[tar][0][0])
+        best_model = target_perf_dict[tar][0][0]
+        best_perf = target_perf_dict[tar][0][1]
+        for other_models in target_perf_dict[tar][1:]:
+            if round(best_perf-other_models[1],2)<=relaxation_factor:
+                lst_models_to_be_considered.append(other_models[0])
+                #print(best_model, best_perf)
+                #print(other_models)
+    #print(lst_models_to_be_considered)
+
+    vote_dict = dict()
+    #print("ChMEBLTargetID\tUniProt Accession\tTarget Definition\tCompoundID_Name\tModelMCCPerformance")
+    for index, row in df_predictions.iterrows():
+       model = row["MODEL"].split("-")[0]
+       actinact = row["ACTINACT"].split("-")[0]
+       target_name = row["TARGET_CHEMBLID"]
+       comp_id = row["COMPOUND_CHEMBLID"]
+       drug_name = row["DRUG_NAME"]
+       pred_score = row["PRED_SCORE"]
+       threshold= row["THRESHOLD"]
+
+       if model in lst_models_to_be_considered:
+           lines_before_majority.append([actinact, target_name, chembl_uniprot_dict[target_name][0],
+                                                 chembl_def_dict[target_name][0], comp_id, drug_name, model_perf_dict[model], pred_score, threshold, model])
+           try:
+               vote_dict["{},{}".format(target_name, comp_id)].append(
+                   [actinact, target_name, chembl_uniprot_dict[target_name][0],
+                    chembl_def_dict[target_name][0], comp_id, drug_name, model_perf_dict[model], pred_score, threshold, model])
+           except:
+               vote_dict["{},{}".format(target_name, comp_id)] = [[actinact, target_name, chembl_uniprot_dict[target_name][0],
+                                                 chembl_def_dict[target_name][0], comp_id, drug_name, model_perf_dict[model], pred_score, threshold, model]]
+
+    #print(vote_dict)
+    voting_factor = ceil(topN/2) if topN%2==1 else ceil(topN/2)+1
+    # print(voting_factor)
+    for key in vote_dict.keys():
+        #print(target_name, uniprot_id, defin, comp_id, model_perf)
+        #print(item)
+        act_count, inact_count = 0, 0
+        for pred_line in vote_dict[key]:
+            actinact, target_name, uniprot_id, defin, comp_id, drug_name, model_perf, pred_score, threshold, model = pred_line
+            if actinact=="ACTPRED":
+                act_count += 1
+            else:
+                inact_count += 1
+        str_act_model_names, str_inact_model_names = "", ""
+        str_act_model_perfs, str_inact_model_perfs = "", ""
+        str_act_model_thresholds, str_inact_model_thresholds = "", ""
+        str_act_pred_scores, str_inact_pred_scores = "", ""
+        total_act_mcc, total_inact_mcc = 0.0, 0.0
+
+        for pred_line in vote_dict[key]:
+            actinact, target_name, uniprot_id, defin, comp_id, drug_name, model_perf, pred_score, threshold, model = pred_line
+
+            if actinact == "ACTPRED":
+                str_act_model_names = "{},{}".format(str_act_model_names,model)
+                str_act_model_perfs = "{},{}".format(str_act_model_perfs,model_perf)
+                str_act_model_thresholds = "{},{}".format(str_act_model_thresholds,threshold)
+                str_act_pred_scores = "{},{}".format(str_act_pred_scores, pred_score)
+                total_act_mcc += float(model_perf)
+            else:
+                str_inact_model_names = "{},{}".format(str_inact_model_names, model)
+                str_inact_model_perfs = "{},{}".format(str_inact_model_perfs, model_perf)
+                str_inact_model_thresholds = "{},{}".format(str_inact_model_thresholds, threshold)
+                str_inact_pred_scores = "{},{}".format(str_inact_pred_scores, pred_score)
+                total_inact_mcc += float(model_perf)
+
+        average_act_mcc = 0.0 if act_count==0 else total_act_mcc/act_count
+        average_inact_mcc = 0.0 if inact_count == 0 else total_inact_mcc / inact_count
+        if strict:
+            if inact_count==0:
+                actinact, target_name, uniprot_id, defin, comp_id, drug_name, model_perf, pred_score, threshold, model = \
+                vote_dict[key][0]
+                predictions.append(["ACTPRED", comp_id, drug_name, uniprot_id, target_name, defin, average_act_mcc,
+                                    str_act_model_names[1:], str_act_model_perfs[1:], str_act_model_thresholds[1:],
+                                    str_act_pred_scores[1:]])
+            else:
+                actinact, target_name, uniprot_id, defin, comp_id, drug_name, model_perf, pred_score, threshold, model = \
+                vote_dict[key][0]
+                predictions.append(
+                    ["INACTPRED", comp_id, drug_name, uniprot_id, target_name, defin, average_inact_mcc,
+                     str_inact_model_names[1:],
+                     str_inact_model_perfs[1:], str_inact_model_thresholds[1:], str_inact_pred_scores[1:]])
+
+        else:
+
+            if act_count>inact_count:
+                actinact, target_name, uniprot_id, defin, comp_id, drug_name, model_perf, pred_score, threshold, model = vote_dict[key][0]
+                predictions.append(["ACTPRED", comp_id, drug_name, uniprot_id, target_name, defin, average_act_mcc, str_act_model_names[1:], str_act_model_perfs[1:], str_act_model_thresholds[1:], str_act_pred_scores[1:]])
+            else:
+                actinact, target_name, uniprot_id, defin, comp_id, drug_name, model_perf, pred_score, threshold, model = vote_dict[key][0]
+                predictions.append(
+                    ["INACTPRED", comp_id, drug_name, uniprot_id, target_name, defin, average_inact_mcc, str_inact_model_names[1:],
+                     str_inact_model_perfs[1:], str_inact_model_thresholds[1:], str_inact_pred_scores[1:]])
+
+
+    path_overlap = "{}/trained_chembl_targets_pancancer_mapping.txt".format(training_files_path)
+    df_overlap = read_csv(path_overlap, sep="\t")[["UniProtAccession", "ChEMBLTargetID", "GeneSymbol"]]
+
+    for pred_ind in range(len(predictions)):
+        #actinact, comp_id, drug_name, uniprot_id, target_name, defin, average_mcc, pred_score, threshold = predictions[pred_ind]
+        actinact, comp_id, drug_name, uniprot_id, target_name, defin, average_mcc, actinact_model_names, actinact_model_perfs, actinact_model_thresholds, actinact_pred_scores = predictions[pred_ind]
+
+        if uniprot_id in df_overlap["UniProtAccession"].tolist():
+            gene_symbol = df_overlap.loc[df_overlap['UniProtAccession'] == uniprot_id, "GeneSymbol"].iloc[0]
+            #predictions[pred_ind] = [actinact, comp_id, drug_name, uniprot_id, target_name, defin, gene_symbol, average_mcc, pred_score, threshold ]
+            predictions[pred_ind] = [actinact, comp_id, drug_name, uniprot_id, target_name, defin, gene_symbol,
+                                     average_mcc, actinact_model_names, actinact_model_perfs, actinact_model_thresholds, actinact_pred_scores]
+
+        else:
+            #predictions[pred_ind] = [actinact, comp_id, drug_name, uniprot_id, target_name, defin, "", average_mcc, pred_score, threshold]
+            predictions[pred_ind] = [actinact, comp_id, drug_name, uniprot_id, target_name, defin, "",
+                                     average_mcc, actinact_model_names, actinact_model_perfs, actinact_model_thresholds,
+                                     actinact_pred_scores]
+
+    df_final_predictions = pd.DataFrame(predictions, columns=["ACTINACT", "CMPD_CHEMBLID", "DRUG_NAME", "UniProtAccession", "ChEMBLTargetID",  "Target Definition", "GeneSymbol",  "AverageMCCScore", "MODEL_NAMES", "MODEL_PERFORMANCES", "MODEL_THRESHOLDS",
+                                     "PREDICTION_SCORES"])
+    if strict:
+        df_final_predictions.to_csv("{}/drug_case_study_predictions/testDrugPredictionsTop{}ModelsNoWeakSTRICT.txt".format(result_files_path, topN), sep="\t", index=False)
+    else:
+        df_final_predictions.to_csv("{}/drug_case_study_predictions/testDrugPredictionsTop{}ModelsNoWeak.txt".format(result_files_path, topN),
+                                    sep="\t", index=False)
+    return df_final_predictions
+
+
+
+"""
+getPredictionsGood(1, True)
+getPredictionsGood(2, True)
+getPredictionsGood(3, True)
+getPredictionsGood(1, False)
+getPredictionsGood(2, False)
+getPredictionsGood(3, False)
+"""
 def evaluateBioactivities():
     import pandas as pd
     from pandas import read_csv
@@ -2079,4 +2295,21 @@ def evaluateBioactivities():
     #pd.merge(df_all_trained, df_nontrained, on=["ChEMBLTargetID"])
     """
 
+def divideChEMBLCompounds():
+    import pandas as pd
+    from pandas import read_csv
+    df_comps = read_csv("{}/{}".format(training_files_path, "chembl_24_1_chemreps.txt"), sep="\t")
+    print(df_comps.columns.tolist())
+    count = 0
+    part = 1
+    while count<len(df_comps):
+        df_comps[count:count+5000].to_csv("{}/ChEMBL24CompRepFiles/chembl_24_1_chemreps_part{}.txt".format(training_files_path, part), sep="\t",
+                      index=False)
+        count += 5000
+        part += 1
+
+
+
+
+# divideChEMBLCompounds()
 #evaluateBioactivities()

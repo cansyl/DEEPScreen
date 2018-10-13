@@ -1,3 +1,59 @@
+def generateCommandsForPredictiongAllChEMBL():
+    from operator import itemgetter
+    print("#!/bin/bash")
+    top5LogPath = "../resultFiles/LOGS/bestModelLOGSTop5"
+    result_files_path = "../resultFiles"
+    best_fl = open("{}/ChEMBLBestModelResultsAll_v2.txt".format(result_files_path), "r")
+    lst_best_fl = best_fl.read().split("\n")
+    best_fl.close()
+    best_model_dict = dict()
+
+    while "" in lst_best_fl:
+        lst_best_fl.remove("")
+    count = 0
+    for line in lst_best_fl[1:]:
+        count += 1
+
+        log_fl, modelname, target, optimizer, learning_rate, epoch, hidden1, hidden2, dropout, rotate, save_model, test_f1score, test_mcc, test_accuracy, test_precision, test_recall, test_tp, test_fp, test_tn, test_fn, test_threshold, val_auc, val_auprc, test_auc, test_auprc = line.split(
+            "\t")
+        try:
+            best_model_dict[target].append([float(test_mcc), line])
+        except:
+            best_model_dict[target] = [[float(test_mcc), line]]
+    for batch in range(365):
+        for tar in best_model_dict.keys():
+            best_model_dict[tar] = sorted(best_model_dict[tar], key=itemgetter(0), reverse=True)
+            best_model_mcc_score = float(best_model_dict[tar][0][0])
+
+            #print(tar, best_model_dict[tar])
+
+            if round(best_model_mcc_score, 2) >= 0.70:
+                for item in best_model_dict[tar][:1]:
+                    if (round(best_model_mcc_score, 2) - round(float(item[0]), 2) <= 0.05):
+                        count += 1
+                        log_fl, modelname, target, optimizer, learning_rate, epoch, hidden1, hidden2, dropout, rotate, save_model, test_f1score, test_mcc, test_accuracy, test_precision, test_recall, test_tp, test_fp, test_tn, test_fn, test_threshold, val_auc, val_auprc, test_auc, test_auprc = item[1].split("\t")
+
+                        log_fl = open("{}/{}".format(top5LogPath, log_fl), "r")
+                        lst_log_fl = log_fl.read().split("\n")
+                        log_fl.close()
+                        model_fl = ""
+                        for line in lst_log_fl:
+                            if line.startswith("Log directory:"):
+                                model_fl = line.split("/")[-2]
+                        if modelname=="ImageNetInceptionV2":
+                            print(
+                                "bsub -q research -R 'select[nprocs<=2]' -M 6144 -R 'rusage[mem=6144]'  -o ../LOGS/LoadModels/testDrugs_{}_batch{}.out \"python loadModel.py {} {} ChEMBL24CompRepFiles/chembl_24_1_chemreps_part{}.txt\"".format(
+                                    model_fl, (batch+1), target, model_fl, (batch+1)))
+                            print("sleep 5")
+                        else:
+                            print(
+                                "bsub -q research -R 'select[nprocs<=2]' -M 2048 -R 'rusage[mem=2048]'  -o ../LOGS/LoadModels/testDrugs_{}_batch{}.out \"python loadModel.py {} {} ChEMBL24CompRepFiles/chembl_24_1_chemreps_part{}.txt\"".format(
+                                    model_fl, (batch + 1), target, model_fl, (batch + 1)))
+                            print("sleep 5")
+
+
+generateCommandsForPredictiongAllChEMBL()
+
 def generateCommandsForTop5BestParameters():
     from operator import itemgetter
     fl_path = "../resultFiles"
@@ -46,6 +102,8 @@ def generateCommandsForTop5BestParameters():
                     "bsub -q research -M 15360 -R 'rusage[mem=15360]'  -o ../LOGS/OtherLOGS/convnetTop5Run_{}.out \"{}\"".format(
                         count, str_command))
             print("sleep 5")
+
+
 
 
 def generateCommandsForConvNet():
@@ -461,5 +519,5 @@ def generateCommandsForMissingModels():
                 print(line)
                 print("sleep 3")
 
+#generateCommandsForMissingModels()
 
-generateCommandsForMissingModels()
