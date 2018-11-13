@@ -1,14 +1,7 @@
-import rdkit
 import os
 import numpy as np
-import cv2
-import random
-import sklearn
 import subprocess
-from dataProcessing import constructDataMatricesForATarget, constructDataMatricesForATargetOtherClassifier
-from PIL import Image
-from models import ImageNetInceptionV2, AlexNetModel, CNNModel, CNNModel2
-from evaluationMetrics import calculatePrecision, calculateRecall, calculateF1Score, calculateAccuracy, calculateMCC
+from dataProcessing import constructDataMatricesForATarget, constructDataMatricesForATargetOtherClassifier, getTopNModels
 from sklearn.ensemble import RandomForestClassifier
 from sklearn.metrics import accuracy_score, f1_score, matthews_corrcoef
 from sklearn import svm
@@ -26,7 +19,7 @@ TEMP_IMG_OUTPUT_PATH = "../tempImage"
 
 
 def copyBestModelLOG(target):
-    best_result_fl = open("../resultFiles/bestModelResultsAll.txt", "r")
+    best_result_fl = open("../resultFiles/ChEMBLBestModelResultsAll_v2.txt.txt", "r")
     lst_best_result_fl = best_result_fl.read().split("\n")
     best_result_fl.close()
 
@@ -51,21 +44,13 @@ def copyBestModelLOG(target):
                 subprocess.call(["cp","../resultFiles/LOGS/{}/{}/{}".format(lgp, mdltype,log_fl_name),"../resultFiles/LOGS/bestModelLOGS"])
 
 def getTestCompounds(target):
-    best_result_fl = open("../resultFiles/bestModelResultsAll.txt","r")
-    lst_best_result_fl = best_result_fl.read().split("\n")
-    best_result_fl.close()
 
-    log_fl_name = ""
-    for line in lst_best_result_fl:
-        line = line.split("\t")
-        if line[2]==target:
-            log_fl_name = line[0]
-            break
+    log_fl_name = getTopNModels(1)[0][target][0][2]
 
     #print(log_fl_name)
 
     test_line = ""
-    log_fl = open("../resultFiles/LOGS/bestModelLOGS/{}".format(log_fl_name),"r")
+    log_fl = open("../resultFiles/LOGS/bestModelLOGSTop5/{}".format(log_fl_name),"r")
     lst_log_fl = log_fl.read().split("\n")
     log_fl.close()
 
@@ -89,13 +74,14 @@ def getTestCompounds(target):
 
 
 def trainModelTarget(target, rotate=False):
-
+    print("1")
     model = None
     test_comps = getTestCompounds(target)
-
+    # print(test_comps)
+    print("2")
     train = constructDataMatricesForATargetOtherClassifier(TEMP_IMG_OUTPUT_PATH, target, rotate)
     train_comp_name = [i[2] for i in train]
-
+    print("3")
     X = []
     Y = []
     for i in train:
@@ -127,14 +113,65 @@ def trainModelTarget(target, rotate=False):
     #print(len(X), len(Y))
     clf.fit(X, Y)
     y_rf_test_pred = clf.predict(test_x)
+    print("Target:\t{}".format(target))
+    str_preds = ""
+    for ind in range(len(test_comp_name)):
+        str_preds += test_comp_name[ind]
+        if test_y[ind]==1 and y_rf_test_pred[ind]==1:
+            str_preds += ",TP,ACT,1"
+        elif test_y[ind]==1 and y_rf_test_pred[ind]==0:
+            str_preds += ",FN,ACT,0"
+        elif test_y[ind]==0 and y_rf_test_pred[ind]==0:
+            str_preds += ",TN,INACT,0"
+        else:
+            str_preds += ",FP,INACT,1"
+        str_preds += "\t"
+
+    print("RF Predictions:")
+    print(str_preds)
 
     svc = svm.SVC()
     svc.fit(X, Y)
     y_svc_test_pred = svc.predict(test_x)
 
+    str_preds = ""
+
+    for ind in range(len(test_comp_name)):
+        str_preds += test_comp_name[ind]
+        if test_y[ind]==1 and y_svc_test_pred[ind]==1:
+            str_preds += ",TP,ACT,1"
+        elif test_y[ind]==1 and y_svc_test_pred[ind]==0:
+            str_preds += ",FN,ACT,0"
+        elif test_y[ind]==0 and y_svc_test_pred[ind]==0:
+            str_preds += ",TN,INACT,0"
+        else:
+            str_preds += ",FP,INACT,1"
+        str_preds += "\t"
+
+    print("SVM Predictions:")
+    print(str_preds)
+
+
     lr = LogisticRegression()
     lr.fit(X, Y)
     y_lr_test_pred = lr.predict(test_x)
+
+    str_preds = ""
+
+    for ind in range(len(test_comp_name)):
+        str_preds += test_comp_name[ind]
+        if test_y[ind] == 1 and y_lr_test_pred[ind] == 1:
+            str_preds += ",TP,ACT,1"
+        elif test_y[ind] == 1 and y_lr_test_pred[ind] == 0:
+            str_preds += ",FN,ACT,0"
+        elif test_y[ind] == 0 and y_lr_test_pred[ind] == 0:
+            str_preds += ",TN,INACT,0"
+        else:
+            str_preds += ",FP,INACT,1"
+        str_preds += "\t"
+    print("LR Predictions:")
+    print(str_preds)
+
     print("{}\t{}\t{}\t{}\t{}\t{}\t{}\t{}\t{}\t{}".format(target,accuracy_score(test_y, y_rf_test_pred), f1_score(test_y, y_rf_test_pred), matthews_corrcoef(test_y, y_rf_test_pred), accuracy_score(test_y, y_svc_test_pred), f1_score(test_y, y_svc_test_pred),
                               matthews_corrcoef(test_y, y_svc_test_pred), accuracy_score(test_y, y_lr_test_pred), f1_score(test_y, y_lr_test_pred),
                                           matthews_corrcoef(test_y, y_lr_test_pred)))

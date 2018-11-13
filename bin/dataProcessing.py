@@ -693,13 +693,13 @@ def getSMILEsForAllChEMBL(rep_fl):
     prob_count = 0
     # there should be a header in the smiles file
     compound_smiles_dict = dict()
-    print("DENEME../trainingFiles/{}".format(rep_fl))
+    # print("DENEME../trainingFiles/{}".format(rep_fl))
     with open("../trainingFiles/{}".format(rep_fl)) as f:
         for line in f:
             if isFirst:
                 isFirst = False
             else:
-                print(line)
+                # print(line)
                 line = line.split("\n")[0]
                 temp_parts = line.split("\t")
                 # print(temp_parts)
@@ -709,6 +709,34 @@ def getSMILEsForAllChEMBL(rep_fl):
                 compound_smiles_dict[chembl_id] = smiles
     return compound_smiles_dict
 
+
+# the name of this function should be changed
+def getSMILEsForChEMBLIDList(rep_fl, lst_chembl_ids):
+    isFirst = True
+    prob_count = 0
+    dict_ids = dict()
+    for id in lst_chembl_ids:
+        dict_ids[id] = 0
+    # there should be a header in the smiles file
+    compound_smiles_dict = dict()
+    # print("DENEME../trainingFiles/{}".format(rep_fl))
+    with open("../trainingFiles/{}".format(rep_fl)) as f:
+        for line in f:
+            if isFirst:
+                isFirst = False
+            else:
+                #print(line)
+                line = line.split("\n")[0]
+                temp_parts = line.split("\t")
+                # print(temp_parts)
+                chembl_id, smiles = temp_parts[0], temp_parts[1]
+                try:
+                    dict_ids[chembl_id]
+                    compound_smiles_dict[chembl_id] = smiles
+                except:
+                    pass
+
+    return compound_smiles_dict
 
 def getActInactiveDictForAllTargets(fl):
     isFirst = True
@@ -802,15 +830,134 @@ def drawMolFromSmiles(output_path,smiles, id):
     mol = Chem.MolFromSmiles(smiles)
     DrawingOptions.atomLabelFontSize = 55
     DrawingOptions.dotsPerAngstrom = 100
-    DrawingOptions.bondLineWidth = 1.5
+    DrawingOptions.bondLineWidth = 1
     Draw.MolToFile(mol, "{}/{}.svg".format(output_path,id), size= ( IMG_SIZE , IMG_SIZE ))
-    cairosvg.svg2png(url='{}/{}.svg'.format(output_path,id), write_to="{}/{}.png".format(output_path,id))
-    #subprocess.call(["rm","{}/{}.svg".format(output_path,id)])
+    cairosvg.svg2png(url='{}/{}.svg'.format(output_path,id),
+                     write_to="{}/{}.png".format(output_path,id))
+    subprocess.call(["rm","{}/{}.svg".format(output_path,id)])
+    #subprocess.call(["rm", "{}/{}.png".format(output_path, id)])
+
+def getFamilyBasedChEMBLIDS(trainedModelFile):
+    families = ["enzyme", "gpcr", "ionchannel", "nuclearreceptor"]
+    fam_chemblid_dict = dict()
+    fam_chemblid_dict["others"] = set()
+    chemblid_family_dict = dict()
+
+    for fam in families:
+        fam_chemblid_dict[fam] = set()
+        fam_fl = open(os.path.join(training_files_path,"{}_targets.txt".format(fam)))
+        lst_fam_fl = fam_fl.read().split("\n")
+        fam_fl.close()
+        while "" in lst_fam_fl:
+            lst_fam_fl.remove("")
+
+        for line in lst_fam_fl[1:]:
+            chembl_id = line.split("\t")[0]
+            chemblid_family_dict[chembl_id] = fam
+
+    isFirst = True
+    with open(os.path.join(result_files_path,trainedModelFile)) as f:
+        for line in f:
+            if isFirst:
+                isFirst = False
+            else:
+                log_fl, modelname, target, optimizer, learning_rate, epoch, hidden1, hidden2, dropout, rotate, save_model, test_f1score, test_mcc, test_accuracy, test_precision, test_recall, test_tp, test_fp, test_tn, test_fn, test_threshold, val_auc, val_auprc, test_auc, test_auprc = line.split("\t")
+                try:
+                    fam_chemblid_dict[chemblid_family_dict[target]].add(target)
+                except:
+                    fam_chemblid_dict["others"].add(target)
+
+    return fam_chemblid_dict
+
+def drawImagesofMolecules():
+    import subprocess
+    families = ["enzyme", "gpcr", ]
+    family_based_chembl_id_dict =getFamilyBasedChEMBLIDS("ChEMBLBestModelResultsAll_v2.txt")
+    compound_smiles_dict = getSMILEsForAllChEMBL("chembl_23_chemreps.txt")
+
+    for fam in families:
+        for tar in family_based_chembl_id_dict[fam]:
+            output_path = "{}/{}/{}".format(TEMP_IMG_OUTPUT_PATH, fam, tar)
+            subprocess.call(["mkdir", output_path])
+            act_comps, _ = getActInactListForATarget(tar, "act_inact_comps_10.0_20.0_chembl_preprocessed_sp_b_pchembl_data.txt")
+            for comp in act_comps:
+                try:
+                    drawMolFromSmiles(output_path, compound_smiles_dict[comp], comp)
+                except:
+                    pass
+                #img_arr = drawPictureandReturnImgMatrix(output_path, compound_smiles_dict[comp], pos_comp)
+drawImagesofMolecules()
+"""
+import time
+
+start = time.time()
+for i in range(10000):
+    #print(i)
+    nicls_drug_1 = "COc1ccc(cc1)c2cnc(nc2)N3CCN(C(=O)N[C@@H]4C5CC6CC4C[C@](O)(C6)C5)c7ccccc37"
+    drawMolFromSmiles(TEMP_IMG_OUTPUT_PATH, nicls_drug_1, "CHEMBL2380638")
+
+end = time.time()
+print(end - start)
+"""
+def drawMolFromSmilesWithoutGeneratingPNG(output_path,smiles, id):
+    mol = Chem.MolFromSmiles(smiles)
+    DrawingOptions.atomLabelFontSize = 55
+    DrawingOptions.dotsPerAngstrom = 100
+    DrawingOptions.bondLineWidth = 1
+    Draw.MolToFile(mol, "{}/{}.svg".format(output_path,id), size= ( IMG_SIZE , IMG_SIZE ))
+
+
+    I = cairosvg.svg2png(url='{}/{}.svg'.format(output_path,id))
+    #                 write_to="{}/{}.png".format(output_path,id))
+    nparr = np.fromstring(I, np.uint8)
+    img_np = cv2.imdecode(nparr, cv2.IMREAD_COLOR)
+    # img_arr = cv2.imread(path, cv2.IMREAD_GRAYSCALE)
+    # img_arr = np.array(img_arr)
+    #print(img_np.shape)
+    #cv2.imshow("Original {}".format(id), img_np)
+    #cv2.waitKey(0)
+    #im = cv2.cvtColor(img_np, cv2.COLOR_BGR2RGB)
+    subprocess.call(["rm","{}/{}.svg".format(output_path,id)])
 
 
 
+#nicls_drug_1 = "COc1ccc(cc1)c2cnc(nc2)N3CCN(C(=O)N[C@@H]4C5CC6CC4C[C@](O)(C6)C5)c7ccccc37"
+#drawMolFromSmilesWithoutGeneratingPNG(TEMP_IMG_OUTPUT_PATH,nicls_drug_1, "CHEMBL2380638")
 
 """
+
+nicls_drug_1 = "COc1ccc(cc1)c2cnc(nc2)N3CCN(C(=O)N[C@@H]4C5CC6CC4C[C@](O)(C6)C5)c7ccccc37"
+drawMolFromSmiles(TEMP_IMG_OUTPUT_PATH,nicls_drug_1, "CHEMBL2380638")
+
+nicls_drug_2 = "COc1ccc(cc1)c2cnc(nc2)N3CCN(C(=O)N[C@@H]4C5CC6CC4C[C@@](O)(C6)C5)c7ccccc37"
+drawMolFromSmiles(TEMP_IMG_OUTPUT_PATH,nicls_drug_2, "CHEMBL2380637")
+
+nicls_drug_3 = "CC(C)(CC(=O)NC1CC1)CC(=O)N[C@@H]2C3CC4CC2C[C@](O)(C4)C3"
+drawMolFromSmiles(TEMP_IMG_OUTPUT_PATH,nicls_drug_3, "CHEMBL552519")
+
+nicls_drug_4 = "CC(C)(CC(=O)NC1CC1)CC(=O)N[C@@H]2C3CC4CC2C[C@@](O)(C4)C3"
+drawMolFromSmiles(TEMP_IMG_OUTPUT_PATH,nicls_drug_4, "CHEMBL550424")
+
+nicls_drug_5 = "CC(N1CCN(CC1)c2ccc(cn2)C(F)(F)F)C(=O)N[C@@H]3C4C[C@@]5(O)CC3C[C@@](F)(C4)C5"
+drawMolFromSmiles(TEMP_IMG_OUTPUT_PATH,nicls_drug_5, "CHEMBL219494")
+
+nicls_drug_6 = "CC(N1CCN(CC1)c2ccc(cn2)C(F)(F)F)C(=O)N[C@@H]3C4C[C@]5(O)CC3C[C@](F)(C4)C5"
+drawMolFromSmiles(TEMP_IMG_OUTPUT_PATH,nicls_drug_6, "CHEMBL218197")
+
+chembl_drug_1 = "COc1cc2nccc(Oc3ccc(NC(=O)NC4CC4)c(Cl)c3)c2cc1C(=O)N"
+drawMolFromSmiles(TEMP_IMG_OUTPUT_PATH,chembl_drug_1, "CHEMBL1289601_Lenvatinib")
+
+chembl_drug_2 = "CCN(CC)CCNC(=O)c1c(C)[nH]c(\C=C\\2/C(=O)Nc3ccc(F)cc23)c1C"
+drawMolFromSmiles(TEMP_IMG_OUTPUT_PATH,chembl_drug_2, "CHEMBL535_Sunitinib")
+
+chembl_drug_3 = "CCN(CC)CCCC(C)Nc1ccnc2cc(Cl)ccc12.OP(=O)(O)O.OP(=O)(O)O"
+drawMolFromSmiles(TEMP_IMG_OUTPUT_PATH,chembl_drug_3, "CHEMBL58510_ChloroquineDiphosphate")
+
+chembl_drug_4 = "CNC(=O)c1cc(Oc2ccc(NC(=O)Nc3ccc(Cl)c(c3)C(F)(F)F)cc2)ccn1"
+drawMolFromSmiles(TEMP_IMG_OUTPUT_PATH,chembl_drug_4, "CHEMBL1336_Sorafenib")
+
+
+
 chembl_smiles_1 = "CC(C)(C)OC(=O)N[C@@H](Cc1ccccc1)C(=O)N[C@H]2CCC(=O)NCCC[C@H](O)[C@H](O)[C@H](CC3CCCCC3)NC2=O"
 drawMolFromSmiles(TEMP_IMG_OUTPUT_PATH,chembl_smiles_1, "CHEMBL90266")
 # 0.65
@@ -871,17 +1018,6 @@ def rotateImageReturnMatrix(train_test_data_list, img_arr, lbl, comp_id):
         train_test_data_list.append([np.array(rotated_image_array / 255.0), np.array(lbl), "{}_{}".format(comp_id, angle)])
         #cv2.imshow("Rotated (Correct) {} {}".format(comp_id, str(lbl)), rotated_image_array)
         #cv2.waitKey(0)
-
-def mirrorImageReturnMatrix(train_test_data_list, img_arr, lbl, comp_id):
-
-    for flip_itm in [0,1,-1]:
-        flipped_image_array = cv2.flip(img_arr,flip_itm)  # cv2.BORDER_CONSTANT, 255)
-        # cv2.imshow("Flipped (Correct) {} {}".format(comp_id, str(lbl)), rotated_image_array)
-        # cv2.waitKey(0)
-        train_test_data_list.append([np.array(flipped_image_array / 255.0), np.array(lbl), "{}_{}".format(comp_id, flip_itm)])
-
-
-# mirrorImageReturnMatrix([],"CHEMBL90306", "CHEMBL90306")
 
 
 
@@ -1121,8 +1257,8 @@ def getTrainedTargetUniProtMapping(trainedModelFile):
 # getTrainedTargetUniProtMapping("trainedTargetList.txt")
 
 def getFamilyBasedPerformances(trainedModelFile):
-    chemblUniProtMappingDict = getChEMBLTargetIDUniProtMapping()
-    trained_chembl_id_lst = []
+    #chemblUniProtMappingDict = getChEMBLTargetIDUniProtMapping()
+    #trained_chembl_id_lst = []
     families = ["enzyme", "gpcr", "ionchannel", "nuclearreceptor"]
     fam_perf_dict = dict()
     fam_perf_dict["others"] = [[],[]]
@@ -1146,14 +1282,14 @@ def getFamilyBasedPerformances(trainedModelFile):
             if isFirst:
                 isFirst = False
             else:
-                log_fl, modelname, target, optimizer, learning_rate, epoch, hidden1, hidden2, dropout, rotate, save_model, valmcc_f1score, valmcc_mcc, valmcc_accuracy, valmcc_precision, valmcc_recall, valmcc_validation_tp, valmcc_validation_fp, valmcc_validation_tn, valmcc_validation_fn, valmcc_threshold, testmcc_f1score, testmcc_mcc, testmcc_accuracy, testmcc_precision, testmcc_recall, testmcc_test_tp, testmcc_test_fp, testmcc_test_tn, testmcc_test_fn, testmcc_threshold, _ = line.split("\t")
+                log_fl, modelname, target, optimizer, learning_rate, epoch, hidden1, hidden2, dropout, rotate, save_model, test_f1score, test_mcc, test_accuracy, test_precision, test_recall, test_tp, test_fp, test_tn, test_fn, test_threshold, val_auc, val_auprc, test_auc, test_auprc = line.split("\t")
                 try:
                     chemblid_family_dict[target]
-                    fam_perf_dict[chemblid_family_dict[target]][0].append(float(testmcc_f1score))
-                    fam_perf_dict[chemblid_family_dict[target]][1].append(float(testmcc_mcc))
+                    fam_perf_dict[chemblid_family_dict[target]][0].append(float(test_f1score))
+                    fam_perf_dict[chemblid_family_dict[target]][1].append(float(test_mcc))
                 except:
-                    fam_perf_dict["others"][0].append(float(testmcc_f1score))
-                    fam_perf_dict["others"][1].append(float(testmcc_mcc))
+                    fam_perf_dict["others"][0].append(float(test_f1score))
+                    fam_perf_dict["others"][1].append(float(test_mcc))
             #testmcc_f1score
             #testmcc_mcc
             # chembl_target_id = parts[2]
@@ -1164,13 +1300,14 @@ def getFamilyBasedPerformances(trainedModelFile):
         if len(fam_perf_dict[fam][0])!=0:
             ave_f1 = sum(fam_perf_dict[fam][0])/len(fam_perf_dict[fam][0])
             ave_mcc = sum(fam_perf_dict[fam][1])/len(fam_perf_dict[fam][1])
-            print("{}\t{}\t{}\t{}".format(fam, len(fam_perf_dict[fam][0]), round(ave_f1, 2), round(ave_mcc, 2) ))
+            print("{}\t{}\t{}\t{}".format(fam, int(len(fam_perf_dict[fam][0])/5), round(ave_f1, 2), round(ave_mcc, 2) ))
     """
     for c_id in trained_chembl_id_lst:
         if c_id!="target":
             print(c_id, chemblUniProtMappingDict[c_id][0])
     """
-# getFamilyBasedPerformances("bestModelResultsAll.txt")
+
+# getFamilyBasedPerformances("ChEMBLBestModelResultsAll_v2.txt")
 # createActInactFilesForAllTargetNeighbourThreshold("act_inact_comps_10.0_20.0_chembl_preprocessed_sp_b_pchembl_data.txt", "chembl_23_uniprot_mapping_sp_against_chembl_23_uniprot_mapping_sp_blast.out", 20)
 
 # writeDictToFile(target_dict, "{}/{}_pos_neg_40.txt".format(path, fl_first_part))
@@ -2496,26 +2633,7 @@ def getUniProtChEMBLTargetIDMapping():
     return uniprot_chembl_dict
 
 # the name of this function should be changed
-def getSMILEsForAllChEMBL(rep_fl):
-    isFirst = True
-    prob_count = 0
-    # there should be a header in the smiles file
-    compound_smiles_dict = dict()
-    print("HERE I AM")
-    with open("../trainingFiles/{}".format(rep_fl)) as f:
-        for line in f:
-            print(line.split("\t"))
-            if isFirst:
-                isFirst = False
-            else:
-                line = line.split("\n")[0]
-                temp_parts = line.split("\t")
-                # print(temp_parts)
-                chembl_id, smiles = temp_parts[0], temp_parts[1]
-                #chembl_id, smiles, _, _ = line.split("\t")
-                # print(chembl_id, smiles)
-                compound_smiles_dict[chembl_id] = smiles
-    return compound_smiles_dict
+
 
 
 def getActInactiveDictForAllTargets(fl):
@@ -2606,18 +2724,10 @@ def getActInactDictForAllTargets(fl):
     return act_inact_dict
 
 
-def drawMolFromSmiles(output_path,smiles, id):
-    mol = Chem.MolFromSmiles(smiles)
-    DrawingOptions.atomLabelFontSize = 55
-    DrawingOptions.dotsPerAngstrom = 100
-    DrawingOptions.bondLineWidth = 1.5
-    Draw.MolToFile(mol, "{}/{}.svg".format(output_path,id), size= ( IMG_SIZE , IMG_SIZE ))
-    cairosvg.svg2png(url='{}/{}.svg'.format(output_path,id), write_to="{}/{}.png".format(output_path,id))
-    #subprocess.call(["rm","{}/{}.svg".format(output_path,id)])
 
 
 
-
+# print( getTestCompsLabelsPredictionsShallowFromLogFile("/Users/trman/OneDrive/Projects/DEEPScreen/resultFiles/LOGS/ShallowLOGS/CHEMBL203_shallow.txt") )
 """
 chembl_smiles_1 = "CC(C)(C)OC(=O)N[C@@H](Cc1ccccc1)C(=O)N[C@H]2CCC(=O)NCCC[C@H](O)[C@H](O)[C@H](CC3CCCCC3)NC2=O"
 drawMolFromSmiles(TEMP_IMG_OUTPUT_PATH,chembl_smiles_1, "CHEMBL90266")
@@ -2669,29 +2779,34 @@ def drawPictureandReturnImgMatrix(temp_output_path, smiles, id):
     return img_arr
 
 
-def rotateImageReturnMatrix(train_test_data_list, img_arr, lbl, comp_id):
+def rotateImageReturnMatrix(train_test_data_list, img_arr, lbl, lbl_lst, lbl_1, comp_id):
     rows, cols = img_arr.shape
     for angle in np.arange(45, 316, 45):
         rotation_matrix = cv2.getRotationMatrix2D((cols / 2, rows / 2), angle, 1)
         rotated_image_array = cv2.warpAffine(img_arr, rotation_matrix, (cols, rows), cv2.INTER_LINEAR,
                                              borderValue=255)  # cv2.BORDER_CONSTANT, 255)
-
+        lbl_lst.append(lbl_1)
         train_test_data_list.append([np.array(rotated_image_array / 255.0), np.array(lbl), "{}_{}".format(comp_id, angle)])
         #cv2.imshow("Rotated (Correct) {} {}".format(comp_id, str(lbl)), rotated_image_array)
         #cv2.waitKey(0)
 
-def mirrorImageReturnMatrix(train_test_data_list, img_arr, lbl, comp_id):
+def mirrorImageReturnMatrix(train_test_data_list, img_arr, lbl, lbl_lst, lbl_1, comp_id):
 
     for flip_itm in [0,1,-1]:
         flipped_image_array = cv2.flip(img_arr,flip_itm)  # cv2.BORDER_CONSTANT, 255)
         # cv2.imshow("Flipped (Correct) {} {}".format(comp_id, str(lbl)), rotated_image_array)
         # cv2.waitKey(0)
         train_test_data_list.append([np.array(flipped_image_array / 255.0), np.array(lbl), "{}_{}".format(comp_id, flip_itm)])
-
-
-# mirrorImageReturnMatrix([],"CHEMBL90306", "CHEMBL90306")
-
-
+        lbl_lst.append(lbl_1)
+"""
+path = os.path.join(TEMP_IMG_OUTPUT_PATH, "CHEMBL58510_ChloroquineDiphosphate_100.png")
+img_arr = cv2.imread(path, cv2.IMREAD_GRAYSCALE)
+img_arr = np.array(img_arr)
+for flip_itm in [0,1,-1]:
+    flipped_image_array = cv2.flip(img_arr,flip_itm)
+    cv2.imshow("Flipped (Correct)", flipped_image_array)
+    cv2.waitKey(0)
+"""
 
 def constructDataMatricesForATarget(output_path, target_id, rotate=False):
     train_test_data = []
@@ -3652,53 +3767,6 @@ def getTrainedButNotPanCancerProteins():
 
 
 
-def getTopNModels(N):
-    #print("#!/bin/bash")
-    from operator import itemgetter
-    top5LogPath = "../resultFiles/LOGS/bestModelLOGSTop5"
-    result_files_path = "../resultFiles"
-    # best_fl = open("{}/ChEMBLBestModelResultsBest.txt".format(result_files_path), "r")
-    best_fl = open("{}/ChEMBLBestModelResultsAll_v2.txt".format(result_files_path), "r")
-    lst_best_fl = best_fl.read().split("\n")
-    best_fl.close()
-    target_perf_dict = dict()
-    model_perf_dict = dict()
-    while "" in lst_best_fl:
-        lst_best_fl.remove("")
-    count = 0
-    for line in lst_best_fl[1:]:
-        count += 1
-
-        log_fl, modelname, target, optimizer, learning_rate, epoch, hidden1, hidden2, dropout, rotate, save_model, test_f1score, test_mcc, test_accuracy, test_precision, test_recall, test_tp, test_fp, test_tn, test_fn, test_threshold, val_auc, val_auprc, test_auc, test_auprc = line.split(
-            "\t")
-        # print(log_fl)
-        if target not in target_perf_dict.keys():
-            target_perf_dict[target] = []
-
-        log_fl = open("{}/{}".format(top5LogPath, log_fl), "r")
-        lst_log_fl = log_fl.read().split("\n")
-        log_fl.close()
-        model_fl = ""
-        for line in lst_log_fl:
-            if line.startswith("Log directory:"):
-                model_fl = line.split("/")[-2]
-                # print(model_fl)
-        target_perf_dict[target].append([model_fl, float(test_mcc)])
-        #model_perf_dict[model_fl] = float(test_mcc)
-    for key in target_perf_dict.keys():
-        target_perf_dict[key] = sorted(target_perf_dict[key], key=itemgetter(1), reverse=True)
-        target_perf_dict[key] = target_perf_dict[key][:N]
-        for item in target_perf_dict[key]:
-            model_perf_dict[item[0]] = item[1]
-    #print(target_perf_dict)
-    #print(target_perf_dict["CHEMBL3081"])
-    #print("ChEMBLTargetID\tMCCScore")
-    #for key in target_perf_dict.keys():
-    #    print("{}\t{}".format(target_perf_dict[key][0][0].split("_")[1],target_perf_dict[key][0][1]))
-    #    if target_perf_dict[key][0][1]>=.7:
-    #
-    return target_perf_dict, model_perf_dict
-
 
 #getTopNModels(1)
 
@@ -4176,7 +4244,108 @@ def getTrainedButNotPanCancerProteins():
 # df_count = df.groupby("Organism").size()
 
 
+def getTopNModels(N):
+    #print("#!/bin/bash")
+    from operator import itemgetter
+    top5LogPath = "../resultFiles/LOGS/bestModelLOGSTop5"
+    result_files_path = "../resultFiles"
+    # best_fl = open("{}/ChEMBLBestModelResultsBest.txt".format(result_files_path), "r")
+    best_fl = open("{}/ChEMBLBestModelResultsAll_v2.txt".format(result_files_path), "r")
+    lst_best_fl = best_fl.read().split("\n")
+    best_fl.close()
+    target_perf_dict = dict()
+    model_perf_dict = dict()
+    while "" in lst_best_fl:
+        lst_best_fl.remove("")
+    count = 0
+    for line in lst_best_fl[1:]:
+        count += 1
 
+        log_fl, modelname, target, optimizer, learning_rate, epoch, hidden1, hidden2, dropout, rotate, save_model, test_f1score, test_mcc, test_accuracy, test_precision, test_recall, test_tp, test_fp, test_tn, test_fn, test_threshold, val_auc, val_auprc, test_auc, test_auprc = line.split(
+            "\t")
+        str_log_fl = log_fl
+        # print(log_fl)
+        if target not in target_perf_dict.keys():
+            target_perf_dict[target] = []
+
+        log_fl = open("{}/{}".format(top5LogPath, log_fl), "r")
+        lst_log_fl = log_fl.read().split("\n")
+        log_fl.close()
+        model_fl = ""
+        for line in lst_log_fl:
+            if line.startswith("Log directory:"):
+                model_fl = line.split("/")[-2]
+                # print(model_fl)
+        target_perf_dict[target].append([model_fl, float(test_mcc), str_log_fl])
+        #model_perf_dict[model_fl] = float(test_mcc)
+    for key in target_perf_dict.keys():
+        target_perf_dict[key] = sorted(target_perf_dict[key], key=itemgetter(1), reverse=True)
+        target_perf_dict[key] = target_perf_dict[key][:N]
+        for item in target_perf_dict[key]:
+            model_perf_dict[item[0]] = item[1]
+    #print(target_perf_dict)
+    #print(target_perf_dict["CHEMBL3081"])
+    #print("ChEMBLTargetID\tMCCScore")
+    #for key in target_perf_dict.keys():
+    #    print("{}\t{}".format(target_perf_dict[key][0][0].split("_")[1],target_perf_dict[key][0][1]))
+    #    if target_perf_dict[key][0][1]>=.7:
+    #
+    return target_perf_dict, model_perf_dict
+
+
+
+def getBestModelPerformance(N):
+    #print("#!/bin/bash")
+    from operator import itemgetter
+    top5LogPath = "../resultFiles/LOGS/bestModelLOGSTop5"
+    result_files_path = "../resultFiles"
+    # best_fl = open("{}/ChEMBLBestModelResultsBest.txt".format(result_files_path), "r")
+    best_fl = open("{}/ChEMBLBestModelResultsAll_v2.txt".format(result_files_path), "r")
+    lst_best_fl = best_fl.read().split("\n")
+    best_fl.close()
+    target_perf_dict = dict()
+    model_perf_dict = dict()
+    while "" in lst_best_fl:
+        lst_best_fl.remove("")
+    count = 0
+    print(lst_best_fl[0])
+    for line in lst_best_fl[1:]:
+        count += 1
+        #print(line)
+        log_fl, modelname, target, optimizer, learning_rate, epoch, hidden1, hidden2, dropout, rotate, save_model, test_f1score, test_mcc, test_accuracy, test_precision, test_recall, test_tp, test_fp, test_tn, test_fn, test_threshold, val_auc, val_auprc, test_auc, test_auprc = line.split(
+            "\t")
+        str_log_fl = log_fl
+        # print(log_fl)
+        if target not in target_perf_dict.keys():
+            target_perf_dict[target] = []
+
+        log_fl = open("{}/{}".format(top5LogPath, log_fl), "r")
+        lst_log_fl = log_fl.read().split("\n")
+        log_fl.close()
+        model_fl = ""
+        for line2 in lst_log_fl:
+            if line2.startswith("Log directory:"):
+                model_fl = line2.split("/")[-2]
+                # print(model_fl)
+        target_perf_dict[target].append([model_fl, float(test_mcc), line])
+        #model_perf_dict[model_fl] = float(test_mcc)
+    for key in target_perf_dict.keys():
+        target_perf_dict[key] = sorted(target_perf_dict[key], key=itemgetter(1), reverse=True)
+        target_perf_dict[key] = target_perf_dict[key][:N]
+        for item in target_perf_dict[key]:
+            model_perf_dict[item[0]] = item[1]
+    #print(target_perf_dict)
+    #print(target_perf_dict["CHEMBL3081"])
+    #print("ChEMBLTargetID\tMCCScore")
+    for key in target_perf_dict.keys():
+        #print(target_perf_dict[key])
+        print(target_perf_dict[key][0][2])
+
+
+    return target_perf_dict
+
+# getBestModelPerformance(1)
+"""
 def getTopNModels(N):
     #print("#!/bin/bash")
     from operator import itemgetter
@@ -4223,7 +4392,7 @@ def getTopNModels(N):
     #    if target_perf_dict[key][0][1]>=.7:
     #
     return target_perf_dict, model_perf_dict
-
+"""
 
 #getTopNModels(1)
 
@@ -4657,8 +4826,120 @@ def divideChEMBLCompounds():
         count += 5000
         part += 1
 
+def getInceptionvsConvNet():
+    target_perf_dict, model_perf_dict = getTopNModels(5)
+    for key in target_perf_dict.keys():
+        #print(key, target_perf_dict[key] )
+        if "ImageNetInceptionV2" in target_perf_dict[key][0][0]:
+            str_result = ""
+            found_CNN = False
+            str_result += "ImageNetInceptionV2\t{}\t".format(target_perf_dict[key][0][1])
+            for tr_perf in target_perf_dict[key][1:]:
+                #print(tr_perf)
+                #break
+                found_CNN = True
+                if "CNNModel" in tr_perf[0]:
 
+                    str_result +="CNNModel\t{}\t".format(tr_perf[1])
+                    break
+            if not found_CNN:
+                str_result += "CNNModel\tNone"
+            print(str_result)
 
-
+# getInceptionvsConvNet()
 # divideChEMBLCompounds()
-#evaluateBioactivities()
+# evaluateBioactivities()
+
+def getTestCompsLabelsPredictionsFromLogFile(log_fl_path):
+    log_fl = open(log_fl_path, "r")
+    lst_log_fl = log_fl.read().split("\n")
+    log_fl.close()
+    threshold = float(lst_log_fl[-3].split(":")[1][:-1])
+    lst_predictions = lst_log_fl[-2].split("\t")
+    comp_id_lst = []
+    lbl_lst = []
+    pred_lst = []
+    for pred in lst_predictions[:-1]:
+        comp_id,pred_type, lbl, pred_score = pred.split(",")
+        comp_id_lst.append(comp_id)
+        lbl_lst.append(1 if lbl=="ACT" else 0)
+        pred_lst.append(pred_type)
+    return  comp_id_lst, lbl_lst, pred_lst
+
+#getTestCompsLabelsFromLogFile("/Users/trman/OneDrive/Projects/DEEPScreen/resultFiles/LOGS/bestModelLOGSTop5/convnetTop5Run_15.out")
+
+
+def getTestCompsLabelsPredictionsShallowFromLogFile(log_fl_path):
+    log_fl = open(log_fl_path, "r")
+    lst_log_fl = log_fl.read().split("\n")
+    log_fl.close()
+    lst_rf_predictions = lst_log_fl[-7].split("\t")
+    lst_svm_predictions = lst_log_fl[-5].split("\t")
+    lst_lr_predictions = lst_log_fl[-3].split("\t")
+    comp_id_lst = []
+    lbl_lst = []
+
+    pred_rf_lst = []
+    for pred in lst_rf_predictions[:-1]:
+        comp_id,pred_type, lbl, pred_score = pred.split(",")
+        comp_id_lst.append(comp_id)
+        lbl_lst.append(1 if lbl=="ACT" else 0)
+        pred_rf_lst.append(pred_type)
+
+    pred_svm_lst = []
+    for pred in lst_svm_predictions[:-1]:
+        comp_id,pred_type, lbl, pred_score = pred.split(",")
+        pred_svm_lst.append(pred_type)
+
+    pred_lr_lst = []
+    for pred in lst_lr_predictions[:-1]:
+        comp_id,pred_type, lbl, pred_score = pred.split(",")
+        pred_lr_lst.append(pred_type)
+
+    return  comp_id_lst, lbl_lst, pred_rf_lst, pred_svm_lst, pred_lr_lst
+
+def getDEEPScreenCorrectShallowIncorrect(target):
+    log_fl_name = getTopNModels(1)[0][target][0][2]
+
+    deepscreen_comp_id_lst, deepscreen_lbl_lst, deepscreen_pred_lst = getTestCompsLabelsPredictionsFromLogFile("../resultFiles/LOGS/bestModelLOGSTop5/{}".format(log_fl_name))
+    shallow_comp_id_lst, shallow_lbl_lst, shallow_pred_rf_lst, shallow_pred_svm_lst, shallow_pred_lr_lst = getTestCompsLabelsPredictionsShallowFromLogFile("../resultFiles/LOGS/ShallowLOGS/{}_shallow.txt".format(target))
+    #for deepscreen_comp_id_lst
+    deepscreen_comp_id_dict = dict()
+    shallow_comp_id_dict = dict()
+
+    for ind in range(len(deepscreen_comp_id_lst)):
+        deepscreen_comp_id_dict[deepscreen_comp_id_lst[ind]] = [deepscreen_lbl_lst[ind], deepscreen_pred_lst[ind]]
+
+    for ind in range(len(shallow_comp_id_lst)):
+        shallow_comp_id_dict[shallow_comp_id_lst[ind]] = [shallow_lbl_lst[ind], shallow_pred_rf_lst[ind], shallow_pred_svm_lst[ind], shallow_pred_lr_lst[ind]]
+
+
+    #print(len(set(deepscreen_comp_id_lst)&set(shallow_comp_id_lst)), len(deepscreen_comp_id_lst))
+
+    return deepscreen_comp_id_dict, shallow_comp_id_dict
+    #print(len(set(deepscreen_comp_id_lst)&set(shallow_comp_id_lst)), len(deepscreen_comp_id_lst), len(shallow_comp_id_lst))
+
+
+def printAllDEEPScreenCorrectShallowIncorrect():
+    import os
+    print("TargetID\tCompoundID\tLABEL")
+    for fl in os.listdir("../resultFiles/LOGS/ShallowLOGS/"):
+        if fl.startswith("CHEMBL"):
+            target_id = fl.split("_")[0]
+            deepscreen_comp_id_dict, shallow_comp_id_dict = getDEEPScreenCorrectShallowIncorrect(target_id)
+            for comp_key in deepscreen_comp_id_dict.keys():
+                try:
+                    shallow_comp_id_dict[comp_key]
+                    shallow_pred_rf, shallow_pred_svm, shallow_pred_lr = shallow_comp_id_dict[comp_key][1:]
+
+                    if (deepscreen_comp_id_dict[comp_key][1] in ["TP", "TN"]) and shallow_pred_rf in ["FN", "FP"] and shallow_pred_svm in ["FN", "FP"] and shallow_pred_lr in ["FN", "FP"]:
+                        print("{}\t{}\t{}".format(target_id, comp_key, deepscreen_comp_id_dict[comp_key][0]))
+                except:
+                    pass
+
+
+# printAllDEEPScreenCorrectShallowIncorrect()
+#getDEEPScreenCorrectShallowIncorrect("CHEMBL288")
+
+
+
