@@ -1,0 +1,164 @@
+rm: cannot remove ‘../tempImage/CHEMBL291979.svg’: No such file or directory
+rm: cannot remove ‘../tempImage/CHEMBL291979.png’: No such file or directory
+rm: cannot remove ‘../tempImage/CHEMBL348146.svg’: No such file or directory
+rm: cannot remove ‘../tempImage/CHEMBL348146.png’: No such file or directory
+rm: cannot remove ‘../tempImage/CHEMBL279035.svg’: No such file or directory
+rm: cannot remove ‘../tempImage/CHEMBL279035.png’: No such file or directory
+rm: cannot remove ‘../tempImage/CHEMBL1241859.svg’: No such file or directory
+rm: cannot remove ‘../tempImage/CHEMBL83228.svg’: No such file or directory
+rm: cannot remove ‘../tempImage/CHEMBL83228.png’: No such file or directory
+rm: cannot remove ‘../tempImage/CHEMBL1242119.svg’: No such file or directory
+rm: cannot remove ‘../tempImage/CHEMBL1242119.png’: No such file or directory
+rm: cannot remove ‘../tempImage/CHEMBL2064400.svg’: No such file or directory
+rm: cannot remove ‘../tempImage/CHEMBL2064400.png’: No such file or directory
+rm: cannot remove ‘../tempImage/CHEMBL115895.svg’: No such file or directory
+rm: cannot remove ‘../tempImage/CHEMBL115895.png’: No such file or directory
+rm: cannot remove ‘../tempImage/CHEMBL299707.svg’: No such file or directory
+libpng error: Read Error
+rm: cannot remove ‘../tempImage/CHEMBL154969.svg’: No such file or directory
+rm: cannot remove ‘../tempImage/CHEMBL154969.png’: No such file or directory
+rm: cannot remove ‘../tempImage/CHEMBL1944930.svg’: No such file or directory
+rm: cannot remove ‘../tempImage/CHEMBL1077107.svg’: No such file or directory
+libpng error: Read Error
+rm: cannot remove ‘../tempImage/CHEMBL1944931.svg’: No such file or directory
+rm: cannot remove ‘../tempImage/CHEMBL1094808.png’: No such file or directory
+rm: cannot remove ‘../tempImage/CHEMBL1641996.svg’: No such file or directory
+rm: cannot remove ‘../tempImage/CHEMBL1641996.png’: No such file or directory
+rm: cannot remove ‘../tempImage/CHEMBL2047247.svg’: No such file or directory
+rm: cannot remove ‘../tempImage/CHEMBL2047247.png’: No such file or directory
+rm: cannot remove ‘../tempImage/CHEMBL2064388.png’: No such file or directory
+rm: cannot remove ‘../tempImage/CHEMBL2437477.svg’: No such file or directory
+rm: cannot remove ‘../tempImage/CHEMBL2437477.png’: No such file or directory
+rm: cannot remove ‘../tempImage/CHEMBL76904.svg’: No such file or directory
+rm: cannot remove ‘../tempImage/CHEMBL1087055.svg’: No such file or directory
+rm: cannot remove ‘../tempImage/CHEMBL1944641.svg’: No such file or directory
+rm: cannot remove ‘../tempImage/CHEMBL1944641.png’: No such file or directory
+rm: cannot remove ‘../tempImage/CHEMBL1242118.png’: No such file or directory
+rm: cannot remove ‘../tempImage/CHEMBL1094784.svg’: No such file or directory
+rm: cannot remove ‘../tempImage/CHEMBL1094784.png’: No such file or directory
+libpng error: Read Error
+rm: cannot remove ‘../tempImage/CHEMBL590023.png’: No such file or directory
+rm: cannot remove ‘../tempImage/CHEMBL591504.svg’: No such file or directory
+rm: cannot remove ‘../tempImage/CHEMBL591504.png’: No such file or directory
+libpng error: Read Error
+/homes/rahmet/miniconda2/envs/my-rdkit-env/lib/python3.6/site-packages/h5py/__init__.py:36: FutureWarning: Conversion of the second argument of issubdtype from `float` to `np.floating` is deprecated. In future, it will be treated as `np.float64 == np.dtype(float).type`.
+  from ._conv import register_converters as _register_converters
+/homes/rahmet/miniconda2/envs/my-rdkit-env/lib/python3.6/site-packages/sklearn/metrics/classification.py:538: RuntimeWarning: invalid value encountered in double_scalars
+  mcc = cov_ytyp / np.sqrt(cov_ytyt * cov_ypyp)
+
+------------------------------------------------------------
+Sender: LSF System <lsf@ebi5-184>
+Subject: Job 5336291: <python train_other_classifiers.py CHEMBL1974 > ../LOGS/ShallowLOGS/CHEMBL1974_shallow.txt> in cluster <EBI> Done
+
+Job <python train_other_classifiers.py CHEMBL1974 > ../LOGS/ShallowLOGS/CHEMBL1974_shallow.txt> was submitted from host <ebi6-278> by user <rahmet> in cluster <EBI>.
+Job was executed on host(s) <ebi5-184>, in queue <research-rh7>, as user <rahmet> in cluster <EBI>.
+</homes/rahmet> was used as the home directory.
+</hps/nobackup/production/uniprot/rahmet/DEEPScreen/bin> was used as the working directory.
+Started at Wed Jul  4 22:14:44 2018
+Results reported at Wed Jul  4 22:32:56 2018
+
+Your job looked like:
+
+------------------------------------------------------------
+# LSBATCH: User input
+python train_other_classifiers.py CHEMBL1974 > ../LOGS/ShallowLOGS/CHEMBL1974_shallow.txt
+------------------------------------------------------------
+
+Successfully completed.
+
+Resource usage summary:
+
+    CPU time :               1061.85 sec.
+    Max Memory :             7201 MB
+    Average Memory :         2620.09 MB
+    Total Requested Memory : 30720.00 MB
+    Delta Memory :           23519.00 MB
+    (Delta: the difference between total requested memory and actual max usage.)
+    Max Swap :               11100 MB
+
+    Max Processes :          4
+    Max Threads :            35
+
+The output (if any) is above this job summary.
+
+/homes/rahmet/miniconda2/envs/my-rdkit-env/lib/python3.6/site-packages/h5py/__init__.py:36: FutureWarning: Conversion of the second argument of issubdtype from `float` to `np.floating` is deprecated. In future, it will be treated as `np.float64 == np.dtype(float).type`.
+  from ._conv import register_converters as _register_converters
+/homes/rahmet/miniconda2/envs/my-rdkit-env/lib/python3.6/site-packages/sklearn/metrics/classification.py:538: RuntimeWarning: invalid value encountered in double_scalars
+  mcc = cov_ytyp / np.sqrt(cov_ytyt * cov_ypyp)
+
+------------------------------------------------------------
+Sender: LSF System <lsf@ebi5-145>
+Subject: Job 5460195: <python train_other_classifiers.py CHEMBL1974 > ../LOGS/ShallowLOGS/CHEMBL1974_shallow.txt> in cluster <EBI> Done
+
+Job <python train_other_classifiers.py CHEMBL1974 > ../LOGS/ShallowLOGS/CHEMBL1974_shallow.txt> was submitted from host <ebi6-035> by user <rahmet> in cluster <EBI>.
+Job was executed on host(s) <ebi5-145>, in queue <research-rh7>, as user <rahmet> in cluster <EBI>.
+</homes/rahmet> was used as the home directory.
+</hps/nobackup/production/uniprot/rahmet/DEEPScreen/bin> was used as the working directory.
+Started at Thu Jul  5 22:30:14 2018
+Results reported at Fri Jul  6 00:13:35 2018
+
+Your job looked like:
+
+------------------------------------------------------------
+# LSBATCH: User input
+python train_other_classifiers.py CHEMBL1974 > ../LOGS/ShallowLOGS/CHEMBL1974_shallow.txt
+------------------------------------------------------------
+
+Successfully completed.
+
+Resource usage summary:
+
+    CPU time :               1159.60 sec.
+    Max Memory :             7281 MB
+    Average Memory :         547.95 MB
+    Total Requested Memory : 30720.00 MB
+    Delta Memory :           23439.00 MB
+    (Delta: the difference between total requested memory and actual max usage.)
+    Max Swap :               11162 MB
+
+    Max Processes :          4
+    Max Threads :            6
+
+The output (if any) is above this job summary.
+
+/homes/rahmet/miniconda2/envs/my-rdkit-env/lib/python3.6/site-packages/sklearn/metrics/classification.py:1135: UndefinedMetricWarning: F-score is ill-defined and being set to 0.0 due to no predicted samples.
+  'precision', 'predicted', average, warn_for)
+/homes/rahmet/miniconda2/envs/my-rdkit-env/lib/python3.6/site-packages/sklearn/metrics/classification.py:538: RuntimeWarning: invalid value encountered in double_scalars
+  mcc = cov_ytyp / np.sqrt(cov_ytyt * cov_ypyp)
+
+------------------------------------------------------------
+Sender: LSF System <lsf@hx-noah-03-07>
+Subject: Job 5975151: <python train_other_classifiers.py CHEMBL1974 > ../LOGS/ShallowLOGS/CHEMBL1974_shallow.txt> in cluster <EBI> Done
+
+Job <python train_other_classifiers.py CHEMBL1974 > ../LOGS/ShallowLOGS/CHEMBL1974_shallow.txt> was submitted from host <ebi5-250> by user <rahmet> in cluster <EBI> at Thu Nov  1 17:30:20 2018
+Job was executed on host(s) <hx-noah-03-07>, in queue <research-rh7>, as user <rahmet> in cluster <EBI> at Fri Nov  2 03:50:58 2018
+</homes/rahmet> was used as the home directory.
+</hps/nobackup/production/uniprot/rahmet/DEEPScreen/bin> was used as the working directory.
+Started at Fri Nov  2 03:50:58 2018
+Terminated at Fri Nov  2 04:38:48 2018
+Results reported at Fri Nov  2 04:38:48 2018
+
+Your job looked like:
+
+------------------------------------------------------------
+# LSBATCH: User input
+python train_other_classifiers.py CHEMBL1974 > ../LOGS/ShallowLOGS/CHEMBL1974_shallow.txt
+------------------------------------------------------------
+
+Successfully completed.
+
+Resource usage summary:
+
+    CPU time :                                   2557.81 sec.
+    Max Memory :                                 7047 MB
+    Average Memory :                             2014.42 MB
+    Total Requested Memory :                     30720.00 MB
+    Delta Memory :                               23673.00 MB
+    Max Swap :                                   11776 MB
+    Max Processes :                              4
+    Max Threads :                                67
+    Run time :                                   2870 sec.
+    Turnaround time :                            40108 sec.
+
+The output (if any) is above this job summary.
+

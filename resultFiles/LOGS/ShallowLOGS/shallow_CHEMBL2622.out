@@ -1,0 +1,126 @@
+/homes/rahmet/miniconda2/envs/my-rdkit-env/lib/python3.6/site-packages/h5py/__init__.py:36: FutureWarning: Conversion of the second argument of issubdtype from `float` to `np.floating` is deprecated. In future, it will be treated as `np.float64 == np.dtype(float).type`.
+  from ._conv import register_converters as _register_converters
+/homes/rahmet/miniconda2/envs/my-rdkit-env/lib/python3.6/site-packages/sklearn/metrics/classification.py:1135: UndefinedMetricWarning: F-score is ill-defined and being set to 0.0 due to no predicted samples.
+  'precision', 'predicted', average, warn_for)
+/homes/rahmet/miniconda2/envs/my-rdkit-env/lib/python3.6/site-packages/sklearn/metrics/classification.py:538: RuntimeWarning: invalid value encountered in double_scalars
+  mcc = cov_ytyp / np.sqrt(cov_ytyt * cov_ypyp)
+
+------------------------------------------------------------
+Sender: LSF System <lsf@hx-noah-09-03>
+Subject: Job 5337003: <python train_other_classifiers.py CHEMBL2622 > ../LOGS/ShallowLOGS/CHEMBL2622_shallow.txt> in cluster <EBI> Done
+
+Job <python train_other_classifiers.py CHEMBL2622 > ../LOGS/ShallowLOGS/CHEMBL2622_shallow.txt> was submitted from host <ebi6-278> by user <rahmet> in cluster <EBI>.
+Job was executed on host(s) <hx-noah-09-03>, in queue <research-rh7>, as user <rahmet> in cluster <EBI>.
+</homes/rahmet> was used as the home directory.
+</hps/nobackup/production/uniprot/rahmet/DEEPScreen/bin> was used as the working directory.
+Started at Wed Jul  4 22:22:53 2018
+Results reported at Wed Jul  4 22:30:10 2018
+
+Your job looked like:
+
+------------------------------------------------------------
+# LSBATCH: User input
+python train_other_classifiers.py CHEMBL2622 > ../LOGS/ShallowLOGS/CHEMBL2622_shallow.txt
+------------------------------------------------------------
+
+Successfully completed.
+
+Resource usage summary:
+
+    CPU time :               422.47 sec.
+    Max Memory :             3039 MB
+    Average Memory :         1132.35 MB
+    Total Requested Memory : 30720.00 MB
+    Delta Memory :           27681.00 MB
+    (Delta: the difference between total requested memory and actual max usage.)
+    Max Swap :               7249 MB
+
+    Max Processes :          3
+    Max Threads :            5
+
+The output (if any) is above this job summary.
+
+/homes/rahmet/miniconda2/envs/my-rdkit-env/lib/python3.6/site-packages/h5py/__init__.py:36: FutureWarning: Conversion of the second argument of issubdtype from `float` to `np.floating` is deprecated. In future, it will be treated as `np.float64 == np.dtype(float).type`.
+  from ._conv import register_converters as _register_converters
+/homes/rahmet/miniconda2/envs/my-rdkit-env/lib/python3.6/site-packages/sklearn/metrics/classification.py:1135: UndefinedMetricWarning: F-score is ill-defined and being set to 0.0 due to no predicted samples.
+  'precision', 'predicted', average, warn_for)
+/homes/rahmet/miniconda2/envs/my-rdkit-env/lib/python3.6/site-packages/sklearn/metrics/classification.py:538: RuntimeWarning: invalid value encountered in double_scalars
+  mcc = cov_ytyp / np.sqrt(cov_ytyt * cov_ypyp)
+
+------------------------------------------------------------
+Sender: LSF System <lsf@ebi5-250>
+Subject: Job 5461022: <python train_other_classifiers.py CHEMBL2622 > ../LOGS/ShallowLOGS/CHEMBL2622_shallow.txt> in cluster <EBI> Done
+
+Job <python train_other_classifiers.py CHEMBL2622 > ../LOGS/ShallowLOGS/CHEMBL2622_shallow.txt> was submitted from host <ebi6-035> by user <rahmet> in cluster <EBI>.
+Job was executed on host(s) <ebi5-250>, in queue <research-rh7>, as user <rahmet> in cluster <EBI>.
+</homes/rahmet> was used as the home directory.
+</hps/nobackup/production/uniprot/rahmet/DEEPScreen/bin> was used as the working directory.
+Started at Thu Jul  5 22:46:07 2018
+Results reported at Thu Jul  5 22:50:34 2018
+
+Your job looked like:
+
+------------------------------------------------------------
+# LSBATCH: User input
+python train_other_classifiers.py CHEMBL2622 > ../LOGS/ShallowLOGS/CHEMBL2622_shallow.txt
+------------------------------------------------------------
+
+Successfully completed.
+
+Resource usage summary:
+
+    CPU time :               257.70 sec.
+    Max Memory :             3041 MB
+    Average Memory :         1443.88 MB
+    Total Requested Memory : 30720.00 MB
+    Delta Memory :           27679.00 MB
+    (Delta: the difference between total requested memory and actual max usage.)
+    Max Swap :               6204 MB
+
+    Max Processes :          4
+    Max Threads :            6
+
+The output (if any) is above this job summary.
+
+rm: cannot remove ‘../tempImage/CHEMBL150.png’: No such file or directory
+/homes/rahmet/miniconda2/envs/my-rdkit-env/lib/python3.6/site-packages/sklearn/metrics/classification.py:1135: UndefinedMetricWarning: F-score is ill-defined and being set to 0.0 due to no predicted samples.
+  'precision', 'predicted', average, warn_for)
+/homes/rahmet/miniconda2/envs/my-rdkit-env/lib/python3.6/site-packages/sklearn/metrics/classification.py:538: RuntimeWarning: invalid value encountered in double_scalars
+  mcc = cov_ytyp / np.sqrt(cov_ytyt * cov_ypyp)
+
+------------------------------------------------------------
+Sender: LSF System <lsf@hx-noah-02-08>
+Subject: Job 5976222: <python train_other_classifiers.py CHEMBL2622 > ../LOGS/ShallowLOGS/CHEMBL2622_shallow.txt> in cluster <EBI> Done
+
+Job <python train_other_classifiers.py CHEMBL2622 > ../LOGS/ShallowLOGS/CHEMBL2622_shallow.txt> was submitted from host <ebi5-250> by user <rahmet> in cluster <EBI> at Thu Nov  1 17:37:54 2018
+Job was executed on host(s) <hx-noah-02-08>, in queue <research-rh7>, as user <rahmet> in cluster <EBI> at Fri Nov  2 06:26:09 2018
+</homes/rahmet> was used as the home directory.
+</hps/nobackup/production/uniprot/rahmet/DEEPScreen/bin> was used as the working directory.
+Started at Fri Nov  2 06:26:09 2018
+Terminated at Fri Nov  2 07:02:02 2018
+Results reported at Fri Nov  2 07:02:02 2018
+
+Your job looked like:
+
+------------------------------------------------------------
+# LSBATCH: User input
+python train_other_classifiers.py CHEMBL2622 > ../LOGS/ShallowLOGS/CHEMBL2622_shallow.txt
+------------------------------------------------------------
+
+Successfully completed.
+
+Resource usage summary:
+
+    CPU time :                                   2144.43 sec.
+    Max Memory :                                 2709 MB
+    Average Memory :                             1059.59 MB
+    Total Requested Memory :                     30720.00 MB
+    Delta Memory :                               28011.00 MB
+    Max Swap :                                   6670 MB
+    Max Processes :                              3
+    Max Threads :                                67
+    Run time :                                   2153 sec.
+    Turnaround time :                            48248 sec.
+
+The output (if any) is above this job summary.
+

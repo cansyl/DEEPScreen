@@ -1,0 +1,149 @@
+rm: cannot remove ‘../tempImage/CHEMBL1922120.png’: No such file or directory
+rm: cannot remove ‘../tempImage/CHEMBL552136.svg’: No such file or directory
+rm: cannot remove ‘../tempImage/CHEMBL552136.png’: No such file or directory
+rm: cannot remove ‘../tempImage/CHEMBL1922121.svg’: No such file or directory
+rm: cannot remove ‘../tempImage/CHEMBL1922121.png’: No such file or directory
+libpng error: Read Error
+rm: cannot remove ‘../tempImage/CHEMBL2392235.png’: No such file or directory
+rm: cannot remove ‘../tempImage/CHEMBL2392236.svg’: No such file or directory
+rm: cannot remove ‘../tempImage/CHEMBL2392236.png’: No such file or directory
+rm: cannot remove ‘../tempImage/CHEMBL2392390.png’: No such file or directory
+rm: cannot remove ‘../tempImage/CHEMBL2392237.png’: No such file or directory
+rm: cannot remove ‘../tempImage/CHEMBL3421968.png’: No such file or directory
+rm: cannot remove ‘../tempImage/CHEMBL2164716.svg’: No such file or directory
+rm: cannot remove ‘../tempImage/CHEMBL2164716.png’: No such file or directory
+libpng error: Read Error
+libpng error: Read Error
+rm: cannot remove ‘../tempImage/CHEMBL3609564.svg’: No such file or directory
+rm: cannot remove ‘../tempImage/CHEMBL3609564.png’: No such file or directory
+rm: cannot remove ‘../tempImage/CHEMBL470851.png’: No such file or directory
+rm: cannot remove ‘../tempImage/CHEMBL455114.svg’: No such file or directory
+rm: cannot remove ‘../tempImage/CHEMBL455114.png’: No such file or directory
+rm: cannot remove ‘../tempImage/CHEMBL1337188.png’: No such file or directory
+/homes/rahmet/miniconda2/envs/my-rdkit-env/lib/python3.6/site-packages/h5py/__init__.py:36: FutureWarning: Conversion of the second argument of issubdtype from `float` to `np.floating` is deprecated. In future, it will be treated as `np.float64 == np.dtype(float).type`.
+  from ._conv import register_converters as _register_converters
+/homes/rahmet/miniconda2/envs/my-rdkit-env/lib/python3.6/site-packages/sklearn/metrics/classification.py:1135: UndefinedMetricWarning: F-score is ill-defined and being set to 0.0 due to no predicted samples.
+  'precision', 'predicted', average, warn_for)
+/homes/rahmet/miniconda2/envs/my-rdkit-env/lib/python3.6/site-packages/sklearn/metrics/classification.py:538: RuntimeWarning: invalid value encountered in double_scalars
+  mcc = cov_ytyp / np.sqrt(cov_ytyt * cov_ypyp)
+
+------------------------------------------------------------
+Sender: LSF System <lsf@ebi6-086>
+Subject: Job 5335906: <python train_other_classifiers.py CHEMBL4722 > ../LOGS/ShallowLOGS/CHEMBL4722_shallow.txt> in cluster <EBI> Done
+
+Job <python train_other_classifiers.py CHEMBL4722 > ../LOGS/ShallowLOGS/CHEMBL4722_shallow.txt> was submitted from host <ebi6-278> by user <rahmet> in cluster <EBI>.
+Job was executed on host(s) <ebi6-086>, in queue <research-rh7>, as user <rahmet> in cluster <EBI>.
+</homes/rahmet> was used as the home directory.
+</hps/nobackup/production/uniprot/rahmet/DEEPScreen/bin> was used as the working directory.
+Started at Wed Jul  4 22:09:45 2018
+Results reported at Wed Jul  4 22:47:55 2018
+
+Your job looked like:
+
+------------------------------------------------------------
+# LSBATCH: User input
+python train_other_classifiers.py CHEMBL4722 > ../LOGS/ShallowLOGS/CHEMBL4722_shallow.txt
+------------------------------------------------------------
+
+Successfully completed.
+
+Resource usage summary:
+
+    CPU time :               2254.68 sec.
+    Max Memory :             12572 MB
+    Average Memory :         5529.44 MB
+    Total Requested Memory : 30720.00 MB
+    Delta Memory :           18148.00 MB
+    (Delta: the difference between total requested memory and actual max usage.)
+    Max Swap :               17355 MB
+
+    Max Processes :          4
+    Max Threads :            10
+
+The output (if any) is above this job summary.
+
+rm: cannot remove ‘../tempImage/CHEMBL3356117.png’: No such file or directory
+rm: cannot remove ‘../tempImage/CHEMBL563733.svg’: No such file or directory
+rm: cannot remove ‘../tempImage/CHEMBL563733.png’: No such file or directory
+rm: cannot remove ‘../tempImage/CHEMBL1089405.svg’: No such file or directory
+rm: cannot remove ‘../tempImage/CHEMBL1089405.png’: No such file or directory
+rm: cannot remove ‘../tempImage/CHEMBL430902.svg’: No such file or directory
+rm: cannot remove ‘../tempImage/CHEMBL430902.png’: No such file or directory
+rm: cannot remove ‘../tempImage/CHEMBL274926.png’: No such file or directory
+/homes/rahmet/miniconda2/envs/my-rdkit-env/lib/python3.6/site-packages/h5py/__init__.py:36: FutureWarning: Conversion of the second argument of issubdtype from `float` to `np.floating` is deprecated. In future, it will be treated as `np.float64 == np.dtype(float).type`.
+  from ._conv import register_converters as _register_converters
+/homes/rahmet/miniconda2/envs/my-rdkit-env/lib/python3.6/site-packages/sklearn/metrics/classification.py:538: RuntimeWarning: invalid value encountered in double_scalars
+  mcc = cov_ytyp / np.sqrt(cov_ytyt * cov_ypyp)
+
+------------------------------------------------------------
+Sender: LSF System <lsf@hx-noah-01-10>
+Subject: Job 5459883: <python train_other_classifiers.py CHEMBL4722 > ../LOGS/ShallowLOGS/CHEMBL4722_shallow.txt> in cluster <EBI> Done
+
+Job <python train_other_classifiers.py CHEMBL4722 > ../LOGS/ShallowLOGS/CHEMBL4722_shallow.txt> was submitted from host <ebi6-035> by user <rahmet> in cluster <EBI>.
+Job was executed on host(s) <hx-noah-01-10>, in queue <research-rh7>, as user <rahmet> in cluster <EBI>.
+</homes/rahmet> was used as the home directory.
+</hps/nobackup/production/uniprot/rahmet/DEEPScreen/bin> was used as the working directory.
+Started at Thu Jul  5 22:27:36 2018
+Results reported at Thu Jul  5 23:30:59 2018
+
+Your job looked like:
+
+------------------------------------------------------------
+# LSBATCH: User input
+python train_other_classifiers.py CHEMBL4722 > ../LOGS/ShallowLOGS/CHEMBL4722_shallow.txt
+------------------------------------------------------------
+
+Successfully completed.
+
+Resource usage summary:
+
+    CPU time :               3770.97 sec.
+    Max Memory :             13076 MB
+    Average Memory :         5130.59 MB
+    Total Requested Memory : 30720.00 MB
+    Delta Memory :           17644.00 MB
+    (Delta: the difference between total requested memory and actual max usage.)
+    Max Swap :               18926 MB
+
+    Max Processes :          4
+    Max Threads :            6
+
+The output (if any) is above this job summary.
+
+
+------------------------------------------------------------
+Sender: LSF System <lsf@hx-noah-06-04>
+Subject: Job 5973583: <python train_other_classifiers.py CHEMBL4722 > ../LOGS/ShallowLOGS/CHEMBL4722_shallow.txt> in cluster <EBI> Done
+
+Job <python train_other_classifiers.py CHEMBL4722 > ../LOGS/ShallowLOGS/CHEMBL4722_shallow.txt> was submitted from host <ebi5-250> by user <rahmet> in cluster <EBI> at Thu Nov  1 17:25:11 2018
+Job was executed on host(s) <hx-noah-06-04>, in queue <research-rh7>, as user <rahmet> in cluster <EBI> at Thu Nov  1 21:51:19 2018
+</homes/rahmet> was used as the home directory.
+</hps/nobackup/production/uniprot/rahmet/DEEPScreen/bin> was used as the working directory.
+Started at Thu Nov  1 21:51:19 2018
+Terminated at Thu Nov  1 22:56:15 2018
+Results reported at Thu Nov  1 22:56:15 2018
+
+Your job looked like:
+
+------------------------------------------------------------
+# LSBATCH: User input
+python train_other_classifiers.py CHEMBL4722 > ../LOGS/ShallowLOGS/CHEMBL4722_shallow.txt
+------------------------------------------------------------
+
+Successfully completed.
+
+Resource usage summary:
+
+    CPU time :                                   3862.99 sec.
+    Max Memory :                                 12449 MB
+    Average Memory :                             5372.31 MB
+    Total Requested Memory :                     30720.00 MB
+    Delta Memory :                               18271.00 MB
+    Max Swap :                                   17994 MB
+    Max Processes :                              4
+    Max Threads :                                67
+    Run time :                                   3897 sec.
+    Turnaround time :                            19864 sec.
+
+The output (if any) is above this job summary.
+

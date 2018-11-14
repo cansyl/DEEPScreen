@@ -1,0 +1,176 @@
+[22:06:44] Explicit valence for atom # 2 F, 3, is greater than permitted
+rm: cannot remove ‘../tempImage/CHEMBL252232.svg’: No such file or directory
+rm: cannot remove ‘../tempImage/CHEMBL252232.png’: No such file or directory
+libpng error: Read Error
+rm: cannot remove ‘../tempImage/CHEMBL3218124.png’: No such file or directory
+rm: cannot remove ‘../tempImage/CHEMBL3218122.svg’: No such file or directory
+rm: cannot remove ‘../tempImage/CHEMBL3218122.png’: No such file or directory
+rm: cannot remove ‘../tempImage/CHEMBL1907665.svg’: No such file or directory
+rm: cannot remove ‘../tempImage/CHEMBL1907665.png’: No such file or directory
+rm: cannot remove ‘../tempImage/CHEMBL303386.png’: No such file or directory
+rm: cannot remove ‘../tempImage/CHEMBL32301.png’: No such file or directory
+rm: cannot remove ‘../tempImage/CHEMBL73272.svg’: No such file or directory
+rm: cannot remove ‘../tempImage/CHEMBL73272.png’: No such file or directory
+libpng error: Read Error
+rm: cannot remove ‘../tempImage/CHEMBL151619.png’: No such file or directory
+rm: cannot remove ‘../tempImage/CHEMBL140984.svg’: No such file or directory
+rm: cannot remove ‘../tempImage/CHEMBL140984.png’: No such file or directory
+/homes/rahmet/miniconda2/envs/my-rdkit-env/lib/python3.6/site-packages/h5py/__init__.py:36: FutureWarning: Conversion of the second argument of issubdtype from `float` to `np.floating` is deprecated. In future, it will be treated as `np.float64 == np.dtype(float).type`.
+  from ._conv import register_converters as _register_converters
+
+------------------------------------------------------------
+Sender: LSF System <lsf@ebi6-019>
+Subject: Job 5335187: <python train_other_classifiers.py CHEMBL273 > ../LOGS/ShallowLOGS/CHEMBL273_shallow.txt> in cluster <EBI> Done
+
+Job <python train_other_classifiers.py CHEMBL273 > ../LOGS/ShallowLOGS/CHEMBL273_shallow.txt> was submitted from host <ebi6-278> by user <rahmet> in cluster <EBI>.
+Job was executed on host(s) <ebi6-019>, in queue <research-rh7>, as user <rahmet> in cluster <EBI>.
+</homes/rahmet> was used as the home directory.
+</hps/nobackup/production/uniprot/rahmet/DEEPScreen/bin> was used as the working directory.
+Started at Wed Jul  4 22:00:13 2018
+Results reported at Wed Jul  4 23:16:42 2018
+
+Your job looked like:
+
+------------------------------------------------------------
+# LSBATCH: User input
+python train_other_classifiers.py CHEMBL273 > ../LOGS/ShallowLOGS/CHEMBL273_shallow.txt
+------------------------------------------------------------
+
+Successfully completed.
+
+Resource usage summary:
+
+    CPU time :               4533.76 sec.
+    Max Memory :             19567 MB
+    Average Memory :         9583.28 MB
+    Total Requested Memory : 30720.00 MB
+    Delta Memory :           11153.00 MB
+    (Delta: the difference between total requested memory and actual max usage.)
+    Max Swap :               25555 MB
+
+    Max Processes :          4
+    Max Threads :            10
+
+The output (if any) is above this job summary.
+
+Traceback (most recent call last):
+  File "train_other_classifiers.py", line 1, in <module>
+    import rdkit
+ImportError: No module named rdkit
+
+------------------------------------------------------------
+Sender: LSF System <lsf@hx-noah-07-10>
+Subject: Job 5459365: <python train_other_classifiers.py CHEMBL273 > ../LOGS/ShallowLOGS/CHEMBL273_shallow.txt> in cluster <EBI> Exited
+
+Job <python train_other_classifiers.py CHEMBL273 > ../LOGS/ShallowLOGS/CHEMBL273_shallow.txt> was submitted from host <ebi5-242> by user <rahmet> in cluster <EBI>.
+Job was executed on host(s) <hx-noah-07-10>, in queue <research-rh7>, as user <rahmet> in cluster <EBI>.
+</homes/rahmet> was used as the home directory.
+</hps/nobackup/production/uniprot/rahmet/DEEPScreen/bin> was used as the working directory.
+Started at Thu Jul  5 21:54:32 2018
+Results reported at Thu Jul  5 21:54:33 2018
+
+Your job looked like:
+
+------------------------------------------------------------
+# LSBATCH: User input
+python train_other_classifiers.py CHEMBL273 > ../LOGS/ShallowLOGS/CHEMBL273_shallow.txt
+------------------------------------------------------------
+
+Exited with exit code 1.
+
+Resource usage summary:
+
+    CPU time :               0.03 sec.
+    Total Requested Memory : 30720.00 MB
+    Delta Memory :           -
+    (Delta: the difference between total requested memory and actual max usage.)
+
+The output (if any) is above this job summary.
+
+[22:07:48] Explicit valence for atom # 2 F, 3, is greater than permitted
+libpng error: Read Error
+rm: cannot remove ‘../tempImage/CHEMBL3633656.png’: No such file or directory
+rm: cannot remove ‘../tempImage/CHEMBL118553.svg’: No such file or directory
+rm: cannot remove ‘../tempImage/CHEMBL118553.png’: No such file or directory
+rm: cannot remove ‘../tempImage/CHEMBL70246.svg’: No such file or directory
+rm: cannot remove ‘../tempImage/CHEMBL70246.png’: No such file or directory
+rm: cannot remove ‘../tempImage/CHEMBL381108.svg’: No such file or directory
+rm: cannot remove ‘../tempImage/CHEMBL381108.png’: No such file or directory
+libpng error: Read Error
+rm: cannot remove ‘../tempImage/CHEMBL65377.png’: No such file or directory
+/homes/rahmet/miniconda2/envs/my-rdkit-env/lib/python3.6/site-packages/h5py/__init__.py:36: FutureWarning: Conversion of the second argument of issubdtype from `float` to `np.floating` is deprecated. In future, it will be treated as `np.float64 == np.dtype(float).type`.
+  from ._conv import register_converters as _register_converters
+
+------------------------------------------------------------
+Sender: LSF System <lsf@hx-noah-01-01>
+Subject: Job 5459473: <python train_other_classifiers.py CHEMBL273 > ../LOGS/ShallowLOGS/CHEMBL273_shallow.txt> in cluster <EBI> Done
+
+Job <python train_other_classifiers.py CHEMBL273 > ../LOGS/ShallowLOGS/CHEMBL273_shallow.txt> was submitted from host <ebi6-035> by user <rahmet> in cluster <EBI>.
+Job was executed on host(s) <hx-noah-01-01>, in queue <research-rh7>, as user <rahmet> in cluster <EBI>.
+</homes/rahmet> was used as the home directory.
+</hps/nobackup/production/uniprot/rahmet/DEEPScreen/bin> was used as the working directory.
+Started at Thu Jul  5 21:57:44 2018
+Results reported at Thu Jul  5 23:36:25 2018
+
+Your job looked like:
+
+------------------------------------------------------------
+# LSBATCH: User input
+python train_other_classifiers.py CHEMBL273 > ../LOGS/ShallowLOGS/CHEMBL273_shallow.txt
+------------------------------------------------------------
+
+Successfully completed.
+
+Resource usage summary:
+
+    CPU time :               5868.95 sec.
+    Max Memory :             19571 MB
+    Average Memory :         8839.49 MB
+    Total Requested Memory : 30720.00 MB
+    Delta Memory :           11149.00 MB
+    (Delta: the difference between total requested memory and actual max usage.)
+    Max Swap :               26617 MB
+
+    Max Processes :          4
+    Max Threads :            67
+
+The output (if any) is above this job summary.
+
+[17:51:12] Explicit valence for atom # 2 F, 3, is greater than permitted
+
+------------------------------------------------------------
+Sender: LSF System <lsf@ebi5-169>
+Subject: Job 5972973: <python train_other_classifiers.py CHEMBL273 > ../LOGS/ShallowLOGS/CHEMBL273_shallow.txt> in cluster <EBI> Done
+
+Job <python train_other_classifiers.py CHEMBL273 > ../LOGS/ShallowLOGS/CHEMBL273_shallow.txt> was submitted from host <ebi5-250> by user <rahmet> in cluster <EBI> at Thu Nov  1 17:15:22 2018
+Job was executed on host(s) <ebi5-169>, in queue <research-rh7>, as user <rahmet> in cluster <EBI> at Thu Nov  1 17:28:04 2018
+</homes/rahmet> was used as the home directory.
+</hps/nobackup/production/uniprot/rahmet/DEEPScreen/bin> was used as the working directory.
+Started at Thu Nov  1 17:28:04 2018
+Terminated at Thu Nov  1 19:37:07 2018
+Results reported at Thu Nov  1 19:37:07 2018
+
+Your job looked like:
+
+------------------------------------------------------------
+# LSBATCH: User input
+python train_other_classifiers.py CHEMBL273 > ../LOGS/ShallowLOGS/CHEMBL273_shallow.txt
+------------------------------------------------------------
+
+Successfully completed.
+
+Resource usage summary:
+
+    CPU time :                                   6572.92 sec.
+    Max Memory :                                 19182 MB
+    Average Memory :                             7420.89 MB
+    Total Requested Memory :                     30720.00 MB
+    Delta Memory :                               11538.00 MB
+    Max Swap :                                   24902 MB
+    Max Processes :                              4
+    Max Threads :                                35
+    Run time :                                   7743 sec.
+    Turnaround time :                            8505 sec.
+
+The output (if any) is above this job summary.
+

@@ -1,0 +1,119 @@
+/homes/rahmet/miniconda2/envs/my-rdkit-env/lib/python3.6/site-packages/h5py/__init__.py:36: FutureWarning: Conversion of the second argument of issubdtype from `float` to `np.floating` is deprecated. In future, it will be treated as `np.float64 == np.dtype(float).type`.
+  from ._conv import register_converters as _register_converters
+/homes/rahmet/miniconda2/envs/my-rdkit-env/lib/python3.6/site-packages/sklearn/metrics/classification.py:538: RuntimeWarning: invalid value encountered in double_scalars
+  mcc = cov_ytyp / np.sqrt(cov_ytyt * cov_ypyp)
+
+------------------------------------------------------------
+Sender: LSF System <lsf@ebi5-262>
+Subject: Job 5336187: <python train_other_classifiers.py CHEMBL4036 > ../LOGS/ShallowLOGS/CHEMBL4036_shallow.txt> in cluster <EBI> Done
+
+Job <python train_other_classifiers.py CHEMBL4036 > ../LOGS/ShallowLOGS/CHEMBL4036_shallow.txt> was submitted from host <ebi6-278> by user <rahmet> in cluster <EBI>.
+Job was executed on host(s) <ebi5-262>, in queue <research-rh7>, as user <rahmet> in cluster <EBI>.
+</homes/rahmet> was used as the home directory.
+</hps/nobackup/production/uniprot/rahmet/DEEPScreen/bin> was used as the working directory.
+Started at Wed Jul  4 22:13:24 2018
+Results reported at Wed Jul  4 22:15:38 2018
+
+Your job looked like:
+
+------------------------------------------------------------
+# LSBATCH: User input
+python train_other_classifiers.py CHEMBL4036 > ../LOGS/ShallowLOGS/CHEMBL4036_shallow.txt
+------------------------------------------------------------
+
+Successfully completed.
+
+Resource usage summary:
+
+    CPU time :               66.64 sec.
+    Max Memory :             1120 MB
+    Average Memory :         627.88 MB
+    Total Requested Memory : 30720.00 MB
+    Delta Memory :           29600.00 MB
+    (Delta: the difference between total requested memory and actual max usage.)
+    Max Swap :               3943 MB
+
+    Max Processes :          3
+    Max Threads :            5
+
+The output (if any) is above this job summary.
+
+/homes/rahmet/miniconda2/envs/my-rdkit-env/lib/python3.6/site-packages/h5py/__init__.py:36: FutureWarning: Conversion of the second argument of issubdtype from `float` to `np.floating` is deprecated. In future, it will be treated as `np.float64 == np.dtype(float).type`.
+  from ._conv import register_converters as _register_converters
+
+------------------------------------------------------------
+Sender: LSF System <lsf@hx-noah-05-07>
+Subject: Job 5460025: <python train_other_classifiers.py CHEMBL4036 > ../LOGS/ShallowLOGS/CHEMBL4036_shallow.txt> in cluster <EBI> Done
+
+Job <python train_other_classifiers.py CHEMBL4036 > ../LOGS/ShallowLOGS/CHEMBL4036_shallow.txt> was submitted from host <ebi6-035> by user <rahmet> in cluster <EBI>.
+Job was executed on host(s) <hx-noah-05-07>, in queue <research-rh7>, as user <rahmet> in cluster <EBI>.
+</homes/rahmet> was used as the home directory.
+</hps/nobackup/production/uniprot/rahmet/DEEPScreen/bin> was used as the working directory.
+Started at Thu Jul  5 22:29:17 2018
+Results reported at Thu Jul  5 23:54:33 2018
+
+Your job looked like:
+
+------------------------------------------------------------
+# LSBATCH: User input
+python train_other_classifiers.py CHEMBL4036 > ../LOGS/ShallowLOGS/CHEMBL4036_shallow.txt
+------------------------------------------------------------
+
+Successfully completed.
+
+Resource usage summary:
+
+    CPU time :               71.70 sec.
+    Max Memory :             1119 MB
+    Average Memory :         39.39 MB
+    Total Requested Memory : 30720.00 MB
+    Delta Memory :           29601.00 MB
+    (Delta: the difference between total requested memory and actual max usage.)
+    Max Swap :               4983 MB
+
+    Max Processes :          3
+    Max Threads :            5
+
+The output (if any) is above this job summary.
+
+/homes/rahmet/miniconda2/envs/my-rdkit-env/lib/python3.6/site-packages/sklearn/metrics/classification.py:1135: UndefinedMetricWarning: F-score is ill-defined and being set to 0.0 due to no predicted samples.
+  'precision', 'predicted', average, warn_for)
+/homes/rahmet/miniconda2/envs/my-rdkit-env/lib/python3.6/site-packages/sklearn/metrics/classification.py:538: RuntimeWarning: invalid value encountered in double_scalars
+  mcc = cov_ytyp / np.sqrt(cov_ytyt * cov_ypyp)
+
+------------------------------------------------------------
+Sender: LSF System <lsf@hx-noah-01-05>
+Subject: Job 5974192: <python train_other_classifiers.py CHEMBL4036 > ../LOGS/ShallowLOGS/CHEMBL4036_shallow.txt> in cluster <EBI> Done
+
+Job <python train_other_classifiers.py CHEMBL4036 > ../LOGS/ShallowLOGS/CHEMBL4036_shallow.txt> was submitted from host <ebi5-250> by user <rahmet> in cluster <EBI> at Thu Nov  1 17:28:47 2018
+Job was executed on host(s) <hx-noah-01-05>, in queue <research-rh7>, as user <rahmet> in cluster <EBI> at Fri Nov  2 02:06:49 2018
+</homes/rahmet> was used as the home directory.
+</hps/nobackup/production/uniprot/rahmet/DEEPScreen/bin> was used as the working directory.
+Started at Fri Nov  2 02:06:49 2018
+Terminated at Fri Nov  2 02:10:17 2018
+Results reported at Fri Nov  2 02:10:17 2018
+
+Your job looked like:
+
+------------------------------------------------------------
+# LSBATCH: User input
+python train_other_classifiers.py CHEMBL4036 > ../LOGS/ShallowLOGS/CHEMBL4036_shallow.txt
+------------------------------------------------------------
+
+Successfully completed.
+
+Resource usage summary:
+
+    CPU time :                                   95.20 sec.
+    Max Memory :                                 714 MB
+    Average Memory :                             549.93 MB
+    Total Requested Memory :                     30720.00 MB
+    Delta Memory :                               30006.00 MB
+    Max Swap :                                   4282 MB
+    Max Processes :                              3
+    Max Threads :                                67
+    Run time :                                   212 sec.
+    Turnaround time :                            31290 sec.
+
+The output (if any) is above this job summary.
+

@@ -1,0 +1,119 @@
+/homes/rahmet/miniconda2/envs/my-rdkit-env/lib/python3.6/site-packages/h5py/__init__.py:36: FutureWarning: Conversion of the second argument of issubdtype from `float` to `np.floating` is deprecated. In future, it will be treated as `np.float64 == np.dtype(float).type`.
+  from ._conv import register_converters as _register_converters
+/homes/rahmet/miniconda2/envs/my-rdkit-env/lib/python3.6/site-packages/sklearn/metrics/classification.py:538: RuntimeWarning: invalid value encountered in double_scalars
+  mcc = cov_ytyp / np.sqrt(cov_ytyt * cov_ypyp)
+
+------------------------------------------------------------
+Sender: LSF System <lsf@hx-noah-02-03>
+Subject: Job 5335391: <python train_other_classifiers.py CHEMBL1914 > ../LOGS/ShallowLOGS/CHEMBL1914_shallow.txt> in cluster <EBI> Done
+
+Job <python train_other_classifiers.py CHEMBL1914 > ../LOGS/ShallowLOGS/CHEMBL1914_shallow.txt> was submitted from host <ebi6-278> by user <rahmet> in cluster <EBI>.
+Job was executed on host(s) <hx-noah-02-03>, in queue <research-rh7>, as user <rahmet> in cluster <EBI>.
+</homes/rahmet> was used as the home directory.
+</hps/nobackup/production/uniprot/rahmet/DEEPScreen/bin> was used as the working directory.
+Started at Wed Jul  4 22:02:55 2018
+Results reported at Wed Jul  4 22:24:34 2018
+
+Your job looked like:
+
+------------------------------------------------------------
+# LSBATCH: User input
+python train_other_classifiers.py CHEMBL1914 > ../LOGS/ShallowLOGS/CHEMBL1914_shallow.txt
+------------------------------------------------------------
+
+Successfully completed.
+
+Resource usage summary:
+
+    CPU time :               1277.76 sec.
+    Max Memory :             7559 MB
+    Average Memory :         3048.55 MB
+    Total Requested Memory : 30720.00 MB
+    Delta Memory :           23161.00 MB
+    (Delta: the difference between total requested memory and actual max usage.)
+    Max Swap :               12515 MB
+
+    Max Processes :          4
+    Max Threads :            6
+
+The output (if any) is above this job summary.
+
+/homes/rahmet/miniconda2/envs/my-rdkit-env/lib/python3.6/site-packages/h5py/__init__.py:36: FutureWarning: Conversion of the second argument of issubdtype from `float` to `np.floating` is deprecated. In future, it will be treated as `np.float64 == np.dtype(float).type`.
+  from ._conv import register_converters as _register_converters
+/homes/rahmet/miniconda2/envs/my-rdkit-env/lib/python3.6/site-packages/sklearn/metrics/classification.py:1135: UndefinedMetricWarning: F-score is ill-defined and being set to 0.0 due to no predicted samples.
+  'precision', 'predicted', average, warn_for)
+/homes/rahmet/miniconda2/envs/my-rdkit-env/lib/python3.6/site-packages/sklearn/metrics/classification.py:538: RuntimeWarning: invalid value encountered in double_scalars
+  mcc = cov_ytyp / np.sqrt(cov_ytyt * cov_ypyp)
+
+------------------------------------------------------------
+Sender: LSF System <lsf@hx-noah-06-08>
+Subject: Job 5459601: <python train_other_classifiers.py CHEMBL1914 > ../LOGS/ShallowLOGS/CHEMBL1914_shallow.txt> in cluster <EBI> Done
+
+Job <python train_other_classifiers.py CHEMBL1914 > ../LOGS/ShallowLOGS/CHEMBL1914_shallow.txt> was submitted from host <ebi6-035> by user <rahmet> in cluster <EBI>.
+Job was executed on host(s) <hx-noah-06-08>, in queue <research-rh7>, as user <rahmet> in cluster <EBI>.
+</homes/rahmet> was used as the home directory.
+</hps/nobackup/production/uniprot/rahmet/DEEPScreen/bin> was used as the working directory.
+Started at Thu Jul  5 22:05:48 2018
+Results reported at Thu Jul  5 22:27:06 2018
+
+Your job looked like:
+
+------------------------------------------------------------
+# LSBATCH: User input
+python train_other_classifiers.py CHEMBL1914 > ../LOGS/ShallowLOGS/CHEMBL1914_shallow.txt
+------------------------------------------------------------
+
+Successfully completed.
+
+Resource usage summary:
+
+    CPU time :               1251.09 sec.
+    Max Memory :             7581 MB
+    Average Memory :         3322.08 MB
+    Total Requested Memory : 30720.00 MB
+    Delta Memory :           23139.00 MB
+    (Delta: the difference between total requested memory and actual max usage.)
+    Max Swap :               12805 MB
+
+    Max Processes :          4
+    Max Threads :            6
+
+The output (if any) is above this job summary.
+
+
+------------------------------------------------------------
+Sender: LSF System <lsf@hx-noah-07-15>
+Subject: Job 5973175: <python train_other_classifiers.py CHEMBL1914 > ../LOGS/ShallowLOGS/CHEMBL1914_shallow.txt> in cluster <EBI> Done
+
+Job <python train_other_classifiers.py CHEMBL1914 > ../LOGS/ShallowLOGS/CHEMBL1914_shallow.txt> was submitted from host <ebi5-250> by user <rahmet> in cluster <EBI> at Thu Nov  1 17:18:14 2018
+Job was executed on host(s) <hx-noah-07-15>, in queue <research-rh7>, as user <rahmet> in cluster <EBI> at Thu Nov  1 18:19:44 2018
+</homes/rahmet> was used as the home directory.
+</hps/nobackup/production/uniprot/rahmet/DEEPScreen/bin> was used as the working directory.
+Started at Thu Nov  1 18:19:44 2018
+Terminated at Thu Nov  1 18:51:52 2018
+Results reported at Thu Nov  1 18:51:52 2018
+
+Your job looked like:
+
+------------------------------------------------------------
+# LSBATCH: User input
+python train_other_classifiers.py CHEMBL1914 > ../LOGS/ShallowLOGS/CHEMBL1914_shallow.txt
+------------------------------------------------------------
+
+Successfully completed.
+
+Resource usage summary:
+
+    CPU time :                                   1860.88 sec.
+    Max Memory :                                 7411 MB
+    Average Memory :                             3199.64 MB
+    Total Requested Memory :                     30720.00 MB
+    Delta Memory :                               23309.00 MB
+    Max Swap :                                   12104 MB
+    Max Processes :                              4
+    Max Threads :                                67
+    Run time :                                   1928 sec.
+    Turnaround time :                            5618 sec.
+
+The output (if any) is above this job summary.
+

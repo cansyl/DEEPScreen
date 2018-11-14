@@ -1,0 +1,94 @@
+CNNModel CHEMBL1255150 adam 0.0001 5 128 0 0.6 False True
+Number of active compounds :	101
+Number of inactive compounds :	101
+---------------------------------
+Run id: CNNModel_CHEMBL1255150_adam_0.0001_5_128_0_0.6_False_True_id
+Log directory: ../tflearnLogs/CNNModel_CHEMBL1255150_adam_0.0001_5_128_0.6_True/
+---------------------------------
+Training samples: 128
+Validation samples: 41
+--
+Training Step: 1  | time: 12.519s
+[2K
+| Adam | epoch: 001 | loss: 0.00000 - acc: 0.0000 -- iter: 032/128
+[A[ATraining Step: 2  | total loss: [1m[32m0.62373[0m[0m | time: 18.550s
+[2K
+| Adam | epoch: 001 | loss: 0.62373 - acc: 0.4781 -- iter: 064/128
+[A[ATraining Step: 3  | total loss: [1m[32m0.68051[0m[0m | time: 19.811s
+[2K
+| Adam | epoch: 001 | loss: 0.68051 - acc: 0.4705 -- iter: 096/128
+[A[ATraining Step: 4  | total loss: [1m[32m0.68983[0m[0m | time: 22.263s
+[2K
+| Adam | epoch: 001 | loss: 0.68983 - acc: 0.5161 | val_loss: 0.69268 - val_acc: 0.6098 -- iter: 128/128
+--
+Training Step: 5  | total loss: [1m[32m0.69284[0m[0m | time: 1.923s
+[2K
+| Adam | epoch: 002 | loss: 0.69284 - acc: 0.3968 -- iter: 032/128
+[A[ATraining Step: 6  | total loss: [1m[32m0.69351[0m[0m | time: 9.030s
+[2K
+| Adam | epoch: 002 | loss: 0.69351 - acc: 0.3426 -- iter: 064/128
+[A[ATraining Step: 7  | total loss: [1m[32m0.69320[0m[0m | time: 13.465s
+[2K
+| Adam | epoch: 002 | loss: 0.69320 - acc: 0.4745 -- iter: 096/128
+[A[ATraining Step: 8  | total loss: [1m[32m0.69303[0m[0m | time: 15.709s
+[2K
+| Adam | epoch: 002 | loss: 0.69303 - acc: 0.5416 | val_loss: 0.69378 - val_acc: 0.3902 -- iter: 128/128
+--
+Training Step: 9  | total loss: [1m[32m0.69311[0m[0m | time: 1.456s
+[2K
+| Adam | epoch: 003 | loss: 0.69311 - acc: 0.5527 -- iter: 032/128
+[A[ATraining Step: 10  | total loss: [1m[32m0.69331[0m[0m | time: 2.907s
+[2K
+| Adam | epoch: 003 | loss: 0.69331 - acc: 0.5107 -- iter: 064/128
+[A[ATraining Step: 11  | total loss: [1m[32m0.69338[0m[0m | time: 4.231s
+[2K
+| Adam | epoch: 003 | loss: 0.69338 - acc: 0.4908 -- iter: 096/128
+[A[ATraining Step: 12  | total loss: [1m[32m0.69323[0m[0m | time: 6.665s
+[2K
+| Adam | epoch: 003 | loss: 0.69323 - acc: 0.4950 | val_loss: 0.69431 - val_acc: 0.3902 -- iter: 128/128
+--
+Training Step: 13  | total loss: [1m[32m0.69280[0m[0m | time: 1.353s
+[2K
+| Adam | epoch: 004 | loss: 0.69280 - acc: 0.5373 -- iter: 032/128
+[A[ATraining Step: 14  | total loss: [1m[32m0.69321[0m[0m | time: 2.733s
+[2K
+| Adam | epoch: 004 | loss: 0.69321 - acc: 0.5093 -- iter: 064/128
+[A[ATraining Step: 15  | total loss: [1m[32m0.69319[0m[0m | time: 4.169s
+[2K
+| Adam | epoch: 004 | loss: 0.69319 - acc: 0.5056 -- iter: 096/128
+[A[ATraining Step: 16  | total loss: [1m[32m0.69307[0m[0m | time: 6.626s
+[2K
+| Adam | epoch: 004 | loss: 0.69307 - acc: 0.5035 | val_loss: 0.69469 - val_acc: 0.3902 -- iter: 128/128
+--
+Training Step: 17  | total loss: [1m[32m0.69285[0m[0m | time: 1.500s
+[2K
+| Adam | epoch: 005 | loss: 0.69285 - acc: 0.5135 -- iter: 032/128
+[A[ATraining Step: 18  | total loss: [1m[32m0.69254[0m[0m | time: 2.934s
+[2K
+| Adam | epoch: 005 | loss: 0.69254 - acc: 0.5413 -- iter: 064/128
+[A[ATraining Step: 19  | total loss: [1m[32m0.69276[0m[0m | time: 4.385s
+[2K
+| Adam | epoch: 005 | loss: 0.69276 - acc: 0.5275 -- iter: 096/128
+[A[ATraining Step: 20  | total loss: [1m[32m0.69292[0m[0m | time: 7.043s
+[2K
+| Adam | epoch: 005 | loss: 0.69292 - acc: 0.5086 | val_loss: 0.69531 - val_acc: 0.3902 -- iter: 128/128
+--
+/homes/tdogan/miniconda2/envs/my-rdkit-env/lib/python3.6/site-packages/sklearn/metrics/classification.py:1135: UndefinedMetricWarning: Precision is ill-defined and being set to 0.0 due to no predicted samples.
+  'precision', 'predicted', average, warn_for)
+/homes/tdogan/miniconda2/envs/my-rdkit-env/lib/python3.6/site-packages/sklearn/metrics/classification.py:1135: UndefinedMetricWarning: F-score is ill-defined and being set to 0.0 due to no predicted samples.
+  'precision', 'predicted', average, warn_for)
+/homes/tdogan/miniconda2/envs/my-rdkit-env/lib/python3.6/site-packages/sklearn/metrics/classification.py:538: RuntimeWarning: invalid value encountered in double_scalars
+  mcc = cov_ytyp / np.sqrt(cov_ytyt * cov_ypyp)
+Validation AUC:0.7375
+Validation AUPRC:0.8427561965140915
+Test AUC:0.7260765550239234
+Test AUPRC:0.7873572956138397
+BestTestF1Score	0.7	0.0	0.54	0.54	1.0	22	19	0	0	0.49
+BestTestMCCScore	0.55	0.34	0.63	0.82	0.41	9	2	17	13	0.5
+BestTestAccuracyScore	0.55	0.34	0.63	0.82	0.41	9	2	17	13	0.5
+BestValidationF1Score	0.76	0.0	0.61	0.61	1.0	25	16	0	0	0.49
+BestValidationMCC	0.62	0.37	0.63	0.86	0.48	12	2	14	13	0.5
+BestValidationAccuracy	0.62	0.37	0.63	0.86	0.48	12	2	14	13	0.5
+TestPredictions (Threshold:0.5)
+CHEMBL574602,TN,INACT,0.49000000953674316	CHEMBL2112095,TN,INACT,0.49000000953674316	CHEMBL1834699,TN,INACT,0.49000000953674316	CHEMBL477665,TN,INACT,0.49000000953674316	CHEMBL3423408,TN,INACT,0.49000000953674316	CHEMBL3290712,FN,ACT,0.49000000953674316	CHEMBL2407936,TP,ACT,0.5	CHEMBL514701,TN,INACT,0.49000000953674316	CHEMBL602265,TN,INACT,0.49000000953674316	CHEMBL2381764,FP,INACT,0.5	CHEMBL3234583,TP,ACT,0.5	CHEMBL251997,TN,INACT,0.49000000953674316	CHEMBL3234564,FN,ACT,0.49000000953674316	CHEMBL567640,FN,ACT,0.49000000953674316	CHEMBL3234554,TP,ACT,0.5	CHEMBL1090461,TN,INACT,0.49000000953674316	CHEMBL67109,TN,INACT,0.49000000953674316	CHEMBL3290716,FN,ACT,0.49000000953674316	CHEMBL3421894,TN,INACT,0.49000000953674316	CHEMBL2435927,FN,ACT,0.49000000953674316	CHEMBL2435914,FN,ACT,0.49000000953674316	CHEMBL574597,TN,INACT,0.49000000953674316	CHEMBL3234870,TP,ACT,0.5	CHEMBL3290731,FN,ACT,0.49000000953674316	CHEMBL3314885,TN,INACT,0.49000000953674316	CHEMBL3234550,FP,INACT,0.5	CHEMBL344187,TN,INACT,0.49000000953674316	CHEMBL100832,TN,INACT,0.49000000953674316	CHEMBL2407944,TP,ACT,0.5	CHEMBL3234561,TP,ACT,0.5	CHEMBL3314919,TN,INACT,0.49000000953674316	CHEMBL2407930,FN,ACT,0.49000000953674316	CHEMBL3290734,TP,ACT,0.5	CHEMBL3421899,FN,ACT,0.49000000953674316	CHEMBL600610,TN,INACT,0.49000000953674316	CHEMBL3234868,TP,ACT,0.5	CHEMBL3290713,FN,ACT,0.49000000953674316	CHEMBL3290721,TP,ACT,0.5	CHEMBL2435926,FN,ACT,0.49000000953674316	CHEMBL2407929,FN,ACT,0.49000000953674316	CHEMBL3234546,FN,ACT,0.49000000953674316	
+

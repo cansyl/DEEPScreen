@@ -1,0 +1,1215 @@
+CNNModel CHEMBL5979 adam 0.0005 30 256 0 0.6 False True
+Number of active compounds :	191
+Number of inactive compounds :	191
+---------------------------------
+Run id: CNNModel_CHEMBL5979_adam_0.0005_30_256_0_0.6_False_True_id
+Log directory: ../tflearnLogs/CNNModel_CHEMBL5979_adam_0.0005_30_256_0.6_True/
+---------------------------------
+Training samples: 243
+Validation samples: 76
+--
+Training Step: 1  | time: 3.779s
+[2K
+| Adam | epoch: 001 | loss: 0.00000 - acc: 0.0000 -- iter: 032/243
+[A[A2018-09-06 15:50:26.965092: W tensorflow/core/framework/allocator.cc:101] Allocation of 289816576 exceeds 10% of system memory.
+2018-09-06 15:50:32.713151: W tensorflow/core/framework/allocator.cc:101] Allocation of 289816576 exceeds 10% of system memory.
+Training Step: 2  | total loss: [1m[32m0.62400[0m[0m | time: 10.269s
+[2K
+| Adam | epoch: 001 | loss: 0.62400 - acc: 0.4219 -- iter: 064/243
+[A[A2018-09-06 15:50:33.456453: W tensorflow/core/framework/allocator.cc:101] Allocation of 289816576 exceeds 10% of system memory.
+2018-09-06 15:50:36.246649: W tensorflow/core/framework/allocator.cc:101] Allocation of 289816576 exceeds 10% of system memory.
+Training Step: 3  | total loss: [1m[32m0.68032[0m[0m | time: 16.359s
+[2K
+| Adam | epoch: 001 | loss: 0.68032 - acc: 0.5114 -- iter: 096/243
+[A[A2018-09-06 15:50:39.547269: W tensorflow/core/framework/allocator.cc:101] Allocation of 289816576 exceeds 10% of system memory.
+2018-09-06 15:50:41.386278: W tensorflow/core/framework/allocator.cc:101] Allocation of 289816576 exceeds 10% of system memory.
+Training Step: 4  | total loss: [1m[32m0.69170[0m[0m | time: 18.822s
+[2K
+| Adam | epoch: 001 | loss: 0.69170 - acc: 0.4325 -- iter: 128/243
+[A[A2018-09-06 15:50:42.009077: W tensorflow/core/framework/allocator.cc:101] Allocation of 289816576 exceeds 10% of system memory.
+2018-09-06 15:50:43.234489: W tensorflow/core/framework/allocator.cc:101] Allocation of 289816576 exceeds 10% of system memory.
+Training Step: 5  | total loss: [1m[32m0.69222[0m[0m | time: 22.835s
+[2K
+| Adam | epoch: 001 | loss: 0.69222 - acc: 0.5009 -- iter: 160/243
+[A[A2018-09-06 15:50:46.022582: W tensorflow/core/framework/allocator.cc:101] Allocation of 289816576 exceeds 10% of system memory.
+2018-09-06 15:50:48.860528: W tensorflow/core/framework/allocator.cc:101] Allocation of 289816576 exceeds 10% of system memory.
+Training Step: 6  | total loss: [1m[32m0.69260[0m[0m | time: 26.133s
+[2K
+| Adam | epoch: 001 | loss: 0.69260 - acc: 0.5204 -- iter: 192/243
+[A[A2018-09-06 15:50:49.320647: W tensorflow/core/framework/allocator.cc:101] Allocation of 289816576 exceeds 10% of system memory.
+2018-09-06 15:50:52.931321: W tensorflow/core/framework/allocator.cc:101] Allocation of 289816576 exceeds 10% of system memory.
+Training Step: 7  | total loss: [1m[32m0.69293[0m[0m | time: 30.495s
+[2K
+| Adam | epoch: 001 | loss: 0.69293 - acc: 0.5269 -- iter: 224/243
+[A[A2018-09-06 15:50:54.813513: W tensorflow/core/framework/allocator.cc:101] Allocation of 289816576 exceeds 10% of system memory.
+2018-09-06 15:50:56.462431: W tensorflow/core/framework/allocator.cc:101] Allocation of 289816576 exceeds 10% of system memory.
+Training Step: 8  | total loss: [1m[32m0.69188[0m[0m | time: 37.507s
+[2K
+| Adam | epoch: 001 | loss: 0.69188 - acc: 0.5645 | val_loss: 0.69892 - val_acc: 0.4079 -- iter: 243/243
+--
+Training Step: 9  | total loss: [1m[32m0.69051[0m[0m | time: 4.714s
+[2K
+| Adam | epoch: 002 | loss: 0.69051 - acc: 0.6000 -- iter: 032/243
+[A[A2018-09-06 15:51:05.926884: W tensorflow/core/framework/allocator.cc:101] Allocation of 289816576 exceeds 10% of system memory.
+2018-09-06 15:51:09.649431: W tensorflow/core/framework/allocator.cc:101] Allocation of 289816576 exceeds 10% of system memory.
+Training Step: 10  | total loss: [1m[32m0.68837[0m[0m | time: 9.161s
+[2K
+| Adam | epoch: 002 | loss: 0.68837 - acc: 0.6158 -- iter: 064/243
+[A[A2018-09-06 15:51:10.375570: W tensorflow/core/framework/allocator.cc:101] Allocation of 289816576 exceeds 10% of system memory.
+2018-09-06 15:51:11.828928: W tensorflow/core/framework/allocator.cc:101] Allocation of 289816576 exceeds 10% of system memory.
+Training Step: 11  | total loss: [1m[32m0.69543[0m[0m | time: 11.053s
+[2K
+| Adam | epoch: 002 | loss: 0.69543 - acc: 0.5165 -- iter: 096/243
+[A[A2018-09-06 15:51:12.265799: W tensorflow/core/framework/allocator.cc:101] Allocation of 289816576 exceeds 10% of system memory.
+2018-09-06 15:51:13.334213: W tensorflow/core/framework/allocator.cc:101] Allocation of 289816576 exceeds 10% of system memory.
+Training Step: 12  | total loss: [1m[32m0.69316[0m[0m | time: 14.697s
+[2K
+| Adam | epoch: 002 | loss: 0.69316 - acc: 0.5232 -- iter: 128/243
+[A[A2018-09-06 15:51:15.910612: W tensorflow/core/framework/allocator.cc:101] Allocation of 289816576 exceeds 10% of system memory.
+2018-09-06 15:51:17.779962: W tensorflow/core/framework/allocator.cc:101] Allocation of 289816576 exceeds 10% of system memory.
+Training Step: 13  | total loss: [1m[32m0.70309[0m[0m | time: 17.446s
+[2K
+| Adam | epoch: 002 | loss: 0.70309 - acc: 0.4329 -- iter: 160/243
+[A[A2018-09-06 15:51:18.658939: W tensorflow/core/framework/allocator.cc:101] Allocation of 289816576 exceeds 10% of system memory.
+2018-09-06 15:51:20.855805: W tensorflow/core/framework/allocator.cc:101] Allocation of 289816576 exceeds 10% of system memory.
+Training Step: 14  | total loss: [1m[32m0.69965[0m[0m | time: 20.089s
+[2K
+| Adam | epoch: 002 | loss: 0.69965 - acc: 0.4603 -- iter: 192/243
+[A[A2018-09-06 15:51:21.305234: W tensorflow/core/framework/allocator.cc:101] Allocation of 289816576 exceeds 10% of system memory.
+2018-09-06 15:51:22.157603: W tensorflow/core/framework/allocator.cc:101] Allocation of 289816576 exceeds 10% of system memory.
+Training Step: 15  | total loss: [1m[32m0.69874[0m[0m | time: 21.378s
+[2K
+| Adam | epoch: 002 | loss: 0.69874 - acc: 0.4514 -- iter: 224/243
+[A[A2018-09-06 15:51:22.592011: W tensorflow/core/framework/allocator.cc:101] Allocation of 289816576 exceeds 10% of system memory.
+2018-09-06 15:51:26.445957: W tensorflow/core/framework/allocator.cc:101] Allocation of 289816576 exceeds 10% of system memory.
+2018-09-06 15:51:27.007404: W tensorflow/core/framework/allocator.cc:101] Allocation of 289816576 exceeds 10% of system memory.
+2018-09-06 15:51:27.903608: W tensorflow/core/framework/allocator.cc:101] Allocation of 289816576 exceeds 10% of system memory.
+Training Step: 16  | total loss: [1m[32m0.69721[0m[0m | time: 27.958s
+[2K
+| Adam | epoch: 002 | loss: 0.69721 - acc: 0.4579 | val_loss: 0.69528 - val_acc: 0.4079 -- iter: 243/243
+--
+Training Step: 17  | total loss: [1m[32m0.69546[0m[0m | time: 1.805s
+[2K
+| Adam | epoch: 003 | loss: 0.69546 - acc: 0.4843 -- iter: 032/243
+[A[ATraining Step: 18  | total loss: [1m[32m0.69401[0m[0m | time: 5.459s
+[2K
+| Adam | epoch: 003 | loss: 0.69401 - acc: 0.5171 -- iter: 064/243
+[A[A2018-09-06 15:51:35.512083: W tensorflow/core/framework/allocator.cc:101] Allocation of 289816576 exceeds 10% of system memory.
+2018-09-06 15:51:36.634761: W tensorflow/core/framework/allocator.cc:101] Allocation of 289816576 exceeds 10% of system memory.
+Training Step: 19  | total loss: [1m[32m0.69323[0m[0m | time: 7.026s
+[2K
+| Adam | epoch: 003 | loss: 0.69323 - acc: 0.5377 -- iter: 096/243
+[A[A2018-09-06 15:51:37.082708: W tensorflow/core/framework/allocator.cc:101] Allocation of 289816576 exceeds 10% of system memory.
+2018-09-06 15:51:38.222818: W tensorflow/core/framework/allocator.cc:101] Allocation of 289816576 exceeds 10% of system memory.
+Training Step: 20  | total loss: [1m[32m0.69195[0m[0m | time: 8.707s
+[2K
+| Adam | epoch: 003 | loss: 0.69195 - acc: 0.5959 -- iter: 128/243
+[A[A2018-09-06 15:51:38.762154: W tensorflow/core/framework/allocator.cc:101] Allocation of 289816576 exceeds 10% of system memory.
+2018-09-06 15:51:39.159391: W tensorflow/core/framework/allocator.cc:101] Allocation of 289816576 exceeds 10% of system memory.
+Training Step: 21  | total loss: [1m[32m0.69177[0m[0m | time: 9.554s
+[2K
+| Adam | epoch: 003 | loss: 0.69177 - acc: 0.5952 -- iter: 160/243
+[A[A2018-09-06 15:51:39.609254: W tensorflow/core/framework/allocator.cc:101] Allocation of 289816576 exceeds 10% of system memory.
+2018-09-06 15:51:42.289245: W tensorflow/core/framework/allocator.cc:101] Allocation of 289816576 exceeds 10% of system memory.
+Training Step: 22  | total loss: [1m[32m0.69294[0m[0m | time: 12.794s
+[2K
+| Adam | epoch: 003 | loss: 0.69294 - acc: 0.5292 -- iter: 192/243
+[A[A2018-09-06 15:51:42.849438: W tensorflow/core/framework/allocator.cc:101] Allocation of 289816576 exceeds 10% of system memory.
+2018-09-06 15:51:46.212777: W tensorflow/core/framework/allocator.cc:101] Allocation of 289816576 exceeds 10% of system memory.
+Training Step: 23  | total loss: [1m[32m0.69282[0m[0m | time: 16.602s
+[2K
+| Adam | epoch: 003 | loss: 0.69282 - acc: 0.5298 -- iter: 224/243
+[A[A2018-09-06 15:51:46.658383: W tensorflow/core/framework/allocator.cc:101] Allocation of 289816576 exceeds 10% of system memory.
+2018-09-06 15:51:47.445574: W tensorflow/core/framework/allocator.cc:101] Allocation of 289816576 exceeds 10% of system memory.
+2018-09-06 15:51:47.913033: W tensorflow/core/framework/allocator.cc:101] Allocation of 289816576 exceeds 10% of system memory.
+2018-09-06 15:51:48.397758: W tensorflow/core/framework/allocator.cc:101] Allocation of 289816576 exceeds 10% of system memory.
+Training Step: 24  | total loss: [1m[32m0.69350[0m[0m | time: 25.179s
+[2K
+| Adam | epoch: 003 | loss: 0.69350 - acc: 0.4950 | val_loss: 0.69524 - val_acc: 0.4079 -- iter: 243/243
+--
+2018-09-06 15:51:55.768810: W tensorflow/core/framework/allocator.cc:101] Allocation of 289816576 exceeds 10% of system memory.
+2018-09-06 15:51:59.572807: W tensorflow/core/framework/allocator.cc:101] Allocation of 289816576 exceeds 10% of system memory.
+Training Step: 25  | total loss: [1m[32m0.69306[0m[0m | time: 4.258s
+[2K
+| Adam | epoch: 004 | loss: 0.69306 - acc: 0.5134 -- iter: 032/243
+[A[ATraining Step: 26  | total loss: [1m[32m0.69259[0m[0m | time: 5.591s
+[2K
+| Adam | epoch: 004 | loss: 0.69259 - acc: 0.5347 -- iter: 064/243
+[A[ATraining Step: 27  | total loss: [1m[32m0.69296[0m[0m | time: 10.051s
+[2K
+| Adam | epoch: 004 | loss: 0.69296 - acc: 0.5190 -- iter: 096/243
+[A[A2018-09-06 15:52:05.817447: W tensorflow/core/framework/allocator.cc:101] Allocation of 289816576 exceeds 10% of system memory.
+2018-09-06 15:52:08.752100: W tensorflow/core/framework/allocator.cc:101] Allocation of 289816576 exceeds 10% of system memory.
+Training Step: 28  | total loss: [1m[32m0.69322[0m[0m | time: 13.440s
+[2K
+| Adam | epoch: 004 | loss: 0.69322 - acc: 0.5077 -- iter: 128/243
+[A[A2018-09-06 15:52:09.206224: W tensorflow/core/framework/allocator.cc:101] Allocation of 289816576 exceeds 10% of system memory.
+2018-09-06 15:52:12.308608: W tensorflow/core/framework/allocator.cc:101] Allocation of 289816576 exceeds 10% of system memory.
+Training Step: 29  | total loss: [1m[32m0.69301[0m[0m | time: 16.990s
+[2K
+| Adam | epoch: 004 | loss: 0.69301 - acc: 0.5134 -- iter: 160/243
+[A[A2018-09-06 15:52:12.757931: W tensorflow/core/framework/allocator.cc:101] Allocation of 289816576 exceeds 10% of system memory.
+2018-09-06 15:52:17.453181: W tensorflow/core/framework/allocator.cc:101] Allocation of 289816576 exceeds 10% of system memory.
+Training Step: 30  | total loss: [1m[32m0.69234[0m[0m | time: 22.576s
+[2K
+| Adam | epoch: 004 | loss: 0.69234 - acc: 0.5398 -- iter: 192/243
+[A[A2018-09-06 15:52:18.342316: W tensorflow/core/framework/allocator.cc:101] Allocation of 289816576 exceeds 10% of system memory.
+2018-09-06 15:52:20.233515: W tensorflow/core/framework/allocator.cc:101] Allocation of 289816576 exceeds 10% of system memory.
+Training Step: 31  | total loss: [1m[32m0.69201[0m[0m | time: 24.917s
+[2K
+| Adam | epoch: 004 | loss: 0.69201 - acc: 0.5523 -- iter: 224/243
+[A[A2018-09-06 15:52:20.682856: W tensorflow/core/framework/allocator.cc:101] Allocation of 289816576 exceeds 10% of system memory.
+2018-09-06 15:52:21.864188: W tensorflow/core/framework/allocator.cc:101] Allocation of 289816576 exceeds 10% of system memory.
+2018-09-06 15:52:22.361201: W tensorflow/core/framework/allocator.cc:101] Allocation of 289816576 exceeds 10% of system memory.
+2018-09-06 15:52:24.232963: W tensorflow/core/framework/allocator.cc:101] Allocation of 289816576 exceeds 10% of system memory.
+Training Step: 32  | total loss: [1m[32m0.69283[0m[0m | time: 35.079s
+[2K
+| Adam | epoch: 004 | loss: 0.69283 - acc: 0.5194 | val_loss: 0.69584 - val_acc: 0.4079 -- iter: 243/243
+--
+2018-09-06 15:52:31.243003: W tensorflow/core/framework/allocator.cc:101] Allocation of 289816576 exceeds 10% of system memory.
+2018-09-06 15:52:34.306663: W tensorflow/core/framework/allocator.cc:101] Allocation of 289816576 exceeds 10% of system memory.
+Training Step: 33  | total loss: [1m[32m0.69274[0m[0m | time: 3.658s
+[2K
+| Adam | epoch: 005 | loss: 0.69274 - acc: 0.5220 -- iter: 032/243
+[A[A2018-09-06 15:52:34.898687: W tensorflow/core/framework/allocator.cc:101] Allocation of 289816576 exceeds 10% of system memory.
+2018-09-06 15:52:35.884995: W tensorflow/core/framework/allocator.cc:101] Allocation of 289816576 exceeds 10% of system memory.
+Training Step: 34  | total loss: [1m[32m0.69211[0m[0m | time: 5.099s
+[2K
+| Adam | epoch: 005 | loss: 0.69211 - acc: 0.5441 -- iter: 064/243
+[A[ATraining Step: 35  | total loss: [1m[32m0.69201[0m[0m | time: 19.304s
+[2K
+| Adam | epoch: 005 | loss: 0.69201 - acc: 0.5479 -- iter: 096/243
+[A[ATraining Step: 36  | total loss: [1m[32m0.69208[0m[0m | time: 20.166s
+[2K
+| Adam | epoch: 005 | loss: 0.69208 - acc: 0.5435 -- iter: 128/243
+[A[A2018-09-06 15:52:51.405378: W tensorflow/core/framework/allocator.cc:101] Allocation of 289816576 exceeds 10% of system memory.
+2018-09-06 15:52:55.470872: W tensorflow/core/framework/allocator.cc:101] Allocation of 289816576 exceeds 10% of system memory.
+Training Step: 37  | total loss: [1m[32m0.69215[0m[0m | time: 24.679s
+[2K
+| Adam | epoch: 005 | loss: 0.69215 - acc: 0.5401 -- iter: 160/243
+[A[A2018-09-06 15:52:55.917421: W tensorflow/core/framework/allocator.cc:101] Allocation of 289816576 exceeds 10% of system memory.
+2018-09-06 15:52:57.045781: W tensorflow/core/framework/allocator.cc:101] Allocation of 289816576 exceeds 10% of system memory.
+Training Step: 38  | total loss: [1m[32m0.69264[0m[0m | time: 26.315s
+[2K
+| Adam | epoch: 005 | loss: 0.69264 - acc: 0.5261 -- iter: 192/243
+[A[A2018-09-06 15:52:57.554044: W tensorflow/core/framework/allocator.cc:101] Allocation of 289816576 exceeds 10% of system memory.
+2018-09-06 15:53:07.786758: W tensorflow/core/framework/allocator.cc:101] Allocation of 289816576 exceeds 10% of system memory.
+Training Step: 39  | total loss: [1m[32m0.69340[0m[0m | time: 37.490s
+[2K
+| Adam | epoch: 005 | loss: 0.69340 - acc: 0.5032 -- iter: 224/243
+[A[A2018-09-06 15:53:08.729245: W tensorflow/core/framework/allocator.cc:101] Allocation of 289816576 exceeds 10% of system memory.
+2018-09-06 15:53:09.729060: W tensorflow/core/framework/allocator.cc:101] Allocation of 289816576 exceeds 10% of system memory.
+2018-09-06 15:53:10.178433: W tensorflow/core/framework/allocator.cc:101] Allocation of 289816576 exceeds 10% of system memory.
+2018-09-06 15:53:11.275543: W tensorflow/core/framework/allocator.cc:101] Allocation of 289816576 exceeds 10% of system memory.
+Training Step: 40  | total loss: [1m[32m0.69231[0m[0m | time: 41.831s
+[2K
+| Adam | epoch: 005 | loss: 0.69231 - acc: 0.5319 | val_loss: 0.69693 - val_acc: 0.4079 -- iter: 243/243
+--
+2018-09-06 15:53:13.819084: W tensorflow/core/framework/allocator.cc:101] Allocation of 289816576 exceeds 10% of system memory.
+2018-09-06 15:53:14.903730: W tensorflow/core/framework/allocator.cc:101] Allocation of 289816576 exceeds 10% of system memory.
+Training Step: 41  | total loss: [1m[32m0.69273[0m[0m | time: 1.539s
+[2K
+| Adam | epoch: 006 | loss: 0.69273 - acc: 0.5203 -- iter: 032/243
+[A[A2018-09-06 15:53:15.357258: W tensorflow/core/framework/allocator.cc:101] Allocation of 289816576 exceeds 10% of system memory.
+2018-09-06 15:53:16.092775: W tensorflow/core/framework/allocator.cc:101] Allocation of 289816576 exceeds 10% of system memory.
+Training Step: 42  | total loss: [1m[32m0.69287[0m[0m | time: 3.196s
+[2K
+| Adam | epoch: 006 | loss: 0.69287 - acc: 0.5166 -- iter: 064/243
+[A[A2018-09-06 15:53:17.013453: W tensorflow/core/framework/allocator.cc:101] Allocation of 289816576 exceeds 10% of system memory.
+2018-09-06 15:53:17.929875: W tensorflow/core/framework/allocator.cc:101] Allocation of 289816576 exceeds 10% of system memory.
+Training Step: 43  | total loss: [1m[32m0.69358[0m[0m | time: 4.561s
+[2K
+| Adam | epoch: 006 | loss: 0.69358 - acc: 0.4971 -- iter: 096/243
+[A[ATraining Step: 44  | total loss: [1m[32m0.69373[0m[0m | time: 5.493s
+[2K
+| Adam | epoch: 006 | loss: 0.69373 - acc: 0.4922 -- iter: 128/243
+[A[ATraining Step: 45  | total loss: [1m[32m0.69350[0m[0m | time: 6.607s
+[2K
+| Adam | epoch: 006 | loss: 0.69350 - acc: 0.4980 -- iter: 160/243
+[A[A2018-09-06 15:53:20.424076: W tensorflow/core/framework/allocator.cc:101] Allocation of 289816576 exceeds 10% of system memory.
+2018-09-06 15:53:22.302700: W tensorflow/core/framework/allocator.cc:101] Allocation of 289816576 exceeds 10% of system memory.
+Training Step: 46  | total loss: [1m[32m0.69330[0m[0m | time: 11.315s
+[2K
+| Adam | epoch: 006 | loss: 0.69330 - acc: 0.5027 -- iter: 192/243
+[A[A2018-09-06 15:53:25.131736: W tensorflow/core/framework/allocator.cc:101] Allocation of 289816576 exceeds 10% of system memory.
+2018-09-06 15:53:33.163525: W tensorflow/core/framework/allocator.cc:101] Allocation of 289816576 exceeds 10% of system memory.
+Training Step: 47  | total loss: [1m[32m0.69333[0m[0m | time: 19.797s
+[2K
+| Adam | epoch: 006 | loss: 0.69333 - acc: 0.5023 -- iter: 224/243
+[A[A2018-09-06 15:53:33.613146: W tensorflow/core/framework/allocator.cc:101] Allocation of 289816576 exceeds 10% of system memory.
+2018-09-06 15:53:35.160208: W tensorflow/core/framework/allocator.cc:101] Allocation of 289816576 exceeds 10% of system memory.
+2018-09-06 15:53:35.613863: W tensorflow/core/framework/allocator.cc:101] Allocation of 289816576 exceeds 10% of system memory.
+2018-09-06 15:53:36.889759: W tensorflow/core/framework/allocator.cc:101] Allocation of 289816576 exceeds 10% of system memory.
+Training Step: 48  | total loss: [1m[32m0.69275[0m[0m | time: 27.978s
+[2K
+| Adam | epoch: 006 | loss: 0.69275 - acc: 0.5170 | val_loss: 0.69680 - val_acc: 0.4079 -- iter: 243/243
+--
+2018-09-06 15:53:42.263463: W tensorflow/core/framework/allocator.cc:101] Allocation of 289816576 exceeds 10% of system memory.
+2018-09-06 15:53:43.719205: W tensorflow/core/framework/allocator.cc:101] Allocation of 289816576 exceeds 10% of system memory.
+Training Step: 49  | total loss: [1m[32m0.69323[0m[0m | time: 1.925s
+[2K
+| Adam | epoch: 007 | loss: 0.69323 - acc: 0.5044 -- iter: 032/243
+[A[A2018-09-06 15:53:44.186409: W tensorflow/core/framework/allocator.cc:101] Allocation of 289816576 exceeds 10% of system memory.
+2018-09-06 15:53:45.088696: W tensorflow/core/framework/allocator.cc:101] Allocation of 289816576 exceeds 10% of system memory.
+Training Step: 50  | total loss: [1m[32m0.69254[0m[0m | time: 3.278s
+[2K
+| Adam | epoch: 007 | loss: 0.69254 - acc: 0.5231 -- iter: 064/243
+[A[A2018-09-06 15:53:45.540612: W tensorflow/core/framework/allocator.cc:101] Allocation of 289816576 exceeds 10% of system memory.
+2018-09-06 15:53:48.220247: W tensorflow/core/framework/allocator.cc:101] Allocation of 289816576 exceeds 10% of system memory.
+Training Step: 51  | total loss: [1m[32m0.69192[0m[0m | time: 6.402s
+[2K
+| Adam | epoch: 007 | loss: 0.69192 - acc: 0.5387 -- iter: 096/243
+[A[A2018-09-06 15:53:48.663585: W tensorflow/core/framework/allocator.cc:101] Allocation of 289816576 exceeds 10% of system memory.
+2018-09-06 15:53:49.968709: W tensorflow/core/framework/allocator.cc:101] Allocation of 289816576 exceeds 10% of system memory.
+Training Step: 52  | total loss: [1m[32m0.69252[0m[0m | time: 8.165s
+[2K
+| Adam | epoch: 007 | loss: 0.69252 - acc: 0.5235 -- iter: 128/243
+[A[ATraining Step: 53  | total loss: [1m[32m0.69324[0m[0m | time: 9.551s
+[2K
+| Adam | epoch: 007 | loss: 0.69324 - acc: 0.5062 -- iter: 160/243
+[A[ATraining Step: 54  | total loss: [1m[32m0.69279[0m[0m | time: 12.866s
+[2K
+| Adam | epoch: 007 | loss: 0.69279 - acc: 0.5168 -- iter: 192/243
+[A[A2018-09-06 15:53:55.130147: W tensorflow/core/framework/allocator.cc:101] Allocation of 289816576 exceeds 10% of system memory.
+2018-09-06 15:53:57.319397: W tensorflow/core/framework/allocator.cc:101] Allocation of 289816576 exceeds 10% of system memory.
+Training Step: 55  | total loss: [1m[32m0.69243[0m[0m | time: 15.514s
+[2K
+| Adam | epoch: 007 | loss: 0.69243 - acc: 0.5256 -- iter: 224/243
+[A[A2018-09-06 15:53:57.779162: W tensorflow/core/framework/allocator.cc:101] Allocation of 289816576 exceeds 10% of system memory.
+2018-09-06 15:53:58.410900: W tensorflow/core/framework/allocator.cc:101] Allocation of 289816576 exceeds 10% of system memory.
+2018-09-06 15:53:59.131352: W tensorflow/core/framework/allocator.cc:101] Allocation of 289816576 exceeds 10% of system memory.
+2018-09-06 15:53:59.640212: W tensorflow/core/framework/allocator.cc:101] Allocation of 289816576 exceeds 10% of system memory.
+Training Step: 56  | total loss: [1m[32m0.69216[0m[0m | time: 18.349s
+[2K
+| Adam | epoch: 007 | loss: 0.69216 - acc: 0.5308 | val_loss: 0.69751 - val_acc: 0.4079 -- iter: 243/243
+--
+2018-09-06 15:54:01.011814: W tensorflow/core/framework/allocator.cc:101] Allocation of 289816576 exceeds 10% of system memory.
+2018-09-06 15:54:05.590064: W tensorflow/core/framework/allocator.cc:101] Allocation of 289816576 exceeds 10% of system memory.
+Training Step: 57  | total loss: [1m[32m0.69251[0m[0m | time: 5.037s
+[2K
+| Adam | epoch: 008 | loss: 0.69251 - acc: 0.5222 -- iter: 032/243
+[A[A2018-09-06 15:54:06.047544: W tensorflow/core/framework/allocator.cc:101] Allocation of 289816576 exceeds 10% of system memory.
+2018-09-06 15:54:06.777526: W tensorflow/core/framework/allocator.cc:101] Allocation of 289816576 exceeds 10% of system memory.
+Training Step: 58  | total loss: [1m[32m0.69281[0m[0m | time: 9.435s
+[2K
+| Adam | epoch: 008 | loss: 0.69281 - acc: 0.5149 -- iter: 064/243
+[A[A2018-09-06 15:54:10.444842: W tensorflow/core/framework/allocator.cc:101] Allocation of 289816576 exceeds 10% of system memory.
+2018-09-06 15:54:15.515751: W tensorflow/core/framework/allocator.cc:101] Allocation of 289816576 exceeds 10% of system memory.
+Training Step: 59  | total loss: [1m[32m0.69330[0m[0m | time: 14.964s
+[2K
+| Adam | epoch: 008 | loss: 0.69330 - acc: 0.5045 -- iter: 096/243
+[A[A2018-09-06 15:54:15.973043: W tensorflow/core/framework/allocator.cc:101] Allocation of 289816576 exceeds 10% of system memory.
+2018-09-06 15:54:21.201208: W tensorflow/core/framework/allocator.cc:101] Allocation of 289816576 exceeds 10% of system memory.
+Training Step: 60  | total loss: [1m[32m0.69293[0m[0m | time: 20.648s
+[2K
+| Adam | epoch: 008 | loss: 0.69293 - acc: 0.5122 -- iter: 128/243
+[A[A2018-09-06 15:54:21.656380: W tensorflow/core/framework/allocator.cc:101] Allocation of 289816576 exceeds 10% of system memory.
+2018-09-06 15:54:25.996782: W tensorflow/core/framework/allocator.cc:101] Allocation of 289816576 exceeds 10% of system memory.
+Training Step: 61  | total loss: [1m[32m0.69313[0m[0m | time: 25.431s
+[2K
+| Adam | epoch: 008 | loss: 0.69313 - acc: 0.5065 -- iter: 160/243
+[A[ATraining Step: 62  | total loss: [1m[32m0.69263[0m[0m | time: 26.200s
+[2K
+| Adam | epoch: 008 | loss: 0.69263 - acc: 0.5178 -- iter: 192/243
+[A[ATraining Step: 63  | total loss: [1m[32m0.69320[0m[0m | time: 26.823s
+[2K
+| Adam | epoch: 008 | loss: 0.69320 - acc: 0.5055 -- iter: 224/243
+[A[A2018-09-06 15:54:27.834088: W tensorflow/core/framework/allocator.cc:101] Allocation of 289816576 exceeds 10% of system memory.
+2018-09-06 15:54:28.201251: W tensorflow/core/framework/allocator.cc:101] Allocation of 289816576 exceeds 10% of system memory.
+2018-09-06 15:54:28.767263: W tensorflow/core/framework/allocator.cc:101] Allocation of 289816576 exceeds 10% of system memory.
+2018-09-06 15:54:32.797606: W tensorflow/core/framework/allocator.cc:101] Allocation of 289816576 exceeds 10% of system memory.
+Training Step: 64  | total loss: [1m[32m0.69361[0m[0m | time: 36.967s
+[2K
+| Adam | epoch: 008 | loss: 0.69361 - acc: 0.4949 | val_loss: 0.69730 - val_acc: 0.4079 -- iter: 243/243
+--
+2018-09-06 15:54:38.398043: W tensorflow/core/framework/allocator.cc:101] Allocation of 289816576 exceeds 10% of system memory.
+2018-09-06 15:54:39.210401: W tensorflow/core/framework/allocator.cc:101] Allocation of 289816576 exceeds 10% of system memory.
+Training Step: 65  | total loss: [1m[32m0.69292[0m[0m | time: 2.688s
+[2K
+| Adam | epoch: 009 | loss: 0.69292 - acc: 0.5110 -- iter: 032/243
+[A[A2018-09-06 15:54:41.083034: W tensorflow/core/framework/allocator.cc:101] Allocation of 289816576 exceeds 10% of system memory.
+2018-09-06 15:54:41.545691: W tensorflow/core/framework/allocator.cc:101] Allocation of 289816576 exceeds 10% of system memory.
+Training Step: 66  | total loss: [1m[32m0.69297[0m[0m | time: 4.011s
+[2K
+| Adam | epoch: 009 | loss: 0.69297 - acc: 0.5096 -- iter: 064/243
+[A[A2018-09-06 15:54:42.409237: W tensorflow/core/framework/allocator.cc:101] Allocation of 289816576 exceeds 10% of system memory.
+2018-09-06 15:54:44.775900: W tensorflow/core/framework/allocator.cc:101] Allocation of 289816576 exceeds 10% of system memory.
+Training Step: 67  | total loss: [1m[32m0.69284[0m[0m | time: 6.830s
+[2K
+| Adam | epoch: 009 | loss: 0.69284 - acc: 0.5122 -- iter: 096/243
+[A[A2018-09-06 15:54:45.226144: W tensorflow/core/framework/allocator.cc:101] Allocation of 289816576 exceeds 10% of system memory.
+2018-09-06 15:54:46.255489: W tensorflow/core/framework/allocator.cc:101] Allocation of 289816576 exceeds 10% of system memory.
+Training Step: 68  | total loss: [1m[32m0.69323[0m[0m | time: 8.384s
+[2K
+| Adam | epoch: 009 | loss: 0.69323 - acc: 0.5034 -- iter: 128/243
+[A[A2018-09-06 15:54:46.778577: W tensorflow/core/framework/allocator.cc:101] Allocation of 289816576 exceeds 10% of system memory.
+2018-09-06 15:54:47.668762: W tensorflow/core/framework/allocator.cc:101] Allocation of 289816576 exceeds 10% of system memory.
+Training Step: 69  | total loss: [1m[32m0.69449[0m[0m | time: 9.722s
+[2K
+| Adam | epoch: 009 | loss: 0.69449 - acc: 0.4738 -- iter: 160/243
+[A[A2018-09-06 15:54:48.118001: W tensorflow/core/framework/allocator.cc:101] Allocation of 289816576 exceeds 10% of system memory.
+2018-09-06 15:54:49.182924: W tensorflow/core/framework/allocator.cc:101] Allocation of 289816576 exceeds 10% of system memory.
+Training Step: 70  | total loss: [1m[32m0.69406[0m[0m | time: 12.073s
+[2K
+| Adam | epoch: 009 | loss: 0.69406 - acc: 0.4840 -- iter: 192/243
+[A[ATraining Step: 71  | total loss: [1m[32m0.69334[0m[0m | time: 13.635s
+[2K
+| Adam | epoch: 009 | loss: 0.69334 - acc: 0.5036 -- iter: 224/243
+[A[A2018-09-06 15:54:52.500620: W tensorflow/core/framework/allocator.cc:101] Allocation of 289816576 exceeds 10% of system memory.
+2018-09-06 15:54:54.063444: W tensorflow/core/framework/allocator.cc:101] Allocation of 289816576 exceeds 10% of system memory.
+Training Step: 72  | total loss: [1m[32m0.69240[0m[0m | time: 17.423s
+[2K
+| Adam | epoch: 009 | loss: 0.69240 - acc: 0.5299 | val_loss: 0.69710 - val_acc: 0.4079 -- iter: 243/243
+--
+2018-09-06 15:54:56.453497: W tensorflow/core/framework/allocator.cc:101] Allocation of 289816576 exceeds 10% of system memory.
+2018-09-06 15:54:58.075237: W tensorflow/core/framework/allocator.cc:101] Allocation of 289816576 exceeds 10% of system memory.
+Training Step: 73  | total loss: [1m[32m0.69148[0m[0m | time: 2.064s
+[2K
+| Adam | epoch: 010 | loss: 0.69148 - acc: 0.5529 -- iter: 032/243
+[A[A2018-09-06 15:54:58.515109: W tensorflow/core/framework/allocator.cc:101] Allocation of 289816576 exceeds 10% of system memory.
+2018-09-06 15:54:59.543677: W tensorflow/core/framework/allocator.cc:101] Allocation of 289816576 exceeds 10% of system memory.
+Training Step: 74  | total loss: [1m[32m0.69164[0m[0m | time: 3.531s
+[2K
+| Adam | epoch: 010 | loss: 0.69164 - acc: 0.5471 -- iter: 064/243
+[A[A2018-09-06 15:54:59.981899: W tensorflow/core/framework/allocator.cc:101] Allocation of 289816576 exceeds 10% of system memory.
+2018-09-06 15:55:01.151381: W tensorflow/core/framework/allocator.cc:101] Allocation of 289816576 exceeds 10% of system memory.
+Training Step: 75  | total loss: [1m[32m0.69168[0m[0m | time: 5.147s
+[2K
+| Adam | epoch: 010 | loss: 0.69168 - acc: 0.5453 -- iter: 096/243
+[A[A2018-09-06 15:55:01.600417: W tensorflow/core/framework/allocator.cc:101] Allocation of 289816576 exceeds 10% of system memory.
+2018-09-06 15:55:09.473351: W tensorflow/core/framework/allocator.cc:101] Allocation of 289816576 exceeds 10% of system memory.
+Training Step: 76  | total loss: [1m[32m0.69140[0m[0m | time: 13.473s
+[2K
+| Adam | epoch: 010 | loss: 0.69140 - acc: 0.5505 -- iter: 128/243
+[A[A2018-09-06 15:55:09.925164: W tensorflow/core/framework/allocator.cc:101] Allocation of 289816576 exceeds 10% of system memory.
+2018-09-06 15:55:11.033743: W tensorflow/core/framework/allocator.cc:101] Allocation of 289816576 exceeds 10% of system memory.
+Training Step: 77  | total loss: [1m[32m0.69212[0m[0m | time: 15.039s
+[2K
+| Adam | epoch: 010 | loss: 0.69212 - acc: 0.5353 -- iter: 160/243
+[A[A2018-09-06 15:55:11.490656: W tensorflow/core/framework/allocator.cc:101] Allocation of 289816576 exceeds 10% of system memory.
+2018-09-06 15:55:13.149082: W tensorflow/core/framework/allocator.cc:101] Allocation of 289816576 exceeds 10% of system memory.
+Training Step: 78  | total loss: [1m[32m0.69225[0m[0m | time: 17.159s
+[2K
+| Adam | epoch: 010 | loss: 0.69225 - acc: 0.5316 -- iter: 192/243
+[A[A2018-09-06 15:55:13.611378: W tensorflow/core/framework/allocator.cc:101] Allocation of 289816576 exceeds 10% of system memory.
+2018-09-06 15:55:14.120733: W tensorflow/core/framework/allocator.cc:101] Allocation of 289816576 exceeds 10% of system memory.
+Training Step: 79  | total loss: [1m[32m0.69217[0m[0m | time: 19.066s
+[2K
+| Adam | epoch: 010 | loss: 0.69217 - acc: 0.5315 -- iter: 224/243
+[A[A2018-09-06 15:55:16.784187: W tensorflow/core/framework/allocator.cc:101] Allocation of 289816576 exceeds 10% of system memory.
+2018-09-06 15:55:18.161524: W tensorflow/core/framework/allocator.cc:101] Allocation of 289816576 exceeds 10% of system memory.
+Training Step: 80  | total loss: [1m[32m0.69249[0m[0m | time: 22.731s
+[2K
+| Adam | epoch: 010 | loss: 0.69249 - acc: 0.5251 | val_loss: 0.69942 - val_acc: 0.4079 -- iter: 243/243
+--
+Training Step: 81  | total loss: [1m[32m0.69152[0m[0m | time: 0.922s
+[2K
+| Adam | epoch: 011 | loss: 0.69152 - acc: 0.5412 -- iter: 032/243
+[A[A2018-09-06 15:55:20.625995: W tensorflow/core/framework/allocator.cc:101] Allocation of 289816576 exceeds 10% of system memory.
+2018-09-06 15:55:21.713246: W tensorflow/core/framework/allocator.cc:101] Allocation of 289816576 exceeds 10% of system memory.
+Training Step: 82  | total loss: [1m[32m0.69055[0m[0m | time: 2.464s
+[2K
+| Adam | epoch: 011 | loss: 0.69055 - acc: 0.5555 -- iter: 064/243
+[A[A2018-09-06 15:55:22.168927: W tensorflow/core/framework/allocator.cc:101] Allocation of 289816576 exceeds 10% of system memory.
+2018-09-06 15:55:22.816293: W tensorflow/core/framework/allocator.cc:101] Allocation of 289816576 exceeds 10% of system memory.
+Training Step: 83  | total loss: [1m[32m0.69111[0m[0m | time: 3.576s
+[2K
+| Adam | epoch: 011 | loss: 0.69111 - acc: 0.5468 -- iter: 096/243
+[A[A2018-09-06 15:55:23.280571: W tensorflow/core/framework/allocator.cc:101] Allocation of 289816576 exceeds 10% of system memory.
+2018-09-06 15:55:24.638369: W tensorflow/core/framework/allocator.cc:101] Allocation of 289816576 exceeds 10% of system memory.
+Training Step: 84  | total loss: [1m[32m0.69112[0m[0m | time: 5.391s
+[2K
+| Adam | epoch: 011 | loss: 0.69112 - acc: 0.5453 -- iter: 128/243
+[A[A2018-09-06 15:55:25.095685: W tensorflow/core/framework/allocator.cc:101] Allocation of 289816576 exceeds 10% of system memory.
+2018-09-06 15:55:26.624712: W tensorflow/core/framework/allocator.cc:101] Allocation of 289816576 exceeds 10% of system memory.
+Training Step: 85  | total loss: [1m[32m0.69109[0m[0m | time: 7.365s
+[2K
+| Adam | epoch: 011 | loss: 0.69109 - acc: 0.5439 -- iter: 160/243
+[A[A2018-09-06 15:55:27.069080: W tensorflow/core/framework/allocator.cc:101] Allocation of 289816576 exceeds 10% of system memory.
+2018-09-06 15:55:28.631978: W tensorflow/core/framework/allocator.cc:101] Allocation of 289816576 exceeds 10% of system memory.
+Training Step: 86  | total loss: [1m[32m0.69167[0m[0m | time: 9.381s
+[2K
+| Adam | epoch: 011 | loss: 0.69167 - acc: 0.5364 -- iter: 192/243
+[A[A2018-09-06 15:55:29.086821: W tensorflow/core/framework/allocator.cc:101] Allocation of 289816576 exceeds 10% of system memory.
+2018-09-06 15:55:30.180700: W tensorflow/core/framework/allocator.cc:101] Allocation of 289816576 exceeds 10% of system memory.
+Training Step: 87  | total loss: [1m[32m0.69072[0m[0m | time: 10.922s
+[2K
+| Adam | epoch: 011 | loss: 0.69072 - acc: 0.5452 -- iter: 224/243
+[A[A2018-09-06 15:55:30.626087: W tensorflow/core/framework/allocator.cc:101] Allocation of 289816576 exceeds 10% of system memory.
+2018-09-06 15:55:31.683264: W tensorflow/core/framework/allocator.cc:101] Allocation of 289816576 exceeds 10% of system memory.
+2018-09-06 15:55:32.148604: W tensorflow/core/framework/allocator.cc:101] Allocation of 289816576 exceeds 10% of system memory.
+2018-09-06 15:55:32.600736: W tensorflow/core/framework/allocator.cc:101] Allocation of 289816576 exceeds 10% of system memory.
+Training Step: 88  | total loss: [1m[32m0.69206[0m[0m | time: 18.218s
+[2K
+| Adam | epoch: 011 | loss: 0.69206 - acc: 0.5313 | val_loss: 0.70459 - val_acc: 0.4079 -- iter: 243/243
+--
+Training Step: 89  | total loss: [1m[32m0.69157[0m[0m | time: 2.719s
+[2K
+| Adam | epoch: 012 | loss: 0.69157 - acc: 0.5344 -- iter: 032/243
+[A[ATraining Step: 90  | total loss: [1m[32m0.69276[0m[0m | time: 3.400s
+[2K
+| Adam | epoch: 012 | loss: 0.69276 - acc: 0.5231 -- iter: 064/243
+[A[A2018-09-06 15:55:41.709157: W tensorflow/core/framework/allocator.cc:101] Allocation of 289816576 exceeds 10% of system memory.
+2018-09-06 15:55:42.524645: W tensorflow/core/framework/allocator.cc:101] Allocation of 289816576 exceeds 10% of system memory.
+Training Step: 91  | total loss: [1m[32m0.69371[0m[0m | time: 4.664s
+[2K
+| Adam | epoch: 012 | loss: 0.69371 - acc: 0.5129 -- iter: 096/243
+[A[A2018-09-06 15:55:42.973353: W tensorflow/core/framework/allocator.cc:101] Allocation of 289816576 exceeds 10% of system memory.
+2018-09-06 15:55:43.885087: W tensorflow/core/framework/allocator.cc:101] Allocation of 289816576 exceeds 10% of system memory.
+Training Step: 92  | total loss: [1m[32m0.69321[0m[0m | time: 6.024s
+[2K
+| Adam | epoch: 012 | loss: 0.69321 - acc: 0.5179 -- iter: 128/243
+[A[A2018-09-06 15:55:44.333063: W tensorflow/core/framework/allocator.cc:101] Allocation of 289816576 exceeds 10% of system memory.
+2018-09-06 15:55:45.724993: W tensorflow/core/framework/allocator.cc:101] Allocation of 289816576 exceeds 10% of system memory.
+Training Step: 93  | total loss: [1m[32m0.69329[0m[0m | time: 7.865s
+[2K
+| Adam | epoch: 012 | loss: 0.69329 - acc: 0.5161 -- iter: 160/243
+[A[A2018-09-06 15:55:46.173130: W tensorflow/core/framework/allocator.cc:101] Allocation of 289816576 exceeds 10% of system memory.
+2018-09-06 15:55:46.999116: W tensorflow/core/framework/allocator.cc:101] Allocation of 289816576 exceeds 10% of system memory.
+Training Step: 94  | total loss: [1m[32m0.69308[0m[0m | time: 9.178s
+[2K
+| Adam | epoch: 012 | loss: 0.69308 - acc: 0.5176 -- iter: 192/243
+[A[A2018-09-06 15:55:47.489285: W tensorflow/core/framework/allocator.cc:101] Allocation of 289816576 exceeds 10% of system memory.
+2018-09-06 15:55:48.104132: W tensorflow/core/framework/allocator.cc:101] Allocation of 289816576 exceeds 10% of system memory.
+Training Step: 95  | total loss: [1m[32m0.69307[0m[0m | time: 10.242s
+[2K
+| Adam | epoch: 012 | loss: 0.69307 - acc: 0.5158 -- iter: 224/243
+[A[A2018-09-06 15:55:48.551980: W tensorflow/core/framework/allocator.cc:101] Allocation of 289816576 exceeds 10% of system memory.
+2018-09-06 15:55:49.476956: W tensorflow/core/framework/allocator.cc:101] Allocation of 289816576 exceeds 10% of system memory.
+2018-09-06 15:55:49.940305: W tensorflow/core/framework/allocator.cc:101] Allocation of 289816576 exceeds 10% of system memory.
+2018-09-06 15:55:53.780363: W tensorflow/core/framework/allocator.cc:101] Allocation of 289816576 exceeds 10% of system memory.
+Training Step: 96  | total loss: [1m[32m0.69313[0m[0m | time: 16.512s
+[2K
+| Adam | epoch: 012 | loss: 0.69313 - acc: 0.5142 | val_loss: 0.69992 - val_acc: 0.4079 -- iter: 243/243
+--
+2018-09-06 15:55:55.627429: W tensorflow/core/framework/allocator.cc:101] Allocation of 289816576 exceeds 10% of system memory.
+2018-09-06 15:55:56.900537: W tensorflow/core/framework/allocator.cc:101] Allocation of 289816576 exceeds 10% of system memory.
+Training Step: 97  | total loss: [1m[32m0.69253[0m[0m | time: 1.714s
+[2K
+| Adam | epoch: 013 | loss: 0.69253 - acc: 0.5222 -- iter: 032/243
+[A[ATraining Step: 98  | total loss: [1m[32m0.69285[0m[0m | time: 2.175s
+[2K
+| Adam | epoch: 013 | loss: 0.69285 - acc: 0.5169 -- iter: 064/243
+[A[ATraining Step: 99  | total loss: [1m[32m0.69274[0m[0m | time: 2.631s
+[2K
+| Adam | epoch: 013 | loss: 0.69274 - acc: 0.5178 -- iter: 096/243
+[A[A2018-09-06 15:55:58.259135: W tensorflow/core/framework/allocator.cc:101] Allocation of 289816576 exceeds 10% of system memory.
+2018-09-06 15:55:58.858709: W tensorflow/core/framework/allocator.cc:101] Allocation of 289816576 exceeds 10% of system memory.
+Training Step: 100  | total loss: [1m[32m0.69265[0m[0m | time: 3.691s
+[2K
+| Adam | epoch: 013 | loss: 0.69265 - acc: 0.5187 -- iter: 128/243
+[A[A2018-09-06 15:55:59.319038: W tensorflow/core/framework/allocator.cc:101] Allocation of 289816576 exceeds 10% of system memory.
+2018-09-06 15:55:59.909448: W tensorflow/core/framework/allocator.cc:101] Allocation of 289816576 exceeds 10% of system memory.
+Training Step: 101  | total loss: [1m[32m0.69271[0m[0m | time: 4.765s
+[2K
+| Adam | epoch: 013 | loss: 0.69271 - acc: 0.5168 -- iter: 160/243
+[A[A2018-09-06 15:56:00.394097: W tensorflow/core/framework/allocator.cc:101] Allocation of 289816576 exceeds 10% of system memory.
+2018-09-06 15:56:02.765838: W tensorflow/core/framework/allocator.cc:101] Allocation of 289816576 exceeds 10% of system memory.
+Training Step: 102  | total loss: [1m[32m0.69282[0m[0m | time: 7.968s
+[2K
+| Adam | epoch: 013 | loss: 0.69282 - acc: 0.5151 -- iter: 192/243
+[A[A2018-09-06 15:56:03.593749: W tensorflow/core/framework/allocator.cc:101] Allocation of 289816576 exceeds 10% of system memory.
+2018-09-06 15:56:04.952262: W tensorflow/core/framework/allocator.cc:101] Allocation of 289816576 exceeds 10% of system memory.
+Training Step: 103  | total loss: [1m[32m0.69264[0m[0m | time: 9.797s
+[2K
+| Adam | epoch: 013 | loss: 0.69264 - acc: 0.5167 -- iter: 224/243
+[A[A2018-09-06 15:56:05.425269: W tensorflow/core/framework/allocator.cc:101] Allocation of 289816576 exceeds 10% of system memory.
+2018-09-06 15:56:05.910294: W tensorflow/core/framework/allocator.cc:101] Allocation of 289816576 exceeds 10% of system memory.
+2018-09-06 15:56:06.363704: W tensorflow/core/framework/allocator.cc:101] Allocation of 289816576 exceeds 10% of system memory.
+2018-09-06 15:56:11.603160: W tensorflow/core/framework/allocator.cc:101] Allocation of 289816576 exceeds 10% of system memory.
+Training Step: 104  | total loss: [1m[32m0.69230[0m[0m | time: 17.399s
+[2K
+| Adam | epoch: 013 | loss: 0.69230 - acc: 0.5213 | val_loss: 0.69920 - val_acc: 0.4079 -- iter: 243/243
+--
+2018-09-06 15:56:13.408762: W tensorflow/core/framework/allocator.cc:101] Allocation of 289816576 exceeds 10% of system memory.
+2018-09-06 15:56:14.451942: W tensorflow/core/framework/allocator.cc:101] Allocation of 289816576 exceeds 10% of system memory.
+Training Step: 105  | total loss: [1m[32m0.69329[0m[0m | time: 1.519s
+[2K
+| Adam | epoch: 014 | loss: 0.69329 - acc: 0.5067 -- iter: 032/243
+[A[A2018-09-06 15:56:14.925626: W tensorflow/core/framework/allocator.cc:101] Allocation of 289816576 exceeds 10% of system memory.
+2018-09-06 15:56:16.104270: W tensorflow/core/framework/allocator.cc:101] Allocation of 289816576 exceeds 10% of system memory.
+Training Step: 106  | total loss: [1m[32m0.69330[0m[0m | time: 3.152s
+[2K
+| Adam | epoch: 014 | loss: 0.69330 - acc: 0.5060 -- iter: 064/243
+[A[ATraining Step: 107  | total loss: [1m[32m0.69270[0m[0m | time: 4.192s
+[2K
+| Adam | epoch: 014 | loss: 0.69270 - acc: 0.5148 -- iter: 096/243
+[A[ATraining Step: 108  | total loss: [1m[32m0.69196[0m[0m | time: 5.356s
+[2K
+| Adam | epoch: 014 | loss: 0.69196 - acc: 0.5265 -- iter: 128/243
+[A[A2018-09-06 15:56:18.760182: W tensorflow/core/framework/allocator.cc:101] Allocation of 289816576 exceeds 10% of system memory.
+2018-09-06 15:56:19.637430: W tensorflow/core/framework/allocator.cc:101] Allocation of 289816576 exceeds 10% of system memory.
+Training Step: 109  | total loss: [1m[32m0.69124[0m[0m | time: 6.697s
+[2K
+| Adam | epoch: 014 | loss: 0.69124 - acc: 0.5370 -- iter: 160/243
+[A[A2018-09-06 15:56:20.103762: W tensorflow/core/framework/allocator.cc:101] Allocation of 289816576 exceeds 10% of system memory.
+2018-09-06 15:56:20.346323: W tensorflow/core/framework/allocator.cc:101] Allocation of 289816576 exceeds 10% of system memory.
+Training Step: 110  | total loss: [1m[32m0.69120[0m[0m | time: 7.394s
+[2K
+| Adam | epoch: 014 | loss: 0.69120 - acc: 0.5364 -- iter: 192/243
+[A[A2018-09-06 15:56:20.799865: W tensorflow/core/framework/allocator.cc:101] Allocation of 289816576 exceeds 10% of system memory.
+2018-09-06 15:56:21.058561: W tensorflow/core/framework/allocator.cc:101] Allocation of 289816576 exceeds 10% of system memory.
+Training Step: 111  | total loss: [1m[32m0.69189[0m[0m | time: 8.106s
+[2K
+| Adam | epoch: 014 | loss: 0.69189 - acc: 0.5265 -- iter: 224/243
+[A[A2018-09-06 15:56:21.511422: W tensorflow/core/framework/allocator.cc:101] Allocation of 289816576 exceeds 10% of system memory.
+2018-09-06 15:56:21.737748: W tensorflow/core/framework/allocator.cc:101] Allocation of 289816576 exceeds 10% of system memory.
+2018-09-06 15:56:22.208963: W tensorflow/core/framework/allocator.cc:101] Allocation of 289816576 exceeds 10% of system memory.
+2018-09-06 15:56:22.350120: W tensorflow/core/framework/allocator.cc:101] Allocation of 289816576 exceeds 10% of system memory.
+Training Step: 112  | total loss: [1m[32m0.69108[0m[0m | time: 9.799s
+[2K
+| Adam | epoch: 014 | loss: 0.69108 - acc: 0.5364 | val_loss: 0.70130 - val_acc: 0.4079 -- iter: 243/243
+--
+2018-09-06 15:56:23.694755: W tensorflow/core/framework/allocator.cc:101] Allocation of 289816576 exceeds 10% of system memory.
+2018-09-06 15:56:24.539322: W tensorflow/core/framework/allocator.cc:101] Allocation of 289816576 exceeds 10% of system memory.
+Training Step: 113  | total loss: [1m[32m0.69105[0m[0m | time: 1.317s
+[2K
+| Adam | epoch: 015 | loss: 0.69105 - acc: 0.5358 -- iter: 032/243
+[A[A2018-09-06 15:56:25.010265: W tensorflow/core/framework/allocator.cc:101] Allocation of 289816576 exceeds 10% of system memory.
+2018-09-06 15:56:25.252496: W tensorflow/core/framework/allocator.cc:101] Allocation of 289816576 exceeds 10% of system memory.
+Training Step: 114  | total loss: [1m[32m0.69123[0m[0m | time: 2.019s
+[2K
+| Adam | epoch: 015 | loss: 0.69123 - acc: 0.5323 -- iter: 064/243
+[A[A2018-09-06 15:56:25.712291: W tensorflow/core/framework/allocator.cc:101] Allocation of 289816576 exceeds 10% of system memory.
+2018-09-06 15:56:25.960358: W tensorflow/core/framework/allocator.cc:101] Allocation of 289816576 exceeds 10% of system memory.
+Training Step: 115  | total loss: [1m[32m0.68947[0m[0m | time: 2.730s
+[2K
+| Adam | epoch: 015 | loss: 0.68947 - acc: 0.5509 -- iter: 096/243
+[A[ATraining Step: 116  | total loss: [1m[32m0.68959[0m[0m | time: 3.191s
+[2K
+| Adam | epoch: 015 | loss: 0.68959 - acc: 0.5489 -- iter: 128/243
+[A[ATraining Step: 117  | total loss: [1m[32m0.69208[0m[0m | time: 3.631s
+[2K
+| Adam | epoch: 015 | loss: 0.69208 - acc: 0.5256 -- iter: 160/243
+[A[A2018-09-06 15:56:27.325038: W tensorflow/core/framework/allocator.cc:101] Allocation of 289816576 exceeds 10% of system memory.
+2018-09-06 15:56:27.629551: W tensorflow/core/framework/allocator.cc:101] Allocation of 289816576 exceeds 10% of system memory.
+Training Step: 118  | total loss: [1m[32m0.69430[0m[0m | time: 4.403s
+[2K
+| Adam | epoch: 015 | loss: 0.69430 - acc: 0.5046 -- iter: 192/243
+[A[A2018-09-06 15:56:28.097327: W tensorflow/core/framework/allocator.cc:101] Allocation of 289816576 exceeds 10% of system memory.
+2018-09-06 15:56:28.494214: W tensorflow/core/framework/allocator.cc:101] Allocation of 289816576 exceeds 10% of system memory.
+Training Step: 119  | total loss: [1m[32m0.69473[0m[0m | time: 5.255s
+[2K
+| Adam | epoch: 015 | loss: 0.69473 - acc: 0.4979 -- iter: 224/243
+[A[A2018-09-06 15:56:28.948972: W tensorflow/core/framework/allocator.cc:101] Allocation of 289816576 exceeds 10% of system memory.
+2018-09-06 15:56:29.238574: W tensorflow/core/framework/allocator.cc:101] Allocation of 289816576 exceeds 10% of system memory.
+2018-09-06 15:56:29.722845: W tensorflow/core/framework/allocator.cc:101] Allocation of 289816576 exceeds 10% of system memory.
+2018-09-06 15:56:48.962093: W tensorflow/core/framework/allocator.cc:101] Allocation of 289816576 exceeds 10% of system memory.
+Training Step: 120  | total loss: [1m[32m0.69548[0m[0m | time: 25.516s
+[2K
+| Adam | epoch: 015 | loss: 0.69548 - acc: 0.4856 | val_loss: 0.69885 - val_acc: 0.4079 -- iter: 243/243
+--
+2018-09-06 15:56:49.943211: W tensorflow/core/framework/allocator.cc:101] Allocation of 289816576 exceeds 10% of system memory.
+2018-09-06 15:56:50.203998: W tensorflow/core/framework/allocator.cc:101] Allocation of 289816576 exceeds 10% of system memory.
+Training Step: 121  | total loss: [1m[32m0.69503[0m[0m | time: 0.724s
+[2K
+| Adam | epoch: 016 | loss: 0.69503 - acc: 0.4902 -- iter: 032/243
+[A[A2018-09-06 15:56:50.666164: W tensorflow/core/framework/allocator.cc:101] Allocation of 289816576 exceeds 10% of system memory.
+2018-09-06 15:56:50.890595: W tensorflow/core/framework/allocator.cc:101] Allocation of 289816576 exceeds 10% of system memory.
+Training Step: 122  | total loss: [1m[32m0.69508[0m[0m | time: 1.406s
+[2K
+| Adam | epoch: 016 | loss: 0.69508 - acc: 0.4881 -- iter: 064/243
+[A[A2018-09-06 15:56:51.347414: W tensorflow/core/framework/allocator.cc:101] Allocation of 289816576 exceeds 10% of system memory.
+2018-09-06 15:56:51.581377: W tensorflow/core/framework/allocator.cc:101] Allocation of 289816576 exceeds 10% of system memory.
+Training Step: 123  | total loss: [1m[32m0.69493[0m[0m | time: 2.103s
+[2K
+| Adam | epoch: 016 | loss: 0.69493 - acc: 0.4892 -- iter: 096/243
+[A[A2018-09-06 15:56:52.044316: W tensorflow/core/framework/allocator.cc:101] Allocation of 289816576 exceeds 10% of system memory.
+2018-09-06 15:56:52.267469: W tensorflow/core/framework/allocator.cc:101] Allocation of 289816576 exceeds 10% of system memory.
+Training Step: 124  | total loss: [1m[32m0.69432[0m[0m | time: 2.792s
+[2K
+| Adam | epoch: 016 | loss: 0.69432 - acc: 0.4997 -- iter: 128/243
+[A[ATraining Step: 125  | total loss: [1m[32m0.69440[0m[0m | time: 3.215s
+[2K
+| Adam | epoch: 016 | loss: 0.69440 - acc: 0.4966 -- iter: 160/243
+[A[ATraining Step: 126  | total loss: [1m[32m0.69365[0m[0m | time: 3.667s
+[2K
+| Adam | epoch: 016 | loss: 0.69365 - acc: 0.5101 -- iter: 192/243
+[A[A2018-09-06 15:56:53.609982: W tensorflow/core/framework/allocator.cc:101] Allocation of 289816576 exceeds 10% of system memory.
+2018-09-06 15:56:53.852049: W tensorflow/core/framework/allocator.cc:101] Allocation of 289816576 exceeds 10% of system memory.
+Training Step: 127  | total loss: [1m[32m0.69297[0m[0m | time: 4.413s
+[2K
+| Adam | epoch: 016 | loss: 0.69297 - acc: 0.5222 -- iter: 224/243
+[A[A2018-09-06 15:56:54.356659: W tensorflow/core/framework/allocator.cc:101] Allocation of 289816576 exceeds 10% of system memory.
+2018-09-06 15:56:54.586758: W tensorflow/core/framework/allocator.cc:101] Allocation of 289816576 exceeds 10% of system memory.
+2018-09-06 15:56:55.070531: W tensorflow/core/framework/allocator.cc:101] Allocation of 289816576 exceeds 10% of system memory.
+2018-09-06 15:56:55.213177: W tensorflow/core/framework/allocator.cc:101] Allocation of 289816576 exceeds 10% of system memory.
+Training Step: 128  | total loss: [1m[32m0.69286[0m[0m | time: 6.123s
+[2K
+| Adam | epoch: 016 | loss: 0.69286 - acc: 0.5231 | val_loss: 0.69822 - val_acc: 0.4079 -- iter: 243/243
+--
+2018-09-06 15:56:56.889202: W tensorflow/core/framework/allocator.cc:101] Allocation of 289816576 exceeds 10% of system memory.
+2018-09-06 15:56:57.112490: W tensorflow/core/framework/allocator.cc:101] Allocation of 289816576 exceeds 10% of system memory.
+Training Step: 129  | total loss: [1m[32m0.69322[0m[0m | time: 0.692s
+[2K
+| Adam | epoch: 017 | loss: 0.69322 - acc: 0.5146 -- iter: 032/243
+[A[A2018-09-06 15:56:57.578941: W tensorflow/core/framework/allocator.cc:101] Allocation of 289816576 exceeds 10% of system memory.
+2018-09-06 15:56:57.799904: W tensorflow/core/framework/allocator.cc:101] Allocation of 289816576 exceeds 10% of system memory.
+Training Step: 130  | total loss: [1m[32m0.69306[0m[0m | time: 1.374s
+[2K
+| Adam | epoch: 017 | loss: 0.69306 - acc: 0.5163 -- iter: 064/243
+[A[A2018-09-06 15:56:58.262834: W tensorflow/core/framework/allocator.cc:101] Allocation of 289816576 exceeds 10% of system memory.
+2018-09-06 15:56:58.485752: W tensorflow/core/framework/allocator.cc:101] Allocation of 289816576 exceeds 10% of system memory.
+Training Step: 131  | total loss: [1m[32m0.69327[0m[0m | time: 2.061s
+[2K
+| Adam | epoch: 017 | loss: 0.69327 - acc: 0.5115 -- iter: 096/243
+[A[A2018-09-06 15:56:58.946559: W tensorflow/core/framework/allocator.cc:101] Allocation of 289816576 exceeds 10% of system memory.
+2018-09-06 15:56:59.176110: W tensorflow/core/framework/allocator.cc:101] Allocation of 289816576 exceeds 10% of system memory.
+Training Step: 132  | total loss: [1m[32m0.69214[0m[0m | time: 2.754s
+[2K
+| Adam | epoch: 017 | loss: 0.69214 - acc: 0.5322 -- iter: 128/243
+[A[A2018-09-06 15:56:59.638800: W tensorflow/core/framework/allocator.cc:101] Allocation of 289816576 exceeds 10% of system memory.
+2018-09-06 15:56:59.872086: W tensorflow/core/framework/allocator.cc:101] Allocation of 289816576 exceeds 10% of system memory.
+Training Step: 133  | total loss: [1m[32m0.69209[0m[0m | time: 3.427s
+[2K
+| Adam | epoch: 017 | loss: 0.69209 - acc: 0.5321 -- iter: 160/243
+[A[ATraining Step: 134  | total loss: [1m[32m0.69280[0m[0m | time: 3.861s
+[2K
+| Adam | epoch: 017 | loss: 0.69280 - acc: 0.5195 -- iter: 192/243
+[A[ATraining Step: 135  | total loss: [1m[32m0.69270[0m[0m | time: 4.301s
+[2K
+| Adam | epoch: 017 | loss: 0.69270 - acc: 0.5202 -- iter: 224/243
+[A[A2018-09-06 15:57:01.189310: W tensorflow/core/framework/allocator.cc:101] Allocation of 289816576 exceeds 10% of system memory.
+2018-09-06 15:57:01.416878: W tensorflow/core/framework/allocator.cc:101] Allocation of 289816576 exceeds 10% of system memory.
+2018-09-06 15:57:01.899176: W tensorflow/core/framework/allocator.cc:101] Allocation of 289816576 exceeds 10% of system memory.
+2018-09-06 15:57:02.035329: W tensorflow/core/framework/allocator.cc:101] Allocation of 289816576 exceeds 10% of system memory.
+Training Step: 136  | total loss: [1m[32m0.69267[0m[0m | time: 6.009s
+[2K
+| Adam | epoch: 017 | loss: 0.69267 - acc: 0.5208 | val_loss: 0.69918 - val_acc: 0.4079 -- iter: 243/243
+--
+2018-09-06 15:57:03.418792: W tensorflow/core/framework/allocator.cc:101] Allocation of 289816576 exceeds 10% of system memory.
+2018-09-06 15:57:03.661947: W tensorflow/core/framework/allocator.cc:101] Allocation of 289816576 exceeds 10% of system memory.
+Training Step: 137  | total loss: [1m[32m0.69216[0m[0m | time: 0.695s
+[2K
+| Adam | epoch: 018 | loss: 0.69216 - acc: 0.5281 -- iter: 032/243
+[A[A2018-09-06 15:57:04.113022: W tensorflow/core/framework/allocator.cc:101] Allocation of 289816576 exceeds 10% of system memory.
+2018-09-06 15:57:04.346589: W tensorflow/core/framework/allocator.cc:101] Allocation of 289816576 exceeds 10% of system memory.
+Training Step: 138  | total loss: [1m[32m0.69328[0m[0m | time: 1.394s
+[2K
+| Adam | epoch: 018 | loss: 0.69328 - acc: 0.5097 -- iter: 064/243
+[A[A2018-09-06 15:57:04.812690: W tensorflow/core/framework/allocator.cc:101] Allocation of 289816576 exceeds 10% of system memory.
+2018-09-06 15:57:05.038431: W tensorflow/core/framework/allocator.cc:101] Allocation of 289816576 exceeds 10% of system memory.
+Training Step: 139  | total loss: [1m[32m0.69274[0m[0m | time: 2.090s
+[2K
+| Adam | epoch: 018 | loss: 0.69274 - acc: 0.5181 -- iter: 096/243
+[A[A2018-09-06 15:57:05.510189: W tensorflow/core/framework/allocator.cc:101] Allocation of 289816576 exceeds 10% of system memory.
+2018-09-06 15:57:05.782587: W tensorflow/core/framework/allocator.cc:101] Allocation of 289816576 exceeds 10% of system memory.
+Training Step: 140  | total loss: [1m[32m0.69243[0m[0m | time: 2.823s
+[2K
+| Adam | epoch: 018 | loss: 0.69243 - acc: 0.5225 -- iter: 128/243
+[A[A2018-09-06 15:57:06.243709: W tensorflow/core/framework/allocator.cc:101] Allocation of 289816576 exceeds 10% of system memory.
+2018-09-06 15:57:06.491940: W tensorflow/core/framework/allocator.cc:101] Allocation of 289816576 exceeds 10% of system memory.
+Training Step: 141  | total loss: [1m[32m0.69291[0m[0m | time: 3.549s
+[2K
+| Adam | epoch: 018 | loss: 0.69291 - acc: 0.5140 -- iter: 160/243
+[A[A2018-09-06 15:57:06.967278: W tensorflow/core/framework/allocator.cc:101] Allocation of 289816576 exceeds 10% of system memory.
+2018-09-06 15:57:07.206698: W tensorflow/core/framework/allocator.cc:101] Allocation of 289816576 exceeds 10% of system memory.
+Training Step: 142  | total loss: [1m[32m0.69292[0m[0m | time: 4.242s
+[2K
+| Adam | epoch: 018 | loss: 0.69292 - acc: 0.5126 -- iter: 192/243
+[A[ATraining Step: 143  | total loss: [1m[32m0.69315[0m[0m | time: 4.653s
+[2K
+| Adam | epoch: 018 | loss: 0.69315 - acc: 0.5082 -- iter: 224/243
+[A[A2018-09-06 15:57:08.503418: W tensorflow/core/framework/allocator.cc:101] Allocation of 289816576 exceeds 10% of system memory.
+2018-09-06 15:57:08.634930: W tensorflow/core/framework/allocator.cc:101] Allocation of 289816576 exceeds 10% of system memory.
+Training Step: 144  | total loss: [1m[32m0.69296[0m[0m | time: 6.085s
+[2K
+| Adam | epoch: 018 | loss: 0.69296 - acc: 0.5100 | val_loss: 0.69825 - val_acc: 0.4079 -- iter: 243/243
+--
+2018-09-06 15:57:10.465855: W tensorflow/core/framework/allocator.cc:101] Allocation of 289816576 exceeds 10% of system memory.
+2018-09-06 15:57:10.687563: W tensorflow/core/framework/allocator.cc:101] Allocation of 289816576 exceeds 10% of system memory.
+Training Step: 145  | total loss: [1m[32m0.69279[0m[0m | time: 0.686s
+[2K
+| Adam | epoch: 019 | loss: 0.69279 - acc: 0.5117 -- iter: 032/243
+[A[A2018-09-06 15:57:11.150269: W tensorflow/core/framework/allocator.cc:101] Allocation of 289816576 exceeds 10% of system memory.
+2018-09-06 15:57:11.400875: W tensorflow/core/framework/allocator.cc:101] Allocation of 289816576 exceeds 10% of system memory.
+Training Step: 146  | total loss: [1m[32m0.69329[0m[0m | time: 1.411s
+[2K
+| Adam | epoch: 019 | loss: 0.69329 - acc: 0.5011 -- iter: 064/243
+[A[A2018-09-06 15:57:11.872878: W tensorflow/core/framework/allocator.cc:101] Allocation of 289816576 exceeds 10% of system memory.
+2018-09-06 15:57:12.863892: W tensorflow/core/framework/allocator.cc:101] Allocation of 289816576 exceeds 10% of system memory.
+Training Step: 147  | total loss: [1m[32m0.69255[0m[0m | time: 2.864s
+[2K
+| Adam | epoch: 019 | loss: 0.69255 - acc: 0.5135 -- iter: 096/243
+[A[A2018-09-06 15:57:13.327311: W tensorflow/core/framework/allocator.cc:101] Allocation of 289816576 exceeds 10% of system memory.
+2018-09-06 15:57:14.074783: W tensorflow/core/framework/allocator.cc:101] Allocation of 289816576 exceeds 10% of system memory.
+Training Step: 148  | total loss: [1m[32m0.69243[0m[0m | time: 4.069s
+[2K
+| Adam | epoch: 019 | loss: 0.69243 - acc: 0.5153 -- iter: 128/243
+[A[A2018-09-06 15:57:14.531281: W tensorflow/core/framework/allocator.cc:101] Allocation of 289816576 exceeds 10% of system memory.
+2018-09-06 15:57:14.764772: W tensorflow/core/framework/allocator.cc:101] Allocation of 289816576 exceeds 10% of system memory.
+Training Step: 149  | total loss: [1m[32m0.69264[0m[0m | time: 13.646s
+[2K
+| Adam | epoch: 019 | loss: 0.69264 - acc: 0.5106 -- iter: 160/243
+[A[A2018-09-06 15:57:24.111098: W tensorflow/core/framework/allocator.cc:101] Allocation of 289816576 exceeds 10% of system memory.
+2018-09-06 15:57:24.337120: W tensorflow/core/framework/allocator.cc:101] Allocation of 289816576 exceeds 10% of system memory.
+Training Step: 150  | total loss: [1m[32m0.69305[0m[0m | time: 14.330s
+[2K
+| Adam | epoch: 019 | loss: 0.69305 - acc: 0.5033 -- iter: 192/243
+[A[A2018-09-06 15:57:24.794021: W tensorflow/core/framework/allocator.cc:101] Allocation of 289816576 exceeds 10% of system memory.
+2018-09-06 15:57:25.024189: W tensorflow/core/framework/allocator.cc:101] Allocation of 289816576 exceeds 10% of system memory.
+Training Step: 151  | total loss: [1m[32m0.69227[0m[0m | time: 15.001s
+[2K
+| Adam | epoch: 019 | loss: 0.69227 - acc: 0.5155 -- iter: 224/243
+[A[A2018-09-06 15:57:25.892464: W tensorflow/core/framework/allocator.cc:101] Allocation of 289816576 exceeds 10% of system memory.
+2018-09-06 15:57:26.028230: W tensorflow/core/framework/allocator.cc:101] Allocation of 289816576 exceeds 10% of system memory.
+Training Step: 152  | total loss: [1m[32m0.69230[0m[0m | time: 16.427s
+[2K
+| Adam | epoch: 019 | loss: 0.69230 - acc: 0.5139 | val_loss: 0.69768 - val_acc: 0.4079 -- iter: 243/243
+--
+Training Step: 153  | total loss: [1m[32m0.69178[0m[0m | time: 0.433s
+[2K
+| Adam | epoch: 020 | loss: 0.69178 - acc: 0.5204 -- iter: 032/243
+[A[A2018-09-06 15:57:27.813465: W tensorflow/core/framework/allocator.cc:101] Allocation of 289816576 exceeds 10% of system memory.
+2018-09-06 15:57:28.044329: W tensorflow/core/framework/allocator.cc:101] Allocation of 289816576 exceeds 10% of system memory.
+Training Step: 154  | total loss: [1m[32m0.69129[0m[0m | time: 1.167s
+[2K
+| Adam | epoch: 020 | loss: 0.69129 - acc: 0.5263 -- iter: 064/243
+[A[A2018-09-06 15:57:28.549031: W tensorflow/core/framework/allocator.cc:101] Allocation of 289816576 exceeds 10% of system memory.
+2018-09-06 15:57:28.780278: W tensorflow/core/framework/allocator.cc:101] Allocation of 289816576 exceeds 10% of system memory.
+Training Step: 155  | total loss: [1m[32m0.69160[0m[0m | time: 1.853s
+[2K
+| Adam | epoch: 020 | loss: 0.69160 - acc: 0.5205 -- iter: 096/243
+[A[A2018-09-06 15:57:29.233874: W tensorflow/core/framework/allocator.cc:101] Allocation of 289816576 exceeds 10% of system memory.
+2018-09-06 15:57:29.461667: W tensorflow/core/framework/allocator.cc:101] Allocation of 289816576 exceeds 10% of system memory.
+Training Step: 156  | total loss: [1m[32m0.69137[0m[0m | time: 2.561s
+[2K
+| Adam | epoch: 020 | loss: 0.69137 - acc: 0.5216 -- iter: 128/243
+[A[A2018-09-06 15:57:29.942353: W tensorflow/core/framework/allocator.cc:101] Allocation of 289816576 exceeds 10% of system memory.
+2018-09-06 15:57:30.172460: W tensorflow/core/framework/allocator.cc:101] Allocation of 289816576 exceeds 10% of system memory.
+Training Step: 157  | total loss: [1m[32m0.69092[0m[0m | time: 3.257s
+[2K
+| Adam | epoch: 020 | loss: 0.69092 - acc: 0.5257 -- iter: 160/243
+[A[A2018-09-06 15:57:30.637930: W tensorflow/core/framework/allocator.cc:101] Allocation of 289816576 exceeds 10% of system memory.
+2018-09-06 15:57:30.868844: W tensorflow/core/framework/allocator.cc:101] Allocation of 289816576 exceeds 10% of system memory.
+Training Step: 158  | total loss: [1m[32m0.68980[0m[0m | time: 3.947s
+[2K
+| Adam | epoch: 020 | loss: 0.68980 - acc: 0.5388 -- iter: 192/243
+[A[A2018-09-06 15:57:31.328858: W tensorflow/core/framework/allocator.cc:101] Allocation of 289816576 exceeds 10% of system memory.
+2018-09-06 15:57:31.552714: W tensorflow/core/framework/allocator.cc:101] Allocation of 289816576 exceeds 10% of system memory.
+Training Step: 159  | total loss: [1m[32m0.69110[0m[0m | time: 4.640s
+[2K
+| Adam | epoch: 020 | loss: 0.69110 - acc: 0.5224 -- iter: 224/243
+[A[A2018-09-06 15:57:32.021023: W tensorflow/core/framework/allocator.cc:101] Allocation of 289816576 exceeds 10% of system memory.
+2018-09-06 15:57:32.245283: W tensorflow/core/framework/allocator.cc:101] Allocation of 289816576 exceeds 10% of system memory.
+2018-09-06 15:57:32.723009: W tensorflow/core/framework/allocator.cc:101] Allocation of 289816576 exceeds 10% of system memory.
+2018-09-06 15:57:32.863458: W tensorflow/core/framework/allocator.cc:101] Allocation of 289816576 exceeds 10% of system memory.
+Training Step: 160  | total loss: [1m[32m0.69142[0m[0m | time: 6.340s
+[2K
+| Adam | epoch: 020 | loss: 0.69142 - acc: 0.5139 | val_loss: 0.69483 - val_acc: 0.4079 -- iter: 243/243
+--
+Training Step: 161  | total loss: [1m[32m0.69113[0m[0m | time: 0.427s
+[2K
+| Adam | epoch: 021 | loss: 0.69113 - acc: 0.5156 -- iter: 032/243
+[A[ATraining Step: 162  | total loss: [1m[32m0.69168[0m[0m | time: 0.879s
+[2K
+| Adam | epoch: 021 | loss: 0.69168 - acc: 0.5062 -- iter: 064/243
+[A[A2018-09-06 15:57:35.026364: W tensorflow/core/framework/allocator.cc:101] Allocation of 289816576 exceeds 10% of system memory.
+2018-09-06 15:57:35.261003: W tensorflow/core/framework/allocator.cc:101] Allocation of 289816576 exceeds 10% of system memory.
+Training Step: 163  | total loss: [1m[32m0.69213[0m[0m | time: 1.611s
+[2K
+| Adam | epoch: 021 | loss: 0.69213 - acc: 0.4977 -- iter: 096/243
+[A[A2018-09-06 15:57:35.759137: W tensorflow/core/framework/allocator.cc:101] Allocation of 289816576 exceeds 10% of system memory.
+2018-09-06 15:57:35.986942: W tensorflow/core/framework/allocator.cc:101] Allocation of 289816576 exceeds 10% of system memory.
+Training Step: 164  | total loss: [1m[32m0.69170[0m[0m | time: 2.297s
+[2K
+| Adam | epoch: 021 | loss: 0.69170 - acc: 0.5041 -- iter: 128/243
+[A[A2018-09-06 15:57:36.443905: W tensorflow/core/framework/allocator.cc:101] Allocation of 289816576 exceeds 10% of system memory.
+2018-09-06 15:57:36.665776: W tensorflow/core/framework/allocator.cc:101] Allocation of 289816576 exceeds 10% of system memory.
+Training Step: 165  | total loss: [1m[32m0.69106[0m[0m | time: 2.982s
+[2K
+| Adam | epoch: 021 | loss: 0.69106 - acc: 0.5069 -- iter: 160/243
+[A[A2018-09-06 15:57:37.126036: W tensorflow/core/framework/allocator.cc:101] Allocation of 289816576 exceeds 10% of system memory.
+2018-09-06 15:57:37.357160: W tensorflow/core/framework/allocator.cc:101] Allocation of 289816576 exceeds 10% of system memory.
+Training Step: 166  | total loss: [1m[32m0.68985[0m[0m | time: 3.677s
+[2K
+| Adam | epoch: 021 | loss: 0.68985 - acc: 0.5155 -- iter: 192/243
+[A[A2018-09-06 15:57:37.824679: W tensorflow/core/framework/allocator.cc:101] Allocation of 289816576 exceeds 10% of system memory.
+2018-09-06 15:57:38.046825: W tensorflow/core/framework/allocator.cc:101] Allocation of 289816576 exceeds 10% of system memory.
+Training Step: 167  | total loss: [1m[32m0.68966[0m[0m | time: 19.869s
+[2K
+| Adam | epoch: 021 | loss: 0.68966 - acc: 0.5140 -- iter: 224/243
+[A[A2018-09-06 15:57:54.016166: W tensorflow/core/framework/allocator.cc:101] Allocation of 289816576 exceeds 10% of system memory.
+2018-09-06 15:57:54.233001: W tensorflow/core/framework/allocator.cc:101] Allocation of 289816576 exceeds 10% of system memory.
+2018-09-06 15:57:54.709868: W tensorflow/core/framework/allocator.cc:101] Allocation of 289816576 exceeds 10% of system memory.
+2018-09-06 15:57:54.849004: W tensorflow/core/framework/allocator.cc:101] Allocation of 289816576 exceeds 10% of system memory.
+Training Step: 168  | total loss: [1m[32m0.68893[0m[0m | time: 21.562s
+[2K
+| Adam | epoch: 021 | loss: 0.68893 - acc: 0.5157 | val_loss: 0.69431 - val_acc: 0.4079 -- iter: 243/243
+--
+2018-09-06 15:57:56.356424: W tensorflow/core/framework/allocator.cc:101] Allocation of 289816576 exceeds 10% of system memory.
+2018-09-06 15:57:56.585431: W tensorflow/core/framework/allocator.cc:101] Allocation of 289816576 exceeds 10% of system memory.
+Training Step: 169  | total loss: [1m[32m0.68934[0m[0m | time: 0.696s
+[2K
+| Adam | epoch: 022 | loss: 0.68934 - acc: 0.5110 -- iter: 032/243
+[A[ATraining Step: 170  | total loss: [1m[32m0.68753[0m[0m | time: 1.143s
+[2K
+| Adam | epoch: 022 | loss: 0.68753 - acc: 0.5193 -- iter: 064/243
+[A[ATraining Step: 171  | total loss: [1m[32m0.68894[0m[0m | time: 1.589s
+[2K
+| Adam | epoch: 022 | loss: 0.68894 - acc: 0.4989 -- iter: 096/243
+[A[A2018-09-06 15:57:57.943091: W tensorflow/core/framework/allocator.cc:101] Allocation of 289816576 exceeds 10% of system memory.
+2018-09-06 15:57:58.183619: W tensorflow/core/framework/allocator.cc:101] Allocation of 289816576 exceeds 10% of system memory.
+Training Step: 172  | total loss: [1m[32m0.68894[0m[0m | time: 2.308s
+[2K
+| Adam | epoch: 022 | loss: 0.68894 - acc: 0.4964 -- iter: 128/243
+[A[A2018-09-06 15:57:58.661474: W tensorflow/core/framework/allocator.cc:101] Allocation of 289816576 exceeds 10% of system memory.
+2018-09-06 15:57:58.901154: W tensorflow/core/framework/allocator.cc:101] Allocation of 289816576 exceeds 10% of system memory.
+Training Step: 173  | total loss: [1m[32m0.68889[0m[0m | time: 3.017s
+[2K
+| Adam | epoch: 022 | loss: 0.68889 - acc: 0.5061 -- iter: 160/243
+[A[A2018-09-06 15:57:59.370801: W tensorflow/core/framework/allocator.cc:101] Allocation of 289816576 exceeds 10% of system memory.
+2018-09-06 15:57:59.596629: W tensorflow/core/framework/allocator.cc:101] Allocation of 289816576 exceeds 10% of system memory.
+Training Step: 174  | total loss: [1m[32m0.68949[0m[0m | time: 3.700s
+[2K
+| Adam | epoch: 022 | loss: 0.68949 - acc: 0.4993 -- iter: 192/243
+[A[A2018-09-06 15:58:00.054405: W tensorflow/core/framework/allocator.cc:101] Allocation of 289816576 exceeds 10% of system memory.
+2018-09-06 15:58:00.278880: W tensorflow/core/framework/allocator.cc:101] Allocation of 289816576 exceeds 10% of system memory.
+Training Step: 175  | total loss: [1m[32m0.68971[0m[0m | time: 4.392s
+[2K
+| Adam | epoch: 022 | loss: 0.68971 - acc: 0.4994 -- iter: 224/243
+[A[A2018-09-06 15:58:00.747567: W tensorflow/core/framework/allocator.cc:101] Allocation of 289816576 exceeds 10% of system memory.
+2018-09-06 15:58:00.977468: W tensorflow/core/framework/allocator.cc:101] Allocation of 289816576 exceeds 10% of system memory.
+2018-09-06 15:58:01.461365: W tensorflow/core/framework/allocator.cc:101] Allocation of 289816576 exceeds 10% of system memory.
+2018-09-06 15:58:01.606330: W tensorflow/core/framework/allocator.cc:101] Allocation of 289816576 exceeds 10% of system memory.
+Training Step: 176  | total loss: [1m[32m0.68987[0m[0m | time: 6.106s
+[2K
+| Adam | epoch: 022 | loss: 0.68987 - acc: 0.4994 | val_loss: 0.68116 - val_acc: 0.5921 -- iter: 243/243
+--
+2018-09-06 15:58:03.431607: W tensorflow/core/framework/allocator.cc:101] Allocation of 289816576 exceeds 10% of system memory.
+2018-09-06 15:58:03.672767: W tensorflow/core/framework/allocator.cc:101] Allocation of 289816576 exceeds 10% of system memory.
+Training Step: 177  | total loss: [1m[32m0.68962[0m[0m | time: 0.747s
+[2K
+| Adam | epoch: 023 | loss: 0.68962 - acc: 0.5026 -- iter: 032/243
+[A[A2018-09-06 15:58:04.173973: W tensorflow/core/framework/allocator.cc:101] Allocation of 289816576 exceeds 10% of system memory.
+2018-09-06 15:58:04.407617: W tensorflow/core/framework/allocator.cc:101] Allocation of 289816576 exceeds 10% of system memory.
+Training Step: 178  | total loss: [1m[32m0.68984[0m[0m | time: 1.430s
+[2K
+| Adam | epoch: 023 | loss: 0.68984 - acc: 0.5023 -- iter: 064/243
+[A[ATraining Step: 179  | total loss: [1m[32m0.69140[0m[0m | time: 1.888s
+[2K
+| Adam | epoch: 023 | loss: 0.69140 - acc: 0.4865 -- iter: 096/243
+[A[ATraining Step: 180  | total loss: [1m[32m0.69162[0m[0m | time: 2.336s
+[2K
+| Adam | epoch: 023 | loss: 0.69162 - acc: 0.4799 -- iter: 128/243
+[A[A2018-09-06 15:58:05.761444: W tensorflow/core/framework/allocator.cc:101] Allocation of 289816576 exceeds 10% of system memory.
+2018-09-06 15:58:05.994241: W tensorflow/core/framework/allocator.cc:101] Allocation of 289816576 exceeds 10% of system memory.
+Training Step: 181  | total loss: [1m[32m0.69093[0m[0m | time: 3.030s
+[2K
+| Adam | epoch: 023 | loss: 0.69093 - acc: 0.4951 -- iter: 160/243
+[A[A2018-09-06 15:58:06.454737: W tensorflow/core/framework/allocator.cc:101] Allocation of 289816576 exceeds 10% of system memory.
+2018-09-06 15:58:06.689326: W tensorflow/core/framework/allocator.cc:101] Allocation of 289816576 exceeds 10% of system memory.
+Training Step: 182  | total loss: [1m[32m0.68983[0m[0m | time: 3.735s
+[2K
+| Adam | epoch: 023 | loss: 0.68983 - acc: 0.5081 -- iter: 192/243
+[A[A2018-09-06 15:58:07.160789: W tensorflow/core/framework/allocator.cc:101] Allocation of 289816576 exceeds 10% of system memory.
+2018-09-06 15:58:07.396254: W tensorflow/core/framework/allocator.cc:101] Allocation of 289816576 exceeds 10% of system memory.
+Training Step: 183  | total loss: [1m[32m0.69171[0m[0m | time: 4.462s
+[2K
+| Adam | epoch: 023 | loss: 0.69171 - acc: 0.4917 -- iter: 224/243
+[A[A2018-09-06 15:58:07.890977: W tensorflow/core/framework/allocator.cc:101] Allocation of 289816576 exceeds 10% of system memory.
+2018-09-06 15:58:08.153435: W tensorflow/core/framework/allocator.cc:101] Allocation of 289816576 exceeds 10% of system memory.
+2018-09-06 15:58:08.650073: W tensorflow/core/framework/allocator.cc:101] Allocation of 289816576 exceeds 10% of system memory.
+2018-09-06 15:58:08.789619: W tensorflow/core/framework/allocator.cc:101] Allocation of 289816576 exceeds 10% of system memory.
+Training Step: 184  | total loss: [1m[32m0.69107[0m[0m | time: 6.217s
+[2K
+| Adam | epoch: 023 | loss: 0.69107 - acc: 0.4956 | val_loss: 0.69277 - val_acc: 0.4079 -- iter: 243/243
+--
+2018-09-06 15:58:10.254170: W tensorflow/core/framework/allocator.cc:101] Allocation of 289816576 exceeds 10% of system memory.
+2018-09-06 15:58:10.508048: W tensorflow/core/framework/allocator.cc:101] Allocation of 289816576 exceeds 10% of system memory.
+Training Step: 185  | total loss: [1m[32m0.68821[0m[0m | time: 0.713s
+[2K
+| Adam | epoch: 024 | loss: 0.68821 - acc: 0.5086 -- iter: 032/243
+[A[A2018-09-06 15:58:10.963949: W tensorflow/core/framework/allocator.cc:101] Allocation of 289816576 exceeds 10% of system memory.
+2018-09-06 15:58:11.214343: W tensorflow/core/framework/allocator.cc:101] Allocation of 289816576 exceeds 10% of system memory.
+Training Step: 186  | total loss: [1m[32m0.68669[0m[0m | time: 1.431s
+[2K
+| Adam | epoch: 024 | loss: 0.68669 - acc: 0.5077 -- iter: 064/243
+[A[A2018-09-06 15:58:11.681125: W tensorflow/core/framework/allocator.cc:101] Allocation of 289816576 exceeds 10% of system memory.
+2018-09-06 15:58:11.930790: W tensorflow/core/framework/allocator.cc:101] Allocation of 289816576 exceeds 10% of system memory.
+Training Step: 187  | total loss: [1m[32m0.68626[0m[0m | time: 2.108s
+[2K
+| Adam | epoch: 024 | loss: 0.68626 - acc: 0.4976 -- iter: 096/243
+[A[ATraining Step: 188  | total loss: [1m[32m0.68491[0m[0m | time: 2.538s
+[2K
+| Adam | epoch: 024 | loss: 0.68491 - acc: 0.5103 -- iter: 128/243
+[A[ATraining Step: 189  | total loss: [1m[32m0.68350[0m[0m | time: 2.979s
+[2K
+| Adam | epoch: 024 | loss: 0.68350 - acc: 0.5172 -- iter: 160/243
+[A[A2018-09-06 15:58:13.229613: W tensorflow/core/framework/allocator.cc:101] Allocation of 289816576 exceeds 10% of system memory.
+2018-09-06 15:58:13.449909: W tensorflow/core/framework/allocator.cc:101] Allocation of 289816576 exceeds 10% of system memory.
+Training Step: 190  | total loss: [1m[32m0.68042[0m[0m | time: 3.662s
+[2K
+| Adam | epoch: 024 | loss: 0.68042 - acc: 0.5286 -- iter: 192/243
+[A[A2018-09-06 15:58:13.914007: W tensorflow/core/framework/allocator.cc:101] Allocation of 289816576 exceeds 10% of system memory.
+2018-09-06 15:58:14.139867: W tensorflow/core/framework/allocator.cc:101] Allocation of 289816576 exceeds 10% of system memory.
+Training Step: 191  | total loss: [1m[32m0.67951[0m[0m | time: 4.364s
+[2K
+| Adam | epoch: 024 | loss: 0.67951 - acc: 0.5320 -- iter: 224/243
+[A[A2018-09-06 15:58:14.615836: W tensorflow/core/framework/allocator.cc:101] Allocation of 289816576 exceeds 10% of system memory.
+2018-09-06 15:58:14.868298: W tensorflow/core/framework/allocator.cc:101] Allocation of 289816576 exceeds 10% of system memory.
+2018-09-06 15:58:15.333344: W tensorflow/core/framework/allocator.cc:101] Allocation of 289816576 exceeds 10% of system memory.
+2018-09-06 15:58:15.474017: W tensorflow/core/framework/allocator.cc:101] Allocation of 289816576 exceeds 10% of system memory.
+Training Step: 192  | total loss: [1m[32m0.67505[0m[0m | time: 6.080s
+[2K
+| Adam | epoch: 024 | loss: 0.67505 - acc: 0.5288 | val_loss: 0.67081 - val_acc: 0.4868 -- iter: 243/243
+--
+2018-09-06 15:58:17.427710: W tensorflow/core/framework/allocator.cc:101] Allocation of 289816576 exceeds 10% of system memory.
+2018-09-06 15:58:17.663065: W tensorflow/core/framework/allocator.cc:101] Allocation of 289816576 exceeds 10% of system memory.
+Training Step: 193  | total loss: [1m[32m0.67564[0m[0m | time: 0.697s
+[2K
+| Adam | epoch: 025 | loss: 0.67564 - acc: 0.5228 -- iter: 032/243
+[A[A2018-09-06 15:58:18.122637: W tensorflow/core/framework/allocator.cc:101] Allocation of 289816576 exceeds 10% of system memory.
+2018-09-06 15:58:18.349145: W tensorflow/core/framework/allocator.cc:101] Allocation of 289816576 exceeds 10% of system memory.
+Training Step: 194  | total loss: [1m[32m0.67019[0m[0m | time: 1.391s
+[2K
+| Adam | epoch: 025 | loss: 0.67019 - acc: 0.5361 -- iter: 064/243
+[A[A2018-09-06 15:58:18.816568: W tensorflow/core/framework/allocator.cc:101] Allocation of 289816576 exceeds 10% of system memory.
+2018-09-06 15:58:19.043828: W tensorflow/core/framework/allocator.cc:101] Allocation of 289816576 exceeds 10% of system memory.
+Training Step: 195  | total loss: [1m[32m0.66336[0m[0m | time: 2.040s
+[2K
+| Adam | epoch: 025 | loss: 0.66336 - acc: 0.5638 -- iter: 096/243
+[A[A2018-09-06 15:58:19.465547: W tensorflow/core/framework/allocator.cc:101] Allocation of 289816576 exceeds 10% of system memory.
+2018-09-06 15:58:19.691223: W tensorflow/core/framework/allocator.cc:101] Allocation of 289816576 exceeds 10% of system memory.
+Training Step: 196  | total loss: [1m[32m0.66107[0m[0m | time: 2.733s
+[2K
+| Adam | epoch: 025 | loss: 0.66107 - acc: 0.5668 -- iter: 128/243
+[A[ATraining Step: 197  | total loss: [1m[32m0.65895[0m[0m | time: 3.169s
+[2K
+| Adam | epoch: 025 | loss: 0.65895 - acc: 0.5757 -- iter: 160/243
+[A[ATraining Step: 198  | total loss: [1m[32m0.65832[0m[0m | time: 3.598s
+[2K
+| Adam | epoch: 025 | loss: 0.65832 - acc: 0.5760 -- iter: 192/243
+[A[A2018-09-06 15:58:21.027390: W tensorflow/core/framework/allocator.cc:101] Allocation of 289816576 exceeds 10% of system memory.
+2018-09-06 15:58:21.255843: W tensorflow/core/framework/allocator.cc:101] Allocation of 289816576 exceeds 10% of system memory.
+Training Step: 199  | total loss: [1m[32m0.65023[0m[0m | time: 4.294s
+[2K
+| Adam | epoch: 025 | loss: 0.65023 - acc: 0.5921 -- iter: 224/243
+[A[A2018-09-06 15:58:21.722600: W tensorflow/core/framework/allocator.cc:101] Allocation of 289816576 exceeds 10% of system memory.
+2018-09-06 15:58:21.952021: W tensorflow/core/framework/allocator.cc:101] Allocation of 289816576 exceeds 10% of system memory.
+2018-09-06 15:58:22.424889: W tensorflow/core/framework/allocator.cc:101] Allocation of 289816576 exceeds 10% of system memory.
+2018-09-06 15:58:22.560394: W tensorflow/core/framework/allocator.cc:101] Allocation of 289816576 exceeds 10% of system memory.
+Training Step: 200  | total loss: [1m[32m0.65508[0m[0m | time: 5.996s
+[2K
+| Adam | epoch: 025 | loss: 0.65508 - acc: 0.5767 | val_loss: 0.66804 - val_acc: 0.5658 -- iter: 243/243
+--
+2018-09-06 15:58:23.861544: W tensorflow/core/framework/allocator.cc:101] Allocation of 289816576 exceeds 10% of system memory.
+2018-09-06 15:58:24.101482: W tensorflow/core/framework/allocator.cc:101] Allocation of 289816576 exceeds 10% of system memory.
+Training Step: 201  | total loss: [1m[32m0.64874[0m[0m | time: 0.712s
+[2K
+| Adam | epoch: 026 | loss: 0.64874 - acc: 0.5940 -- iter: 032/243
+[A[A2018-09-06 15:58:24.571929: W tensorflow/core/framework/allocator.cc:101] Allocation of 289816576 exceeds 10% of system memory.
+2018-09-06 15:58:24.803081: W tensorflow/core/framework/allocator.cc:101] Allocation of 289816576 exceeds 10% of system memory.
+Training Step: 202  | total loss: [1m[32m0.65443[0m[0m | time: 1.398s
+[2K
+| Adam | epoch: 026 | loss: 0.65443 - acc: 0.5940 -- iter: 064/243
+[A[A2018-09-06 15:58:25.257091: W tensorflow/core/framework/allocator.cc:101] Allocation of 289816576 exceeds 10% of system memory.
+2018-09-06 15:58:25.483651: W tensorflow/core/framework/allocator.cc:101] Allocation of 289816576 exceeds 10% of system memory.
+Training Step: 203  | total loss: [1m[32m0.64157[0m[0m | time: 2.101s
+[2K
+| Adam | epoch: 026 | loss: 0.64157 - acc: 0.6221 -- iter: 096/243
+[A[A2018-09-06 15:58:25.958894: W tensorflow/core/framework/allocator.cc:101] Allocation of 289816576 exceeds 10% of system memory.
+2018-09-06 15:58:26.191957: W tensorflow/core/framework/allocator.cc:101] Allocation of 289816576 exceeds 10% of system memory.
+Training Step: 204  | total loss: [1m[32m0.63728[0m[0m | time: 2.799s
+[2K
+| Adam | epoch: 026 | loss: 0.63728 - acc: 0.6317 -- iter: 128/243
+[A[A2018-09-06 15:58:26.657827: W tensorflow/core/framework/allocator.cc:101] Allocation of 289816576 exceeds 10% of system memory.
+2018-09-06 15:58:26.894731: W tensorflow/core/framework/allocator.cc:101] Allocation of 289816576 exceeds 10% of system memory.
+Training Step: 205  | total loss: [1m[32m0.63551[0m[0m | time: 3.503s
+[2K
+| Adam | epoch: 026 | loss: 0.63551 - acc: 0.6373 -- iter: 160/243
+[A[ATraining Step: 206  | total loss: [1m[32m0.63366[0m[0m | time: 3.947s
+[2K
+| Adam | epoch: 026 | loss: 0.63366 - acc: 0.6392 -- iter: 192/243
+[A[ATraining Step: 207  | total loss: [1m[32m0.62784[0m[0m | time: 4.378s
+[2K
+| Adam | epoch: 026 | loss: 0.62784 - acc: 0.6490 -- iter: 224/243
+[A[A2018-09-06 15:58:28.238518: W tensorflow/core/framework/allocator.cc:101] Allocation of 289816576 exceeds 10% of system memory.
+2018-09-06 15:58:28.476196: W tensorflow/core/framework/allocator.cc:101] Allocation of 289816576 exceeds 10% of system memory.
+2018-09-06 15:58:28.933228: W tensorflow/core/framework/allocator.cc:101] Allocation of 289816576 exceeds 10% of system memory.
+2018-09-06 15:58:29.069465: W tensorflow/core/framework/allocator.cc:101] Allocation of 289816576 exceeds 10% of system memory.
+Training Step: 208  | total loss: [1m[32m0.61935[0m[0m | time: 6.073s
+[2K
+| Adam | epoch: 026 | loss: 0.61935 - acc: 0.6525 | val_loss: 0.72340 - val_acc: 0.5132 -- iter: 243/243
+--
+2018-09-06 15:58:30.386055: W tensorflow/core/framework/allocator.cc:101] Allocation of 289816576 exceeds 10% of system memory.
+2018-09-06 15:58:30.612574: W tensorflow/core/framework/allocator.cc:101] Allocation of 289816576 exceeds 10% of system memory.
+Training Step: 209  | total loss: [1m[32m0.60906[0m[0m | time: 0.696s
+[2K
+| Adam | epoch: 027 | loss: 0.60906 - acc: 0.6560 -- iter: 032/243
+[A[A2018-09-06 15:58:31.082345: W tensorflow/core/framework/allocator.cc:101] Allocation of 289816576 exceeds 10% of system memory.
+2018-09-06 15:58:31.308057: W tensorflow/core/framework/allocator.cc:101] Allocation of 289816576 exceeds 10% of system memory.
+Training Step: 210  | total loss: [1m[32m0.60719[0m[0m | time: 1.360s
+[2K
+| Adam | epoch: 027 | loss: 0.60719 - acc: 0.6591 -- iter: 064/243
+[A[A2018-09-06 15:58:31.747280: W tensorflow/core/framework/allocator.cc:101] Allocation of 289816576 exceeds 10% of system memory.
+2018-09-06 15:58:31.972805: W tensorflow/core/framework/allocator.cc:101] Allocation of 289816576 exceeds 10% of system memory.
+Training Step: 211  | total loss: [1m[32m0.60968[0m[0m | time: 2.027s
+[2K
+| Adam | epoch: 027 | loss: 0.60968 - acc: 0.6620 -- iter: 096/243
+[A[A2018-09-06 15:58:32.413389: W tensorflow/core/framework/allocator.cc:101] Allocation of 289816576 exceeds 10% of system memory.
+2018-09-06 15:58:32.640297: W tensorflow/core/framework/allocator.cc:101] Allocation of 289816576 exceeds 10% of system memory.
+Training Step: 212  | total loss: [1m[32m0.59268[0m[0m | time: 2.738s
+[2K
+| Adam | epoch: 027 | loss: 0.59268 - acc: 0.6833 -- iter: 128/243
+[A[A2018-09-06 15:58:33.125692: W tensorflow/core/framework/allocator.cc:101] Allocation of 289816576 exceeds 10% of system memory.
+2018-09-06 15:58:33.358482: W tensorflow/core/framework/allocator.cc:101] Allocation of 289816576 exceeds 10% of system memory.
+Training Step: 213  | total loss: [1m[32m0.58096[0m[0m | time: 3.436s
+[2K
+| Adam | epoch: 027 | loss: 0.58096 - acc: 0.6931 -- iter: 160/243
+[A[A2018-09-06 15:58:33.822495: W tensorflow/core/framework/allocator.cc:101] Allocation of 289816576 exceeds 10% of system memory.
+2018-09-06 15:58:34.049528: W tensorflow/core/framework/allocator.cc:101] Allocation of 289816576 exceeds 10% of system memory.
+Training Step: 214  | total loss: [1m[32m0.56951[0m[0m | time: 4.130s
+[2K
+| Adam | epoch: 027 | loss: 0.56951 - acc: 0.6988 -- iter: 192/243
+[A[ATraining Step: 215  | total loss: [1m[32m0.56838[0m[0m | time: 4.588s
+[2K
+| Adam | epoch: 027 | loss: 0.56838 - acc: 0.6945 -- iter: 224/243
+[A[A2018-09-06 15:58:35.412557: W tensorflow/core/framework/allocator.cc:101] Allocation of 289816576 exceeds 10% of system memory.
+2018-09-06 15:58:35.549203: W tensorflow/core/framework/allocator.cc:101] Allocation of 289816576 exceeds 10% of system memory.
+Training Step: 216  | total loss: [1m[32m0.57467[0m[0m | time: 6.025s
+[2K
+| Adam | epoch: 027 | loss: 0.57467 - acc: 0.6935 | val_loss: 0.56279 - val_acc: 0.7500 -- iter: 243/243
+--
+2018-09-06 15:58:37.338888: W tensorflow/core/framework/allocator.cc:101] Allocation of 289816576 exceeds 10% of system memory.
+2018-09-06 15:58:37.561546: W tensorflow/core/framework/allocator.cc:101] Allocation of 289816576 exceeds 10% of system memory.
+Training Step: 217  | total loss: [1m[32m0.57614[0m[0m | time: 0.679s
+[2K
+| Adam | epoch: 028 | loss: 0.57614 - acc: 0.6978 -- iter: 032/243
+[A[A2018-09-06 15:58:38.018789: W tensorflow/core/framework/allocator.cc:101] Allocation of 289816576 exceeds 10% of system memory.
+2018-09-06 15:58:38.252800: W tensorflow/core/framework/allocator.cc:101] Allocation of 289816576 exceeds 10% of system memory.
+Training Step: 218  | total loss: [1m[32m0.56187[0m[0m | time: 1.378s
+[2K
+| Adam | epoch: 028 | loss: 0.56187 - acc: 0.7093 -- iter: 064/243
+[A[A2018-09-06 15:58:38.722416: W tensorflow/core/framework/allocator.cc:101] Allocation of 289816576 exceeds 10% of system memory.
+2018-09-06 15:58:38.958368: W tensorflow/core/framework/allocator.cc:101] Allocation of 289816576 exceeds 10% of system memory.
+Training Step: 219  | total loss: [1m[32m0.54206[0m[0m | time: 2.081s
+[2K
+| Adam | epoch: 028 | loss: 0.54206 - acc: 0.7227 -- iter: 096/243
+[A[A2018-09-06 15:58:39.420927: W tensorflow/core/framework/allocator.cc:101] Allocation of 289816576 exceeds 10% of system memory.
+2018-09-06 15:58:39.649437: W tensorflow/core/framework/allocator.cc:101] Allocation of 289816576 exceeds 10% of system memory.
+Training Step: 220  | total loss: [1m[32m0.53402[0m[0m | time: 2.760s
+[2K
+| Adam | epoch: 028 | loss: 0.53402 - acc: 0.7286 -- iter: 128/243
+[A[A2018-09-06 15:58:40.096524: W tensorflow/core/framework/allocator.cc:101] Allocation of 289816576 exceeds 10% of system memory.
+2018-09-06 15:58:40.320658: W tensorflow/core/framework/allocator.cc:101] Allocation of 289816576 exceeds 10% of system memory.
+Training Step: 221  | total loss: [1m[32m0.52153[0m[0m | time: 3.460s
+[2K
+| Adam | epoch: 028 | loss: 0.52153 - acc: 0.7401 -- iter: 160/243
+[A[A2018-09-06 15:58:40.797425: W tensorflow/core/framework/allocator.cc:101] Allocation of 289816576 exceeds 10% of system memory.
+2018-09-06 15:58:41.022023: W tensorflow/core/framework/allocator.cc:101] Allocation of 289816576 exceeds 10% of system memory.
+Training Step: 222  | total loss: [1m[32m0.51652[0m[0m | time: 4.149s
+[2K
+| Adam | epoch: 028 | loss: 0.51652 - acc: 0.7442 -- iter: 192/243
+[A[A2018-09-06 15:58:41.486694: W tensorflow/core/framework/allocator.cc:101] Allocation of 289816576 exceeds 10% of system memory.
+2018-09-06 15:58:41.711253: W tensorflow/core/framework/allocator.cc:101] Allocation of 289816576 exceeds 10% of system memory.
+Training Step: 223  | total loss: [1m[32m0.51113[0m[0m | time: 4.841s
+[2K
+| Adam | epoch: 028 | loss: 0.51113 - acc: 0.7510 -- iter: 224/243
+[A[A2018-09-06 15:58:42.624860: W tensorflow/core/framework/allocator.cc:101] Allocation of 289816576 exceeds 10% of system memory.
+2018-09-06 15:58:42.763704: W tensorflow/core/framework/allocator.cc:101] Allocation of 289816576 exceeds 10% of system memory.
+Training Step: 224  | total loss: [1m[32m0.49682[0m[0m | time: 6.282s
+[2K
+| Adam | epoch: 028 | loss: 0.49682 - acc: 0.7603 | val_loss: 0.66506 - val_acc: 0.7237 -- iter: 243/243
+--
+Training Step: 225  | total loss: [1m[32m0.49744[0m[0m | time: 0.445s
+[2K
+| Adam | epoch: 029 | loss: 0.49744 - acc: 0.7632 -- iter: 032/243
+[A[A2018-09-06 15:58:44.598788: W tensorflow/core/framework/allocator.cc:101] Allocation of 289816576 exceeds 10% of system memory.
+2018-09-06 15:58:44.860118: W tensorflow/core/framework/allocator.cc:101] Allocation of 289816576 exceeds 10% of system memory.
+Training Step: 226  | total loss: [1m[32m0.50084[0m[0m | time: 1.177s
+[2K
+| Adam | epoch: 029 | loss: 0.50084 - acc: 0.7659 -- iter: 064/243
+[A[A2018-09-06 15:58:45.332694: W tensorflow/core/framework/allocator.cc:101] Allocation of 289816576 exceeds 10% of system memory.
+2018-09-06 15:58:45.565724: W tensorflow/core/framework/allocator.cc:101] Allocation of 289816576 exceeds 10% of system memory.
+Training Step: 227  | total loss: [1m[32m0.48820[0m[0m | time: 1.871s
+[2K
+| Adam | epoch: 029 | loss: 0.48820 - acc: 0.7768 -- iter: 096/243
+[A[A2018-09-06 15:58:46.028933: W tensorflow/core/framework/allocator.cc:101] Allocation of 289816576 exceeds 10% of system memory.
+2018-09-06 15:58:46.260301: W tensorflow/core/framework/allocator.cc:101] Allocation of 289816576 exceeds 10% of system memory.
+Training Step: 228  | total loss: [1m[32m0.48380[0m[0m | time: 2.576s
+[2K
+| Adam | epoch: 029 | loss: 0.48380 - acc: 0.7835 -- iter: 128/243
+[A[A2018-09-06 15:58:46.730230: W tensorflow/core/framework/allocator.cc:101] Allocation of 289816576 exceeds 10% of system memory.
+2018-09-06 15:58:46.974242: W tensorflow/core/framework/allocator.cc:101] Allocation of 289816576 exceeds 10% of system memory.
+Training Step: 229  | total loss: [1m[32m0.47887[0m[0m | time: 3.296s
+[2K
+| Adam | epoch: 029 | loss: 0.47887 - acc: 0.7864 -- iter: 160/243
+[A[A2018-09-06 15:58:47.451135: W tensorflow/core/framework/allocator.cc:101] Allocation of 289816576 exceeds 10% of system memory.
+2018-09-06 15:58:47.703024: W tensorflow/core/framework/allocator.cc:101] Allocation of 289816576 exceeds 10% of system memory.
+Training Step: 230  | total loss: [1m[32m0.47128[0m[0m | time: 4.015s
+[2K
+| Adam | epoch: 029 | loss: 0.47128 - acc: 0.7859 -- iter: 192/243
+[A[A2018-09-06 15:58:48.170648: W tensorflow/core/framework/allocator.cc:101] Allocation of 289816576 exceeds 10% of system memory.
+2018-09-06 15:58:48.393172: W tensorflow/core/framework/allocator.cc:101] Allocation of 289816576 exceeds 10% of system memory.
+Training Step: 231  | total loss: [1m[32m0.45417[0m[0m | time: 4.694s
+[2K
+| Adam | epoch: 029 | loss: 0.45417 - acc: 0.7948 -- iter: 224/243
+[A[A2018-09-06 15:58:48.848247: W tensorflow/core/framework/allocator.cc:101] Allocation of 289816576 exceeds 10% of system memory.
+2018-09-06 15:58:49.073555: W tensorflow/core/framework/allocator.cc:101] Allocation of 289816576 exceeds 10% of system memory.
+2018-09-06 15:58:49.533647: W tensorflow/core/framework/allocator.cc:101] Allocation of 289816576 exceeds 10% of system memory.
+2018-09-06 15:58:49.672073: W tensorflow/core/framework/allocator.cc:101] Allocation of 289816576 exceeds 10% of system memory.
+Training Step: 232  | total loss: [1m[32m0.43702[0m[0m | time: 6.376s
+[2K
+| Adam | epoch: 029 | loss: 0.43702 - acc: 0.8059 | val_loss: 0.56513 - val_acc: 0.7500 -- iter: 243/243
+--
+Training Step: 233  | total loss: [1m[32m0.42089[0m[0m | time: 0.420s
+[2K
+| Adam | epoch: 030 | loss: 0.42089 - acc: 0.8191 -- iter: 032/243
+[A[ATraining Step: 234  | total loss: [1m[32m0.41316[0m[0m | time: 0.854s
+[2K
+| Adam | epoch: 030 | loss: 0.41316 - acc: 0.8214 -- iter: 064/243
+[A[A2018-09-06 15:58:52.082930: W tensorflow/core/framework/allocator.cc:101] Allocation of 289816576 exceeds 10% of system memory.
+2018-09-06 15:58:52.336801: W tensorflow/core/framework/allocator.cc:101] Allocation of 289816576 exceeds 10% of system memory.
+Training Step: 235  | total loss: [1m[32m0.40154[0m[0m | time: 1.580s
+[2K
+| Adam | epoch: 030 | loss: 0.40154 - acc: 0.8287 -- iter: 096/243
+[A[A2018-09-06 15:58:52.809925: W tensorflow/core/framework/allocator.cc:101] Allocation of 289816576 exceeds 10% of system memory.
+2018-09-06 15:58:53.046400: W tensorflow/core/framework/allocator.cc:101] Allocation of 289816576 exceeds 10% of system memory.
+Training Step: 236  | total loss: [1m[32m0.38833[0m[0m | time: 2.284s
+[2K
+| Adam | epoch: 030 | loss: 0.38833 - acc: 0.8333 -- iter: 128/243
+[A[A2018-09-06 15:58:53.513083: W tensorflow/core/framework/allocator.cc:101] Allocation of 289816576 exceeds 10% of system memory.
+2018-09-06 15:58:53.741278: W tensorflow/core/framework/allocator.cc:101] Allocation of 289816576 exceeds 10% of system memory.
+Training Step: 237  | total loss: [1m[32m0.37844[0m[0m | time: 2.987s
+[2K
+| Adam | epoch: 030 | loss: 0.37844 - acc: 0.8375 -- iter: 160/243
+[A[A2018-09-06 15:58:54.214269: W tensorflow/core/framework/allocator.cc:101] Allocation of 289816576 exceeds 10% of system memory.
+2018-09-06 15:58:54.466251: W tensorflow/core/framework/allocator.cc:101] Allocation of 289816576 exceeds 10% of system memory.
+Training Step: 238  | total loss: [1m[32m0.37414[0m[0m | time: 3.712s
+[2K
+| Adam | epoch: 030 | loss: 0.37414 - acc: 0.8350 -- iter: 192/243
+[A[A2018-09-06 15:58:54.942946: W tensorflow/core/framework/allocator.cc:101] Allocation of 289816576 exceeds 10% of system memory.
+2018-09-06 15:58:55.172325: W tensorflow/core/framework/allocator.cc:101] Allocation of 289816576 exceeds 10% of system memory.
+Training Step: 239  | total loss: [1m[32m0.37115[0m[0m | time: 4.410s
+[2K
+| Adam | epoch: 030 | loss: 0.37115 - acc: 0.8328 -- iter: 224/243
+[A[A2018-09-06 15:58:55.639551: W tensorflow/core/framework/allocator.cc:101] Allocation of 289816576 exceeds 10% of system memory.
+2018-09-06 15:58:55.872192: W tensorflow/core/framework/allocator.cc:101] Allocation of 289816576 exceeds 10% of system memory.
+2018-09-06 15:58:56.349047: W tensorflow/core/framework/allocator.cc:101] Allocation of 289816576 exceeds 10% of system memory.
+2018-09-06 15:58:56.488104: W tensorflow/core/framework/allocator.cc:101] Allocation of 289816576 exceeds 10% of system memory.
+Training Step: 240  | total loss: [1m[32m0.36573[0m[0m | time: 6.122s
+[2K
+| Adam | epoch: 030 | loss: 0.36573 - acc: 0.8370 | val_loss: 0.49396 - val_acc: 0.7763 -- iter: 243/243
+--
+2018-09-06 15:58:58.238365: W tensorflow/core/framework/allocator.cc:101] Allocation of 688314368 exceeds 10% of system memory.
+2018-09-06 15:58:58.504853: W tensorflow/core/framework/allocator.cc:101] Allocation of 688314368 exceeds 10% of system memory.
+/homes/tdogan/miniconda2/envs/my-rdkit-env/lib/python3.6/site-packages/sklearn/metrics/classification.py:1135: UndefinedMetricWarning: Precision is ill-defined and being set to 0.0 due to no predicted samples.
+  'precision', 'predicted', average, warn_for)
+/homes/tdogan/miniconda2/envs/my-rdkit-env/lib/python3.6/site-packages/sklearn/metrics/classification.py:1135: UndefinedMetricWarning: F-score is ill-defined and being set to 0.0 due to no predicted samples.
+  'precision', 'predicted', average, warn_for)
+/homes/tdogan/miniconda2/envs/my-rdkit-env/lib/python3.6/site-packages/sklearn/metrics/classification.py:538: RuntimeWarning: invalid value encountered in double_scalars
+  mcc = cov_ytyp / np.sqrt(cov_ytyt * cov_ypyp)
+Validation AUC:0.8602150537634408
+Validation AUPRC:0.8098400851558483
+Test AUC:0.8854166666666666
+Test AUPRC:0.8850647520121087
+BestTestF1Score	0.83	0.66	0.83	0.86	0.8	32	5	31	8	0.43
+BestTestMCCScore	0.83	0.66	0.83	0.86	0.8	32	5	31	8	0.43
+BestTestAccuracyScore	0.83	0.66	0.83	0.86	0.8	32	5	31	8	0.43
+BestValidationF1Score	0.79	0.63	0.82	0.74	0.84	26	9	36	5	0.43
+BestValidationMCC	0.79	0.63	0.82	0.74	0.84	26	9	36	5	0.43
+BestValidationAccuracy	0.79	0.63	0.82	0.74	0.84	26	9	36	5	0.43
+TestPredictions (Threshold:0.43)
+CHEMBL1412460,FN,ACT,0.3499999940395355	CHEMBL1713421,TN,INACT,0.18000000715255737	CHEMBL571720,TP,ACT,1.0	CHEMBL1470219,TN,INACT,0.18000000715255737	CHEMBL1770,TN,INACT,0.07000000029802322	CHEMBL1332679,TN,INACT,0.23999999463558197	CHEMBL1599992,TP,ACT,0.49000000953674316	CHEMBL1717863,TP,ACT,0.6000000238418579	CHEMBL1412070,TP,ACT,0.5400000214576721	CHEMBL1411030,FN,ACT,0.3199999928474426	CHEMBL1708865,FP,INACT,0.5799999833106995	CHEMBL1443401,FP,INACT,0.8299999833106995	CHEMBL1407960,FN,ACT,0.25	CHEMBL1403646,TN,INACT,0.10999999940395355	CHEMBL565468,TP,ACT,0.699999988079071	CHEMBL254255,TP,ACT,0.7900000214576721	CHEMBL572774,TP,ACT,0.5199999809265137	CHEMBL1732820,TN,INACT,0.25999999046325684	CHEMBL1580159,TN,INACT,0.10000000149011612	CHEMBL1716238,TN,INACT,0.029999999329447746	CHEMBL467853,TP,ACT,0.9300000071525574	CHEMBL576494,TP,ACT,0.550000011920929	CHEMBL1736776,TN,INACT,0.36000001430511475	CHEMBL3798753,TN,INACT,0.009999999776482582	CHEMBL1333813,FN,ACT,0.20999999344348907	CHEMBL1568836,TP,ACT,0.9599999785423279	CHEMBL3244726,TN,INACT,0.019999999552965164	CHEMBL1412551,TP,ACT,0.46000000834465027	CHEMBL1564446,FP,INACT,0.7400000095367432	CHEMBL1531945,TP,ACT,0.7599999904632568	CHEMBL1392200,TN,INACT,0.25999999046325684	CHEMBL466992,TP,ACT,0.9100000262260437	CHEMBL1419980,TN,INACT,0.25	CHEMBL1609295,TN,INACT,0.23999999463558197	CHEMBL568091,TP,ACT,0.8799999952316284	CHEMBL1719462,TP,ACT,0.9599999785423279	CHEMBL1582278,TN,INACT,0.10999999940395355	CHEMBL568068,TP,ACT,0.9100000262260437	CHEMBL592869,TP,ACT,0.4699999988079071	CHEMBL1699194,TN,INACT,0.07999999821186066	CHEMBL1335905,TP,ACT,0.7799999713897705	CHEMBL1535958,TP,ACT,0.800000011920929	CHEMBL1531603,TP,ACT,0.7599999904632568	CHEMBL129261,TP,ACT,0.9599999785423279	CHEMBL2408702,TN,INACT,0.05999999865889549	CHEMBL1363403,FN,ACT,0.20999999344348907	CHEMBL468676,TP,ACT,0.9599999785423279	CHEMBL468685,TP,ACT,0.44999998807907104	CHEMBL120532,TN,INACT,0.019999999552965164	CHEMBL1383807,TN,INACT,0.07000000029802322	CHEMBL597055,TN,INACT,0.10999999940395355	CHEMBL358546,TP,ACT,0.9800000190734863	CHEMBL1563523,FN,ACT,0.3400000035762787	CHEMBL1412926,TP,ACT,0.699999988079071	CHEMBL1520471,FN,ACT,0.029999999329447746	CHEMBL1464982,TN,INACT,0.33000001311302185	CHEMBL1814398,TN,INACT,0.009999999776482582	CHEMBL1368399,TP,ACT,0.800000011920929	CHEMBL1371849,TP,ACT,0.7799999713897705	CHEMBL1448673,TP,ACT,0.8600000143051147	CHEMBL1529827,TN,INACT,0.029999999329447746	CHEMBL1606439,TP,ACT,0.8799999952316284	CHEMBL3797302,TN,INACT,0.009999999776482582	CHEMBL459707,TP,ACT,0.9800000190734863	CHEMBL1510663,FN,ACT,0.07999999821186066	CHEMBL1438508,FP,INACT,0.47999998927116394	CHEMBL3115119,TN,INACT,0.15000000596046448	CHEMBL1540232,TN,INACT,0.03999999910593033	CHEMBL422789,TN,INACT,0.05999999865889549	CHEMBL1814391,TN,INACT,0.009999999776482582	CHEMBL1489864,TP,ACT,0.6399999856948853	CHEMBL148645,TP,ACT,0.5400000214576721	CHEMBL120202,TN,INACT,0.03999999910593033	CHEMBL2408697,TN,INACT,0.05000000074505806	CHEMBL1576140,FP,INACT,0.9300000071525574	CHEMBL1412999,TN,INACT,0.03999999910593033	
+

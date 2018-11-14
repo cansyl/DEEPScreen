@@ -1,0 +1,153 @@
+rm: cannot remove ‘../tempImage/CHEMBL27248.png’: No such file or directory
+rm: cannot remove ‘../tempImage/CHEMBL25756.png’: No such file or directory
+rm: cannot remove ‘../tempImage/CHEMBL34540.svg’: No such file or directory
+rm: cannot remove ‘../tempImage/CHEMBL351082.png’: No such file or directory
+/homes/rahmet/miniconda2/envs/my-rdkit-env/lib/python3.6/site-packages/h5py/__init__.py:36: FutureWarning: Conversion of the second argument of issubdtype from `float` to `np.floating` is deprecated. In future, it will be treated as `np.float64 == np.dtype(float).type`.
+  from ._conv import register_converters as _register_converters
+
+------------------------------------------------------------
+Sender: LSF System <lsf@hx-noah-03-03>
+Subject: Job 5335212: <python train_other_classifiers.py CHEMBL270 > ../LOGS/ShallowLOGS/CHEMBL270_shallow.txt> in cluster <EBI> Done
+
+Job <python train_other_classifiers.py CHEMBL270 > ../LOGS/ShallowLOGS/CHEMBL270_shallow.txt> was submitted from host <ebi6-278> by user <rahmet> in cluster <EBI>.
+Job was executed on host(s) <hx-noah-03-03>, in queue <research-rh7>, as user <rahmet> in cluster <EBI>.
+</homes/rahmet> was used as the home directory.
+</hps/nobackup/production/uniprot/rahmet/DEEPScreen/bin> was used as the working directory.
+Started at Wed Jul  4 22:00:23 2018
+Results reported at Wed Jul  4 23:40:52 2018
+
+Your job looked like:
+
+------------------------------------------------------------
+# LSBATCH: User input
+python train_other_classifiers.py CHEMBL270 > ../LOGS/ShallowLOGS/CHEMBL270_shallow.txt
+------------------------------------------------------------
+
+Successfully completed.
+
+Resource usage summary:
+
+    CPU time :               5975.73 sec.
+    Max Memory :             15189 MB
+    Average Memory :         5253.97 MB
+    Total Requested Memory : 30720.00 MB
+    Delta Memory :           15531.00 MB
+    (Delta: the difference between total requested memory and actual max usage.)
+    Max Swap :               21907 MB
+
+    Max Processes :          4
+    Max Threads :            6
+
+The output (if any) is above this job summary.
+
+Traceback (most recent call last):
+  File "train_other_classifiers.py", line 1, in <module>
+    import rdkit
+ImportError: No module named rdkit
+
+------------------------------------------------------------
+Sender: LSF System <lsf@hx-noah-10-07>
+Subject: Job 5459381: <python train_other_classifiers.py CHEMBL270 > ../LOGS/ShallowLOGS/CHEMBL270_shallow.txt> in cluster <EBI> Exited
+
+Job <python train_other_classifiers.py CHEMBL270 > ../LOGS/ShallowLOGS/CHEMBL270_shallow.txt> was submitted from host <ebi5-242> by user <rahmet> in cluster <EBI>.
+Job was executed on host(s) <hx-noah-10-07>, in queue <research-rh7>, as user <rahmet> in cluster <EBI>.
+</homes/rahmet> was used as the home directory.
+</hps/nobackup/production/uniprot/rahmet/DEEPScreen/bin> was used as the working directory.
+Started at Thu Jul  5 21:54:56 2018
+Results reported at Thu Jul  5 21:54:56 2018
+
+Your job looked like:
+
+------------------------------------------------------------
+# LSBATCH: User input
+python train_other_classifiers.py CHEMBL270 > ../LOGS/ShallowLOGS/CHEMBL270_shallow.txt
+------------------------------------------------------------
+
+Exited with exit code 1.
+
+Resource usage summary:
+
+    CPU time :               0.02 sec.
+    Total Requested Memory : 30720.00 MB
+    Delta Memory :           -
+    (Delta: the difference between total requested memory and actual max usage.)
+
+The output (if any) is above this job summary.
+
+/homes/rahmet/miniconda2/envs/my-rdkit-env/lib/python3.6/site-packages/h5py/__init__.py:36: FutureWarning: Conversion of the second argument of issubdtype from `float` to `np.floating` is deprecated. In future, it will be treated as `np.float64 == np.dtype(float).type`.
+  from ._conv import register_converters as _register_converters
+
+------------------------------------------------------------
+Sender: LSF System <lsf@hx-noah-10-10>
+Subject: Job 5459487: <python train_other_classifiers.py CHEMBL270 > ../LOGS/ShallowLOGS/CHEMBL270_shallow.txt> in cluster <EBI> Done
+
+Job <python train_other_classifiers.py CHEMBL270 > ../LOGS/ShallowLOGS/CHEMBL270_shallow.txt> was submitted from host <ebi6-035> by user <rahmet> in cluster <EBI>.
+Job was executed on host(s) <hx-noah-10-10>, in queue <research-rh7>, as user <rahmet> in cluster <EBI>.
+</homes/rahmet> was used as the home directory.
+</hps/nobackup/production/uniprot/rahmet/DEEPScreen/bin> was used as the working directory.
+Started at Thu Jul  5 21:58:11 2018
+Results reported at Thu Jul  5 23:00:20 2018
+
+Your job looked like:
+
+------------------------------------------------------------
+# LSBATCH: User input
+python train_other_classifiers.py CHEMBL270 > ../LOGS/ShallowLOGS/CHEMBL270_shallow.txt
+------------------------------------------------------------
+
+Successfully completed.
+
+Resource usage summary:
+
+    CPU time :               3682.56 sec.
+    Max Memory :             15646 MB
+    Average Memory :         7200.78 MB
+    Total Requested Memory : 30720.00 MB
+    Delta Memory :           15074.00 MB
+    (Delta: the difference between total requested memory and actual max usage.)
+    Max Swap :               21925 MB
+
+    Max Processes :          4
+    Max Threads :            67
+
+The output (if any) is above this job summary.
+
+libpng error: Read Error
+rm: cannot remove ‘../tempImage/CHEMBL404557.png’: No such file or directory
+
+------------------------------------------------------------
+Sender: LSF System <lsf@hx-noah-01-09>
+Subject: Job 5972992: <python train_other_classifiers.py CHEMBL270 > ../LOGS/ShallowLOGS/CHEMBL270_shallow.txt> in cluster <EBI> Done
+
+Job <python train_other_classifiers.py CHEMBL270 > ../LOGS/ShallowLOGS/CHEMBL270_shallow.txt> was submitted from host <ebi5-250> by user <rahmet> in cluster <EBI> at Thu Nov  1 17:15:49 2018
+Job was executed on host(s) <hx-noah-01-09>, in queue <research-rh7>, as user <rahmet> in cluster <EBI> at Thu Nov  1 17:33:24 2018
+</homes/rahmet> was used as the home directory.
+</hps/nobackup/production/uniprot/rahmet/DEEPScreen/bin> was used as the working directory.
+Started at Thu Nov  1 17:33:24 2018
+Terminated at Thu Nov  1 19:15:43 2018
+Results reported at Thu Nov  1 19:15:43 2018
+
+Your job looked like:
+
+------------------------------------------------------------
+# LSBATCH: User input
+python train_other_classifiers.py CHEMBL270 > ../LOGS/ShallowLOGS/CHEMBL270_shallow.txt
+------------------------------------------------------------
+
+Successfully completed.
+
+Resource usage summary:
+
+    CPU time :                                   5267.71 sec.
+    Max Memory :                                 14690 MB
+    Average Memory :                             5150.85 MB
+    Total Requested Memory :                     30720.00 MB
+    Delta Memory :                               16030.00 MB
+    Max Swap :                                   20603 MB
+    Max Processes :                              4
+    Max Threads :                                67
+    Run time :                                   6140 sec.
+    Turnaround time :                            7194 sec.
+
+The output (if any) is above this job summary.
+

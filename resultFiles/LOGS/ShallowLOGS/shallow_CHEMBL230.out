@@ -1,0 +1,122 @@
+rm: cannot remove ‘../tempImage/CHEMBL501749.svg’: No such file or directory
+rm: cannot remove ‘../tempImage/CHEMBL2040990.svg’: No such file or directory
+rm: cannot remove ‘../tempImage/CHEMBL2040990.png’: No such file or directory
+/homes/rahmet/miniconda2/envs/my-rdkit-env/lib/python3.6/site-packages/h5py/__init__.py:36: FutureWarning: Conversion of the second argument of issubdtype from `float` to `np.floating` is deprecated. In future, it will be treated as `np.float64 == np.dtype(float).type`.
+  from ._conv import register_converters as _register_converters
+/homes/rahmet/miniconda2/envs/my-rdkit-env/lib/python3.6/site-packages/sklearn/metrics/classification.py:538: RuntimeWarning: invalid value encountered in double_scalars
+  mcc = cov_ytyp / np.sqrt(cov_ytyt * cov_ypyp)
+
+------------------------------------------------------------
+Sender: LSF System <lsf@ebi5-198>
+Subject: Job 5336286: <python train_other_classifiers.py CHEMBL230 > ../LOGS/ShallowLOGS/CHEMBL230_shallow.txt> in cluster <EBI> Done
+
+Job <python train_other_classifiers.py CHEMBL230 > ../LOGS/ShallowLOGS/CHEMBL230_shallow.txt> was submitted from host <ebi6-278> by user <rahmet> in cluster <EBI>.
+Job was executed on host(s) <ebi5-198>, in queue <research-rh7>, as user <rahmet> in cluster <EBI>.
+</homes/rahmet> was used as the home directory.
+</hps/nobackup/production/uniprot/rahmet/DEEPScreen/bin> was used as the working directory.
+Started at Wed Jul  4 22:14:44 2018
+Results reported at Wed Jul  4 22:35:50 2018
+
+Your job looked like:
+
+------------------------------------------------------------
+# LSBATCH: User input
+python train_other_classifiers.py CHEMBL230 > ../LOGS/ShallowLOGS/CHEMBL230_shallow.txt
+------------------------------------------------------------
+
+Successfully completed.
+
+Resource usage summary:
+
+    CPU time :               1241.20 sec.
+    Max Memory :             8926 MB
+    Average Memory :         4080.75 MB
+    Total Requested Memory : 30720.00 MB
+    Delta Memory :           21794.00 MB
+    (Delta: the difference between total requested memory and actual max usage.)
+    Max Swap :               13117 MB
+
+    Max Processes :          4
+    Max Threads :            6
+
+The output (if any) is above this job summary.
+
+/homes/rahmet/miniconda2/envs/my-rdkit-env/lib/python3.6/site-packages/h5py/__init__.py:36: FutureWarning: Conversion of the second argument of issubdtype from `float` to `np.floating` is deprecated. In future, it will be treated as `np.float64 == np.dtype(float).type`.
+  from ._conv import register_converters as _register_converters
+/homes/rahmet/miniconda2/envs/my-rdkit-env/lib/python3.6/site-packages/sklearn/metrics/classification.py:538: RuntimeWarning: invalid value encountered in double_scalars
+  mcc = cov_ytyp / np.sqrt(cov_ytyt * cov_ypyp)
+
+------------------------------------------------------------
+Sender: LSF System <lsf@hx-noah-08-02>
+Subject: Job 5460191: <python train_other_classifiers.py CHEMBL230 > ../LOGS/ShallowLOGS/CHEMBL230_shallow.txt> in cluster <EBI> Done
+
+Job <python train_other_classifiers.py CHEMBL230 > ../LOGS/ShallowLOGS/CHEMBL230_shallow.txt> was submitted from host <ebi6-035> by user <rahmet> in cluster <EBI>.
+Job was executed on host(s) <hx-noah-08-02>, in queue <research-rh7>, as user <rahmet> in cluster <EBI>.
+</homes/rahmet> was used as the home directory.
+</hps/nobackup/production/uniprot/rahmet/DEEPScreen/bin> was used as the working directory.
+Started at Thu Jul  5 22:30:14 2018
+Results reported at Thu Jul  5 22:54:17 2018
+
+Your job looked like:
+
+------------------------------------------------------------
+# LSBATCH: User input
+python train_other_classifiers.py CHEMBL230 > ../LOGS/ShallowLOGS/CHEMBL230_shallow.txt
+------------------------------------------------------------
+
+Successfully completed.
+
+Resource usage summary:
+
+    CPU time :               2493.44 sec.
+    Max Memory :             8876 MB
+    Average Memory :         3736.38 MB
+    Total Requested Memory : 30720.00 MB
+    Delta Memory :           21844.00 MB
+    (Delta: the difference between total requested memory and actual max usage.)
+    Max Swap :               16157 MB
+
+    Max Processes :          4
+    Max Threads :            57
+
+The output (if any) is above this job summary.
+
+/homes/rahmet/miniconda2/envs/my-rdkit-env/lib/python3.6/site-packages/sklearn/metrics/classification.py:538: RuntimeWarning: invalid value encountered in double_scalars
+  mcc = cov_ytyp / np.sqrt(cov_ytyt * cov_ypyp)
+
+------------------------------------------------------------
+Sender: LSF System <lsf@hx-noah-05-13>
+Subject: Job 5975056: <python train_other_classifiers.py CHEMBL230 > ../LOGS/ShallowLOGS/CHEMBL230_shallow.txt> in cluster <EBI> Done
+
+Job <python train_other_classifiers.py CHEMBL230 > ../LOGS/ShallowLOGS/CHEMBL230_shallow.txt> was submitted from host <ebi5-250> by user <rahmet> in cluster <EBI> at Thu Nov  1 17:30:10 2018
+Job was executed on host(s) <hx-noah-05-13>, in queue <research-rh7>, as user <rahmet> in cluster <EBI> at Fri Nov  2 03:43:57 2018
+</homes/rahmet> was used as the home directory.
+</hps/nobackup/production/uniprot/rahmet/DEEPScreen/bin> was used as the working directory.
+Started at Fri Nov  2 03:43:57 2018
+Terminated at Fri Nov  2 04:20:44 2018
+Results reported at Fri Nov  2 04:20:44 2018
+
+Your job looked like:
+
+------------------------------------------------------------
+# LSBATCH: User input
+python train_other_classifiers.py CHEMBL230 > ../LOGS/ShallowLOGS/CHEMBL230_shallow.txt
+------------------------------------------------------------
+
+Successfully completed.
+
+Resource usage summary:
+
+    CPU time :                                   2181.07 sec.
+    Max Memory :                                 8379 MB
+    Average Memory :                             3365.87 MB
+    Total Requested Memory :                     30720.00 MB
+    Delta Memory :                               22341.00 MB
+    Max Swap :                                   13248 MB
+    Max Processes :                              4
+    Max Threads :                                67
+    Run time :                                   2207 sec.
+    Turnaround time :                            39034 sec.
+
+The output (if any) is above this job summary.
+
