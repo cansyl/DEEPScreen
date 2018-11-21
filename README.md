@@ -17,14 +17,11 @@
 * "resultFiles"
     * contains performance calculations of optimized models.
 * "FeatureVectors" (This folder is not available under the DEEPScreen repository. It should be downloaded from [here](http://goo.gl/Kd7FkU))
-    * Includes feature vector files that belong to the training and test proteins.
-    * For example, "Parsed_PAACFeatures_uniprot_training_test_set.txt" file contains PAAC feature vectors and "Parsed_BPSPMAPFeatures_CAFA2.txt" file contains SPMAP feature vectors for BP CAFA benchmark protein sequences.
-    * In these files, each row contains the protein's UniProt accession, followed by the dimensions of the feature vector in  tab-delimited format.
          
 ## Dependencies
 #### [tflearn 0.3.2](https://pypi.org/project/tflearn/)
 #### [sklearn 0.19.2](https://scikit-learn.org/0.19/install.html)
-#### [numpy '1.14.5'](https://pypi.python.org/pypi/numpy/1.13.3)
+#### [numpy 1.14.5](https://pypi.python.org/pypi/numpy/1.13.3)
 
 
 ## How to run DEEPScreen
