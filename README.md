@@ -22,9 +22,9 @@
     * In these files, each row contains the protein's UniProt accession, followed by the dimensions of the feature vector in  tab-delimited format.
          
 ## Dependencies
-#### [python 3.5.1](https://www.python.org/downloads/release/python-351/)
-#### [tensorflow 1.4.1](https://github.com/tensorflow/tensorflow/releases/tag/v1.4.1)
-#### [numpy 1.13.3](https://pypi.python.org/pypi/numpy/1.13.3)
+#### [tflearn 0.3.2](https://pypi.org/project/tflearn/)
+#### [sklearn 0.19.2](https://scikit-learn.org/0.19/install.html)
+#### [numpy '1.14.5'](https://pypi.python.org/pypi/numpy/1.13.3)
 
 
 ## How to run DEEPScreen
