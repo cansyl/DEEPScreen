@@ -36,7 +36,7 @@
     * FeatureVectors
     * Annots
 * Run DEEPScreen script by providing following command line arguments:
-    * DNN architecture (InceptionV2ImageNet, CNNModel)
+    * DNN architecture (ImageNetInceptionV2, CNNModel)
     * target ChEMBL ID
     * optimizer type (adam, momentum, rmsprop)
     * learning rate
@@ -44,7 +44,7 @@
     * number of neurons in the first fully-connected layer
     * number of neurons in the second fully-connected layer
     * drop-out keep rate
-    * save model (1 (save) or 0 (not save))
+    * save model (should be 1 to save the model or 0 (not save))
 
 
 Example:
