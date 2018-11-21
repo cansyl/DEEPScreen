@@ -48,7 +48,7 @@
 
 ## How to run DEEPScreen
 * Install dependencies and necessary libraries.
-* Download DEEPScreen repository
+* Clone the DEEPScreen repository
 * Download the compressed "FeatureVectors.zip" and "Annots.zip" files from [here](http://goo.gl/Kd7FkU) and put them under DEEPred folder. 
 * Decompress the files under the following folders
     * FastaFiles
@@ -57,27 +57,35 @@
     * FeatureVectors
     * Annots
 * Run DEEPScreen script (4_layer_train.py) by providing following command line arguments:
-    * number of neurons at the first layer
-    * number of neurons at the second layer
-    * number of epochs
-    * GO terms to be trained in a model (.txt file Could be any file under GOTermFiles)
-    * GO category (MF, BP, CC)
-    * Type of feature (could be PAAC, CTriad, MFSPMAP, BPSPMAP, CCSPMAP)
-    * Learning rate
-    * Mini-batch size
+    * target ChEMBL ID
     * optimizer type (adam, momentum, rmsprop)
-    * normalize_inputs (yes, no)
-    * batch_normalization (yes, no)
-    * learning_rate_decay (yes, no)
-    * drop_out_rate
+    * learning rate
+    * number of epochs
+    * number of neurons in the first fully-connected layer
+    * number of neurons in the second fully-connected layer
+    * drop-out keep rate
+    * save model (1 (save) or 0 (not save))
 
 
 Example:
 ```
-python 4_layer_train.py 1400 100 1000 MFGOTerms30_4_201_300_2.txt MF MFSPMAP 0.001 32 adam yes yes yes 0.6
+python trainConvNet.py CNNModel CHEMBL1790 adam 0.0005 15 128 0 0.8 1
 ```
 ## Output of the script
-The prediction scores and the performance results for the test sequences are printed as the output.
+The prediction scores and the performance results for the test and validation sequences are printed as the output.
+```
+Validation AUC:0.955625
+Validation AUPRC:0.9560081031194367
+Test AUC:0.9445025083612041
+Test AUPRC:0.9379908635681835
+BestTestF1Score 0.9     0.81    0.9     0.88    0.91    84      11      93      8       0.95
+BestTestMCCScore        0.88    0.78    0.89    0.91    0.85    78      8       96      14      0.98
+BestTestAccuracyScore   0.88    0.78    0.89    0.91    0.85    78      8       96      14      0.98
+BestValidationF1Score   0.91    0.82    0.91    0.91    0.9     86      8       92      10      0.95
+BestValidationMCC       0.9     0.82    0.91    0.95    0.85    82      4       96      14      0.98
+BestValidationAccuracy  0.9     0.82    0.91    0.95    0.85    82      4       96      14      0.98
+TestPredictions (Threshold:0.98)
+```
 ## License
 DEEPScreen
     Copyright (C) 2018 CanSyL
