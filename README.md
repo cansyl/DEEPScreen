@@ -2,10 +2,15 @@
 
 ## Descriptions of folders and files under the DEEPScreen repository
 * **bin** This folder includes the source code of DEEPScreen
-    * Includes source code of DEEPScreen
-* **trainingFiles**
-    * Includes the information about the models used in the feature selection and hyper-parameter optimization tests.
-    * "DEEPScreenBestModelPerformances.txt" contains the performance results and hyper-parameter selections for each trained target. 
+* **trainingFiles** includes the information about the models used in the feature selection and hyper-parameter optimization tests.
+    * **DEEPScreenBestModelPerformances.txt** contains the performance results and hyper-parameter selections for each trained target. 
+    * **act_inact_comps_10.0_20.0_chembl_preprocessed_sp_b_pchembl_data_blast_comp_20.txt** file contains active and inactive compound information after similarity-based negative training dataset enrichment for all targets.
+    * **act_inact_comps_10.0_20.0_chembl_preprocessed_sp_b_pchembl_data.txt** file contains active and inactive compound information before similarity-based negative training dataset enrichment for all targets.
+    * **DUDEDatasetFiles.zip** contains training dataset for DUD-E dataset.
+    * **Lenselink_Dataset_Files.zip** contains training datasets for Lenselink et al.'s study.
+    * **MUVDatasetFiles.zip** contains training dataset for MUV dataset. and InChI representations for all ChEMBL compounds (version 23).
+    * **chembl23_chemreps.txt.zip** contains SMILEs and InChI representations for all ChEMBL compounds (version 23).
+    
 * **tempImage**
     * needed to create temporary images of compounds.
 * **tflearnModels**
