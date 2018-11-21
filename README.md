@@ -1,40 +1,37 @@
 # DEEPScreen: Virtual Screening Using Convolutional Neural Networks By Images of Compounds
 
 ## Descriptions of folders and files under the DEEPScreen repository
-* "bin"
+* **bin** This folder includes the source code of DEEPScreen
     * Includes source code of DEEPScreen
-* "trainingFiles"
+* **trainingFiles**
     * Includes the information about the models used in the feature selection and hyper-parameter optimization tests.
     * "DEEPScreenBestModelPerformances.txt" contains the performance results and hyper-parameter selections for each trained target. 
-    * File names contain information regarding the level of GO terms, the range of the number of annotated proteins and the model number.
-    * For example, "MFGOTerms30_4_201_300_2.txt" includes the molecular function GO terms trained on the fourth level of GO DAG, which have number of annotated proteins between 201 and 300 and this is the second model trained on the fourth level of GO.
-    * Inside each file, the information regarding the ids of trained GO terms and the respective number of annotated proteins for each GO term is given in tab-delimited format.
-* "tempImage"
+* **tempImage**
     * needed to create temporary images of compounds.
-* "tflearnModels"
+* **tflearnModels**
     * the folder that is used to store the trained models.
-    * trained-models can be dowloaded from [here](http://google.com))
-* "resultFiles"
-    * contains performance calculations of optimized models.
-* "FeatureVectors" (This folder is not available under the DEEPScreen repository. It should be downloaded from [here](http://goo.gl/Kd7FkU))
+    * trained-models can be dowloaded from [here](http://google.com)
+* **resultFiles** contains performance calculations of optimized models.
          
 ## Dependencies
 #### [tflearn 0.3.2](https://pypi.org/project/tflearn/)
 #### [sklearn 0.19.2](https://scikit-learn.org/0.19/install.html)
 #### [numpy 1.14.5](https://pypi.python.org/pypi/numpy/1.13.3)
+#### [cairosvg 2.1.2](https://pypi.org/project/CairoSVG/)
+#### [rdkit 2016.09.4](http://rdkit.org/docs/Install.html)
 
 
 ## How to run DEEPScreen
 * Install dependencies and necessary libraries.
 * Clone the DEEPScreen repository
-* Download the compressed "FeatureVectors.zip" and "Annots.zip" files from [here](http://goo.gl/Kd7FkU) and put them under DEEPred folder. 
 * Decompress the files under the following folders
     * FastaFiles
     * GOTermFiles
     * TrainTestDatasets
     * FeatureVectors
     * Annots
-* Run DEEPScreen script (4_layer_train.py) by providing following command line arguments:
+* Run DEEPScreen script by providing following command line arguments:
+    * DNN architecture (InceptionV2ImageNet, CNNModel)
     * target ChEMBL ID
     * optimizer type (adam, momentum, rmsprop)
     * learning rate
