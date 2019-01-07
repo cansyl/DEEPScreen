@@ -29,12 +29,7 @@
 ## How to run DEEPScreen
 * Install dependencies and necessary libraries.
 * Clone the DEEPScreen repository
-* Decompress the files under the following folders
-    * FastaFiles
-    * GOTermFiles
-    * TrainTestDatasets
-    * FeatureVectors
-    * Annots
+* Decompress the zipped files
 * Run DEEPScreen script by providing following command line arguments:
     * DNN architecture (ImageNetInceptionV2, CNNModel)
     * target ChEMBL ID
@@ -52,18 +47,23 @@ Example:
 python trainConvNet.py CNNModel CHEMBL1790 adam 0.0005 15 128 0 0.8 1
 ```
 ## Output of the script
-The prediction scores and the performance results for the test and validation sequences are printed as the output.
+The prediction scores and the performance results for the test and validation sequences are printed as the output. The output shows validation a In the last line, the predictions for the test compounds are written in a tab-separated format. Each field is separated by comma in the following format:
+* <compound_id>,<prediction_outcome>,<true_label>
 ```
 Validation AUC:0.955625
 Validation AUPRC:0.9560081031194367
 Test AUC:0.9445025083612041
 Test AUPRC:0.9379908635681835
-BestTestF1Score 0.9     0.81    0.9     0.88    0.91    84      11      93      8       0.95
-BestTestMCCScore        0.88    0.78    0.89    0.91    0.85    78      8       96      14      0.98
-BestTestAccuracyScore   0.88    0.78    0.89    0.91    0.85    78      8       96      14      0.98
-BestValidationF1Score   0.91    0.82    0.91    0.91    0.9     86      8       92      10      0.95
-BestValidationMCC       0.9     0.82    0.91    0.95    0.85    82      4       96      14      0.98
-BestValidationAccuracy  0.9     0.82    0.91    0.95    0.85    82      4       96      14      0.98
+Test_f1score:0.88
+Test_mcc:0.78
+Test_accuracy:0.89
+Test_precision:0.91
+Test_recall:0.85
+Test_tp:78
+Test_fp:8
+Test_tn:96
+Test_fn:14
+Decision_threshold:0.98
 Test Predictions:
 CHEMBL435331,TP,ACT     CHEMBL3354592,TP,ACT    CHEMBL44134,TN,INACT    CHEMBL422701,TN,INACT   CHEMBL105961,FN,ACT ...
 ```
