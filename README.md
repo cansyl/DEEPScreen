@@ -2,7 +2,7 @@
 
 ## Descriptions of folders and files under the DEEPScreen repository
 * **bin** This folder includes the source code of DEEPScreen
-* **trainingFiles** includes the information about the models used in the feature selection and hyper-parameter optimization tests.
+* **trainingFiles** includes the files for training of the system.
     * **DEEPScreenBestModelPerformances.txt** contains the performance results and hyper-parameter selections for each trained target. 
     * **act_inact_comps_10.0_20.0_chembl_preprocessed_sp_b_pchembl_data_blast_comp_20.txt** file contains active and inactive compound information after similarity-based negative training dataset enrichment for all targets.
     * **act_inact_comps_10.0_20.0_chembl_preprocessed_sp_b_pchembl_data.txt** file contains active and inactive compound information before similarity-based negative training dataset enrichment for all targets.
@@ -62,7 +62,6 @@ Test_tp:78
 Test_fp:8
 Test_tn:96
 Test_fn:14
-Decision_threshold:0.98
 Test Predictions:
 CHEMBL435331,TP,ACT     CHEMBL3354592,TP,ACT    CHEMBL44134,TN,INACT    CHEMBL422701,TN,INACT   CHEMBL105961,FN,ACT ...
 ```
