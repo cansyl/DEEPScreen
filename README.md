@@ -47,11 +47,10 @@ Example:
 python trainConvNet.py CNNModel CHEMBL1790 adam 0.0005 15 128 0 0.8 1
 ```
 ## Output of the script
-The prediction scores and the performance results for the test and validation sequences are printed as the output. The output shows validation a In the last line, the predictions for the test compounds are written in a tab-separated format. Each field is separated by comma in the following format:
-* <compound_id>,<prediction_outcome>,<true_label>
+The evaluation results and predictions of independent test compounds are given as the output of this script. In the last line, the predictions for the test compounds are written in a tab-separated format where each field is separated by comma in the following format:
+* <compound_id>,<prediction_outcome>,<true_label
+The ouput of the above command is written below as an example:
 ```
-Validation AUC:0.955625
-Validation AUPRC:0.9560081031194367
 Test AUC:0.9445025083612041
 Test AUPRC:0.9379908635681835
 Test_f1score:0.88
