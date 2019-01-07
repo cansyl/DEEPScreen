@@ -1,0 +1,782 @@
+
+<html>
+<head>
+<title>KEGG BRITE: Nuclear Receptors</title>
+
+<link rel="stylesheet" href="/css/get_htext.css" type="text/css">
+<script type="text/javascript" src="/js/env.js"></script>
+<script type="text/javascript" src="/js/prototype.js"></script>
+<script type="text/javascript" src="/js/assistDic_popup.js"></script>
+<script type="text/javascript">
+<!--
+function select_menu(no,dir)
+{
+  var form = document.forms["selmenu"];
+  if(form.org_name.value == 'set_cookie' || form.org_name.value == 'reset_cookie')
+  {
+    window.open('/kegg/misc/kegg2_select.html','sel_org','toolbar=no,location=no,directories=no,width=500,height=320,resizable=yes');
+	}
+  else if(dir == 'br' || dir == 'jp')
+  {
+    var org = form.org_name.options[form.org_name.selectedIndex].value;
+    location.href = '/kegg-bin/get_htext?htext=' + org + '.keg';
+	}
+  else
+  {
+	  var org = form.org_name.options[form.org_name.selectedIndex].value;
+	  if(org == 'hsa+disease')
+    {
+      location.href = '/kegg-bin/get_htext?htext=' + 'hsa' + no + '_disease.keg&filedir=%2fkegg%2fbrite%2f' + 'hsa' + "&length=";
+	  }
+    else if(org == 'hsa+drug')
+    {
+      location.href = '/kegg-bin/get_htext?htext=' + 'hsa' + no + '_drug.keg&filedir=%2fkegg%2fbrite%2f' + 'hsa' + "&length=";
+	  }
+    else if(org == 'hsa+dd')
+    {
+      location.href = '/kegg-bin/get_htext?htext=' + 'hsa' + no + '_dd.keg&filedir=%2fkegg%2fbrite%2f' + 'hsa' + "&length=";
+	  }
+    else
+    {
+      location.href = '/kegg-bin/get_htext?htext=' + org + no + '&filedir=%2fkegg%2fbrite%2f' + org + "&length=";
+    }
+  }
+}
+
+
+function open_node(node)
+{
+  var form = document.forms["selmenu"];
+  form.open.value = node;
+	form.query.value = "";
+  var action = "/kegg-bin/get_htext#" + node;
+  submit_form(form, action);
+}
+
+function close_node(node)
+{
+  var form = document.forms["selmenu"];
+  form.close.value = node;
+	form.query.value = "";
+  var action = "/kegg-bin/get_htext#" + node;
+  submit_form(form, action);
+}
+
+function open_hier(hier)
+{
+  var form = document.forms["selmenu"];
+  form.hier.value = hier;
+	form.query.value = "";
+  submit_form(form, "");
+}
+
+function change_oneclick_mode(item)
+{
+  var form = item.form;
+  var option = form.option.value;
+	form.query.value = "";
+
+  if(item.checked)
+  {
+    if(option.indexOf("e") < 0)
+    {
+      form.option.value += "e";
+    }
+  }
+  else
+  {
+    form.option.value = form.option.value.replace("e", "");
+  }
+}
+
+function change_matched(item)
+{
+  var form = item.form;
+
+  if(item.checked)
+  {
+    form.format.value = "matched";
+  }
+  else
+  {
+    form.format.value = "all";
+  }
+
+  form.query.value = form.highlight.value;
+
+  submit_form(form, "");
+}
+
+function submit_form(form, action)
+{
+  if(action == "")
+  {
+    action = "/kegg-bin/get_htext";
+  }
+
+  form.action = action;
+  form.submit();
+}
+
+
+
+// -->
+</script>
+</head>
+<!--
+<body bgcolor="#ffffff" link="#003399" vlink="#003399">
+-->
+<body>
+
+<h2><a href="/kegg/kegg2.html"><img src="/Fig/bget/kegg3.gif" align="middle" border=0></a> &nbsp; Nuclear Receptors</h2>
+
+
+<form name="selmenu" method="post" style="margin:0px;" action="/kegg-bin/get_htext">
+
+
+<input type="hidden" name="htext" value="ko03310.keg">
+<input type="hidden" name="filedir" value="">
+<input type="hidden" name="highlight" value="">
+<!--
+<input type="hidden" name="option" value="-">
+-->
+<input type="hidden" name="option">
+<input type="hidden" name="extend" value="B1-20">
+<input type="hidden" name="uploadfile" value="">
+<input type="hidden" name="format" value="">
+<input type="hidden" name="wrap" value="">
+<input type="hidden" name="length" value="">
+<input type="hidden" name="open" value="">
+<input type="hidden" name="close" value="">
+<input type="hidden" name="hier" value="">
+<input type="hidden" name="no_menu" value="">
+
+
+
+
+<table>
+  <tr>
+    <td>
+
+      [ <a href='/kegg-bin/get_htext?query=03310&htext=br08902.keg'>Brite menu</a>
+
+ | <a href='/kegg-bin/get_htext?htext=br08601_ko03310&query=ko&option=-w'>Organism menu</a>
+
+
+ | <a href='/kegg-bin/download_htext?htext=ko03310.keg&format=htext&filedir='>Download htext</a> | <a href='/kegg-bin/download_htext?htext=ko03310.keg&format=json&filedir='>Download json</a>
+ ]
+    </td>
+  </tr>
+  <tr>
+    <td>
+      <select name="org_name">
+
+        <option value="ko" selected>Reference hierarchy (KO)</option>
+
+        <option value="set_cookie" >-----&lt; Set personalized menu &gt;-----</option>
+
+        <option value="hsa" >Homo sapiens (human)</option>
+
+        <option value="hsa+dd" >Homo sapiens (human) + Disease/Drug</option>
+
+        <option value="hsa+disease" >Homo sapiens (human) + Disease</option>
+
+        <option value="hsa+drug" >Homo sapiens (human) + Drug</option>
+
+        <option value="ptr" >Pan troglodytes (chimpanzee)</option>
+
+        <option value="pps" >Pan paniscus (bonobo)</option>
+
+        <option value="ggo" >Gorilla gorilla gorilla (western lowland gorilla)</option>
+
+        <option value="pon" >Pongo abelii (Sumatran orangutan)</option>
+
+        <option value="nle" >Nomascus leucogenys (northern white-cheeked gibbon)</option>
+
+        <option value="mcc" >Macaca mulatta (rhesus monkey)</option>
+
+        <option value="mcf" >Macaca fascicularis (crab-eating macaque)</option>
+
+        <option value="csab" >Chlorocebus sabaeus (green monkey)</option>
+
+        <option value="rro" >Rhinopithecus roxellana (golden snub-nosed monkey)</option>
+
+        <option value="rbb" >Rhinopithecus bieti (black snub-nosed monkey)</option>
+
+        <option value="cjc" >Callithrix jacchus (white-tufted-ear marmoset)</option>
+
+        <option value="sbq" >Saimiri boliviensis boliviensis (Bolivian squirrel monkey)</option>
+
+        <option value="mmu" >Mus musculus (mouse)</option>
+
+        <option value="rno" >Rattus norvegicus (rat)</option>
+
+        <option value="cge" >Cricetulus griseus (Chinese hamster)</option>
+
+        <option value="ngi" >Nannospalax galili (Upper Galilee mountains blind mole rat)</option>
+
+        <option value="hgl" >Heterocephalus glaber (naked mole rat)</option>
+
+        <option value="ccan" >Castor canadensis (American beaver)</option>
+
+        <option value="ocu" >Oryctolagus cuniculus (rabbit)</option>
+
+        <option value="tup" >Tupaia chinensis (Chinese tree shrew)</option>
+
+        <option value="cfa" >Canis familiaris (dog)</option>
+
+        <option value="aml" >Ailuropoda melanoleuca (giant panda)</option>
+
+        <option value="umr" >Ursus maritimus (polar bear)</option>
+
+        <option value="oro" >Odobenus rosmarus divergens (Pacific walrus)</option>
+
+        <option value="fca" >Felis catus (domestic cat)</option>
+
+        <option value="ptg" >Panthera tigris altaica (Amur tiger)</option>
+
+        <option value="aju" >Acinonyx jubatus (cheetah)</option>
+
+        <option value="bta" >Bos taurus (cow)</option>
+
+        <option value="bom" >Bos mutus (wild yak)</option>
+
+        <option value="biu" >Bos indicus (zebu cattle)</option>
+
+        <option value="phd" >Pantholops hodgsonii (chiru)</option>
+
+        <option value="chx" >Capra hircus (goat)</option>
+
+        <option value="oas" >Ovis aries (sheep)</option>
+
+        <option value="ssc" >Sus scrofa (pig)</option>
+
+        <option value="cfr" >Camelus ferus (Wild Bactrian camel)</option>
+
+        <option value="cdk" >Camelus dromedarius (Arabian camel)</option>
+
+        <option value="bacu" >Balaenoptera acutorostrata scammoni (minke whale)</option>
+
+        <option value="lve" >Lipotes vexillifer (Yangtze River dolphin)</option>
+
+        <option value="ecb" >Equus caballus (horse)</option>
+
+        <option value="epz" >Equus przewalskii (Przewalski's horse)</option>
+
+        <option value="eai" >Equus asinus (ass)</option>
+
+        <option value="myb" >Myotis brandtii (Brandt's bat)</option>
+
+        <option value="myd" >Myotis davidii</option>
+
+        <option value="hai" >Hipposideros armiger (great roundleaf bat)</option>
+
+        <option value="rss" >Rhinolophus sinicus (Chinese rufous horseshoe bat)</option>
+
+        <option value="pale" >Pteropus alecto (black flying fox)</option>
+
+        <option value="lav" >Loxodonta africana (African savanna elephant)</option>
+
+        <option value="tmu" >Trichechus manatus latirostris (Florida manatee)</option>
+
+        <option value="mdo" >Monodelphis domestica (opossum)</option>
+
+        <option value="shr" >Sarcophilus harrisii (Tasmanian devil)</option>
+
+        <option value="oaa" >Ornithorhynchus anatinus (platypus)</option>
+
+        <option value="gga" >Gallus gallus (chicken)</option>
+
+        <option value="mgp" >Meleagris gallopavo (turkey)</option>
+
+        <option value="cjo" >Coturnix japonica (Japanese quail)</option>
+
+        <option value="apla" >Anas platyrhynchos (mallard)</option>
+
+        <option value="acyg" >Anser cygnoides domesticus (swan goose)</option>
+
+        <option value="tgu" >Taeniopygia guttata (zebra finch)</option>
+
+        <option value="gfr" >Geospiza fortis (medium ground-finch)</option>
+
+        <option value="fab" >Ficedula albicollis (collared flycatcher)</option>
+
+        <option value="phi" >Pseudopodoces humilis (Tibetan ground-tit)</option>
+
+        <option value="pmaj" >Parus major (Great Tit)</option>
+
+        <option value="ccw" >Corvus cornix (hooded crow)</option>
+
+        <option value="fpg" >Falco peregrinus (peregrine falcon)</option>
+
+        <option value="fch" >Falco cherrug (Saker falcon)</option>
+
+        <option value="clv" >Columba livia (rock pigeon)</option>
+
+        <option value="egz" >Egretta garzetta (little egret)</option>
+
+        <option value="aam" >Apteryx australis mantelli (brown kiwi)</option>
+
+        <option value="asn" >Alligator sinensis (Chinese alligator)</option>
+
+        <option value="amj" >Alligator mississippiensis (American alligator)</option>
+
+        <option value="pss" >Pelodiscus sinensis (Chinese soft-shelled turtle)</option>
+
+        <option value="cmy" >Chelonia mydas (green sea turtle)</option>
+
+        <option value="cpic" >Chrysemys picta (western painted turtle)</option>
+
+        <option value="acs" >Anolis carolinensis (green anole)</option>
+
+        <option value="pvt" >Pogona vitticeps (central bearded dragon)</option>
+
+        <option value="pbi" >Python bivittatus (Burmese python)</option>
+
+        <option value="gja" >Gekko japonicus</option>
+
+        <option value="xla" >Xenopus laevis (African clawed frog)</option>
+
+        <option value="xtr" >Xenopus tropicalis (western clawed frog)</option>
+
+        <option value="npr" >Nanorana parkeri</option>
+
+        <option value="dre" >Danio rerio (zebrafish)</option>
+
+        <option value="srx" >Sinocyclocheilus rhinocerous</option>
+
+        <option value="sanh" >Sinocyclocheilus anshuiensis</option>
+
+        <option value="sgh" >Sinocyclocheilus grahami</option>
+
+        <option value="ccar" >Cyprinus carpio (common carp)</option>
+
+        <option value="ipu" >Ictalurus punctatus (channel catfish)</option>
+
+        <option value="amex" >Astyanax mexicanus (Mexican tetra)</option>
+
+        <option value="tru" >Takifugu rubripes (torafugu)</option>
+
+        <option value="tng" >Tetraodon nigroviridis (spotted green pufferfish)</option>
+
+        <option value="lco" >Larimichthys crocea (large yellow croaker)</option>
+
+        <option value="ncc" >Notothenia coriiceps (black rockcod)</option>
+
+        <option value="mze" >Maylandia zebra (zebra mbuna)</option>
+
+        <option value="ola" >Oryzias latipes (Japanese medaka)</option>
+
+        <option value="xma" >Xiphophorus maculatus (southern platyfish)</option>
+
+        <option value="pret" >Poecilia reticulata (guppy)</option>
+
+        <option value="nfu" >Nothobranchius furzeri (turquoise killifish)</option>
+
+        <option value="csem" >Cynoglossus semilaevis (tongue sole)</option>
+
+        <option value="lcf" >Lates calcarifer (barramundi perch)</option>
+
+        <option value="hcq" >Hippocampus comes (tiger tail seahorse)</option>
+
+        <option value="bpec" >Boleophthalmus pectinirostris (great blue-spotted mudskipper)</option>
+
+        <option value="sasa" >Salmo salar (Atlantic salmon)</option>
+
+        <option value="els" >Esox lucius (northern pike)</option>
+
+        <option value="sfm" >Scleropages formosus (Asian bonytongue)</option>
+
+        <option value="lcm" >Latimeria chalumnae (coelacanth)</option>
+
+        <option value="cmk" >Callorhinchus milii (elephant shark)</option>
+
+        <option value="bfo" >Branchiostoma floridae (Florida lancelet)</option>
+
+        <option value="cin" >Ciona intestinalis (sea squirt)</option>
+
+        <option value="spu" >Strongylocentrotus purpuratus (purple sea urchin)</option>
+
+        <option value="aplc" >Acanthaster planci (crown-of-thorns starfish)</option>
+
+        <option value="sko" >Saccoglossus kowalevskii (acorn worm)</option>
+
+        <option value="dme" >Drosophila melanogaster (fruit fly)</option>
+
+        <option value="dpo" >Drosophila pseudoobscura pseudoobscura</option>
+
+        <option value="dan" >Drosophila ananassae</option>
+
+        <option value="der" >Drosophila erecta</option>
+
+        <option value="dpe" >Drosophila persimilis</option>
+
+        <option value="dse" >Drosophila sechellia</option>
+
+        <option value="dsi" >Drosophila simulans</option>
+
+        <option value="dwi" >Drosophila willistoni</option>
+
+        <option value="dya" >Drosophila yakuba</option>
+
+        <option value="dgr" >Drosophila grimshawi</option>
+
+        <option value="dmo" >Drosophila mojavensis</option>
+
+        <option value="dvi" >Drosophila virilis</option>
+
+        <option value="mde" >Musca domestica (house fly)</option>
+
+        <option value="aga" >Anopheles gambiae (mosquito)</option>
+
+        <option value="aag" >Aedes aegypti (yellow fever mosquito)</option>
+
+        <option value="cqu" >Culex quinquefasciatus (southern house mosquito)</option>
+
+        <option value="ame" >Apis mellifera (honey bee)</option>
+
+        <option value="bim" >Bombus impatiens (common eastern bumble bee)</option>
+
+        <option value="bter" >Bombus terrestris (buff-tailed bumblebee)</option>
+
+        <option value="soc" >Solenopsis invicta (red fire ant)</option>
+
+        <option value="aec" >Acromyrmex echinatior (Panamanian leafcutter ant)</option>
+
+        <option value="acep" >Atta cephalotes (leaf cutting ant)</option>
+
+        <option value="pbar" >Pogonomyrmex barbatus (red harvester ant)</option>
+
+        <option value="hst" >Harpegnathos saltator (Jerdon's jumping ant)</option>
+
+        <option value="cfo" >Camponotus floridanus (Florida carpenter ant)</option>
+
+        <option value="lhu" >Linepithema humile (Argentine ant)</option>
+
+        <option value="pgc" >Pseudomyrmex gracilis</option>
+
+        <option value="nvi" >Nasonia vitripennis (jewel wasp)</option>
+
+        <option value="tca" >Tribolium castaneum (red flour beetle)</option>
+
+        <option value="dpa" >Dendroctonus ponderosae (mountain pine beetle)</option>
+
+        <option value="nvl" >Nicrophorus vespilloides</option>
+
+        <option value="bmor" >Bombyx mori (domestic silkworm)</option>
+
+        <option value="dpl" >Danaus plexippus (monarch butterfly)</option>
+
+        <option value="pmac" >Papilio machaon (common yellow swallowtail)</option>
+
+        <option value="prap" >Pieris rapae (cabbage white)</option>
+
+        <option value="pxy" >Plutella xylostella (diamondback moth)</option>
+
+        <option value="api" >Acyrthosiphon pisum (pea aphid)</option>
+
+        <option value="dnx" >Diuraphis noxia (Russian wheat aphid)</option>
+
+        <option value="phu" >Pediculus humanus corporis (human body louse)</option>
+
+        <option value="zne" >Zootermopsis nevadensis</option>
+
+        <option value="fcd" >Folsomia candida</option>
+
+        <option value="dpx" >Daphnia pulex (common water flea)</option>
+
+        <option value="isc" >Ixodes scapularis (black-legged tick)</option>
+
+        <option value="tut" >Tetranychus urticae (two-spotted spider mite)</option>
+
+        <option value="cel" >Caenorhabditis elegans (nematode)</option>
+
+        <option value="cbr" >Caenorhabditis briggsae</option>
+
+        <option value="nai" >Necator americanus</option>
+
+        <option value="bmy" >Brugia malayi (filaria)</option>
+
+        <option value="loa" >Loa loa (eye worm)</option>
+
+        <option value="tsp" >Trichinella spiralis</option>
+
+        <option value="hro" >Helobdella robusta</option>
+
+        <option value="lgi" >Lottia gigantea (owl limpet)</option>
+
+        <option value="crg" >Crassostrea gigas (Pacific oyster)</option>
+
+        <option value="myi" >Mizuhopecten yessoensis (Yesso scallop)</option>
+
+        <option value="obi" >Octopus bimaculoides</option>
+
+        <option value="lak" >Lingula anatina</option>
+
+        <option value="smm" >Schistosoma mansoni</option>
+
+        <option value="shx" >Schistosoma haematobium</option>
+
+        <option value="ovi" >Opisthorchis viverrini</option>
+
+        <option value="nve" >Nematostella vectensis (sea anemone)</option>
+
+        <option value="epa" >Exaiptasia pallida</option>
+
+        <option value="adf" >Acropora digitifera (stony coral)</option>
+
+        <option value="hmg" >Hydra vulgaris</option>
+
+        <option value="tad" >Trichoplax adhaerens</option>
+
+        <option value="aqu" >Amphimedon queenslandica (sponge)</option>
+
+      </select>
+      &nbsp;<input type="button" value="Go" onclick="select_menu('03310', 'ko')" />
+    </td>
+    <td>
+      &nbsp;&nbsp;
+      <input size="25" type="text" name="query" value="">
+    </td>
+  </tr>
+</table>
+
+
+
+<hr>
+<table width="900" cellspacing="0">
+  <tr>
+    <td nowrap width="400" align="left" valign="bottom">
+
+    <a href="javascript:void(open_hier('0'))"><img border="0" src="/Fig/get_htext/open.png" alt="1st Level"></a>&nbsp;
+
+    <a href="javascript:void(open_hier('1'))"><img border="0" src="/Fig/get_htext/open.png" alt="2nd Level"></a>&nbsp;
+
+    <a href="javascript:void(open_hier('2'))"><img border="0" src="/Fig/get_htext/open.png" alt="3rd Level"></a>&nbsp;
+
+    <span style="margin-left:20px;">
+      <label><input type="checkbox" name="oneclick"  onclick="change_oneclick_mode(this)"> One-click mode</label>
+    </span>
+
+    </td>
+  </tr>
+</table>
+
+<br/>
+
+<table id="grid" cellpadding="0" cellspacing="0" border="0">
+
+
+
+<tr><td colspan="1" nowrap="nowrap" valign="top"><pre style="display:inline;"><a name="A1"></a><a href="javascript:void(close_node('A1'))"><img class='arrowimg' src='/Fig/get_htext/open.png'> </a><b>1. Thyroid hormone like</b>
+</pre></td>
+</tr>
+<tr><td colspan="1" nowrap="nowrap" valign="top"><pre style="display:inline;"><a name="B1"></a>  <a href="javascript:void(close_node('B1'))"><img class='arrowimg' src='/Fig/get_htext/open.png'> </a>1A. Thyroid hormone receptor (THR)
+</pre></td>
+</tr>
+<tr><td class="col1" style="vertical-align:top;padding-right:10px;" nowrap><pre style="display:inline;">    <img src='/Fig/get_htext/whiteSP.png'> <a href="/dbget-bin/www_bget?ko:K05547">K05547</a>  THRA, NR1A1; thyroid hormone receptor alpha
+    <img src='/Fig/get_htext/whiteSP.png'> <a href="/dbget-bin/www_bget?ko:K08362">K08362</a>  THRB, NR1A2; thyroid hormone receptor beta
+</pre></td>
+</tr>
+<tr><td colspan="1" nowrap="nowrap" valign="top"><pre style="display:inline;"><a name="B2"></a>  <a href="javascript:void(close_node('B2'))"><img class='arrowimg' src='/Fig/get_htext/open.png'> </a>1B. Retinoic acid receptor (RAR)
+</pre></td>
+</tr>
+<tr><td class="col1" style="vertical-align:top;padding-right:10px;" nowrap><pre style="display:inline;">    <img src='/Fig/get_htext/whiteSP.png'> <a href="/dbget-bin/www_bget?ko:K08527">K08527</a>  RARA, NR1B1; retinoic acid receptor alpha
+    <img src='/Fig/get_htext/whiteSP.png'> <a href="/dbget-bin/www_bget?ko:K08528">K08528</a>  RARB, NR1B2; retinoic acid receptor beta
+    <img src='/Fig/get_htext/whiteSP.png'> <a href="/dbget-bin/www_bget?ko:K08529">K08529</a>  RARG, NR1B3; retinoic acid receptor gamma
+</pre></td>
+</tr>
+<tr><td colspan="1" nowrap="nowrap" valign="top"><pre style="display:inline;"><a name="B3"></a>  <a href="javascript:void(close_node('B3'))"><img class='arrowimg' src='/Fig/get_htext/open.png'> </a>1C. Peroxisome proliferator-activated receptor (PPAR)
+</pre></td>
+</tr>
+<tr><td class="col1" style="vertical-align:top;padding-right:10px;" nowrap><pre style="display:inline;">    <img src='/Fig/get_htext/whiteSP.png'> <a href="/dbget-bin/www_bget?ko:K07294">K07294</a>  NR1C1, PPARA; peroxisome proliferator-activated receptor alpha
+    <img src='/Fig/get_htext/whiteSP.png'> <a href="/dbget-bin/www_bget?ko:K04504">K04504</a>  NR1C2, PPARD; peroxisome proliferator-activated receptor delta
+    <img src='/Fig/get_htext/whiteSP.png'> <a href="/dbget-bin/www_bget?ko:K08530">K08530</a>  NR1C3, PPARG; peroxisome proliferator-activated receptor gamma
+</pre></td>
+</tr>
+<tr><td colspan="1" nowrap="nowrap" valign="top"><pre style="display:inline;"><a name="B4"></a>  <a href="javascript:void(close_node('B4'))"><img class='arrowimg' src='/Fig/get_htext/open.png'> </a>1D. Rev-Erb
+</pre></td>
+</tr>
+<tr><td class="col1" style="vertical-align:top;padding-right:10px;" nowrap><pre style="display:inline;">    <img src='/Fig/get_htext/whiteSP.png'> <a href="/dbget-bin/www_bget?ko:K03728">K03728</a>  NR1D1; nuclear receptor subfamily 1 group D member 1
+    <img src='/Fig/get_htext/whiteSP.png'> <a href="/dbget-bin/www_bget?ko:K08531">K08531</a>  NR1D2; nuclear receptor subfamily 1 group D member 2
+    <img src='/Fig/get_htext/whiteSP.png'> <a href="/dbget-bin/www_bget?ko:K08701">K08701</a>  NR1D3; nuclear receptor subfamily 1 group D member 3
+</pre></td>
+</tr>
+<tr><td colspan="1" nowrap="nowrap" valign="top"><pre style="display:inline;"><a name="B5"></a>  <a href="javascript:void(close_node('B5'))"><img class='arrowimg' src='/Fig/get_htext/open.png'> </a>1F. RAR-related orphan receptor
+</pre></td>
+</tr>
+<tr><td class="col1" style="vertical-align:top;padding-right:10px;" nowrap><pre style="display:inline;">    <img src='/Fig/get_htext/whiteSP.png'> <a href="/dbget-bin/www_bget?ko:K08532">K08532</a>  NR1F1, RORA; RAR-related orphan receptor alpha
+    <img src='/Fig/get_htext/whiteSP.png'> <a href="/dbget-bin/www_bget?ko:K08533">K08533</a>  NR1F2, RORB; RAR-related orphan receptor beta
+    <img src='/Fig/get_htext/whiteSP.png'> <a href="/dbget-bin/www_bget?ko:K08534">K08534</a>  NR1F3, RORC; RAR-related orphan receptor gamma
+    <img src='/Fig/get_htext/whiteSP.png'> <a href="/dbget-bin/www_bget?ko:K14033">K14033</a>  NR1F4; nuclear receptor subfamily 1 group F member 4
+</pre></td>
+</tr>
+<tr><td colspan="1" nowrap="nowrap" valign="top"><pre style="display:inline;"><a name="B6"></a>  <a href="javascript:void(close_node('B6'))"><img class='arrowimg' src='/Fig/get_htext/open.png'> </a>1H. Liver X receptor like receptor
+</pre></td>
+</tr>
+<tr><td class="col1" style="vertical-align:top;padding-right:10px;" nowrap><pre style="display:inline;">    <img src='/Fig/get_htext/whiteSP.png'> <a href="/dbget-bin/www_bget?ko:K08536">K08536</a>  NR1H3, LXRA; liver X receptor alpha
+    <img src='/Fig/get_htext/whiteSP.png'> <a href="/dbget-bin/www_bget?ko:K08535">K08535</a>  NR1H2, LXRB; liver X receptor beta
+    <img src='/Fig/get_htext/whiteSP.png'> <a href="/dbget-bin/www_bget?ko:K08537">K08537</a>  NR1H4, FXR; farnesoid X receptor
+    <img src='/Fig/get_htext/whiteSP.png'> <a href="/dbget-bin/www_bget?ko:K08538">K08538</a>  NR1H5, FXRB; farnesoid X receptor beta
+    <img src='/Fig/get_htext/whiteSP.png'> <a href="/dbget-bin/www_bget?ko:K14034">K14034</a>  NR1H1, EcR; ecdysone receptor
+</pre></td>
+</tr>
+<tr><td colspan="1" nowrap="nowrap" valign="top"><pre style="display:inline;"><a name="B7"></a>  <a href="javascript:void(close_node('B7'))"><img class='arrowimg' src='/Fig/get_htext/open.png'> </a>1I. Vitamin D3 like receptor
+</pre></td>
+</tr>
+<tr><td class="col1" style="vertical-align:top;padding-right:10px;" nowrap><pre style="display:inline;">    <img src='/Fig/get_htext/whiteSP.png'> <a href="/dbget-bin/www_bget?ko:K08539">K08539</a>  VDR, NR1I1; vitamin D3 receptor
+    <img src='/Fig/get_htext/whiteSP.png'> <a href="/dbget-bin/www_bget?ko:K08540">K08540</a>  NR1I2, PXR; pregnane X receptor
+    <img src='/Fig/get_htext/whiteSP.png'> <a href="/dbget-bin/www_bget?ko:K08541">K08541</a>  NR1I3, CAR; constitutive androstane receptor
+    <img src='/Fig/get_htext/whiteSP.png'> <a href="/dbget-bin/www_bget?ko:K14035">K14035</a>  NR1IN; nuclear receptor subfamily 1 group I
+</pre></td>
+</tr>
+<tr><td class="col1" nowrap="nowrap" valign="top"><pre style="display:inline;">&nbsp;
+</pre></td>
+</tr>
+<tr><td colspan="1" nowrap="nowrap" valign="top"><pre style="display:inline;"><a name="A2"></a><a href="javascript:void(close_node('A2'))"><img class='arrowimg' src='/Fig/get_htext/open.png'> </a><b>2. Hepatocyte nuclear factor 4 like</b>
+</pre></td>
+</tr>
+<tr><td colspan="1" nowrap="nowrap" valign="top"><pre style="display:inline;"><a name="B8"></a>  <a href="javascript:void(close_node('B8'))"><img class='arrowimg' src='/Fig/get_htext/open.png'> </a>2A. Hepatocyte nuclear factor 4 receptor
+</pre></td>
+</tr>
+<tr><td class="col1" style="vertical-align:top;padding-right:10px;" nowrap><pre style="display:inline;">    <img src='/Fig/get_htext/whiteSP.png'> <a href="/dbget-bin/www_bget?ko:K07292">K07292</a>  NR2A1, HNF4A; hepatocyte nuclear factor 4-alpha
+    <img src='/Fig/get_htext/whiteSP.png'> <a href="/dbget-bin/www_bget?ko:K08037">K08037</a>  NR2A2, HNF4G; hepatocyte nuclear factor 4-gamma
+    <img src='/Fig/get_htext/whiteSP.png'> <a href="/dbget-bin/www_bget?ko:K08542">K08542</a>  NR2A3, HNF4B; hepatocyte nuclear factor 4-beta
+    <img src='/Fig/get_htext/whiteSP.png'> <a href="/dbget-bin/www_bget?ko:K08704">K08704</a>  NR2A4, Hnf4; hepatocyte nuclear factor 4
+    <img src='/Fig/get_htext/whiteSP.png'> <a href="/dbget-bin/www_bget?ko:K07295">K07295</a>  NR2AN, dsf; nuclear receptor subfamily 2 group A
+</pre></td>
+</tr>
+<tr><td colspan="1" nowrap="nowrap" valign="top"><pre style="display:inline;"><a name="B9"></a>  <a href="javascript:void(close_node('B9'))"><img class='arrowimg' src='/Fig/get_htext/open.png'> </a>2B. Retinoid X receptor (RXR)
+</pre></td>
+</tr>
+<tr><td class="col1" style="vertical-align:top;padding-right:10px;" nowrap><pre style="display:inline;">    <img src='/Fig/get_htext/whiteSP.png'> <a href="/dbget-bin/www_bget?ko:K08524">K08524</a>  RXRA, NR2B1; retinoid X receptor alpha
+    <img src='/Fig/get_htext/whiteSP.png'> <a href="/dbget-bin/www_bget?ko:K08525">K08525</a>  RXRB, NR2B2; retinoid X receptor beta
+    <img src='/Fig/get_htext/whiteSP.png'> <a href="/dbget-bin/www_bget?ko:K08526">K08526</a>  RXRG, NR2B3; retinoid X receptor gamma
+    <img src='/Fig/get_htext/whiteSP.png'> <a href="/dbget-bin/www_bget?ko:K14030">K14030</a>  NR2B4, usp; nuclear receptor subfamily 2 group B member 4
+</pre></td>
+</tr>
+<tr><td colspan="1" nowrap="nowrap" valign="top"><pre style="display:inline;"><a name="B10"></a>  <a href="javascript:void(close_node('B10'))"><img class='arrowimg' src='/Fig/get_htext/open.png'> </a>2C. Testicular receptor
+</pre></td>
+</tr>
+<tr><td class="col1" style="vertical-align:top;padding-right:10px;" nowrap><pre style="display:inline;">    <img src='/Fig/get_htext/whiteSP.png'> <a href="/dbget-bin/www_bget?ko:K08543">K08543</a>  NR2C1, TR2; testicular receptor 2
+    <img src='/Fig/get_htext/whiteSP.png'> <a href="/dbget-bin/www_bget?ko:K08544">K08544</a>  NR2C2, TR4; testicular receptor 4
+    <img src='/Fig/get_htext/whiteSP.png'> <a href="/dbget-bin/www_bget?ko:K14031">K14031</a>  NR2CN; nuclear receptor subfamily 2 group C
+</pre></td>
+</tr>
+<tr><td colspan="1" nowrap="nowrap" valign="top"><pre style="display:inline;"><a name="B11"></a>  <a href="javascript:void(close_node('B11'))"><img class='arrowimg' src='/Fig/get_htext/open.png'> </a>2E. Tailless like receptor
+</pre></td>
+</tr>
+<tr><td class="col1" style="vertical-align:top;padding-right:10px;" nowrap><pre style="display:inline;">    <img src='/Fig/get_htext/whiteSP.png'> <a href="/dbget-bin/www_bget?ko:K08545">K08545</a>  NR2E1, TLX, tll; nuclear receptor subfamily 2 group E member 1
+    <img src='/Fig/get_htext/whiteSP.png'> <a href="/dbget-bin/www_bget?ko:K08546">K08546</a>  NR2E3, PNR; nuclear receptor subfamily 2 group E member 3
+</pre></td>
+</tr>
+<tr><td colspan="1" nowrap="nowrap" valign="top"><pre style="display:inline;"><a name="B12"></a>  <a href="javascript:void(close_node('B12'))"><img class='arrowimg' src='/Fig/get_htext/open.png'> </a>2F. COUP-TF like receptor
+</pre></td>
+</tr>
+<tr><td class="col1" style="vertical-align:top;padding-right:10px;" nowrap><pre style="display:inline;">    <img src='/Fig/get_htext/whiteSP.png'> <a href="/dbget-bin/www_bget?ko:K08547">K08547</a>  NR2F1, TFCOUP1; COUP transcription factor 1
+    <img src='/Fig/get_htext/whiteSP.png'> <a href="/dbget-bin/www_bget?ko:K08548">K08548</a>  NR2F2, TFCOUP2; COUP transcription factor 2
+    <img src='/Fig/get_htext/whiteSP.png'> <a href="/dbget-bin/www_bget?ko:K14032">K14032</a>  NR2F3, svp; nuclear receptor subfamily 2 group F member 3
+    <img src='/Fig/get_htext/whiteSP.png'> <a href="/dbget-bin/www_bget?ko:K08702">K08702</a>  NR2F5, SVP46; nuclear receptor subfamily 2 group F member 5
+    <img src='/Fig/get_htext/whiteSP.png'> <a href="/dbget-bin/www_bget?ko:K08549">K08549</a>  NR2F6, EAR2; nuclear receptor subfamily 2 group F member 6
+</pre></td>
+</tr>
+<tr><td class="col1" nowrap="nowrap" valign="top"><pre style="display:inline;">&nbsp;
+</pre></td>
+</tr>
+<tr><td colspan="1" nowrap="nowrap" valign="top"><pre style="display:inline;"><a name="A3"></a><a href="javascript:void(close_node('A3'))"><img class='arrowimg' src='/Fig/get_htext/open.png'> </a><b>3. Estrogen like</b>
+</pre></td>
+</tr>
+<tr><td colspan="1" nowrap="nowrap" valign="top"><pre style="display:inline;"><a name="B13"></a>  <a href="javascript:void(close_node('B13'))"><img class='arrowimg' src='/Fig/get_htext/open.png'> </a>3A. Estrogen receptor
+</pre></td>
+</tr>
+<tr><td class="col1" style="vertical-align:top;padding-right:10px;" nowrap><pre style="display:inline;">    <img src='/Fig/get_htext/whiteSP.png'> <a href="/dbget-bin/www_bget?ko:K08550">K08550</a>  ESR1, NR3A1; estrogen receptor alpha
+    <img src='/Fig/get_htext/whiteSP.png'> <a href="/dbget-bin/www_bget?ko:K08551">K08551</a>  ESR2, NR3A2; estrogen receptor beta
+</pre></td>
+</tr>
+<tr><td colspan="1" nowrap="nowrap" valign="top"><pre style="display:inline;"><a name="B14"></a>  <a href="javascript:void(close_node('B14'))"><img class='arrowimg' src='/Fig/get_htext/open.png'> </a>3B. Estrogen-related receptor
+</pre></td>
+</tr>
+<tr><td class="col1" style="vertical-align:top;padding-right:10px;" nowrap><pre style="display:inline;">    <img src='/Fig/get_htext/whiteSP.png'> <a href="/dbget-bin/www_bget?ko:K08552">K08552</a>  NR3B1, ESRRA; estrogen-related receptor alpha
+    <img src='/Fig/get_htext/whiteSP.png'> <a href="/dbget-bin/www_bget?ko:K08553">K08553</a>  NR3B2, ESRRB; estrogen-related receptor beta
+    <img src='/Fig/get_htext/whiteSP.png'> <a href="/dbget-bin/www_bget?ko:K08554">K08554</a>  NR3B3, ESRRG; estrogen-related receptor gamma
+    <img src='/Fig/get_htext/whiteSP.png'> <a href="/dbget-bin/www_bget?ko:K08703">K08703</a>  NR3BN, ERR; estrogen-related receptor ERR
+</pre></td>
+</tr>
+<tr><td colspan="1" nowrap="nowrap" valign="top"><pre style="display:inline;"><a name="B15"></a>  <a href="javascript:void(close_node('B15'))"><img class='arrowimg' src='/Fig/get_htext/open.png'> </a>3C. 3-Ketosteroid receptor
+</pre></td>
+</tr>
+<tr><td class="col1" style="vertical-align:top;padding-right:10px;" nowrap><pre style="display:inline;">    <img src='/Fig/get_htext/whiteSP.png'> <a href="/dbget-bin/www_bget?ko:K05771">K05771</a>  NR3C1, GR; glucocorticoid receptor
+    <img src='/Fig/get_htext/whiteSP.png'> <a href="/dbget-bin/www_bget?ko:K08555">K08555</a>  NR3C2, MR; mineralocorticoid receptor
+    <img src='/Fig/get_htext/whiteSP.png'> <a href="/dbget-bin/www_bget?ko:K08556">K08556</a>  PGR, NR3C3; progesterone receptor
+    <img src='/Fig/get_htext/whiteSP.png'> <a href="/dbget-bin/www_bget?ko:K08557">K08557</a>  AR, NR3C4; androgen receptor
+</pre></td>
+</tr>
+<tr><td class="col1" nowrap="nowrap" valign="top"><pre style="display:inline;">&nbsp;
+</pre></td>
+</tr>
+<tr><td colspan="1" nowrap="nowrap" valign="top"><pre style="display:inline;"><a name="A4"></a><a href="javascript:void(close_node('A4'))"><img class='arrowimg' src='/Fig/get_htext/open.png'> </a><b>4. Nerve growth factor IB like</b>
+</pre></td>
+</tr>
+<tr><td colspan="1" nowrap="nowrap" valign="top"><pre style="display:inline;"><a name="B16"></a>  <a href="javascript:void(close_node('B16'))"><img class='arrowimg' src='/Fig/get_htext/open.png'> </a>4A. Nerve growth factor IB like receptor
+</pre></td>
+</tr>
+<tr><td class="col1" style="vertical-align:top;padding-right:10px;" nowrap><pre style="display:inline;">    <img src='/Fig/get_htext/whiteSP.png'> <a href="/dbget-bin/www_bget?ko:K04465">K04465</a>  NR4A1, HMR; nuclear receptor subfamily 4 group A member 1
+    <img src='/Fig/get_htext/whiteSP.png'> <a href="/dbget-bin/www_bget?ko:K08558">K08558</a>  NR4A2, NURR1; nuclear receptor subfamily 4 group A member 2
+    <img src='/Fig/get_htext/whiteSP.png'> <a href="/dbget-bin/www_bget?ko:K08559">K08559</a>  NR4A3, NOR1; nuclear receptor subfamily 4 group A member 3
+</pre></td>
+</tr>
+<tr><td class="col1" nowrap="nowrap" valign="top"><pre style="display:inline;">&nbsp;
+</pre></td>
+</tr>
+<tr><td colspan="1" nowrap="nowrap" valign="top"><pre style="display:inline;"><a name="A5"></a><a href="javascript:void(close_node('A5'))"><img class='arrowimg' src='/Fig/get_htext/open.png'> </a><b>5. Fushi tarazu-F1 like</b>
+</pre></td>
+</tr>
+<tr><td colspan="1" nowrap="nowrap" valign="top"><pre style="display:inline;"><a name="B17"></a>  <a href="javascript:void(close_node('B17'))"><img class='arrowimg' src='/Fig/get_htext/open.png'> </a>5A. Fushi tarazu-F1 like receptor
+</pre></td>
+</tr>
+<tr><td class="col1" style="vertical-align:top;padding-right:10px;" nowrap><pre style="display:inline;">    <img src='/Fig/get_htext/whiteSP.png'> <a href="/dbget-bin/www_bget?ko:K08560">K08560</a>  NR5A1, SF1; steroidogenic factor 1
+    <img src='/Fig/get_htext/whiteSP.png'> <a href="/dbget-bin/www_bget?ko:K08027">K08027</a>  NR5A2, FTF; nuclear receptor subfamily 5 group A member 2
+    <img src='/Fig/get_htext/whiteSP.png'> <a href="/dbget-bin/www_bget?ko:K08705">K08705</a>  NR5A3, ftz-f1; nuclear receptor subfamily 5 group A member 3
+</pre></td>
+</tr>
+<tr><td class="col1" nowrap="nowrap" valign="top"><pre style="display:inline;">&nbsp;
+</pre></td>
+</tr>
+<tr><td colspan="1" nowrap="nowrap" valign="top"><pre style="display:inline;"><a name="A6"></a><a href="javascript:void(close_node('A6'))"><img class='arrowimg' src='/Fig/get_htext/open.png'> </a><b>6. Germ cell nuclear factor</b>
+</pre></td>
+</tr>
+<tr><td colspan="1" nowrap="nowrap" valign="top"><pre style="display:inline;"><a name="B18"></a>  <a href="javascript:void(close_node('B18'))"><img class='arrowimg' src='/Fig/get_htext/open.png'> </a>6A. Germ cell nuclear factor receptor
+</pre></td>
+</tr>
+<tr><td class="col1" style="vertical-align:top;padding-right:10px;" nowrap><pre style="display:inline;">    <img src='/Fig/get_htext/whiteSP.png'> <a href="/dbget-bin/www_bget?ko:K08561">K08561</a>  NR6A1, GCNF; germ cell nuclear factor
+    <img src='/Fig/get_htext/whiteSP.png'> <a href="/dbget-bin/www_bget?ko:K09185">K09185</a>  NR6AN; nuclear receptor subfamily 6 group A
+</pre></td>
+</tr>
+<tr><td class="col1" nowrap="nowrap" valign="top"><pre style="display:inline;">&nbsp;
+</pre></td>
+</tr>
+<tr><td colspan="1" nowrap="nowrap" valign="top"><pre style="display:inline;"><a name="A7"></a><a href="javascript:void(close_node('A7'))"><img class='arrowimg' src='/Fig/get_htext/open.png'> </a><b>0. Knirps / DAX like</b>
+</pre></td>
+</tr>
+<tr><td colspan="1" nowrap="nowrap" valign="top"><pre style="display:inline;"><a name="B19"></a>  <a href="javascript:void(close_node('B19'))"><img class='arrowimg' src='/Fig/get_htext/open.png'> </a>0A. Knirps like receptor
+</pre></td>
+</tr>
+<tr><td class="col1" style="vertical-align:top;padding-right:10px;" nowrap><pre style="display:inline;">    <img src='/Fig/get_htext/whiteSP.png'> <a href="/dbget-bin/www_bget?ko:K08706">K08706</a>  NR0AN, kni; nuclear receptor subfamily 0 group A
+</pre></td>
+</tr>
+<tr><td colspan="1" nowrap="nowrap" valign="top"><pre style="display:inline;"><a name="B20"></a>  <a href="javascript:void(close_node('B20'))"><img class='arrowimg' src='/Fig/get_htext/open.png'> </a>0B. DAX like receptor
+</pre></td>
+</tr>
+<tr><td class="col1" style="vertical-align:top;padding-right:10px;" nowrap><pre style="display:inline;">    <img src='/Fig/get_htext/whiteSP.png'> <a href="/dbget-bin/www_bget?ko:K08562">K08562</a>  NR0B1, DAX1; nuclear receptor subfamily 0 group B member 1
+    <img src='/Fig/get_htext/whiteSP.png'> <a href="/dbget-bin/www_bget?ko:K08563">K08563</a>  NR0B2, SHP; nuclear receptor subfamily 0 group B member 2
+</pre></td>
+</tr>
+
+
+</table>
+
+</form>
+
+<hr><b>[ <a href="/kegg/brite.html">BRITE</a> | <a href="/kegg/kegg2.html">KEGG2</a> | <a href="/kegg/">KEGG</a> ]</b><br>Last updated: August 31, 2010<br>Classification taken and modified from <a href="http://www.ncbi.nlm.nih.gov/pubmed/10219237">Nuclear Receptor Nomenclature</a>
+</body>
+</html>

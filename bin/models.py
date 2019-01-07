@@ -23,13 +23,6 @@ from tflearn.utils import repeat
 
 IMG_SIZE = 200
 # diff image size
-training_dataset_path = "/Users/trman/OneDrive/Projects/DrugDiscovery/TrainingDatasets"
-images_path = "../images200"
-yamanishi_path = "../Yamanishi"
-
-
-
-
 
 # The function was cloned from https://github.com/tflearn/tflearn/blob/master/examples/images/inception_resnet_v2.py
 # The it was modified for DEEPScreen

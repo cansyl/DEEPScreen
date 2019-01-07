@@ -7,7 +7,6 @@ import sys
 IMG_SIZE = 200
 # diff image size
 # training_dataset_path = "/Users/trman/OneDrive/Projects/DrugDiscovery/TrainingDatasets"
-images_path = "../images200"
 result_files_path = "../resultFiles"
 model_files_path = "../tflearnModels"
 TEMP_IMG_OUTPUT_PATH = "../tempImage"
