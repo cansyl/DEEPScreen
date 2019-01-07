@@ -69,7 +69,7 @@ CHEMBL435331,TP,ACT     CHEMBL3354592,TP,ACT    CHEMBL44134,TN,INACT    CHEMBL42
 
 * To train DEEPScreen on MUV dataset
 ```
-python trainConvNetMUV.py CNNModel MUV_712 adam 0.0005 5 256 0 0.8 0 0
+python trainConvNetMUV.py CNNModel MUV_692 adam 0.001 15 128 0 0.8 0 0
 ```
 * To train DEEPScreen on DUD-E dataset
 ```
@@ -79,13 +79,8 @@ python trainDEEPScreenDUDE.py ImageNetInceptionV2 hdac8 adam 0.0001 5 0 0 0.8 0 
 ```
 python trainDEEPScreenLenselink.py ImageNetInceptionV2 CHEMBL274 adam 0.0001 5 0 0 0.8 0 0
 ```
-The output of these commads same as the output before. Please note that you should unzip the corresponding file (**DUDEDatasetFiles.zip**, **MUVDatasetFiles.zip** or **Lenselink_Dataset_Files.zip**) before running training script.
-```
-python trainConvNet.py CNNModel CHEMBL1790 adam 0.0005 15 128 0 0.8 1
-```
-```
-python trainConvNet.py CNNModel CHEMBL1790 adam 0.0005 15 128 0 0.8 1
-```
+The output of these commads same as the output shown above. Please note that you should unzip the corresponding folders (**DUDEDatasetFiles.zip**, **MUVDatasetFiles.zip** or **Lenselink_Dataset_Files.zip**) before running training scripts.
+
 
 ```
 ## License
