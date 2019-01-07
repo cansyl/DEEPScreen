@@ -256,7 +256,8 @@ def getFamilyBasedChEMBLIDS(trainedModelFile):
                     fam_chemblid_dict["others"].add(target)
 
     return fam_chemblid_dict
-getFamilyBasedChEMBLIDS("DEEPScreenBestModelPerformances.txt")
+
+
 def drawImagesofMolecules():
     import subprocess
     families = ["enzyme", "gpcr", ]
@@ -1217,10 +1218,12 @@ def divideChEMBLCompounds():
 def getTopNModels(N):
     #print("#!/bin/bash")
     from operator import itemgetter
-    top5LogPath = "../resultFiles/LOGS/bestModelLOGSTop5"
+    #top5LogPath = "../resultFiles/LOGS/bestModelLOGSTop5"
+    top5LogPath = "../resultFiles/LOGS/bestModelLOGS"
     result_files_path = "../resultFiles"
     # best_fl = open("{}/ChEMBLBestModelResultsBest.txt".format(result_files_path), "r")
-    best_fl = open("{}/ChEMBLBestModelResultsAll_v2.txt".format(result_files_path), "r")
+    # best_fl = open("{}/ChEMBLBestModelResultsAll_v2.txt".format(result_files_path), "r")
+    best_fl = open("{}/DEEPScreenBestModelPerformances.txt".format(result_files_path), "r")
     lst_best_fl = best_fl.read().split("\n")
     best_fl.close()
     target_perf_dict = dict()
@@ -1433,3 +1436,52 @@ def printAllDEEPScreenCorrectShallowIncorrect():
                         print("{}\t{}\t{}".format(target_id, comp_key, deepscreen_comp_id_dict[comp_key][0]))
                 except:
                     pass
+
+
+def getBestModelPerformanceFromResultFile(N):
+    #print("#!/bin/bash")
+    from operator import itemgetter
+    top5LogPath = "../resultFiles/LOGS/bestModelLOGSTop5"
+    result_files_path = "../resultFiles"
+    best_fl = open("{}/ChEMBLBestModelResultsAll_v2.txt".format(result_files_path), "r")
+    lst_best_fl = best_fl.read().split("\n")
+    best_fl.close()
+    target_perf_dict = dict()
+    model_perf_dict = dict()
+    while "" in lst_best_fl:
+        lst_best_fl.remove("")
+    count = 0
+    print(lst_best_fl[0])
+    for line in lst_best_fl[1:]:
+        count += 1
+        #print(line)
+        log_fl, modelname, target, optimizer, learning_rate, epoch, hidden1, hidden2, dropout, rotate, save_model, test_f1score, test_mcc, test_accuracy, test_precision, test_recall, test_tp, test_fp, test_tn, test_fn, test_threshold, val_auc, val_auprc, test_auc, test_auprc = line.split(
+            "\t")
+        str_log_fl = log_fl
+        # print(log_fl)
+        if target not in target_perf_dict.keys():
+            target_perf_dict[target] = []
+
+        target_perf_dict[target].append([modelname, float(test_mcc), line])
+
+
+    for key in target_perf_dict.keys():
+        target_perf_dict[key] = sorted(target_perf_dict[key], key=itemgetter(1), reverse=True)
+        target_perf_dict[key] = target_perf_dict[key][:N]
+        for item in target_perf_dict[key]:
+            model_perf_dict[item[0]] = item[1]
+            #print(item)
+    #print(target_perf_dict)
+    #print(target_perf_dict["CHEMBL3081"])
+    #print("ChEMBLTargetID\tMCCScore")
+    sum = 0.0
+    for key in target_perf_dict.keys():
+        #print(target_perf_dict[key])
+        print(target_perf_dict[key][0][1])
+        sum += target_perf_dict[key][0][1]
+    print(sum/704.0)
+
+    return target_perf_dict
+
+
+# getBestModelPerformanceFromResultFile(1)

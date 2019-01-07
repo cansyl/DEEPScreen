@@ -21,8 +21,8 @@ from tflearn.layers.merge_ops import merge
 from tflearn.layers.normalization import batch_normalization
 from tflearn.utils import repeat
 
-# IMG_SIZE = 200
-IMG_SIZE = 266
+IMG_SIZE = 200
+# diff image size
 training_dataset_path = "/Users/trman/OneDrive/Projects/DrugDiscovery/TrainingDatasets"
 images_path = "../images200"
 yamanishi_path = "../Yamanishi"
@@ -31,7 +31,8 @@ yamanishi_path = "../Yamanishi"
 
 
 
-
+# The function was cloned from https://github.com/tflearn/tflearn/blob/master/examples/images/inception_resnet_v2.py
+# The it was modified for DEEPScreen
 def ImageNetInceptionV2(outnode, model_name,  target, opt, learn_r, epch, dropout_keep_rate, save_model=False):
     def block35(net, scale=1.0, activation="relu"):
         tower_conv = relu(batch_normalization(conv_2d(net, 32, 1, bias=False, activation=None, name='Conv2d_1x1')))
@@ -188,6 +189,9 @@ def ImageNetInceptionV2(outnode, model_name,  target, opt, learn_r, epch, dropou
     return model
 
 
+
+# The function was cloned from https://github.com/tflearn/tflearn/blob/master/examples/images/alexnet.py
+# The it was modified for DEEPScreen
 def AlexNetModel(outnode, model_name,  target, opt, learn_r, epch,  n_of_h1, n_of_h2, dropout_keep_rate, save_model=False):
     network = input_data(shape=[None, IMG_SIZE, IMG_SIZE, 1], name='input')
     network = conv_2d(network, 96, 11, strides=4, activation='relu')
@@ -220,6 +224,46 @@ def AlexNetModel(outnode, model_name,  target, opt, learn_r, epch,  n_of_h1, n_o
         model = tflearn.DNN(network)
     return model
 
+# in-house CNN model
+def CNNModel(outnode, model_name,  target, opt, learn_r, epch, n_of_h1, dropout_keep_rate, save_model=False):
+    convnet = input_data(shape=[None, IMG_SIZE, IMG_SIZE, 1], name='input')
+
+    convnet = conv_2d(convnet, 32, 5, activation='relu')
+    convnet = max_pool_2d(convnet, 5)
+
+    convnet = conv_2d(convnet, 64, 5, activation='relu')
+    convnet = max_pool_2d(convnet, 5)
+
+    convnet = conv_2d(convnet, 128, 5, activation='relu')
+    convnet = max_pool_2d(convnet, 5)
+
+    convnet = conv_2d(convnet, 64, 5, activation='relu')
+    convnet = max_pool_2d(convnet, 5)
+
+    convnet = conv_2d(convnet, 32, 5, activation='relu')
+    convnet = max_pool_2d(convnet, 5)
+
+    convnet = fully_connected(convnet, 1024, activation='relu')
+    convnet = dropout(convnet, 0.8)
+
+    convnet = fully_connected(convnet, outnode, activation='softmax')
+    convnet = regression(convnet, optimizer=opt, learning_rate=learn_r, loss='categorical_crossentropy', name='targets')
+
+    str_model_name = "{}_{}_{}_{}_{}_{}_{}_{}".format(model_name,  target, opt, learn_r, epch, n_of_h1, dropout_keep_rate, save_model)
+
+    model = None
+
+    if save_model:
+        model = tflearn.DNN(convnet, checkpoint_path='../tflearnModels/{}'.format(str_model_name), best_checkpoint_path='../tflearnModels/bestModels/best_{}'.format(str_model_name),
+                        max_checkpoints=1, tensorboard_verbose=0, tensorboard_dir="../tflearnLogs/{}/".format(str_model_name))
+    else:
+        model = tflearn.DNN(convnet)
+
+    return model
+
+
+# in-house model2
+# This is not used!
 def CNNModel2(outnode, model_name,  target, opt, learn_r, epch, n_of_h1, dropout_keep_rate, save_model=False):
     convnet = input_data(shape=[None, IMG_SIZE, IMG_SIZE, 1], name='input')
 
@@ -263,38 +307,3 @@ def CNNModel2(outnode, model_name,  target, opt, learn_r, epch, n_of_h1, dropout
     return model
 
 
-def CNNModel(outnode, model_name,  target, opt, learn_r, epch, n_of_h1, dropout_keep_rate, save_model=False):
-    convnet = input_data(shape=[None, IMG_SIZE, IMG_SIZE, 1], name='input')
-
-    convnet = conv_2d(convnet, 32, 5, activation='relu')
-    convnet = max_pool_2d(convnet, 5)
-
-    convnet = conv_2d(convnet, 64, 5, activation='relu')
-    convnet = max_pool_2d(convnet, 5)
-
-    convnet = conv_2d(convnet, 128, 5, activation='relu')
-    convnet = max_pool_2d(convnet, 5)
-
-    convnet = conv_2d(convnet, 64, 5, activation='relu')
-    convnet = max_pool_2d(convnet, 5)
-
-    convnet = conv_2d(convnet, 32, 5, activation='relu')
-    convnet = max_pool_2d(convnet, 5)
-
-    convnet = fully_connected(convnet, 1024, activation='relu')
-    convnet = dropout(convnet, 0.8)
-
-    convnet = fully_connected(convnet, outnode, activation='softmax')
-    convnet = regression(convnet, optimizer=opt, learning_rate=learn_r, loss='categorical_crossentropy', name='targets')
-
-    str_model_name = "{}_{}_{}_{}_{}_{}_{}_{}".format(model_name,  target, opt, learn_r, epch, n_of_h1, dropout_keep_rate, save_model)
-
-    model = None
-
-    if save_model:
-        model = tflearn.DNN(convnet, checkpoint_path='../tflearnModels/{}'.format(str_model_name), best_checkpoint_path='../tflearnModels/bestModels/best_{}'.format(str_model_name),
-                        max_checkpoints=1, tensorboard_verbose=0, tensorboard_dir="../tflearnLogs/{}/".format(str_model_name))
-    else:
-        model = tflearn.DNN(convnet)
-
-    return model

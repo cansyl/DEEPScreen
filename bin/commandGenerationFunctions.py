@@ -1,9 +1,118 @@
 def generateCommandsForPredictiongAllChEMBL():
     from operator import itemgetter
     print("#!/bin/bash")
-    top5LogPath = "../resultFiles/LOGS/bestModelLOGSTop5"
+    top5LogPath = "../resultFiles/LOGS/bestModelLOGS"
     result_files_path = "../resultFiles"
-    best_fl = open("{}/ChEMBLBestModelResultsAll_v2.txt".format(result_files_path), "r")
+    best_fl = open("{}/DEEPScreenBestModelPerformances.txt".format(result_files_path), "r")
+    lst_best_fl = best_fl.read().split("\n")
+    best_fl.close()
+    best_model_dict = dict()
+
+    while "" in lst_best_fl:
+        lst_best_fl.remove("")
+    count = 0
+    for line in lst_best_fl[1:]:
+        count += 1
+
+        log_fl, modelname, target, optimizer, learning_rate, epoch, hidden1, hidden2, dropout, rotate, save_model, test_f1score, test_mcc, test_accuracy, test_precision, test_recall, test_tp, test_fp, test_tn, test_fn, test_threshold, val_auc, val_auprc, test_auc, test_auprc = line.split(
+            "\t")
+        try:
+            best_model_dict[target].append([float(test_mcc), line])
+        except:
+            best_model_dict[target] = [[float(test_mcc), line]]
+
+    for tar in best_model_dict.keys():
+        best_model_dict[tar] = sorted(best_model_dict[tar], key=itemgetter(0), reverse=True)
+        best_model_mcc_score = float(best_model_dict[tar][0][0])
+
+        for item in best_model_dict[tar][:1]:
+
+            count += 1
+            log_fl, modelname, target, optimizer, learning_rate, epoch, hidden1, hidden2, dropout, rotate, save_model, test_f1score, test_mcc, test_accuracy, test_precision, test_recall, test_tp, test_fp, test_tn, test_fn, test_threshold, val_auc, val_auprc, test_auc, test_auprc = item[1].split("\t")
+
+            log_fl = open("{}/{}".format(top5LogPath, log_fl), "r")
+            lst_log_fl = log_fl.read().split("\n")
+            log_fl.close()
+
+            model_fl = ""
+            for line in lst_log_fl:
+                if line.startswith("Log directory:"):
+                    model_fl = line.split("/")[-2]
+            if modelname=="ImageNetInceptionV2":
+                print(
+                    "bsub -q research-rh74 -R 'select[nprocs<=2]' -M 6144 -R 'rusage[mem=6144]'  -o ../LOGS/ChEMBL24New/chembl24_new_compound_{}.out \"python loadModel.py {} {} chembl24_new_compound.tsv\"".format(
+                        target, target, model_fl))
+                print("sleep 5")
+            else:
+                print(
+                    "bsub -q research-rh74 -R 'select[nprocs<=2]' -M 2048 -R 'rusage[mem=2048]'  -o ../LOGS/ChEMBL24New/chembl24_new_compound_{}.out \"python loadModel.py {} {} chembl24_new_compound.tsv\"".format(
+                        target, target, model_fl))
+                print("sleep 5")
+
+
+def generateCommandsForPredictiongASetofTargets():
+    from operator import itemgetter
+    print("#!/bin/bash")
+    top5LogPath = "../resultFiles/LOGS/bestModelLOGS"
+    result_files_path = "../resultFiles"
+    best_fl = open("{}/DEEPScreenBestModelPerformances.txt".format(result_files_path), "r")
+    lst_best_fl = best_fl.read().split("\n")
+    best_fl.close()
+    best_model_dict = dict()
+    targets_to_be_predicted = ["CHEMBL2292", "CHEMBL5543", "CHEMBL4376", "CHEMBL4224", "CHEMBL4203", "CHEMBL3476", "CHEMBL1991"]
+
+    while "" in lst_best_fl:
+        lst_best_fl.remove("")
+    count = 0
+    for line in lst_best_fl[1:]:
+        count += 1
+
+        log_fl, modelname, target, optimizer, learning_rate, epoch, hidden1, hidden2, dropout, rotate, save_model, test_f1score, test_mcc, test_accuracy, test_precision, test_recall, test_tp, test_fp, test_tn, test_fn, test_threshold, val_auc, val_auprc, test_auc, test_auprc = line.split(
+            "\t")
+        try:
+            best_model_dict[target].append([float(test_mcc), line])
+        except:
+            best_model_dict[target] = [[float(test_mcc), line]]
+
+    for tar in targets_to_be_predicted:
+        best_model_dict[tar] = sorted(best_model_dict[tar], key=itemgetter(0), reverse=True)
+        best_model_mcc_score = float(best_model_dict[tar][0][0])
+
+        for item in best_model_dict[tar][:1]:
+
+            count += 1
+            log_fl, modelname, target, optimizer, learning_rate, epoch, hidden1, hidden2, dropout, rotate, save_model, test_f1score, test_mcc, test_accuracy, test_precision, test_recall, test_tp, test_fp, test_tn, test_fn, test_threshold, val_auc, val_auprc, test_auc, test_auprc = item[1].split("\t")
+
+            log_fl = open("{}/{}".format(top5LogPath, log_fl), "r")
+            lst_log_fl = log_fl.read().split("\n")
+            log_fl.close()
+
+            model_fl = ""
+            for line in lst_log_fl:
+                if line.startswith("Log directory:"):
+                    model_fl = line.split("/")[-2]
+            if modelname=="ImageNetInceptionV2":
+                print(
+                    "bsub -q research-rh74 -R 'select[nprocs<=2]' -M 6144 -R 'rusage[mem=6144]'  -o ../LOGS/2018Validations/2018Validations_new_compound_{}.out \"python loadModel.py {} {} 2018_exp_val.txt\"".format(
+                        target, target, model_fl))
+                print("sleep 5")
+            else:
+                print(
+                    "bsub -q research-rh74 -R 'select[nprocs<=2]' -M 2048 -R 'rusage[mem=2048]'  -o ../LOGS/2018Validations/2018Validations_new_compound_{}.out \"python loadModel.py {} {} 2018_exp_val.txt\"".format(
+                        target, target, model_fl))
+                print("sleep 5")
+
+# generateCommandsForPredictiongASetofTargets()
+#print(count)
+#generateCommandsForPredictiongAllChEMBL()
+
+
+def generateCommandsForPredictiongAllChEMBL():
+    from operator import itemgetter
+    print("#!/bin/bash")
+    top5LogPath = "../resultFiles/LOGS/bestModelLOGS"
+    result_files_path = "../resultFiles"
+    best_fl = open("{}/DEEPScreenBestModelPerformances.txt".format(result_files_path), "r")
     lst_best_fl = best_fl.read().split("\n")
     best_fl.close()
     best_model_dict = dict()
@@ -26,8 +135,8 @@ def generateCommandsForPredictiongAllChEMBL():
             best_model_mcc_score = float(best_model_dict[tar][0][0])
 
             #print(tar, best_model_dict[tar])
-
-            if round(best_model_mcc_score, 2) >= 0.70:
+            if round(best_model_mcc_score, 2) >= 0.60 and round(best_model_mcc_score, 2) < 0.70:
+            #if round(best_model_mcc_score, 2) >= 0.70:
                 for item in best_model_dict[tar][:1]:
                     if (round(best_model_mcc_score, 2) - round(float(item[0]), 2) <= 0.05):
                         count += 1
@@ -36,6 +145,7 @@ def generateCommandsForPredictiongAllChEMBL():
                         log_fl = open("{}/{}".format(top5LogPath, log_fl), "r")
                         lst_log_fl = log_fl.read().split("\n")
                         log_fl.close()
+
                         model_fl = ""
                         for line in lst_log_fl:
                             if line.startswith("Log directory:"):
@@ -50,6 +160,8 @@ def generateCommandsForPredictiongAllChEMBL():
                                 "bsub -q research -R 'select[nprocs<=2]' -M 2048 -R 'rusage[mem=2048]'  -o ../LOGS/LoadModels/testDrugs_{}_batch{}.out \"python loadModel.py {} {} ChEMBL24CompRepFiles/chembl_24_1_chemreps_part{}.txt\"".format(
                                     model_fl, (batch + 1), target, model_fl, (batch + 1)))
                             print("sleep 5")
+
+    #print(count)
 
 
 # generateCommandsForPredictiongAllChEMBL()
@@ -102,6 +214,95 @@ def generateCommandsForTop5BestParameters():
                     "bsub -q research -M 15360 -R 'rusage[mem=15360]'  -o ../LOGS/OtherLOGS/convnetTop5Run_{}.out \"{}\"".format(
                         count, str_command))
             print("sleep 5")
+
+def generateCommandsForASetofTargetsConvNet():
+    import sys
+
+    """
+    model_name = sys.argv[1] # mod
+    trgt = sys.argv[2] # done
+    optim = sys.argv[3] # done
+    learning_rate = float(sys.argv[4]) # done
+    n_epoch = int(sys.argv[5]) # done
+    n_of_h1 = int(sys.argv[6]) # done
+    n_of_h2 = int(sys.argv[7]) # done
+    dropout_keep_rate = int(sys.argv[8])
+    rotate = bool(sys.argv[9]) # done
+    save_model = bool(sys.argv[10])
+    """
+
+    # CHEMBL1075138	3377	6073
+    # CHEMBL2949	455	796
+    # CHEMBL5077	359	408
+    # CHEMBL221	738	783
+    # CHEMBL3638364	140	122
+
+    act_inact_fl = open(
+        "../trainingFiles/act_inact_comps_10.0_20.0_chembl_preprocessed_sp_b_pchembl_data_blast_comp_20.txt", "r")
+    lst_act_inact_fl = act_inact_fl.read().split("\n")
+    act_inact_fl.close()
+    target_count = 0
+    target_list = []
+
+    all_compound_set = []
+
+    for i in range(len(lst_act_inact_fl)):
+        if "_act" in lst_act_inact_fl[i]:
+            chembl_target_id, comp_list = lst_act_inact_fl[i].split("\t")
+            chembl_target_id = chembl_target_id.split("_")[0]
+            comp_list = comp_list.split(",")
+            all_compound_set.extend(comp_list)
+            _, inact_comp_list = lst_act_inact_fl[i + 1].split("\t")
+            inact_comp_list = inact_comp_list.split(",")
+
+            all_compound_set.extend(inact_comp_list)
+            if len(comp_list) >= 100 and len(inact_comp_list) >= 100:
+                target_count += 1
+                target_list.append(chembl_target_id)
+
+
+    target_list = ["CHEMBL4588", "CHEMBL6184", "CHEMBL4302", "CHEMBL2625", "CHEMBL4804", "CHEMBL4617", "CHEMBL2288", "CHEMBL2967", "CHEMBL5103", "CHEMBL5011", "CHEMBL3358", "CHEMBL241", "CHEMBL2039", "CHEMBL204", "CHEMBL4026", "CHEMBL2326", "CHEMBL6164", "CHEMBL3943", "CHEMBL3807", "CHEMBL2107", "CHEMBL3464", "CHEMBL1916", "CHEMBL3286", "CHEMBL5543", "CHEMBL1952", "CHEMBL3145", "CHEMBL2488", "CHEMBL2590", "CHEMBL2391", "CHEMBL4685", "CHEMBL6175", "CHEMBL3455", "CHEMBL4361", "CHEMBL2716", "CHEMBL5221", "CHEMBL2409", "CHEMBL262", "CHEMBL3776", "CHEMBL238", "CHEMBL1937", "CHEMBL4073", "CHEMBL335", "CHEMBL4471", "CHEMBL4235", "CHEMBL3769", "CHEMBL5147", "CHEMBL4822", "CHEMBL3880", "CHEMBL2243", "CHEMBL220", "CHEMBL2487", "CHEMBL3474", "CHEMBL2803", "CHEMBL1968", "CHEMBL4224", "CHEMBL4657", "CHEMBL1944", "CHEMBL4506", "CHEMBL2949", "CHEMBL3572", "CHEMBL2664", "CHEMBL3746", "CHEMBL4203", "CHEMBL3775", "CHEMBL3268", "CHEMBL3081", "CHEMBL1865", "CHEMBL1841", "CHEMBL333", "CHEMBL1873", "CHEMBL3959", "CHEMBL4102", "CHEMBL3314", "CHEMBL3243", "CHEMBL2331", "CHEMBL2363", "CHEMBL3864", "CHEMBL3310", "CHEMBL4005", "CHEMBL5697", "CHEMBL3837", "CHEMBL4072", "CHEMBL3729", "CHEMBL3192", "CHEMBL5077", "CHEMBL3025", "CHEMBL4718", "CHEMBL2850", "CHEMBL2304402", "CHEMBL325", "CHEMBL6007", "CHEMBL1951", "CHEMBL240", "CHEMBL5508", "CHEMBL3229", "CHEMBL2756", "CHEMBL4071", "CHEMBL2916", "CHEMBL3411", "CHEMBL2563", "CHEMBL2334", "CHEMBL3969", "CHEMBL2397", "CHEMBL221", "CHEMBL4803", "CHEMBL4789", "CHEMBL312", "CHEMBL268", "CHEMBL1255150", "CHEMBL2622", "CHEMBL2366", "CHEMBL1929", "CHEMBL4145", "CHEMBL2758", "CHEMBL202", "CHEMBL4696", "CHEMBL3267", "CHEMBL4478", "CHEMBL1075138"]
+
+    optimizers = ["adam", "momentum", "RMSprop"]
+
+    learning_rates = [0.0001, 0.001, 0.01, 0.0005, 0.005]
+
+    hidden_dict = {"ImageNetInceptionV2": [[0, 0]],
+                   "CNNModel": [[16, 0], [32, 0], [128, 0], [256, 0], [512, 0]]
+                   }
+
+    models = ["ImageNetInceptionV2", "CNNModel"]
+    dropout_keep_list = [0.6, 0.8]
+    epoch_list = [15, 30, 40]
+    count = 0
+    rotate = [0]
+    save = [1]
+
+
+    for rot in rotate:
+        for epoch in epoch_list:
+            for trg in target_list:
+                for mod in models:
+                    for hd12 in hidden_dict[mod]:
+                        for opt in optimizers:
+                            for l_r in learning_rates:
+                                for drp in dropout_keep_list:
+                                    for sv in save:
+                                        if count % 10000 == 0:
+                                            print("#!/bin/bash")
+                                        count += 1
+                                        if mod == "ImageNetInceptionV2":
+                                            print(
+                                                "bsub -q research-rh74 -R 'select[nprocs<=2]' -M 30720  -o ../ImageNetLOGS/lowPerformedconvnetFinalRun_{}.out \"python trainConvNet.py {} {} {} {} {} {} {} {} {} {}\"".format(
+                                                    count, mod, trg, opt, l_r, epoch, hd12[0], hd12[1], drp, rot, sv))
+                                            print("sleep 3")
+                                        else:
+                                            print(
+                                                "bsub -q research-rh74 -R 'select[nprocs<=2]' -M 15360  -o ../OtherLOGS/lowPerformedconvnetFinalRun_{}.out \"python trainConvNet.py {} {} {} {} {} {} {} {} {} {}\"".format(
+                                                    count, mod, trg, opt, l_r, epoch, hd12[0], hd12[1], drp, rot, sv))
+                                            print("sleep 3")
+
+generateCommandsForASetofTargetsConvNet()
 
 
 def generateCommandsForConvNet():
@@ -518,7 +719,6 @@ def generateCommandsForMissingModels():
                 print("sleep 3")
 
 
-# git deneme
-
+#git deneme
 #generateCommandsForMissingModels()
 

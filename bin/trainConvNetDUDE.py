@@ -12,8 +12,8 @@ from sklearn.metrics import confusion_matrix
 
 import sys
 
-# IMG_SIZE = 200
-IMG_SIZE = 266
+IMG_SIZE = 200
+# IMG_SIZE = 266
 LR = 1e-3
 
 training_dataset_path = "/Users/trman/OneDrive/Projects/DrugDiscovery/TrainingDatasets"
@@ -250,16 +250,16 @@ def trainModelTarget(model_name, target, optimizer, learning_rate, epch,  n_of_h
         temp_pos_pred = round(test_predictions[i], 2)
 
         if test_y[i] == 1 and temp_pos_pred >= best_test_threshold:
-            str_predictions += "{},{},{},{}\t".format(test_comp_name[i],"TP","ACT",temp_pos_pred)
+            str_predictions += "{},{},{}\t".format(test_comp_name[i],"TP","ACT")
 
         elif test_y[i] == 1 and temp_pos_pred < best_test_threshold:
-            str_predictions += "{},{},{},{}\t".format(test_comp_name[i], "FN", "ACT", temp_pos_pred)
+            str_predictions += "{},{},{}\t".format(test_comp_name[i], "FN", "ACT")
 
         elif test_y[i] == 0 and temp_pos_pred < best_test_threshold:
-            str_predictions += "{},{},{},{}\t".format(test_comp_name[i], "TN", "INACT", temp_pos_pred)
+            str_predictions += "{},{},{}\t".format(test_comp_name[i], "TN", "INACT")
 
         elif test_y[i] == 0 and temp_pos_pred >= best_test_threshold:
-            str_predictions += "{},{},{},{}\t".format(test_comp_name[i], "FP", "INACT", temp_pos_pred)
+            str_predictions += "{},{},{}\t".format(test_comp_name[i], "FP", "INACT")
     print(str_predictions)
 
 model_name = sys.argv[1]

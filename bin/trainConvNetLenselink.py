@@ -12,12 +12,10 @@ from sklearn.metrics import confusion_matrix
 
 import sys
 
-# IMG_SIZE = 200
-IMG_SIZE = 266
+IMG_SIZE = 200
+# IMG_SIZE = 266
 LR = 1e-3
 
-training_dataset_path = "/Users/trman/OneDrive/Projects/DrugDiscovery/TrainingDatasets"
-images_path = "../images200"
 TEMP_IMG_OUTPUT_PATH = "../tempImage"
 
 
@@ -25,7 +23,7 @@ TEMP_IMG_OUTPUT_PATH = "../tempImage"
 
 
 
-def trainModelTarget(model_name, target, optimizer, learning_rate, epch,  n_of_h1, n_of_h2, dropout_keep_rate, rotate, save_model):
+def trainModelTarget(model_name, target, optimizer, learning_rate, epch,  n_of_h1, n_of_h2, dropout_keep_rate, save_model):
 
     #target_only_alpnum = ''.join(ch for ch in target if ch.isalnum())
     model = None
@@ -46,7 +44,7 @@ def trainModelTarget(model_name, target, optimizer, learning_rate, epch,  n_of_h
         pass
 
     #train, test = getTrainDataBinary("{}/{}".format(Y_IMG_PATH,target), target )
-    train, validation, test = constructDataMatricesForATargetLenselinksStudy(TEMP_IMG_OUTPUT_PATH, target, rotate)
+    train, validation, test = constructDataMatricesForATargetLenselinksStudy(TEMP_IMG_OUTPUT_PATH, target, False)
     train_comp_name = [i[2] for i in train]
 
     X = []
@@ -107,7 +105,7 @@ def trainModelTarget(model_name, target, optimizer, learning_rate, epch,  n_of_h
     if save_model:
         model.fit(X, Y, n_epoch=epch, validation_set=({'input': validation_x}, {'targets': validation_y}),
               show_metric=True, batch_size=32, snapshot_step=200,
-              snapshot_epoch=True, run_id="{}_{}_{}_{}_{}_{}_{}_{}_{}_{}_id".format(model_name, target, optimizer, learning_rate, epch,  n_of_h1, n_of_h2, dropout_keep_rate, rotate, save_model))
+              snapshot_epoch=True, run_id="{}_{}_{}_{}_{}_{}_{}_{}_{}_{}_id".format(model_name, target, optimizer, learning_rate, epch,  n_of_h1, n_of_h2, dropout_keep_rate, False, save_model))
     else:
         model.fit(X, Y, n_epoch=epch, validation_set=({'input': validation_x}, {'targets': validation_y}),
                   show_metric=True, batch_size=32)
@@ -245,21 +243,22 @@ def trainModelTarget(model_name, target, optimizer, learning_rate, epch,  n_of_h
 
     best_test_threshold = round(best_test_mcc_list[-1],2)
     str_predictions = ""
-    print("TestPredictions (Threshold:{})".format(best_test_threshold))
+    #print("TestPredictions (Decision Threshold:{})".format(best_test_threshold))
+    print("TestPredictions:")
     for i in range(len(test_predictions)):
         temp_pos_pred = round(test_predictions[i], 2)
 
         if test_y[i] == 1 and temp_pos_pred >= best_test_threshold:
-            str_predictions += "{},{},{},{}\t".format(test_comp_name[i],"TP","ACT",temp_pos_pred)
+            str_predictions += "{},{},{}\t".format(test_comp_name[i],"TP","ACT")
 
         elif test_y[i] == 1 and temp_pos_pred < best_test_threshold:
-            str_predictions += "{},{},{},{}\t".format(test_comp_name[i], "FN", "ACT", temp_pos_pred)
+            str_predictions += "{},{},{}\t".format(test_comp_name[i], "FN", "ACT")
 
         elif test_y[i] == 0 and temp_pos_pred < best_test_threshold:
-            str_predictions += "{},{},{},{}\t".format(test_comp_name[i], "TN", "INACT", temp_pos_pred)
+            str_predictions += "{},{},{}\t".format(test_comp_name[i], "TN", "INACT")
 
         elif test_y[i] == 0 and temp_pos_pred >= best_test_threshold:
-            str_predictions += "{},{},{},{}\t".format(test_comp_name[i], "FP", "INACT", temp_pos_pred)
+            str_predictions += "{},{},{}\t".format(test_comp_name[i], "FP", "INACT")
     print(str_predictions)
 
 model_name = sys.argv[1]
@@ -270,11 +269,15 @@ n_epoch = int(sys.argv[5])
 n_of_h1 = int(sys.argv[6])
 n_of_h2 = int(sys.argv[7])
 dropout_keep_rate = float(sys.argv[8])
-rotate = bool(int(sys.argv[9]))
-save_model = bool(int(sys.argv[10]))
+# rotate = bool(int(sys.argv[9]))
+save_model = bool(int(sys.argv[9]))
 
-print(model_name, trgt, optim, learning_rate, n_epoch, n_of_h1, n_of_h2, dropout_keep_rate, rotate, save_model)
-trainModelTarget(model_name, trgt, optim, learning_rate, n_epoch, n_of_h1, n_of_h2, dropout_keep_rate, rotate, save_model)
+# print(model_name, trgt, optim, learning_rate, n_epoch, n_of_h1, n_of_h2, dropout_keep_rate, rotate, save_model)
+# trainModelTarget(model_name, trgt, optim, learning_rate, n_epoch, n_of_h1, n_of_h2, dropout_keep_rate, rotate, save_model)
+
+print(model_name, trgt, optim, learning_rate, n_epoch, n_of_h1, n_of_h2, dropout_keep_rate, save_model)
+trainModelTarget(model_name, trgt, optim, learning_rate, n_epoch, n_of_h1, n_of_h2, dropout_keep_rate, save_model)
+
 
 # CHEMBL1075138	3377	6073
 # CHEMBL2949	455	796
