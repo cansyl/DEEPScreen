@@ -1,83 +1,72 @@
 # DEEPScreen: Virtual Screening Using Convolutional Neural Networks By Images of Compounds
 
 ## Descriptions of folders and files under the DEEPScreen repository
-* "FastaFiles"
-    * Includes training and test sequences for each GO category.
-    * For example, the fasta file of training and test sequences for molecular function category is "MF_deepred_training_sequences.fasta.zip" and fasta file of CAFA benchmarking protein sequences for molecular function category is "mfo_cafa_only_annot_prot.fasta.zip".
+* **bin** This folder includes the source code of DEEPScreen
+* **trainingFiles** includes the information about the models used in the feature selection and hyper-parameter optimization tests.
+    * **DEEPScreenBestModelPerformances.txt** contains the performance results and hyper-parameter selections for each trained target. 
+    * **act_inact_comps_10.0_20.0_chembl_preprocessed_sp_b_pchembl_data_blast_comp_20.txt** file contains active and inactive compound information after similarity-based negative training dataset enrichment for all targets.
+    * **act_inact_comps_10.0_20.0_chembl_preprocessed_sp_b_pchembl_data.txt** file contains active and inactive compound information before similarity-based negative training dataset enrichment for all targets.
+    * **DUDEDatasetFiles.zip** contains training dataset for DUD-E dataset.
+    * **Lenselink_Dataset_Files.zip** contains training datasets for Lenselink et al.'s study.
+    * **MUVDatasetFiles.zip** contains training dataset for MUV dataset. and InChI representations for all ChEMBL compounds (version 23).
+    * **chembl23_chemreps.txt.zip** contains SMILEs and InChI representations for all ChEMBL compounds (version 23).
     
-* "FirstRuns"
-    * Includes the information about the models used in the feature selection and hyper-parameter optimization tests.
-    * File names contain information regarding the level of GO terms, the range of the number of annotated proteins and the model number.
-    * For example, "MFGOTerms30_4_201_300_2.txt" includes the molecular function GO terms trained on the fourth level of GO DAG, which have number of annotated proteins between 201 and 300 and this is the second model trained on the fourth level of GO.
-    * Inside each file, the information regarding the ids of trained GO terms and the respective number of annotated proteins for each GO term is given in tab-delimited format.
-    
-* "GOTermFiles"
-    * Includes the information about all of the models in DEEPScreen.
-    * There are three zip files under this directory (one file for each GO category).
-    * These files are unzipped into individual folders, which include a sub-folder named "5", and the model files are included under this folder. The format of the files are same as above (explained under the "FirstRuns" folder).
-    
-* "FeatureVectors" (This folder is not available under the DEEPScreen repository. It should be downloaded from [here](http://goo.gl/Kd7FkU))
-    * Includes feature vector files that belong to the training and test proteins.
-    * For example, "Parsed_PAACFeatures_uniprot_training_test_set.txt" file contains PAAC feature vectors and "Parsed_BPSPMAPFeatures_CAFA2.txt" file contains SPMAP feature vectors for BP CAFA benchmark protein sequences.
-    * In these files, each row contains the protein's UniProt accession, followed by the dimensions of the feature vector in  tab-delimited format.
-    
-* "TrainTestDatasets"
-    * Includes training and test proteins' UniProt identifiers given individually for each GO term.
-    * There are three zip files under this directory (one file for each GO category).
-    * These files are unzipped into individual folders, which include two files (train and test) for each GO term trained in the corresposding category.
-    * Example: "train_GO:0043175.ids" and "test_GO:0043175.ids".
-    
-* "ElectronicAnnotationTrainingDatasets"
-    * Includes training and test proteins' UniProt identifiers given individually for each GO term, which were used in the manual experimental + electronic annotations (i.e., all annotations) training test.
-    * There is a single zip file under this directory. This file is unzipped into a folder, which include two files (train and test) for each trained GO term (proteins annotated with all evidence codes).
-    * Example: "train_GO:0032553.ids" and "test_GO:0032553.ids".
-    
-* "Annots" (This folder is not available under the DEEPScreen repository. It should be downloaded from [here](http://goo.gl/Kd7FkU))
-    * Includes various merged training and test annotation files.
-    * Inside the files under this directory, GO terms and their annotated proteins are not separated into individual files (they are merged).
-    * For example, all manual experimental annotations are stored in  "all_categories_manual_experimental_annots_29_08_2017_Propagated.tsv" file and all annotations (including electronic annotations) are stored in "all_categories_all_annots_29_08_2017_Propagated.tsv" file.
-    * This folder also includes CAFA2 target protein files.
-
-
+* **tempImage**
+    * needed to create temporary images of compounds.
+* **tflearnModels**
+    * the folder that is used to store the trained models.
+    * trained-models can be dowloaded from [here](http://google.com)
+* **resultFiles** contains performance calculations of optimized models.
          
 ## Dependencies
-#### [python 3.5.1](https://www.python.org/downloads/release/python-351/)
-#### [tensorflow 1.4.1](https://github.com/tensorflow/tensorflow/releases/tag/v1.4.1)
-#### [numpy 1.13.3](https://pypi.python.org/pypi/numpy/1.13.3)
+#### [tflearn 0.3.2](https://pypi.org/project/tflearn/)
+#### [sklearn 0.19.2](https://scikit-learn.org/0.19/install.html)
+#### [numpy 1.14.5](https://pypi.python.org/pypi/numpy/1.13.3)
+#### [cairosvg 2.1.2](https://pypi.org/project/CairoSVG/)
+#### [rdkit 2016.09.4](http://rdkit.org/docs/Install.html)
 
 
 ## How to run DEEPScreen
 * Install dependencies and necessary libraries.
-* Download DEEPScreen repository
-* Download the compressed "FeatureVectors.zip" and "Annots.zip" files from [here](http://goo.gl/Kd7FkU) and put them under DEEPred folder. 
+* Clone the DEEPScreen repository
 * Decompress the files under the following folders
     * FastaFiles
     * GOTermFiles
     * TrainTestDatasets
     * FeatureVectors
     * Annots
-* Run DEEPScreen script (4_layer_train.py) by providing following command line arguments:
-    * number of neurons at the first layer
-    * number of neurons at the second layer
-    * number of epochs
-    * GO terms to be trained in a model (.txt file Could be any file under GOTermFiles)
-    * GO category (MF, BP, CC)
-    * Type of feature (could be PAAC, CTriad, MFSPMAP, BPSPMAP, CCSPMAP)
-    * Learning rate
-    * Mini-batch size
+* Run DEEPScreen script by providing following command line arguments:
+    * DNN architecture (ImageNetInceptionV2, CNNModel)
+    * target ChEMBL ID
     * optimizer type (adam, momentum, rmsprop)
-    * normalize_inputs (yes, no)
-    * batch_normalization (yes, no)
-    * learning_rate_decay (yes, no)
-    * drop_out_rate
+    * learning rate
+    * number of epochs
+    * number of neurons in the first fully-connected layer
+    * number of neurons in the second fully-connected layer
+    * drop-out keep rate
+    * save model (should be 1 to save the model or 0 (not save))
 
 
 Example:
 ```
-python 4_layer_train.py 1400 100 1000 MFGOTerms30_4_201_300_2.txt MF MFSPMAP 0.001 32 adam yes yes yes 0.6
+python trainConvNet.py CNNModel CHEMBL1790 adam 0.0005 15 128 0 0.8 1
 ```
 ## Output of the script
-The prediction scores and the performance results for the test sequences are printed as the output.
+The prediction scores and the performance results for the test and validation sequences are printed as the output.
+```
+Validation AUC:0.955625
+Validation AUPRC:0.9560081031194367
+Test AUC:0.9445025083612041
+Test AUPRC:0.9379908635681835
+BestTestF1Score 0.9     0.81    0.9     0.88    0.91    84      11      93      8       0.95
+BestTestMCCScore        0.88    0.78    0.89    0.91    0.85    78      8       96      14      0.98
+BestTestAccuracyScore   0.88    0.78    0.89    0.91    0.85    78      8       96      14      0.98
+BestValidationF1Score   0.91    0.82    0.91    0.91    0.9     86      8       92      10      0.95
+BestValidationMCC       0.9     0.82    0.91    0.95    0.85    82      4       96      14      0.98
+BestValidationAccuracy  0.9     0.82    0.91    0.95    0.85    82      4       96      14      0.98
+Test Predictions:
+CHEMBL435331,TP,ACT     CHEMBL3354592,TP,ACT    CHEMBL44134,TN,INACT    CHEMBL422701,TN,INACT   CHEMBL105961,FN,ACT ...
+```
 ## License
 DEEPScreen
     Copyright (C) 2018 CanSyL
