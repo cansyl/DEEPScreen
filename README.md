@@ -44,7 +44,7 @@
 
 Example:
 ```
-python trainConvNet.py CNNModel CHEMBL1790 adam 0.0005 15 128 0 0.8 1
+python trainDEEPScreen.py CNNModel CHEMBL1790 adam 0.0005 15 128 0 0.8 1
 ```
 ## Output of the script
 The evaluation results and predictions of independent test compounds are given as the output of this script. In the last line, the predictions for the test compounds are written in a tab-separated format where each field is separated by comma in the following format:
@@ -63,7 +63,30 @@ Test_fp:8
 Test_tn:96
 Test_fn:14
 Test Predictions:
-CHEMBL435331,TP,ACT     CHEMBL3354592,TP,ACT    CHEMBL44134,TN,INACT    CHEMBL422701,TN,INACT   CHEMBL105961,FN,ACT ...
+CHEMBL435331,TP,ACT     CHEMBL3354592,TP,ACT    CHEMBL44134,TN,INACT    CHEMBL422701,TN,INACT   CHEMBL105961,FN,ACT ...,
+```
+## How to reproduce DEEPScreen Results for state-of-the-art comparison
+
+* To train DEEPScreen on MUV dataset
+```
+python trainConvNetMUV.py CNNModel MUV_712 adam 0.0005 5 256 0 0.8 0 0
+```
+* To train DEEPScreen on DUD-E dataset
+```
+python trainDEEPScreenDUDE.py ImageNetInceptionV2 hdac8 adam 0.0001 5 0 0 0.8 0 0
+```
+* To train DEEPScreen on Lenselink et. al.'s dataset
+```
+python trainDEEPScreenLenselink.py ImageNetInceptionV2 CHEMBL274 adam 0.0001 5 0 0 0.8 0 0
+```
+The output of these commads same as the output before. Please note that you should unzip the corresponding file (**DUDEDatasetFiles.zip**, **MUVDatasetFiles.zip** or **Lenselink_Dataset_Files.zip**) before running training script.
+```
+python trainConvNet.py CNNModel CHEMBL1790 adam 0.0005 15 128 0 0.8 1
+```
+```
+python trainConvNet.py CNNModel CHEMBL1790 adam 0.0005 15 128 0 0.8 1
+```
+
 ```
 ## License
 DEEPScreen
