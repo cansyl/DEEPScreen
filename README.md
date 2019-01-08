@@ -83,7 +83,7 @@ The output of these commads same as the output shown above. Please note that you
 
 ## How to used pre-trained models to generate predictions for a set of compounds.
 ```
-python trainDEEPScreenLenselink.py ImageNetInceptionV2 CHEMBL274 adam 0.0001 5 0 0 0.8 0 0
+python loadDEEPScreenModel.py CHEMBL1790
 ```
 ## License
 DEEPScreen
