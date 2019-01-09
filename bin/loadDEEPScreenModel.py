@@ -10,7 +10,7 @@ IMG_SIZE = 200
 result_files_path = "../resultFiles"
 model_files_path = "../tflearnModels"
 TEMP_IMG_OUTPUT_PATH = "../tempImage"
-best_model_log_path = "../resultFiles/LOGS/bestModelLOGSTop5"
+best_model_log_path = "../resultFiles/LOGS/bestModelLOGS"
 
 
 
@@ -44,7 +44,7 @@ def loadModel(target, model_fl):
 
     model.load("{}/{}".format(model_files_path, model_fl))
 
-    chembl_target_threshold_dict = getModelThresholds("ChEMBLBestModelResultsAll_v2.txt")
+    chembl_target_threshold_dict = getModelThresholds("deepscreen_models_hyperparameters_performance_results.tsv")
 
     compound_smiles_dict = getSMILEsForAllChEMBL(test_fl)
     comp_id_list = list(compound_smiles_dict.keys())
