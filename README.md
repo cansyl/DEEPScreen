@@ -20,7 +20,7 @@ DEEPScreen is a large-scale DTI prediction system, for early stage drug discover
     * needed to create temporary images of compounds.
 * **tflearnModels**
     * the folder that is used to store the trained models.
-    * trained-models can be dowloaded from [here](http://google.com)
+    * trained-models can be dowloaded from [here](https://www.dropbox.com/sh/x1w9wqe1fxmdl1w/AACD7gV2vRFPgoN653WCRjaia?dl=0)
 * **resultFiles** contains hyper-parameter values and performance calculations of optimized models.
    * **deepscreen_models_hyperparameters_performance_results.tsv** stores hyper-parameter values and performance results of DEEPScreen models,
    * **dude_models_hyperparameters_performance_results.tsv** stores hyper-parameter values and performance results of the final models trained with DUD-E dataset,
