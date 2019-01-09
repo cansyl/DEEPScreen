@@ -9,7 +9,7 @@ DEEPScreen is a large-scale DTI prediction system, for early stage drug discover
     CHEMBL1790_act	CHEMBL205013,CHEMBL96731,CHEMBL328791,...
     CHEMBL1790_inact	CHEMBL306645,CHEMBL1765671,CHEMBL1765668,....
     ```
-      The list of active/inactive compounds of the correnponding target are available in the second column as a comma-separated format.
+        The list of active/inactive compounds of the correnponding target are available in the second column as a comma-separated format.
     * **act_inact_comps_10.0_20.0_chembl_preprocessed_sp_b_pchembl_data_blast_comp_20.txt** file contains active and inactive compound information after similarity-based negative training dataset enrichment for all targets. The format of the file is same as above.
     * **DUDEDatasetFiles.zip** contains training dataset for DUD-E dataset.
     * **Lenselink_Dataset_Files.zip** contains training datasets for Lenselink et al.'s study.
