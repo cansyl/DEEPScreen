@@ -247,6 +247,7 @@ def CNNModel(outnode, model_name,  target, opt, learn_r, epch, n_of_h1, dropout_
     model = None
 
     if save_model:
+        print("Model will be saved!")
         model = tflearn.DNN(convnet, checkpoint_path='../tflearnModels/{}'.format(str_model_name), best_checkpoint_path='../tflearnModels/bestModels/best_{}'.format(str_model_name),
                         max_checkpoints=1, tensorboard_verbose=0, tensorboard_dir="../tflearnLogs/{}/".format(str_model_name))
     else:

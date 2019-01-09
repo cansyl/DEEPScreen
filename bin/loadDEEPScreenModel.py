@@ -1,7 +1,7 @@
 import numpy as np
 import os
 from models import ImageNetInceptionV2, AlexNetModel, CNNModel, CNNModel2
-from dataProcessing import getSMILEsForChEMBLIDList, getTestCompsLabelsFromLogFile, getTopNModels, mirrorImageReturnMatrix, rotateImageReturnMatrix, getSMILEsForAllChEMBL, getModelThresholds, drawPictureandReturnImgMatrix
+from dataProcessing import  getSMILEsFromFileWithHeader, getTestCompsLabelsPredictionsShallowFromLogFile, getTopNModels, rotateImageReturnMatrix, getModelThresholds, drawPictureandReturnImgMatrix
 from sklearn.metrics import matthews_corrcoef
 import sys
 IMG_SIZE = 200
@@ -26,11 +26,11 @@ def getBestModelFileName(model_name):
     return latest_model_fl
 
 def loadModel(target, model_fl):
-    model_fl = getBestModelFileName(model_fl)
-    print(model_fl)
-    params = model_fl.split("-")[0].split("_")
+    #model_fl = getBestModelFileName(model_fl)
+    #print(model_fl)
+    params = model_fl.split("_")
     model_name = params[0]
-    print(params)
+    # print("lo", params)
     model = None
     #outnode, model_name, target, opt, learn_r, epch, dropout_keep_rate, save_model = False
     if model_name=="ImageNetInceptionV2":
@@ -46,7 +46,7 @@ def loadModel(target, model_fl):
 
     chembl_target_threshold_dict = getModelThresholds("deepscreen_models_hyperparameters_performance_results.tsv")
 
-    compound_smiles_dict = getSMILEsForAllChEMBL(test_fl)
+    compound_smiles_dict = getSMILEsFromFileWithHeader(test_fl)
     comp_id_list = list(compound_smiles_dict.keys())
     num_of_comps = len(comp_id_list)
     print(num_of_comps)

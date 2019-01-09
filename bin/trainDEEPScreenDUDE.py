@@ -16,7 +16,6 @@ IMG_SIZE = 200
 # IMG_SIZE
 LR = 1e-3
 
-images_path = "../images200"
 TEMP_IMG_OUTPUT_PATH = "../tempImage"
 
 
@@ -220,11 +219,11 @@ n_epoch = int(sys.argv[5])
 n_of_h1 = int(sys.argv[6])
 n_of_h2 = int(sys.argv[7])
 dropout_keep_rate = float(sys.argv[8])
-rotate = bool(int(sys.argv[9]))
-save_model = bool(int(sys.argv[10]))
+# rotate = bool(int(sys.argv[9]))
+save_model = bool(int(sys.argv[9]))
 
-print(model_name, trgt, optim, learning_rate, n_epoch, n_of_h1, n_of_h2, dropout_keep_rate, rotate, save_model)
-trainModelTarget(model_name, trgt, optim, learning_rate, n_epoch, n_of_h1, n_of_h2, dropout_keep_rate, rotate, save_model)
+print(model_name, trgt, optim, learning_rate, n_epoch, n_of_h1, n_of_h2, dropout_keep_rate, rotate=False, save_model)
+trainModelTarget(model_name, trgt, optim, learning_rate, n_epoch, n_of_h1, n_of_h2, dropout_keep_rate, rotate=False, save_model)
 
 # CHEMBL1075138	3377	6073
 # CHEMBL2949	455	796

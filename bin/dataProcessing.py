@@ -1402,7 +1402,7 @@ def getTestCompsLabelsPredictionsShallowFromLogFile(log_fl_path):
 def getDEEPScreenCorrectShallowIncorrect(target):
     log_fl_name = getTopNModels(1)[0][target][0][2]
 
-    deepscreen_comp_id_lst, deepscreen_lbl_lst, deepscreen_pred_lst = getTestCompsLabelsPredictionsFromLogFile("../resultFiles/LOGS/bestModelLOGSTop5/{}".format(log_fl_name))
+    deepscreen_comp_id_lst, deepscreen_lbl_lst, deepscreen_pred_lst = getTestCompsLabelsPredictionsFromLogFile("../resultFiles/LOGS/bestModelLOGS/{}".format(log_fl_name))
     shallow_comp_id_lst, shallow_lbl_lst, shallow_pred_rf_lst, shallow_pred_svm_lst, shallow_pred_lr_lst = getTestCompsLabelsPredictionsShallowFromLogFile("../resultFiles/LOGS/ShallowLOGS/{}_shallow.txt".format(target))
     #for deepscreen_comp_id_lst
     deepscreen_comp_id_dict = dict()
