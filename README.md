@@ -43,7 +43,7 @@ DEEPScreen is a large-scale DTI prediction system, for early stage drug discover
     * save model (should be 1 to save the model or 0 (not save))
 
 
-Example:
+To train a model using the same hyper-parameters as DEEPScreen, you can use the hyper-parameters available in **deepscreen_models_hyperparameters_performance_results.tsv** which is located under **resultFiles** folder. Below is a sample command to train a model for target **CHEMBL1790**
 ```
 python trainDEEPScreen.py CNNModel CHEMBL1790 adam 0.0005 15 128 0 0.8 1
 ```
