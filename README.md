@@ -94,6 +94,7 @@ The model files should be located under **tflearnModels** folder. The model file
 * CNNModel_CHEMBL1790_adam_0.0005_15_128_0.8_True-300.data-00000-of-00001
 * CNNModel_CHEMBL1790_adam_0.0005_15_128_0.8_True-300.index
 * CNNModel_CHEMBL1790_adam_0.0005_15_128_0.8_True-300.meta
+
 Users should run **loadDEEPScreenModel.py** script to provide predictions for a set of compounds. The arguments of this script are as follows:
 ```
 python loadDEEPScreenModel.py  <target_name> <model_name> <path_to_smiles_of_compounds>
