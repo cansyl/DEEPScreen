@@ -4,7 +4,6 @@ DEEPScreen is a large-scale DTI prediction system, for early stage drug discover
 ## Descriptions of folders and files under the DEEPScreen repository
 * **bin** This folder includes the source code of DEEPScreen
 * **trainingFiles** includes the files for training of the system.
-    * **DEEPScreenBestModelPerformances.txt** contains the performance results and hyper-parameter selections for each trained target. 
     * **act_inact_comps_10.0_20.0_chembl_preprocessed_sp_b_pchembl_data_blast_comp_20.txt** file contains active and inactive compound information after similarity-based negative training dataset enrichment for all targets.
     * **act_inact_comps_10.0_20.0_chembl_preprocessed_sp_b_pchembl_data.txt** file contains active and inactive compound information before similarity-based negative training dataset enrichment for all targets.
     * **DUDEDatasetFiles.zip** contains training dataset for DUD-E dataset.
@@ -17,7 +16,11 @@ DEEPScreen is a large-scale DTI prediction system, for early stage drug discover
 * **tflearnModels**
     * the folder that is used to store the trained models.
     * trained-models can be dowloaded from [here](http://google.com)
-* **resultFiles** contains performance calculations of optimized models.
+* **resultFiles** contains hyper-parameter values and performance calculations of optimized models.
+   * **deepscreen_models_hyperparameters_performance_results.tsv** stores hyper-parameter values and performance results of DEEPScreen models,
+   * **dude_models_hyperparameters_performance_results.tsv** stores hyper-parameter values and performance results of the final models trained with DUD-E dataset,
+   * **lenselinks_models_hyperparameters_performance_results.tsv** stores hyper-parameter values and performance results of the final models trained with Lenselink et al's dataset,
+   * **muv_models_hyperparameters_performance_results.tsv** stores hyper-parameter values and performance results of the final models trained MUV with dataset,
          
 ## Dependencies
 #### [tflearn 0.3.2](https://pypi.org/project/tflearn/)
@@ -27,7 +30,7 @@ DEEPScreen is a large-scale DTI prediction system, for early stage drug discover
 #### [rdkit 2016.09.4](http://rdkit.org/docs/Install.html)
 
 
-## How to run DEEPScreen
+## How to run DEEPScreen to train a model for a ChEMBL target
 * Install dependencies and necessary libraries.
 * Clone the DEEPScreen repository
 * Decompress the zipped files
@@ -43,7 +46,7 @@ DEEPScreen is a large-scale DTI prediction system, for early stage drug discover
     * save model (should be 1 to save the model or 0 (not save))
 
 
-To train a model using the same hyper-parameters as DEEPScreen, you can use the hyper-parameters available in **deepscreen_models_hyperparameters_performance_results.tsv** which is located under **resultFiles** folder. Below is a sample command to train a model for target **CHEMBL1790**
+To train a model using the same hyper-parameters as DEEPScreen, you can use the hyper-parameters available in **deepscreen_models_hyperparameters_performance_results.tsv** which is located under **resultFiles** folder. Below is a sample command to train a model for target **CHEMBL1790**.
 ```
 python trainDEEPScreen.py CNNModel CHEMBL1790 adam 0.0005 15 128 0 0.8 1
 ```
@@ -74,20 +77,20 @@ The name of the targets and hyper-parameter values are available in the followin
 which are located under **resultsFiles** folder.
 * To train DEEPScreen on MUV dataset
 ```
-python trainConvNetMUV.py CNNModel MUV_692 adam 0.001 15 128 0 0.8 0 0
+python trainConvNetMUV.py CNNModel MUV_692 adam 0.001 15 128 0 0.8 0
 ```
 * To train DEEPScreen on DUD-E dataset
 ```
-python trainDEEPScreenDUDE.py ImageNetInceptionV2 hdac8 adam 0.0001 5 0 0 0.8 0 0
+python trainDEEPScreenDUDE.py ImageNetInceptionV2 hdac8 adam 0.0001 5 0 0 0.8 0
 ```
 * To train DEEPScreen on Lenselink et. al.'s dataset
 ```
-python trainDEEPScreenLenselink.py ImageNetInceptionV2 CHEMBL274 adam 0.0001 5 0 0 0.8 0 0
+python trainDEEPScreenLenselink.py ImageNetInceptionV2 CHEMBL274 adam 0.0001 5 0 0 0.8 0
 ```
 The output of these commads same as the output shown above. Please note that you should unzip the corresponding folders (**DUDEDatasetFiles.zip**, **MUVDatasetFiles.zip** or **Lenselink_Dataset_Files.zip**) before running training scripts.
 
-## How to used pre-trained models to generate predictions for a set of compounds.
-The model files should be located under **tflearnModels** folder. The model files for target **CHEMBL1790** are put under **tflearnModels** folder as an example. Each target has a model which consists of three files. For our example, the name of the model files are as follows:
+## How to use pre-trained models to generate predictions for a set of compounds.
+The model files should be located under **tflearnModels** folder. The model files for target **CHEMBL1790** are put under **tflearnModels** folder as an example. Each target has a model which consists of three files. For our example, the the model files for or target **CHEMBL1790** are as follows:
 * CNNModel_CHEMBL1790_adam_0.0005_15_128_0.8_True-300.data-00000-of-00001
 * CNNModel_CHEMBL1790_adam_0.0005_15_128_0.8_True-300.index
 * CNNModel_CHEMBL1790_adam_0.0005_15_128_0.8_True-300.meta
@@ -95,11 +98,11 @@ Users should run **loadDEEPScreenModel.py** script to provide predictions for a 
 ```
 python loadDEEPScreenModel.py  <target_name> <model_name> <path_to_smiles_of_compounds>
 ```
-where **<target_name>** is the name of the ChEMBL target, **<model_name>** stands for the name of the model for the corresponding target stored under the **tflearnModels** folder and the last argument is the path to the smiles of compounds. The Smiles file is a tab-seperated file with a header where the first column is compound identifier and the second colunmn is the smiles strings. You could have additional columns which are discarded by the script.There is a sample file (i.e. **sample_test_compound_file.txt**) under **../trainingFiles** folder. You can run the following script to get the predictions for the compounds in the sample file. 
+where **<target_name>** is the name of the ChEMBL target, **<model_name>** stands for the name of the model for the corresponding target stored under the **tflearnModels** folder and the last argument is the path to the SMILES of compounds. The SMILES file is a tab-seperated file with a header where the first column is compound identifier and the second colunmn is the smiles strings. You could have additional columns which are discarded by the script.There is a sample file (i.e. **sample_test_compound_file.txt**) under **../trainingFiles** folder. You can run the following script to get the predictions for the compounds in the sample file. 
 ```
 python loadDEEPScreenModel.py  CHEMBL1790 CNNModel_CHEMBL1790_adam_0.0005_15_128_0.8_True-300 ../trainingFiles/sample_test_compound_file.txt
 ```
-The script only output the compund identifiers which are prediction as active. 
+The script provides the compund identifiers which are predicted as active as output. 
 ```
 ACTIVE PREDICTIONS:CHEMBL1790
 CHEMBL350383
