@@ -66,7 +66,11 @@ Test Predictions:
 CHEMBL435331,TP,ACT     CHEMBL3354592,TP,ACT    CHEMBL44134,TN,INACT    CHEMBL422701,TN,INACT   CHEMBL105961,FN,ACT ...,
 ```
 ## How to reproduce DEEPScreen Results for state-of-the-art comparison
-
+The name of the targets and hyper-parameter values are available in the following files 
+* **dude_models_hyperparameters_performance_results.tsv**,
+* **lenselinks_models_hyperparameters_performance_results.tsv**,
+* **muv_models_hyperparameters_performance_results.tsv** 
+which are located under **resultsFiles** folder.
 * To train DEEPScreen on MUV dataset
 ```
 python trainConvNetMUV.py CNNModel MUV_692 adam 0.001 15 128 0 0.8 0 0
@@ -82,9 +86,28 @@ python trainDEEPScreenLenselink.py ImageNetInceptionV2 CHEMBL274 adam 0.0001 5 0
 The output of these commads same as the output shown above. Please note that you should unzip the corresponding folders (**DUDEDatasetFiles.zip**, **MUVDatasetFiles.zip** or **Lenselink_Dataset_Files.zip**) before running training scripts.
 
 ## How to used pre-trained models to generate predictions for a set of compounds.
+The model files should be located under **tflearnModels** folder. The model files for target **CHEMBL1790** are put under **tflearnModels** folder as an example. Each target has a model which consists of three files. For our example, the name of the model files are as follows:
+* CNNModel_CHEMBL1790_adam_0.0005_15_128_0.8_True-300.data-00000-of-00001
+* CNNModel_CHEMBL1790_adam_0.0005_15_128_0.8_True-300.index
+* CNNModel_CHEMBL1790_adam_0.0005_15_128_0.8_True-300.meta
+Users should run **loadDEEPScreenModel.py** script to provide predictions for a set of compounds. The arguments of this script are as follows:
 ```
-python loadDEEPScreenModel.py CHEMBL1790
+python loadDEEPScreenModel.py  <target_name> <model_name> <path_to_smiles_of_compounds>
 ```
+where **<target_name>** is the name of the ChEMBL target, **<model_name>** stands for the name of the model for the corresponding target stored under the **tflearnModels** folder and the last argument is the path to the smiles of compounds. The Smiles file is a tab-seperated file with a header where the first column is compound identifier and the second colunmn is the smiles strings. You could have additional columns which are discarded by the script.There is a sample file (i.e. **sample_test_compound_file.txt**) under **../trainingFiles** folder. You can run the following script to get the predictions for the compounds in the sample file. 
+```
+python loadDEEPScreenModel.py  CHEMBL1790 CNNModel_CHEMBL1790_adam_0.0005_15_128_0.8_True-300 ../trainingFiles/sample_test_compound_file.txt
+```
+The script only output the compund identifiers which are prediction as active. 
+```
+ACTIVE PREDICTIONS:CHEMBL1790
+CHEMBL350383
+CHEMBL319636
+CHEMBL182627
+CHEMBL444956
+CHEMBL331956
+```
+
 ## License
 DEEPScreen
     Copyright (C) 2018 CanSyL
