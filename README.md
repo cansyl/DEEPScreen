@@ -8,10 +8,12 @@ DEEPScreen is a large-scale DTI prediction system, for early stage drug discover
 * **bin** This folder includes the source code of DEEPScreen
 * **trainingFiles** includes the files for training of the system.
     * **act_inact_comps_10.0_20.0_chembl_preprocessed_sp_b_pchembl_data.txt** file contains active and inactive compound information before similarity-based negative training dataset enrichment for all targets. In this file, there are two lines for each target in the following format:
+    
     ```
     CHEMBL1790_act	CHEMBL205013,CHEMBL96731,CHEMBL328791,...
     CHEMBL1790_inact	CHEMBL306645,CHEMBL1765671,CHEMBL1765668,....
     ```
+    
     The list of active/inactive compounds of the correnponding target separated by commas.
     * **act_inact_comps_10.0_20.0_chembl_preprocessed_sp_b_pchembl_data_blast_comp_20.txt** file contains active and inactive compound information after similarity-based negative training dataset enrichment for all targets. The format of the file is same as above.
     * **DUDEDatasetFiles.zip** contains training dataset for DUD-E dataset.
