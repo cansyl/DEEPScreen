@@ -5,6 +5,7 @@ DEEPScreen is a large-scale DTI prediction system, for early stage drug discover
 ![alt text](http://user.ceng.metu.edu.tr/~arifaioglu/publication_figures/deepscreen/deepscreen_figure.png)
 
 ## Descriptions of folders and files under the DEEPScreen repository
+
 * **bin** This folder includes the source code of DEEPScreen
 * **trainingFiles** includes the files for training of the system.
     * **act_inact_comps_10.0_20.0_chembl_preprocessed_sp_b_pchembl_data.txt** file contains active and inactive compound information before similarity-based negative training dataset enrichment for all targets. In this file, there are two lines for each target in the following format:
@@ -40,7 +41,8 @@ DEEPScreen is a large-scale DTI prediction system, for early stage drug discover
 #### [rdkit 2016.09.4](http://rdkit.org/docs/Install.html)
 
 
-## How to run DEEPScreen to train a model for a ChEMBL target
+## How to train a target-based DEEPScreen model
+
 * Install dependencies and necessary libraries.
 * Clone the DEEPScreen repository
 * Decompress the zipped files
@@ -55,15 +57,20 @@ DEEPScreen is a large-scale DTI prediction system, for early stage drug discover
     * drop-out keep rate
     * save model (should be 1 to save the model or 0 (not save))
 
+To train a model using the same hyper-parameter value selections as DEEPScreen, you can use the hyper-parameter values given in **deepscreen_models_hyperparameters_performance_results.tsv** which is located under **resultFiles** folder. Below is a sample command to train a model for target **CHEMBL1790**.
 
-To train a model using the same hyper-parameters as DEEPScreen, you can use the hyper-parameters available in **deepscreen_models_hyperparameters_performance_results.tsv** which is located under **resultFiles** folder. Below is a sample command to train a model for target **CHEMBL1790**.
 ```
 python trainDEEPScreen.py CNNModel CHEMBL1790 adam 0.0005 15 128 0 0.8 1
 ```
-## Output of the script
-The evaluation results and predictions of independent test compounds are given as the output of this script. In the last line, the predictions for the test compounds are written in a tab-separated format where each field is separated by comma in the following format:
-* <compound_id>,<prediction_outcome>,<true_label
-The ouput of the above command is written below as an example:
+
+**Output of the script:**
+
+The evaluation results and predictions of independent test compounds are given as the output. In the last line, the predictions for the test compounds are written in tab-separated format, where each field is separated by comma as:
+
+* <compound_id>,<prediction_outcome>,<true_label>
+
+An example output of the command above:
+
 ```
 Test AUC:0.9445025083612041
 Test AUPRC:0.9379908635681835
@@ -79,41 +86,55 @@ Test_fn:14
 Test Predictions:
 CHEMBL435331,TP,ACT     CHEMBL3354592,TP,ACT    CHEMBL44134,TN,INACT    CHEMBL422701,TN,INACT   CHEMBL105961,FN,ACT ...,
 ```
-## How to reproduce DEEPScreen Results for state-of-the-art comparison
+
+## How to re-produce DEEPScreen results for state-of-the-art performance comparison
+
 The name of the targets and hyper-parameter values are available in the following files 
 * **dude_models_hyperparameters_performance_results.tsv**,
 * **lenselinks_models_hyperparameters_performance_results.tsv**,
 * **muv_models_hyperparameters_performance_results.tsv** 
 which are located under **resultsFiles** folder.
 * To train DEEPScreen on MUV dataset
+
 ```
 python trainConvNetMUV.py CNNModel MUV_692 adam 0.001 15 128 0 0.8 0
 ```
+
 * To train DEEPScreen on DUD-E dataset
+
 ```
 python trainDEEPScreenDUDE.py ImageNetInceptionV2 hdac8 adam 0.0001 5 0 0 0.8 0
 ```
+
 * To train DEEPScreen on Lenselink et. al.'s dataset
+
 ```
 python trainDEEPScreenLenselink.py ImageNetInceptionV2 CHEMBL274 adam 0.0001 5 0 0 0.8 0
 ```
+
 The output of these commads same as the output shown above. Please note that you should unzip the corresponding folders (**DUDEDatasetFiles.zip**, **MUVDatasetFiles.zip** or **Lenselink_Dataset_Files.zip**) before running training scripts.
 
-## How to use pre-trained models to generate predictions for a set of compounds.
+## How to run ready-to-use DEEPScreen models to generate predictions for a set of query compounds
+
 The model files should be located under **tflearnModels** folder. The model files for target **CHEMBL1790** are put under **tflearnModels** folder as an example. Each target has a model which consists of three files. For our example, the the model files for or target **CHEMBL1790** are as follows:
 * CNNModel_CHEMBL1790_adam_0.0005_15_128_0.8_True-300.data-00000-of-00001
 * CNNModel_CHEMBL1790_adam_0.0005_15_128_0.8_True-300.index
 * CNNModel_CHEMBL1790_adam_0.0005_15_128_0.8_True-300.meta
 
 Users should run **loadDEEPScreenModel.py** script to provide predictions for a set of compounds. The arguments of this script are as follows:
+
 ```
 python loadDEEPScreenModel.py  <target_name> <model_name> <path_to_smiles_of_compounds>
 ```
+
 where **<target_name>** is the name of the ChEMBL target, **<model_name>** stands for the name of the model for the corresponding target stored under the **tflearnModels** folder and the last argument is the path to the SMILES of compounds. The SMILES file is a tab-seperated file with a header where the first column is compound identifier and the second colunmn is the smiles strings. You could have additional columns which are discarded by the script.There is a sample file (i.e. **sample_test_compound_file.txt**) under **../trainingFiles** folder. You can run the following script to get the predictions for the compounds in the sample file. 
+
 ```
 python loadDEEPScreenModel.py  CHEMBL1790 CNNModel_CHEMBL1790_adam_0.0005_15_128_0.8_True-300 ../trainingFiles/sample_test_compound_file.txt
 ```
-The script provides the compund identifiers which are predicted as active as output. 
+
+Output: The script provides compound identifiers, which are predicted as active (i.e., interacting) for the corresponding target. 
+
 ```
 ACTIVE PREDICTIONS:CHEMBL1790
 CHEMBL350383
@@ -124,6 +145,7 @@ CHEMBL331956
 ```
 
 ## License
+
 DEEPScreen
     Copyright (C) 2018 CanSyL
 
