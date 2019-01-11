@@ -87,7 +87,7 @@ Test Predictions:
 CHEMBL435331,TP,ACT     CHEMBL3354592,TP,ACT    CHEMBL44134,TN,INACT    CHEMBL422701,TN,INACT   CHEMBL105961,FN,ACT ...,
 ```
 
-## How to re-produce DEEPScreen results for state-of-the-art performance comparison
+## How to re-produce results for DEEPScreen vs state-of-the-art predictors performance comparison
 
 The name of the targets and hyper-parameter values are available in the following files 
 * **dude_models_hyperparameters_performance_results.tsv**,
@@ -116,7 +116,14 @@ The output of these commads same as the output shown above. Please note that you
 
 ## How to run ready-to-use DEEPScreen models to generate predictions for a set of query compounds
 
-The model files should be located under **tflearnModels** folder. The model files for target **CHEMBL1790** are put under **tflearnModels** folder as an example. Each target has a model which consists of three files. For our example, the the model files for or target **CHEMBL1790** are as follows:
+* The trained model files can be dowloaded from [here](https://www.dropbox.com/sh/x1w9wqe1fxmdl1w/AACD7gV2vRFPgoN653WCRjaia?dl=0)
+* Each target protein has a model, consisting of three files
+* To be able to run a trained model, the files should be located under the **tflearnModels** folder
+
+**Example:**
+
+The model files for an example target **CHEMBL1790** are under **tflearnModels** folder. For our example, the the model files for the target **CHEMBL1790** are as follows:
+
 * CNNModel_CHEMBL1790_adam_0.0005_15_128_0.8_True-300.data-00000-of-00001
 * CNNModel_CHEMBL1790_adam_0.0005_15_128_0.8_True-300.index
 * CNNModel_CHEMBL1790_adam_0.0005_15_128_0.8_True-300.meta
