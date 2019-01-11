@@ -23,10 +23,10 @@ DEEPScreen is a large-scale DTI prediction system, for early stage drug discover
     * **chembl23_chemreps.txt.zip** contains SMILEs and InChI representations for all ChEMBL compounds (version 23).
     
 * **tempImage**
-    * needed to create temporary images of compounds.
+    * required for creating the temporary images of compounds
 * **tflearnModels**
-    * the folder that is used to store the trained models.
-    * trained-models can be dowloaded from [here](https://www.dropbox.com/sh/x1w9wqe1fxmdl1w/AACD7gV2vRFPgoN653WCRjaia?dl=0)
+    * The folder that is used to store the trained models
+    * The trained model files for 704 DEEPScreen targets can be dowloaded from [here](https://www.dropbox.com/sh/x1w9wqe1fxmdl1w/AACD7gV2vRFPgoN653WCRjaia?dl=0)
 * **resultFiles** contains hyper-parameter values and performance calculations of optimized models.
    * **deepscreen_models_hyperparameters_performance_results.tsv** stores hyper-parameter values and performance results of DEEPScreen models,
    * **dude_models_hyperparameters_performance_results.tsv** stores hyper-parameter values and performance results of the final models trained with DUD-E dataset,
@@ -116,9 +116,9 @@ The output of these commads same as the output shown above. Please note that you
 
 ## How to run ready-to-use DEEPScreen models to generate predictions for a set of query compounds
 
-* The trained model files can be dowloaded from [here](https://www.dropbox.com/sh/x1w9wqe1fxmdl1w/AACD7gV2vRFPgoN653WCRjaia?dl=0)
 * Each target protein has a model, consisting of three files
 * To be able to run a trained model, the files should be located under the **tflearnModels** folder
+* The trained model files for 704 DEEPScreen targets can be dowloaded from [here](https://www.dropbox.com/sh/x1w9wqe1fxmdl1w/AACD7gV2vRFPgoN653WCRjaia?dl=0)
 
 **Example:**
 
