@@ -39,7 +39,7 @@
     * **sample_test_compound_file.txt** contains the SMILES representations for an example set of query compounds, in tab-seperated format, with a header. The first column is the query compound identifier and the second colunmn is the SMILES,
     * **trained_target_families.txt** contains the high level protein family information for 704 targets of DEEPScreen, in tab-separated format (Target UniProt accession, Target ChEMBL id and protein family name).
     
-* **tempImage** folder is empty. It is required for storing the temporarily generated 2-D images of compounds.
+* **tempImage** folder is only required for storing the temporarily generated 2-D images of compounds during model runs.
     
 * **tflearnModels** folder is used for storing the trained predictive models: 
     * it currently contains the predictive model files for only one example target protein with ChEMBL id: CHEMBL1790,
