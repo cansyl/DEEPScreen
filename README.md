@@ -24,10 +24,10 @@
 * **trainingFiles** folder includes the files used in the training of the system:
     * **act_inact_comps_10.0_20.0_chembl_preprocessed_sp_b_pchembl_data.txt** contains the active and inactive compound information for each target protein in ChEMBL, before the similarity-based negative training dataset enrichment process. In this file, there are two lines for each target, in the following format:
     
-    ```
-    CHEMBL1790_act	CHEMBL205013,CHEMBL96731,CHEMBL328791,...
-    CHEMBL1790_inact	CHEMBL306645,CHEMBL1765671,CHEMBL1765668,....
-    ```
+       ```
+       CHEMBL1790_act	CHEMBL205013,CHEMBL96731,CHEMBL328791,...
+       CHEMBL1790_inact	CHEMBL306645,CHEMBL1765671,CHEMBL1765668,....
+       ```
     
     The list of active/inactive compounds separated by commas (the second tab seperated column: CHEMBL205013,C...) for the correnponding target (the first column: CHEMBL1790_act),
     * **act_inact_comps_10.0_20.0_chembl_preprocessed_sp_b_pchembl_data_blast_comp_20.txt** contains the active and inactive compound information for each target protein in ChEMBL, after the similarity-based negative training dataset enrichment process. The format of the file is same as above,
@@ -37,7 +37,7 @@
     * **Lenselink_Dataset_Files.zip** contains training/test datasets in Lenselink et al.'s study,
     * **MUVDatasetFiles.zip** contains training/test dataset for the MUV dataset, together with the InChI representations for all ChEMBL compounds (version 23),
     * **sample_test_compound_file.txt** contains the SMILES representations for an example set of query compounds, in tab-seperated format, with a header. The first column is the query compound identifier and the second colunmn is the SMILES,
-    * **trained_target_families.txt** contains the high level protein family information for 704 targets of DEEPScreen.
+    * **trained_target_families.txt** contains the high level protein family information for 704 targets of DEEPScreen, in tab-separated format (Target UniProt accession, Target ChEMBL id and protein family name).
     
 * **tempImage** folder is empty. It is required for storing the temporarily generated 2-D images of compounds.
     
