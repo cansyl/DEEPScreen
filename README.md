@@ -15,10 +15,10 @@
 * **bin** This folder includes the source code of DEEPScreen
 
 * **inputDatasets** folder contains various datasets used in system training and tests:
-    * **ChEMBL23_preprocessed_activities_sp_b_pchembl.zip** contains bio-activities from the ChEMBL database (v23) after the application of multiple filtering operations to obtain a clean training set.
-    * **ChEMBL24_preprocessed_activities_sp_b_pchembl.zip** contains bio-activities from the ChEMBL database (v24) after the application of the same filtering operations applied for ChEMBL23_preprocessed_activities_sp_b_pchembl.zip. This dataset was used to extract novel bio-interactions that was not included in ChEMBL v23, for our analyses.
-    * **DEEPScreen_finalized_training_dataset_act_inact.txt** is the finalized training dataset of DEEPScreen. The file contains active and inactive compounds for each of the 704 target proteins. The files has the same format as act_inact_comps_10.0_20.0_chembl_preprocessed_sp_b_pchembl_data_blast_comp_20.txt, the only difference is that this file contains the information for 704 trained targets of DEEPScreen, instead of all ChEMBL targets.
-    * **Renin_Molecular_Docking_Input_Files.zip** contains various input files/datasets for the molecular docking experiments on the renin target protein, to be used in the case study.
+    * **ChEMBL23_preprocessed_activities_sp_b_pchembl.zip** contains bio-activities from the ChEMBL database (v23) after the application of multiple filtering operations to obtain a clean training set,
+    * **ChEMBL24_preprocessed_activities_sp_b_pchembl.zip** contains bio-activities from the ChEMBL database (v24) after the application of the same filtering operations applied for ChEMBL23_preprocessed_activities_sp_b_pchembl.zip. This dataset was used to extract novel bio-interactions that was not included in ChEMBL v23, for our analyses,
+    * **DEEPScreen_finalized_training_dataset_act_inact.txt** is the finalized training dataset of DEEPScreen. The file contains active and inactive compounds for each of the 704 target proteins. The files has the same format as act_inact_comps_10.0_20.0_chembl_preprocessed_sp_b_pchembl_data_blast_comp_20.txt, the only difference is that this file contains the information for 704 trained targets of DEEPScreen, instead of all ChEMBL targets,
+    * **Renin_Molecular_Docking_Input_Files.zip** contains various input files/datasets for the molecular docking experiments on the renin target protein, to be used in the case study,
     * **RXRb_Molecular_Docking_Input_Files.zip** contains various input files/datasets for the molecular docking experiment on the RXRbeta target protein, to be used in the DEEPScreen vs conventional classifier comparison.
 
 * **trainingFiles** folder includes the files used in the training of the system:
@@ -31,7 +31,7 @@
     
        The list of active/inactive compounds separated by commas (i.e., the second tab seperated column: *CHEMBL205013,C...*) for the correnponding target (i.e., the first column: *CHEMBL1790_act*),
     * **act_inact_comps_10.0_20.0_chembl_preprocessed_sp_b_pchembl_data_blast_comp_20.txt** contains the active and inactive compound information for each target protein in ChEMBL, after the similarity-based negative training dataset enrichment process. The format of the file is same as above,
-    * **chembl23_chemreps.txt.zip** contains the SMILES and InChI representations for all ChEMBL compounds (version 23).
+    * **chembl23_chemreps.txt.zip** contains the SMILES and InChI representations for all ChEMBL compounds (version 23),
     * **chembl_uniprot_mapping.txt** contains the id mapping between UniProt accessions and ChEMBL ids for proteins, in tab-separated format (Target UniProt accession, Target	ChEMBL id, Target protein name and Target type),
     * **DUDEDatasetFiles.zip** contains training/test dataset for the DUD-E dataset,
     * **Lenselink_Dataset_Files.zip** contains training/test datasets in Lenselink et al.'s study,
@@ -116,24 +116,26 @@ CHEMBL435331,TP,ACT     CHEMBL3354592,TP,ACT    CHEMBL44134,TN,INACT    CHEMBL42
 
 ## How to re-produce the results for DEEPScreen vs state-of-the-art predictors performance comparison
 
-The name of the targets and hyper-parameter values are available in the following files:
+The name of the targets and hyper-parameter values are available inside the following files:
 * **dude_models_hyperparameters_performance_results.tsv**,
 * **lenselinks_models_hyperparameters_performance_results.tsv**,
 * **muv_models_hyperparameters_performance_results.tsv** 
+
 which are located under the **resultsFiles** folder.
-* To train DEEPScreen on the MUV dataset
+
+* To train DEEPScreen on the MUV dataset:
 
 ```
 python trainConvNetMUV.py CNNModel MUV_692 adam 0.001 15 128 0 0.8 0
 ```
 
-* To train DEEPScreen on the DUD-E dataset
+* To train DEEPScreen on the DUD-E dataset:
 
 ```
 python trainDEEPScreenDUDE.py ImageNetInceptionV2 hdac8 adam 0.0001 5 0 0 0.8 0
 ```
 
-* To train DEEPScreen on Lenselink et. al.'s dataset
+* To train DEEPScreen on Lenselink et. al.'s dataset:
 
 ```
 python trainDEEPScreenLenselink.py ImageNetInceptionV2 CHEMBL274 adam 0.0001 5 0 0 0.8 0
