@@ -1,6 +1,12 @@
 # DEEPScreen: Virtual Screening with Deep Convolutional Neural Networks Using Compound Images
 
-DEEPScreen is a large-scale DTI prediction system, for early stage drug discovery, using deep convolutional neural networks. One of the main advantages of DEEPScreen is employing readily available 2-D structural representations of compounds at the input level instead of conventional descriptors that display limited performance. DEEPScreen learns complex features inherently from the 2-D representations, thus producing highly accurate predictions. DEEPScreen system was trained for 704 target proteins (using curated bioactivity data) and finalized with rigorous hyper-parameter optimization tests.
+* DEEPScreen is a large-scale DTI prediction system, for early stage drug discovery, using deep convolutional neural networks.
+* One of the main advantages of DEEPScreen is employing readily available 2-D structural representations of compounds at the input level instead of conventional descriptors that display limited performance.
+* DEEPScreen learns complex features inherently from the 2-D representations, thus producing highly accurate predictions. 
+* DEEPScreen system was trained for 704 target proteins (using curated bioactivity data) and finalized with rigorous hyper-parameter optimization tests.
+* DEEPScreen system was run on more than a million of compound records in ChEMBL database to produce nearly 21 million novel DTI predictions (file: resultFiles/DEEPScreen_Largescale_DTI_predictions.zip).
+* Ready-to-use target-based predictive models of DEEPScreen can be used to scan any small molecule against 704 target proteins (explained below) 
+
 
 ![alt text](http://user.ceng.metu.edu.tr/~arifaioglu/publication_figures/deepscreen/deepscreen_figure.png)
 
