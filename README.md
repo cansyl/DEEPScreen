@@ -14,14 +14,14 @@
 
 * **bin** folder includes the source code of DEEPScreen.
 
-* **inputDatasets** folder contains various datasets used in system training and tests:
+* **inputDatasets** folder contains various traininig/test datasets mostly formatted for observational purposes and for employment in future studies (similar files, correctly formatted for direct programmatic use in DEEPScreen's system training and tests are given below, under 'trainingFiles' folder):
     * **ChEMBL23_preprocessed_activities_sp_b_pchembl.zip** contains drug/compound-target interactions from the ChEMBL database (v23) after the application of multiple filtering operations to obtain a clean training set,
     * **ChEMBL24_preprocessed_activities_sp_b_pchembl.zip** contains drug/compound-target interactions from the ChEMBL database (v24) after the application of the same filtering operations applied for 'ChEMBL23_preprocessed_activities_sp_b_pchembl.zip'. This dataset was used to extract novel bio-interactions that was not included in ChEMBL v23, for our analyses,
     * **DEEPScreen_finalized_training_dataset_act_inact.txt** is the finalized training dataset of DEEPScreen. The file contains active and inactive compounds for each of the 704 target proteins. The files has the same format as 'act_inact_comps_10.0_20.0_chembl_preprocessed_sp_b_pchembl_data_blast_comp_20.txt', the only difference is that this file contains the information for 704 trained targets of DEEPScreen, instead of all ChEMBL targets,
     * **Renin_Molecular_Docking_Input_Files.zip** contains various input files/datasets for the molecular docking experiments on the renin target protein, to be used in the case study,
     * **RXRb_Molecular_Docking_Input_Files.zip** contains various input files/datasets for the molecular docking experiment on the RXRbeta target protein, to be used in the DEEPScreen vs conventional classifier comparison.
 
-* **trainingFiles** folder includes the files used in the training of the system:
+* **trainingFiles** folder includes the files directly used in the training and testing of the system:
     * **act_inact_comps_10.0_20.0_chembl_preprocessed_sp_b_pchembl_data.txt** contains the active and inactive compound information for each target protein in ChEMBL, before the similarity-based negative training dataset enrichment process. In this file, there are two lines for each target, in the following format:
     
        ```
@@ -41,9 +41,9 @@
     
 * **tempImage** folder is empty. It is required for storing the temporarily generated 2-D images of compounds.
     
-* **tflearnModels**
-    * folder is used for storing the trained predictive models (it currently contains the model files for only one example target protein: CHEMBL1790),
-    * the trained model files for 704 DEEPScreen targets can be dowloaded from [here](https://www.dropbox.com/sh/x1w9wqe1fxmdl1w/AACD7gV2vRFPgoN653WCRjaia?dl=0) and should be placed under this folder, in the local machine before running the scripts
+* **tflearnModels** folder is used for storing the trained predictive models: 
+    * it currently contains the predictive model files for only one example target protein with ChEMBL id: CHEMBL1790,
+    * all trained model files for 704 DEEPScreen targets can be dowloaded from [here](https://www.dropbox.com/sh/x1w9wqe1fxmdl1w/AACD7gV2vRFPgoN653WCRjaia?dl=0) and should be placed under this folder (i.e., tflearnModels) in the local machine before running the scripts.
     
 * **resultFiles** folder contains results of various tests/analyses:
     * **Conventional_ECFP4_Models_Performance_Test_Results.txt** contains the test performance results of the conventional/shallow classifiers (i.e., LR, FR and SVM) trained with compound molecular fingerprints (i.e., ECFP4), which represents the current state-of-the-art,
