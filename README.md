@@ -34,7 +34,7 @@
     * **chembl23_chemreps.txt.zip** contains the SMILES and InChI representations for all ChEMBL compounds (version 23),
     * **chembl_uniprot_mapping.txt** contains the id mapping between UniProt accessions and ChEMBL ids for proteins, in tab-separated format (Target UniProt accession, Target	ChEMBL id, Target protein name and Target type),
     * **DUDEDatasetFiles.zip** contains training/test dataset for the DUD-E dataset,
-    * **Lenselink_Dataset_Files.zip** contains training/test datasets in Lenselink et al.'s study,
+    * **Lenselink_Dataset_Files.zip** contains training/test datasets in Lenselink *et al.*'s study,
     * **MUVDatasetFiles.zip** contains training/test dataset for the MUV dataset, together with the InChI representations for all ChEMBL compounds (version 23),
     * **sample_test_compound_file.txt** contains the SMILES representations for an example set of query compounds, in tab-seperated format, with a header. The first column is the query compound identifier and the second colunmn is the SMILES,
     * **trained_target_families.txt** contains the high level protein family information for 704 targets of DEEPScreen, in tab-separated format (Target UniProt accession, Target ChEMBL id and protein family name).
@@ -53,7 +53,7 @@
     * **deepscreen_models_hyperparameters_performance_results.tsv** stores the hyper-parameter values and the performance results of the finalized DEEPScreen models in the independent performance tests,
     * **DEEPScreen_Models_Performance_Test_Results.txt** same as deepscreen_models_hyperparameters_performance_results.tsv but in a simplified format, where only the independent test performance results are included,
     * **dude_models_hyperparameters_performance_results.tsv** stores the hyper-parameter values and the test performance results of the models trained with the DUD-E dataset,
-    * **lenselinks_models_hyperparameters_performance_results.tsv** stores the hyper-parameter values and the test performance results of the models trained with Lenselink et al's dataset,
+    * **lenselinks_models_hyperparameters_performance_results.tsv** stores the hyper-parameter values and the test performance results of the models trained with Lenselink *et al.*'s dataset,
     * **LOGS** folder contains the log files of the hyper-parameter opmization and performance test runs,
     * **muv_models_hyperparameters_performance_results.tsv** stores the hyper-parameter values and the test performance results of the  models trained with the MUV dataset.
     * **Renin_Active_Ligand_Drug_Predictions_ChEMBLid.txt** contains the interacting ligand predictions (only FDA approved or experimental drugs) for the renin target protein (ChEMBL compound ids), to be used in the case study.
@@ -135,13 +135,13 @@ python trainConvNetMUV.py CNNModel MUV_692 adam 0.001 15 128 0 0.8 0
 python trainDEEPScreenDUDE.py ImageNetInceptionV2 hdac8 adam 0.0001 5 0 0 0.8 0
 ```
 
-* To train DEEPScreen on Lenselink et. al.'s dataset:
+* To train DEEPScreen on Lenselink *et al.*'s dataset:
 
 ```
 python trainDEEPScreenLenselink.py ImageNetInceptionV2 CHEMBL274 adam 0.0001 5 0 0 0.8 0
 ```
 
-The output of these commads same as the output shown above. Please note that you should unzip the corresponding folders (**DUDEDatasetFiles.zip**, **MUVDatasetFiles.zip** or **Lenselink_Dataset_Files.zip**) before running the training scripts.
+The output of these commads are same as the output of the script shown above. Please note that you should unzip the corresponding folders (**DUDEDatasetFiles.zip**, **MUVDatasetFiles.zip** or **Lenselink_Dataset_Files.zip**) before running the training scripts.
 
 ## How to run ready-to-use DEEPScreen models to generate predictions for a set of query compounds
 
