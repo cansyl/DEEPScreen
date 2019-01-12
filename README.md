@@ -12,12 +12,12 @@
 
 ## Descriptions of folders and files under the DEEPScreen repository
 
-* **bin** This folder includes the source code of DEEPScreen
+* **bin** folder includes the source code of DEEPScreen.
 
 * **inputDatasets** folder contains various datasets used in system training and tests:
-    * **ChEMBL23_preprocessed_activities_sp_b_pchembl.zip** contains bio-activities from the ChEMBL database (v23) after the application of multiple filtering operations to obtain a clean training set,
-    * **ChEMBL24_preprocessed_activities_sp_b_pchembl.zip** contains bio-activities from the ChEMBL database (v24) after the application of the same filtering operations applied for ChEMBL23_preprocessed_activities_sp_b_pchembl.zip. This dataset was used to extract novel bio-interactions that was not included in ChEMBL v23, for our analyses,
-    * **DEEPScreen_finalized_training_dataset_act_inact.txt** is the finalized training dataset of DEEPScreen. The file contains active and inactive compounds for each of the 704 target proteins. The files has the same format as act_inact_comps_10.0_20.0_chembl_preprocessed_sp_b_pchembl_data_blast_comp_20.txt, the only difference is that this file contains the information for 704 trained targets of DEEPScreen, instead of all ChEMBL targets,
+    * **ChEMBL23_preprocessed_activities_sp_b_pchembl.zip** contains drug/compound-target interactions from the ChEMBL database (v23) after the application of multiple filtering operations to obtain a clean training set,
+    * **ChEMBL24_preprocessed_activities_sp_b_pchembl.zip** contains drug/compound-target interactions from the ChEMBL database (v24) after the application of the same filtering operations applied for 'ChEMBL23_preprocessed_activities_sp_b_pchembl.zip'. This dataset was used to extract novel bio-interactions that was not included in ChEMBL v23, for our analyses,
+    * **DEEPScreen_finalized_training_dataset_act_inact.txt** is the finalized training dataset of DEEPScreen. The file contains active and inactive compounds for each of the 704 target proteins. The files has the same format as 'act_inact_comps_10.0_20.0_chembl_preprocessed_sp_b_pchembl_data_blast_comp_20.txt', the only difference is that this file contains the information for 704 trained targets of DEEPScreen, instead of all ChEMBL targets,
     * **Renin_Molecular_Docking_Input_Files.zip** contains various input files/datasets for the molecular docking experiments on the renin target protein, to be used in the case study,
     * **RXRb_Molecular_Docking_Input_Files.zip** contains various input files/datasets for the molecular docking experiment on the RXRbeta target protein, to be used in the DEEPScreen vs conventional classifier comparison.
 
@@ -51,7 +51,7 @@
     * **DEEPScreen_704_Targets_UniP_EntN_GenSym_Org_ChEid.txt** contains the information (i.e., UniProt accession, Entry name, Gene name, Organism and Target ChEMBL id) for the 704 DEEPScreen target proteins in tab-separated format,
     * **DEEPScreen_Largescale_DTI_predictions.zip** contains the results of the large-scale DTI prediction run (only active/interacting compound-target pair predictions are included) for all of the DEEPScreen targets, in tab-separated format (i.e., Target ChEMBL id, Target UniProt accession, Compound ChEMBL id),
     * **deepscreen_models_hyperparameters_performance_results.tsv** stores the hyper-parameter values and the performance results of the finalized DEEPScreen models in the independent performance tests,
-    * **DEEPScreen_Models_Performance_Test_Results.txt** same as deepscreen_models_hyperparameters_performance_results.tsv but in a simplified format, where only the independent test performance results are included,
+    * **DEEPScreen_Models_Performance_Test_Results.txt** same as 'deepscreen_models_hyperparameters_performance_results.tsv' but in a simplified format, where only the independent test performance results are included,
     * **dude_models_hyperparameters_performance_results.tsv** stores the hyper-parameter values and the test performance results of the models trained with the DUD-E dataset,
     * **lenselinks_models_hyperparameters_performance_results.tsv** stores the hyper-parameter values and the test performance results of the models trained with Lenselink *et al.*'s dataset,
     * **LOGS** folder contains the log files of the hyper-parameter opmization and performance test runs,
