@@ -32,7 +32,7 @@
        The list of active/inactive compounds separated by commas (i.e., the second tab seperated column: *CHEMBL205013,C...*) for the correnponding target (i.e., the first column: *CHEMBL1790_act*),
     * **act_inact_comps_10.0_20.0_chembl_preprocessed_sp_b_pchembl_data_blast_comp_20.txt** contains the active and inactive compound information for each target protein in ChEMBL, after the similarity-based negative training dataset enrichment process. The format of the file is same as above,
     * **chembl23_chemreps.txt.zip** contains the SMILES and InChI representations for all ChEMBL compounds (version 23).
-    * **chembl_uniprot_mapping.txt** contains the id mapping between UniProt accessions and ChEMBL ids for proteins,
+    * **chembl_uniprot_mapping.txt** contains the id mapping between UniProt accessions and ChEMBL ids for proteins, in tab-separated format (Target UniProt accession, Target	ChEMBL id, Target protein name and Target type),
     * **DUDEDatasetFiles.zip** contains training/test dataset for the DUD-E dataset,
     * **Lenselink_Dataset_Files.zip** contains training/test datasets in Lenselink et al.'s study,
     * **MUVDatasetFiles.zip** contains training/test dataset for the MUV dataset, together with the InChI representations for all ChEMBL compounds (version 23),
