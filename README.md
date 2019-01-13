@@ -70,9 +70,9 @@
 #### [rdkit 2016.09.4](http://rdkit.org/docs/Install.html)
 
 
-## How to run ready-to-use DEEPScreen models to generate predictions for a set of query compounds
+## How to run ready-to-use DEEPScreen models to generate DTI predictions for a set of query compounds
 
-* Each target protein has a model, consisting of three files (example below)
+* Each target protein has an individual model, consisting of three files (example below)
 * To be able to run a trained model, the necessary model files should be located in the **tflearnModels** folder
 * The trained model files for 704 DEEPScreen targets can be dowloaded from [here](https://www.dropbox.com/sh/x1w9wqe1fxmdl1w/AACD7gV2vRFPgoN653WCRjaia?dl=0)
 
@@ -84,37 +84,39 @@ Step-by-step operation:
 
 3) Decompress the zipped files
 
-4) The user should check if the target of interest is among the 704 DEEPScreen targets, and if so, find the ChEMBL identifier of the target of interest. The source file for these operations: 'DEEPScreen_704_Targets_UniP_EntN_GenSym_Org_ChEid.txt'
+4) Check if the target(s) of interest is among the 704 DEEPScreen targets, and if so, find the ChEMBL identifier(s) of the target(s) of interest. The source file for these operations: 'DEEPScreen_704_Targets_UniP_EntN_GenSym_Org_ChEid.txt'
 
-5) The user should search for the ChEMBL identifier of the target of interest in the models files folder ([here](https://www.dropbox.com/sh/x1w9wqe1fxmdl1w/AACD7gV2vRFPgoN653WCRjaia?dl=0)) to find and to download the necessary model file triplet, as the model filenames contain ChEMBL identifiers (example below).
+5) Search for the ChEMBL identifier of the target(s) of interest in the model files folder ([here](https://www.dropbox.com/sh/x1w9wqe1fxmdl1w/AACD7gV2vRFPgoN653WCRjaia?dl=0)) to find and to download the necessary model file triplet(s), as the model filenames contain ChEMBL identifiers (example below).
 
-6) The model file triplet should be placed in the **tflearnModels** folder
+6) Place the model file triplet(s) in the **tflearnModels** folder
 
-7) Prepare the test compounds file including the SMILES representations of the compounds to be scanned against the target of interest. This should be a tab-seperated file with a header, where the first column is the query compound identifier and the second colunmn is the smiles strings. You could have additional columns, which will be discarded by the script. There is a sample file (i.e. **sample_test_compound_file.txt**) under **../trainingFiles** folder.
+7) Prepare the test compounds file including the SMILES representations of the compounds to be scanned against the target of interest. This should be a tab-seperated file with a header, where the first column is the query compound identifier and the second colunmn is the smiles strings. You could have additional columns, which will be discarded by the script. There is a sample file (i.e. **sample_test_compound_file.txt**) under the **trainingFiles** folder.
 
-8) Run the **loadDEEPScreenModel.py** script to generate the predictions (example below).
+8) Run the **loadDEEPScreenModel.py** script individually for each target of interest, to generate the DTI predictions (example below).
 
 **Example:**
 
-The model files for an example target **CHEMBL1790** are under **tflearnModels** folder. For our example, the the model files for the target **CHEMBL1790** are as follows:
+The model files for an example target **CHEMBL1790** (human Vasopressin V2 receptor, UniProt accession: P30518) are under **tflearnModels** folder. The the model files for the target **CHEMBL1790** are as follows:
 
 * CNNModel_CHEMBL1790_adam_0.0005_15_128_0.8_True-300.data-00000-of-00001
 * CNNModel_CHEMBL1790_adam_0.0005_15_128_0.8_True-300.index
 * CNNModel_CHEMBL1790_adam_0.0005_15_128_0.8_True-300.meta
 
-Users should run **loadDEEPScreenModel.py** script to provide predictions for a set of compounds. The arguments of this script are as follows:
+Run **loadDEEPScreenModel.py** script to provide DTI predictions for a set of compounds. The arguments of this script are as follows:
 
 ```
 python loadDEEPScreenModel.py  <target_id> <model_name> <path_to_smiles_of_compounds>
 ```
 
-where **<target_id>** is the ChEMBL id of the target protein, **<model_name>** stands for the name of the model for the corresponding target stored under the **tflearnModels** folder (without the filename extension), and the last argument is the path to the SMILES of the query compounds.  You can run the following script to get the predictions for the compounds in the sample file. 
+where **<target_id>** is the ChEMBL id of the target protein, **<model_name>** stands for the name of the model for the corresponding target stored under the **tflearnModels** folder (without the filename extension), and the last argument is the path to the test compounds file (including SMILES of the query compounds).  You can run the following script to generate DTI predictions for CHEMBL1790 and the compounds in the sample file:
 
 ```
 python loadDEEPScreenModel.py  CHEMBL1790 CNNModel_CHEMBL1790_adam_0.0005_15_128_0.8_True-300 ../trainingFiles/sample_test_compound_file.txt
 ```
 
-Output: The script provides compound identifiers (i.e., ChEMBL ids), which are predicted as active (i.e., interacting) for the corresponding target:
+**Output of the script:**
+
+The script provides compound identifiers (as stated in the input test compounds file), which are predicted as active (i.e., interacting) for the corresponding target (CHEMBL1790 in the example):
 
 ```
 ACTIVE PREDICTIONS:CHEMBL1790
@@ -131,9 +133,13 @@ CHEMBL331956
 Step-by-step operation:
 
 1) Install the listed dependencies
+
 2) Clone the DEEPScreen repository (files under the **trainingFiles** folder are not downloaded directly when the repository is cloned, instead they should be downloaded and placed int the local trainingFiles folder manually)
+
 3) Decompress the zipped files
+
 4) Run DEEPScreen script by providing values for the following command line arguments:
+
     * The selected DNN architecture (ImageNetInceptionV2 or CNNModel)
     * target ChEMBL ID
     * The optimizer type (adam, momentum or rmsprop)
