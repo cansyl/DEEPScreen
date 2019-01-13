@@ -7,7 +7,7 @@
 * DEEPScreen system was run on more than a million of compound records in ChEMBL database to produce nearly 21 million novel DTI predictions (file: resultFiles/DEEPScreen_Largescale_DTI_predictions.zip)
 * Ready-to-use target-based predictive models of DEEPScreen can be used to scan any small molecule against 704 target proteins (explained below) 
 
-![alt text](https://github.com/cansyl/DEEPScreen/blob/master/DEEPScreen_GitHub_Figure.png)
+![alt text](https://github.com/cansyl/DEEPScreen/blob/master/DEEPScreen_Figure.png)
 
 ## Descriptions of folders and files under the DEEPScreen repository
 
