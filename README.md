@@ -60,14 +60,22 @@
     * **RXRb_Molecular_Docking_Results.zip** contains various results files of the molecular docking experiment on the RXRbeta target protein, to be used in the DEEPScreen vs conventional classifier comparison.
 
 
-## Dependencies
+## Development and Dependencies
 
+DEEPScreen is a collection of command-line based prediction models written in Python. DEEPScreen was developed and tested in MacOS but it should run in any Unix-like operating system.
+
+Pre-trained ready-to-use prediction models are available [here](https://www.dropbox.com/sh/x1w9wqe1fxmdl1w/AACD7gV2vRFPgoN653WCRjaia?dl=0). However, it is possible to build and run the models (for any target protein, as long as the training data is provided) with the desired hyper-parameters on any standard computer with a Unix-like operating system.
+
+Please install all dependencies listed below:
+
+#### [python 3.5.2](https://www.python.org/downloads/)
 #### [tflearn 0.3.2](https://pypi.org/project/tflearn/)
 #### [sklearn 0.19.2](https://scikit-learn.org/0.19/install.html)
 #### [numpy 1.14.5](https://pypi.python.org/pypi/numpy/1.13.3)
 #### [cairosvg 2.1.2](https://pypi.org/project/CairoSVG/)
 #### [rdkit 2016.09.4](http://rdkit.org/docs/Install.html)
 
+Please refer to the following sections for step-by-step guidelines for using DEEPScreen.
 
 ## How to run ready-to-use DEEPScreen models to generate DTI predictions for a set of query compounds
 
