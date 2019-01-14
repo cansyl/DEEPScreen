@@ -87,7 +87,7 @@ Step-by-step operation:
 
 1) Install the listed dependencies
 
-2) Clone the DEEPScreen repository (files under the **trainingFiles** folder may not be downloaded directly when the repository is cloned, in this case, they should be downloaded and placed in the local **trainingFiles** folder manually)
+2) Clone the DEEPScreen repository (large files under the **trainingFiles** folder: 'act_inact_comps_10.0_20.0_chembl_preprocessed_sp_b_pchembl_data_blast_comp_20.txt', 'chembl_23_chemreps.txt.zip' and 'Lenselink_Dataset_Files.zip' cannot be downloaded directly when the repository is cloned, these files should be downloaded and placed in the local **trainingFiles** folder manually)
 
 3) Decompress the zipped files
 
@@ -141,7 +141,7 @@ Step-by-step operation:
 
 1) Install the listed dependencies
 
-2) Clone the DEEPScreen repository (files under the **trainingFiles** folder are not downloaded directly when the repository is cloned, instead they should be downloaded and placed int the local trainingFiles folder manually)
+2) Clone the DEEPScreen repository (large files under the **trainingFiles** folder: 'act_inact_comps_10.0_20.0_chembl_preprocessed_sp_b_pchembl_data_blast_comp_20.txt', 'chembl_23_chemreps.txt.zip' and 'Lenselink_Dataset_Files.zip' cannot be downloaded directly when the repository is cloned, these files should be downloaded and placed in the local **trainingFiles** folder manually)
 
 3) Decompress the zipped files
 
