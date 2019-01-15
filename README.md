@@ -38,7 +38,7 @@
     * **sample_test_compound_file.txt** contains the SMILES representations for an example set of query compounds, in tab-seperated format, with a header. The first column is the query compound identifier and the second colunmn is the SMILES,
     * **trained_target_families.txt** contains the high level protein family information for 704 targets of DEEPScreen, in tab-separated format (Target UniProt accession, Target ChEMBL id and protein family name).
     
-* **tempImage** folder is only required for storing the temporarily generated 2-D images of compounds during model runs.
+* **tempImage** folder is only required for storing the temporarily generated 2-D images of compounds during model runs. 2-D images of the compounds in 'sample_test_compound_file.txt' are included in this folder as examples.
     
 * **tflearnModels** folder is used for storing the trained predictive models: 
     * it currently contains the predictive model files for only one example target protein with ChEMBL id: CHEMBL1790,
@@ -109,16 +109,16 @@ The model files for an example target **CHEMBL1790** (human Vasopressin V2 recep
 * CNNModel_CHEMBL1790_adam_0.0005_15_128_0.8_True-300.index
 * CNNModel_CHEMBL1790_adam_0.0005_15_128_0.8_True-300.meta
 
-Run **loadDEEPScreenModel.py** script to provide DTI predictions for a set of compounds. The arguments of this script are as follows:
+Run **loadDEEPScreenModel.py** script, while inside the **bin** folder of the local repository, to provide DTI predictions for a set of compounds. The arguments of this script are as follows:
 
 ```
 python loadDEEPScreenModel.py  <target_id> <model_name> <path_to_smiles_of_compounds>
 ```
 
-where **<target_id>** is the ChEMBL id of the target protein, **<model_name>** stands for the name of the model for the corresponding target stored under the **tflearnModels** folder (without the filename extension), and the last argument is the path to the test compounds file (including SMILES of the query compounds).  You can run the following script to generate DTI predictions for CHEMBL1790 and the compounds in the sample file:
+where **<target_id>** is the ChEMBL id of the target protein, **<model_name>** stands for the name of the model for the corresponding target stored under the **tflearnModels** folder (without the filename extension), and the last argument is the path to the test compounds file (including SMILES of the query compounds).  You can run the following script (while inside: /path-to-local-repository/bin) to generate DTI predictions for CHEMBL1790 and the compounds in the sample file:
 
 ```
-python loadDEEPScreenModel.py  CHEMBL1790 CNNModel_CHEMBL1790_adam_0.0005_15_128_0.8_True-300 ../trainingFiles/sample_test_compound_file.txt
+python loadDEEPScreenModel.py  CHEMBL1790 CNNModel_CHEMBL1790_adam_0.0005_15_128_0.8_True-300 sample_test_compound_file.txt
 ```
 
 **Output of the script:**
