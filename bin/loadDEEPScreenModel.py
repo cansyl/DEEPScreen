@@ -49,13 +49,13 @@ def loadModel(target, model_fl):
     compound_smiles_dict = getSMILEsFromFileWithHeader(test_fl)
     comp_id_list = list(compound_smiles_dict.keys())
     num_of_comps = len(comp_id_list)
-    print(num_of_comps)
+    #print(num_of_comps)
 
 
 
     pred_count = 0
     count = 0
-    print("PREDICTIONS:{}".format(target))
+    print("ACTIVE PREDICTIONS:{}".format(target))
     for comp_id in comp_id_list:
         count += 1
         #print(count)
@@ -76,16 +76,14 @@ def loadModel(target, model_fl):
         for i in range(len(test_predictions)):
             if test_pred_labels[i] == 1:
                 pred_count += 1
-                print("ACTPRED\t{}\t{}\t{}".format(model_fl, target, test_comp_name[i]))
+                #print("ACTPRED\t{}\t{}\t{}".format(model_fl, target, test_comp_name[i]))
+                print("{}".format(test_comp_name[i]))
 
-    print("PREDICTIONS:{}".format(target))
+
 
 
 chembl_target = sys.argv[1]
 model_fl = sys.argv[2]
 test_fl  = sys.argv[3]
 loadModel(chembl_target, model_fl)
-
-
-
 
