@@ -62,11 +62,11 @@
 
 ## Development and Dependencies
 
-DEEPScreen is a collection of command-line based prediction models written in Python 3. DEEPScreen was developed and tested in MacOS but it should run in any Unix-like operating system.
+DEEPScreen is a collection of command-line based prediction models written in Python 3.x. DEEPScreen was developed and tested in MacOS but it should run in any Unix-like operating system.
 
 Pre-trained ready-to-use prediction models are available [here](https://www.dropbox.com/sh/x1w9wqe1fxmdl1w/AACD7gV2vRFPgoN653WCRjaia?dl=0). However, it is possible to build and run the models (for any target protein, as long as the training data is provided) with the desired hyper-parameters on any standard computer with a Unix-like operating system.
 
-Please install all dependencies listed below. In the case that RDkit is installed via an environment, the other dependencies should be installed to the same environment as well. Also, Python version of the environment should be 3.
+Please install all dependencies listed below. In the case that RDkit is installed via an environment, the other dependencies should be installed to the same environment as well. Also, Python version of the environment should be 3.x.
 
 #### [Tensorflow 1.12.0](https://github.com/tensorflow/tensorflow/releases/tag/v1.12.0)
 #### [tflearn 0.3.2](https://pypi.org/project/tflearn/)
@@ -127,10 +127,10 @@ The script provides compound identifiers (as stated in the input test compounds 
 
 ```
 ACTIVE PREDICTIONS:CHEMBL1790
-CHEMBL350383
 CHEMBL319636
-CHEMBL182627
+CHEMBL350383
 CHEMBL444956
+CHEMBL182627
 CHEMBL331956
 ```
 
