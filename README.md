@@ -99,7 +99,7 @@ Step-by-step operation:
 
 6) Prepare the test compounds file including the SMILES representations of the compounds to be scanned against the target of interest. This should be a tab-seperated file with a header, where the first column is the query compound identifier and the second colunmn is the smiles strings. You could have additional columns, which will be discarded by the script. There is a sample file (i.e. **sample_test_compound_file.txt**) under the **trainingFiles** folder.
 
-7) Run the **loadDEEPScreenModel.py** script individually for each target of interest, to generate the DTI predictions (example below).
+7) Run the **loadDEEPScreenModel.py** script individually for each target of interest, to generate the predictions (example below).
 
 **Example:**
 
