@@ -68,6 +68,7 @@ Pre-trained ready-to-use prediction models are available [here](https://www.drop
 
 Please install all dependencies listed below. In the case that RDkit is installed via an environment, the other dependencies should be installed to the same environment as well. Also, Python version of the environment should be 3.x.
 
+#### [python 3.5.2](https://www.python.org/downloads/)
 #### [Tensorflow 1.12.0](https://github.com/tensorflow/tensorflow/releases/tag/v1.12.0)
 #### [tflearn 0.3.2](https://pypi.org/project/tflearn/)
 #### [sklearn 0.19.2](https://scikit-learn.org/0.19/install.html)
