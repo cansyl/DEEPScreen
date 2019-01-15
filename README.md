@@ -68,12 +68,13 @@ Pre-trained ready-to-use prediction models are available [here](https://www.drop
 
 Please install all dependencies listed below:
 
-#### [python 3.5.2](https://www.python.org/downloads/)
+#### [Tensorflow 1.12.0](https://github.com/tensorflow/tensorflow/releases/tag/v1.12.0)
 #### [tflearn 0.3.2](https://pypi.org/project/tflearn/)
 #### [sklearn 0.19.2](https://scikit-learn.org/0.19/install.html)
 #### [numpy 1.14.5](https://pypi.python.org/pypi/numpy/1.13.3)
 #### [cairosvg 2.1.2](https://pypi.org/project/CairoSVG/)
 #### [rdkit 2016.09.4](http://rdkit.org/docs/Install.html)
+#### [OpenCV 3.3.0](https://opencv.org/opencv-3-3.html)
 
 Please refer to the following sections for step-by-step guidelines for using DEEPScreen.
 
