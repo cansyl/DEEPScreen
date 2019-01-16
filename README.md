@@ -9,7 +9,7 @@
 
 ![alt text](https://github.com/cansyl/DEEPScreen/blob/master/DEEPScreen_Figure.png)
 
-## Descriptions of folders and files under the DEEPScreen repository
+## Descriptions of folders and files in the DEEPScreen repository
 
 * **bin** folder includes the source code of DEEPScreen.
 
@@ -80,7 +80,7 @@ Please install all dependencies listed below. In the case that RDkit is installe
 Please refer to the following sections for step-by-step guidelines for using DEEPScreen.
 
 
-## How to run ready-to-use DEEPScreen models to generate DTI predictions for a set of query compounds
+## How to run pre-trained ready-to-use DEEPScreen models to generate DTI predictions
 
 * Each target protein has an individual model, consisting of three files (example below)
 * To be able to run a trained model, the necessary model files should be located in the **tflearnModels** folder
