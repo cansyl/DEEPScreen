@@ -124,7 +124,7 @@ python loadDEEPScreenModel.py  CHEMBL1790 CNNModel_CHEMBL1790_adam_0.0005_15_128
 
 **Output of the script:**
 
-The script provides compound identifiers (as stated in the input test compounds file), which are predicted as active (i.e., interacting) for the corresponding target (CHEMBL1790 in the example):
+The script provides compound identifiers (as stated in the input test compounds file), which are predicted as active (i.e., interacting) for the corresponding target (CHEMBL1790 in our example):
 
 ```
 ACTIVE PREDICTIONS:CHEMBL1790
