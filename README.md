@@ -66,15 +66,15 @@ DEEPScreen is a collection of command-line based prediction models written in Py
 
 Pre-trained ready-to-use prediction models are available [here](https://www.dropbox.com/sh/x1w9wqe1fxmdl1w/AACD7gV2vRFPgoN653WCRjaia?dl=0). However, it is possible to build and run the models (for any target protein, as long as the training data is provided) with the desired hyper-parameters on any standard computer with a Unix-like operating system.
 
-Please install all dependencies listed below. In the case that RDkit is installed via an environment, the other dependencies should be installed to the same environment as well. Also, Python version of the environment should be 3.x.
+Please install all dependencies listed below. The versions given below are the ones used in the development procedure; however, newer versions of the listed packages should work without problems. In the case that RDkit is installed using an environment, the other dependencies should be installed to the same environment as well. Also, Python version of the environment should be 3.x.
 
-#### [python 3.5.2](https://www.python.org/downloads/)
+#### [Python 3.5.2](https://www.python.org/downloads/)
 #### [Tensorflow 1.12.0](https://github.com/tensorflow/tensorflow/releases/tag/v1.12.0)
-#### [tflearn 0.3.2](https://pypi.org/project/tflearn/)
-#### [sklearn 0.19.2](https://scikit-learn.org/0.19/install.html)
-#### [numpy 1.14.5](https://pypi.python.org/pypi/numpy/1.13.3)
-#### [cairosvg 2.1.2](https://pypi.org/project/CairoSVG/)
-#### [rdkit 2016.09.4](http://rdkit.org/docs/Install.html)
+#### [Tflearn 0.3.2](https://pypi.org/project/tflearn/)
+#### [Sklearn 0.19.2](https://scikit-learn.org/0.19/install.html)
+#### [Numpy 1.14.5](https://pypi.python.org/pypi/numpy/1.13.3)
+#### [CairoSVG 2.1.2](https://pypi.org/project/CairoSVG/)
+#### [RDkit 2016.09.4](http://rdkit.org/docs/Install.html)
 #### [OpenCV 3.3.0](https://opencv.org/opencv-3-3.html)
 
 Please refer to the following sections for step-by-step guidelines for using DEEPScreen.
