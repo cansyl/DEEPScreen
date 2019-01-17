@@ -9,13 +9,14 @@
 
 ![alt text](https://github.com/cansyl/DEEPScreen/blob/master/DEEPScreen_Figure.png)
 
-## Descriptions of folders and files under the DEEPScreen repository
+## Descriptions of folders and files in the DEEPScreen repository
 
 * **bin** folder includes the source code of DEEPScreen.
 
 * **inputDatasets** folder contains various traininig/test datasets mostly formatted for observational purposes and for employment in future studies (similar files, correctly formatted for direct programmatic use in DEEPScreen's system training and tests are given below, under 'trainingFiles' folder):
     * **ChEMBL23_preprocessed_activities_sp_b_pchembl.zip** contains drug/compound-target interactions from the ChEMBL database (v23) after the application of multiple filtering operations to obtain a clean training set,
     * **ChEMBL24_preprocessed_activities_sp_b_pchembl.zip** contains drug/compound-target interactions from the ChEMBL database (v24) after the application of the same filtering operations applied for 'ChEMBL23_preprocessed_activities_sp_b_pchembl.zip'. This dataset was used to extract novel bio-interactions that was not included in ChEMBL v23, for our analyses,
+    * **DEEPScreen_704_Targets_UniP_EntN_GenSym_Org_ChEid.txt** contains the information (i.e., UniProt accession, Entry name, Gene name, Organism and Target ChEMBL id) for the 704 DEEPScreen target proteins in tab-separated format,
     * **DEEPScreen_finalized_training_dataset_act_inact.txt** is the finalized training dataset of DEEPScreen. The file contains active and inactive compounds for each of the 704 target proteins. The files has the same format as 'act_inact_comps_10.0_20.0_chembl_preprocessed_sp_b_pchembl_data_blast_comp_20.txt', the only difference is that this file contains the information for 704 trained targets of DEEPScreen, instead of all ChEMBL targets,
     * **Renin_Molecular_Docking_Input_Files.zip** contains various input files/datasets for the molecular docking experiments on the renin target protein, to be used in the case study,
     * **RXRb_Molecular_Docking_Input_Files.zip** contains various input files/datasets for the molecular docking experiment on the RXRbeta target protein, to be used in the DEEPScreen vs conventional classifier comparison.
@@ -38,7 +39,7 @@
     * **sample_test_compound_file.txt** contains the SMILES representations for an example set of query compounds, in tab-seperated format, with a header. The first column is the query compound identifier and the second colunmn is the SMILES,
     * **trained_target_families.txt** contains the high level protein family information for 704 targets of DEEPScreen, in tab-separated format (Target UniProt accession, Target ChEMBL id and protein family name).
     
-* **tempImage** folder is only required for storing the temporarily generated 2-D images of compounds during model runs.
+* **tempImage** folder is only required for storing the temporarily generated 2-D images of compounds during model runs. 2-D images of the compounds in 'sample_test_compound_file.txt' are included in this folder as examples.
     
 * **tflearnModels** folder is used for storing the trained predictive models: 
     * it currently contains the predictive model files for only one example target protein with ChEMBL id: CHEMBL1790,
@@ -47,7 +48,6 @@
 * **resultFiles** folder contains results of various tests/analyses:
     * **Conventional_ECFP4_Models_Performance_Test_Results.txt** contains the test performance results of the conventional/shallow classifiers (i.e., LR, FR and SVM) trained with compound molecular fingerprints (i.e., ECFP4), which represents the current state-of-the-art,
     * **Conventional_Image_Models_Performance_Test_Results.txt** contains the test performance results of the conventional/shallow classifiers (i.e., LR, FR and SVM) trained with compound 2-D image features (same as DEEPScreen),
-    * **DEEPScreen_704_Targets_UniP_EntN_GenSym_Org_ChEid.txt** contains the information (i.e., UniProt accession, Entry name, Gene name, Organism and Target ChEMBL id) for the 704 DEEPScreen target proteins in tab-separated format,
     * **DEEPScreen_Largescale_DTI_predictions.zip** contains the results of the large-scale DTI prediction run (only active/interacting compound-target pair predictions are included) for all of the DEEPScreen targets, in tab-separated format (i.e., Target ChEMBL id, Target UniProt accession, Compound ChEMBL id),
     * **deepscreen_models_hyperparameters_performance_results.tsv** stores the hyper-parameter values and the performance results of the finalized DEEPScreen models in the independent performance tests,
     * **DEEPScreen_Models_Performance_Test_Results.txt** same as 'deepscreen_models_hyperparameters_performance_results.tsv' but in a simplified format, where only the independent test performance results are included,
@@ -62,22 +62,25 @@
 
 ## Development and Dependencies
 
-DEEPScreen is a collection of command-line based prediction models written in Python. DEEPScreen was developed and tested in MacOS but it should run in any Unix-like operating system.
+DEEPScreen is a collection of command-line based prediction models written in Python 3.x. DEEPScreen was developed and tested in MacOS but it should run in any Unix-like operating system.
 
 Pre-trained ready-to-use prediction models are available [here](https://www.dropbox.com/sh/x1w9wqe1fxmdl1w/AACD7gV2vRFPgoN653WCRjaia?dl=0). However, it is possible to build and run the models (for any target protein, as long as the training data is provided) with the desired hyper-parameters on any standard computer with a Unix-like operating system.
 
-Please install all dependencies listed below:
+Please install all dependencies listed below. The versions given below are the ones used in the development procedure; however, newer versions of the listed packages should work without problems. In the case that RDkit is installed using an environment, the other dependencies should be installed to the same environment as well. Also, Python version of the environment should be 3.x.
 
-#### [python 3.5.2](https://www.python.org/downloads/)
-#### [tflearn 0.3.2](https://pypi.org/project/tflearn/)
-#### [sklearn 0.19.2](https://scikit-learn.org/0.19/install.html)
-#### [numpy 1.14.5](https://pypi.python.org/pypi/numpy/1.13.3)
-#### [cairosvg 2.1.2](https://pypi.org/project/CairoSVG/)
-#### [rdkit 2016.09.4](http://rdkit.org/docs/Install.html)
+#### [Python 3.5.2](https://www.python.org/downloads/)
+#### [Tensorflow 1.12.0](https://github.com/tensorflow/tensorflow/releases/tag/v1.12.0)
+#### [Tflearn 0.3.2](https://pypi.org/project/tflearn/)
+#### [Sklearn 0.19.2](https://scikit-learn.org/0.19/install.html)
+#### [Numpy 1.14.5](https://pypi.python.org/pypi/numpy/1.13.3)
+#### [CairoSVG 2.1.2](https://pypi.org/project/CairoSVG/)
+#### [RDkit 2016.09.4](http://rdkit.org/docs/Install.html)
+#### [OpenCV 3.3.0](https://opencv.org/opencv-3-3.html)
 
 Please refer to the following sections for step-by-step guidelines for using DEEPScreen.
 
-## How to run ready-to-use DEEPScreen models to generate DTI predictions for a set of query compounds
+
+## How to run pre-trained ready-to-use DEEPScreen models to generate DTI predictions
 
 * Each target protein has an individual model, consisting of three files (example below)
 * To be able to run a trained model, the necessary model files should be located in the **tflearnModels** folder
@@ -87,19 +90,17 @@ Step-by-step operation:
 
 1) Install the listed dependencies
 
-2) Clone the DEEPScreen repository (large files under the **trainingFiles** folder: 'act_inact_comps_10.0_20.0_chembl_preprocessed_sp_b_pchembl_data_blast_comp_20.txt', 'chembl_23_chemreps.txt.zip' and 'Lenselink_Dataset_Files.zip' cannot be downloaded directly when the repository is cloned, these files should be downloaded and placed in the local **trainingFiles** folder manually)
+2) Clone the DEEPScreen repository
 
-3) Decompress the zipped files
+3) Check if the target(s) of interest is among the 704 DEEPScreen targets, and if so, find the ChEMBL identifier(s) of the target(s) of interest. The source file for these operations: 'DEEPScreen_704_Targets_UniP_EntN_GenSym_Org_ChEid.txt'
 
-4) Check if the target(s) of interest is among the 704 DEEPScreen targets, and if so, find the ChEMBL identifier(s) of the target(s) of interest. The source file for these operations: 'DEEPScreen_704_Targets_UniP_EntN_GenSym_Org_ChEid.txt'
+4) Search for the ChEMBL identifier of the target(s) of interest in the model files folder ([here](https://www.dropbox.com/sh/x1w9wqe1fxmdl1w/AACD7gV2vRFPgoN653WCRjaia?dl=0)) to find and to download the necessary model file triplet(s), as the model filenames contain ChEMBL identifiers (example below).
 
-5) Search for the ChEMBL identifier of the target(s) of interest in the model files folder ([here](https://www.dropbox.com/sh/x1w9wqe1fxmdl1w/AACD7gV2vRFPgoN653WCRjaia?dl=0)) to find and to download the necessary model file triplet(s), as the model filenames contain ChEMBL identifiers (example below).
+5) Place the model file triplet(s) in the **tflearnModels** folder
 
-6) Place the model file triplet(s) in the **tflearnModels** folder
+6) Prepare the test compounds file including the SMILES representations of the compounds to be scanned against the target of interest, and place it under the **trainingFiles** folder. This should be a tab-seperated file with a header, where the first column is the query compound identifier and the second colunmn is the smiles strings. You could have additional columns, which will be discarded by the script. There is a sample file (i.e. **sample_test_compound_file.txt**) under the **trainingFiles** folder.
 
-7) Prepare the test compounds file including the SMILES representations of the compounds to be scanned against the target of interest. This should be a tab-seperated file with a header, where the first column is the query compound identifier and the second colunmn is the smiles strings. You could have additional columns, which will be discarded by the script. There is a sample file (i.e. **sample_test_compound_file.txt**) under the **trainingFiles** folder.
-
-8) Run the **loadDEEPScreenModel.py** script individually for each target of interest, to generate the DTI predictions (example below).
+7) Run the **loadDEEPScreenModel.py** script individually for each target of interest, to generate the predictions (example below).
 
 **Example:**
 
@@ -109,30 +110,32 @@ The model files for an example target **CHEMBL1790** (human Vasopressin V2 recep
 * CNNModel_CHEMBL1790_adam_0.0005_15_128_0.8_True-300.index
 * CNNModel_CHEMBL1790_adam_0.0005_15_128_0.8_True-300.meta
 
-Run **loadDEEPScreenModel.py** script to provide DTI predictions for a set of compounds. The arguments of this script are as follows:
+Run **loadDEEPScreenModel.py** script, while inside the **bin** folder of the local repository, to provide DTI predictions for a set of compounds. The arguments of this script are as follows:
 
 ```
-python loadDEEPScreenModel.py  <target_id> <model_name> <path_to_smiles_of_compounds>
+python loadDEEPScreenModel.py  <target_id> <model_name> <filename_of_compound_smiles>
 ```
 
-where **<target_id>** is the ChEMBL id of the target protein, **<model_name>** stands for the name of the model for the corresponding target stored under the **tflearnModels** folder (without the filename extension), and the last argument is the path to the test compounds file (including SMILES of the query compounds).  You can run the following script to generate DTI predictions for CHEMBL1790 and the compounds in the sample file:
+where **<target_id>** is the ChEMBL id of the target protein, **<model_name>** stands for the name of the model for the corresponding target stored under the **tflearnModels** folder (without the filename extension), and the last argument is the name of the test compounds file (including SMILES of the query compounds), inside the **trainingFiles** folder.  You can run the following script (while inside: /path-to-local-repository/bin) to generate DTI predictions for CHEMBL1790 and the compounds in the sample file:
 
 ```
-python loadDEEPScreenModel.py  CHEMBL1790 CNNModel_CHEMBL1790_adam_0.0005_15_128_0.8_True-300 ../trainingFiles/sample_test_compound_file.txt
+python loadDEEPScreenModel.py  CHEMBL1790 CNNModel_CHEMBL1790_adam_0.0005_15_128_0.8_True-300 sample_test_compound_file.txt
 ```
 
 **Output of the script:**
 
-The script provides compound identifiers (as stated in the input test compounds file), which are predicted as active (i.e., interacting) for the corresponding target (CHEMBL1790 in the example):
+The script provides compound identifiers (as stated in the input test compounds file), which are predicted as active (i.e., interacting) for the corresponding target (CHEMBL1790 in our example):
 
 ```
 ACTIVE PREDICTIONS:CHEMBL1790
-CHEMBL350383
 CHEMBL319636
-CHEMBL182627
+CHEMBL350383
 CHEMBL444956
+CHEMBL182627
 CHEMBL331956
 ```
+
+**DEEPScreen_Largescale_DTI_predictions.zip** file contains the results of the DTI prediction run, where DEEPScreen targets were scanned against more than 1 million compound records in ChEMBL, as described above.
 
 
 ## How to train a target-based DEEPScreen model
@@ -187,15 +190,20 @@ Test Predictions:
 CHEMBL435331,TP,ACT     CHEMBL3354592,TP,ACT    CHEMBL44134,TN,INACT    CHEMBL422701,TN,INACT   CHEMBL105961,FN,ACT ...,
 ```
 
+It is possible to observe a difference in performance measures (compared to the reported model performances) within a 10% range due to both random starting of weights at the beginning of each training run and the split of train/test instances.
+
 
 ## How to re-produce the results for DEEPScreen vs DL-based DTI predictors performance comparison
 
-The name of the targets and hyper-parameter values are available inside the following files:
+The name of the targets and the selected hyper-parameter values are available in the following files:
+
 * **dude_models_hyperparameters_performance_results.tsv**,
 * **lenselinks_models_hyperparameters_performance_results.tsv**,
 * **muv_models_hyperparameters_performance_results.tsv** 
 
 which are located under the **resultsFiles** folder.
+
+Please first follow the step-by-step operation under the section 'How to train a target-based DEEPScreen model'.
 
 * To train DEEPScreen on the MUV dataset:
 
