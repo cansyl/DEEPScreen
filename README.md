@@ -190,6 +190,8 @@ Test Predictions:
 CHEMBL435331,TP,ACT     CHEMBL3354592,TP,ACT    CHEMBL44134,TN,INACT    CHEMBL422701,TN,INACT   CHEMBL105961,FN,ACT ...,
 ```
 
+It is possible to observe a difference in performance measures (compared to the reported model performances) within a 10% range due to both random starting of weights at the beginning of each training run and the split of train/test instances.
+
 
 ## How to re-produce the results for DEEPScreen vs DL-based DTI predictors performance comparison
 
