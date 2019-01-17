@@ -306,8 +306,8 @@ def constructDataMatricesForATarget(output_path, target_id, rotate=False):
     else:
         act_list = act_list[:int(len(inact_list)*1.5)]
 
-    print("Number of active compounds :\t{}".format(len(act_list)))
-    print("Number of inactive compounds :\t{}".format(len(inact_list)))
+    # print("Number of active compounds :\t{}".format(len(act_list)))
+    # print("Number of inactive compounds :\t{}".format(len(inact_list)))
     for pos_comp in act_list:
         label = [1, 0]
         try:
