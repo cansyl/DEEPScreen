@@ -104,7 +104,7 @@ Step-by-step operation:
 
 **Example:**
 
-The model files for an example target **CHEMBL286** (human Vasopressin V2 receptor, UniProt accession: P30518) are under **tflearnModels** folder. The the model files for the target **CHEMBL286** are as follows:
+The model files for an example target **CHEMBL286** (human renin protein, UniProt accession: P00797) are under **tflearnModels** folder. The the model files for the target **CHEMBL286** are as follows:
 
 * CNNModel_CHEMBL286_adam_0.0005_15_256_0.6_True-525.data-00000-of-00001
 * CNNModel_CHEMBL286_adam_0.0005_15_256_0.6_True-525.index
