@@ -43,7 +43,7 @@
     
 * **tflearnModels** folder is used for storing the trained predictive models: 
     * it currently contains the predictive model files for only one example target protein (Renin) with ChEMBL id: CHEMBL286,
-    * all trained model files for 704 DEEPScreen targets can be dowloaded from [here](https://www.dropbox.com/sh/x1w9wqe1fxmdl1w/AACD7gV2vRFPgoN653WCRjaia?dl=0) and should be placed under this folder (i.e., tflearnModels) in the local machine before running the scripts.
+    * pre-trained model files for 704 DEEPScreen targets can be dowloaded from [here](https://www.dropbox.com/sh/x1w9wqe1fxmdl1w/AACD7gV2vRFPgoN653WCRjaia?dl=0) and should be placed under this folder (i.e., tflearnModels) in the local machine before running the scripts.
     
 * **resultFiles** folder contains results of various tests/analyses:
     * **Conventional_ECFP4_Models_Performance_Test_Results.txt** contains the test performance results of the conventional/shallow classifiers (i.e., LR, FR and SVM) trained with compound molecular fingerprints (i.e., ECFP4), which represents the current state-of-the-art,
