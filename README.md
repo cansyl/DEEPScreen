@@ -42,7 +42,7 @@
 * **tempImage** folder is only required for storing the temporarily generated 2-D images of compounds during model runs. 2-D images of the compounds in 'sample_test_compound_file.txt' are included in this folder as examples.
     
 * **tflearnModels** folder is used for storing the trained predictive models: 
-    * it currently contains the predictive model files for only one example target protein (Renin) with ChEMBL id: CHEMBL286,
+    * it currently contains the predictive model files for only one example target protein (renin) with ChEMBL id: CHEMBL286,
     * pre-trained model files for 704 DEEPScreen targets can be dowloaded from [here](https://www.dropbox.com/sh/x1w9wqe1fxmdl1w/AACD7gV2vRFPgoN653WCRjaia?dl=0) and should be placed under this folder (i.e., tflearnModels) in the local machine before running the scripts.
     
 * **resultFiles** folder contains results of various tests/analyses:
@@ -116,7 +116,7 @@ Run **loadDEEPScreenModel.py** script, while inside the **bin** folder of the lo
 python loadDEEPScreenModel.py  <target_id> <model_name> <filename_of_compound_smiles>
 ```
 
-where **<target_id>** is the ChEMBL id of the target protein, **<model_name>** stands for the name of the model for the corresponding target stored under the **tflearnModels** folder (without the filename extension), and the last argument is the name of the test compounds file (including SMILES of the query compounds), inside the **trainingFiles** folder.  You can run the following script (while inside: /path-to-local-repository/bin) to generate DTI predictions for CHEMBL286 (Renin) and the compounds in the sample file:
+where **<target_id>** is the ChEMBL id of the target protein, **<model_name>** stands for the name of the model for the corresponding target stored under the **tflearnModels** folder (without the filename extension), and the last argument is the name of the test compounds file (including SMILES of the query compounds), inside the **trainingFiles** folder.  You can run the following script (while inside: /path-to-local-repository/bin) to generate DTI predictions for CHEMBL286 (renin) and the compounds in the sample file:
 
 ```
 python loadDEEPScreenModel.py  CHEMBL286 CNNModel_CHEMBL286_adam_0.0005_15_256_0.6_True-525 sample_test_compound_file.txt
@@ -161,7 +161,7 @@ Step-by-step operation:
     * The drop-out keep rate
     * Save model (should be 1 to save the model or 0 for not saving)
 
-To train a model using the same hyper-parameter value selections as DEEPScreen, you can use the hyper-parameter values given in the file: **deepscreen_models_hyperparameters_performance_results.tsv**, which is located under the **resultFiles** folder. Below is a sample command to train a predictive model for target Renin whose ChEMBL ID is **CHEMBL286**:
+To train a model using the same hyper-parameter value selections as DEEPScreen, you can use the hyper-parameter values given in the file: **deepscreen_models_hyperparameters_performance_results.tsv**, which is located under the **resultFiles** folder. Below is a sample command to train a predictive model for renin protein whose ChEMBL ID is **CHEMBL286**:
 
 ```
 python trainDEEPScreen.py CNNModel CHEMBL286 adam 0.0005 15 256 0 0.6 1
