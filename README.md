@@ -25,11 +25,11 @@
     * **act_inact_comps_10.0_20.0_chembl_preprocessed_sp_b_pchembl_data.txt** contains the active and inactive compound information for each target protein in ChEMBL, before the similarity-based negative training dataset enrichment process. In this file, there are two lines for each target, in the following format:
     
        ```
-       CHEMBL1790_act	CHEMBL205013,CHEMBL96731,CHEMBL328791,...
-       CHEMBL1790_inact	CHEMBL306645,CHEMBL1765671,CHEMBL1765668,....
+       CHEMBL286_act	CHEMBL1818056,CHEMBL2115367,CHEMBL344651,CHEMBL62054, ...
+       CHEMBL286_inact	CHEMBL288434,CHEMBL584926,CHEMBL406111,CHEMBL151055, ...
        ```
     
-       The list of active/inactive compounds separated by commas (i.e., the second tab seperated column: *CHEMBL205013,C...*) for the correnponding target (i.e., the first column: *CHEMBL1790_act*),
+       The list of active/inactive compounds separated by commas (i.e., the second tab seperated column: *CHEMBL1818056,C...*) for the correnponding target (i.e., the first column: *CHEMBL286_act*),
     * **act_inact_comps_10.0_20.0_chembl_preprocessed_sp_b_pchembl_data_blast_comp_20.txt** contains the active and inactive compound information for each target protein in ChEMBL, after the similarity-based negative training dataset enrichment process. The format of the file is same as above,
     * **chembl23_chemreps.txt.zip** contains the SMILES and InChI representations for all ChEMBL compounds (version 23),
     * **chembl_uniprot_mapping.txt** contains the id mapping between UniProt accessions and ChEMBL ids for proteins, in tab-separated format (Target UniProt accession, Target	ChEMBL id, Target protein name and Target type),
@@ -42,7 +42,7 @@
 * **tempImage** folder is only required for storing the temporarily generated 2-D images of compounds during model runs. 2-D images of the compounds in 'sample_test_compound_file.txt' are included in this folder as examples.
     
 * **tflearnModels** folder is used for storing the trained predictive models: 
-    * it currently contains the predictive model files for only one example target protein with ChEMBL id: CHEMBL1790,
+    * it currently contains the predictive model files for only one example target protein (Renin) with ChEMBL id: CHEMBL286,
     * all trained model files for 704 DEEPScreen targets can be dowloaded from [here](https://www.dropbox.com/sh/x1w9wqe1fxmdl1w/AACD7gV2vRFPgoN653WCRjaia?dl=0) and should be placed under this folder (i.e., tflearnModels) in the local machine before running the scripts.
     
 * **resultFiles** folder contains results of various tests/analyses:
@@ -104,11 +104,11 @@ Step-by-step operation:
 
 **Example:**
 
-The model files for an example target **CHEMBL1790** (human Vasopressin V2 receptor, UniProt accession: P30518) are under **tflearnModels** folder. The the model files for the target **CHEMBL1790** are as follows:
+The model files for an example target **CHEMBL286** (human Vasopressin V2 receptor, UniProt accession: P30518) are under **tflearnModels** folder. The the model files for the target **CHEMBL286** are as follows:
 
-* CNNModel_CHEMBL1790_adam_0.0005_15_128_0.8_True-300.data-00000-of-00001
-* CNNModel_CHEMBL1790_adam_0.0005_15_128_0.8_True-300.index
-* CNNModel_CHEMBL1790_adam_0.0005_15_128_0.8_True-300.meta
+* CNNModel_CHEMBL286_adam_0.0005_15_256_0.6_True-525.data-00000-of-00001
+* CNNModel_CHEMBL286_adam_0.0005_15_256_0.6_True-525.index
+* CNNModel_CHEMBL286_adam_0.0005_15_256_0.6_True-525.meta
 
 Run **loadDEEPScreenModel.py** script, while inside the **bin** folder of the local repository, to provide DTI predictions for a set of compounds. The arguments of this script are as follows:
 
@@ -116,23 +116,24 @@ Run **loadDEEPScreenModel.py** script, while inside the **bin** folder of the lo
 python loadDEEPScreenModel.py  <target_id> <model_name> <filename_of_compound_smiles>
 ```
 
-where **<target_id>** is the ChEMBL id of the target protein, **<model_name>** stands for the name of the model for the corresponding target stored under the **tflearnModels** folder (without the filename extension), and the last argument is the name of the test compounds file (including SMILES of the query compounds), inside the **trainingFiles** folder.  You can run the following script (while inside: /path-to-local-repository/bin) to generate DTI predictions for CHEMBL1790 and the compounds in the sample file:
+where **<target_id>** is the ChEMBL id of the target protein, **<model_name>** stands for the name of the model for the corresponding target stored under the **tflearnModels** folder (without the filename extension), and the last argument is the name of the test compounds file (including SMILES of the query compounds), inside the **trainingFiles** folder.  You can run the following script (while inside: /path-to-local-repository/bin) to generate DTI predictions for CHEMBL286 (Renin) and the compounds in the sample file:
 
 ```
-python loadDEEPScreenModel.py  CHEMBL1790 CNNModel_CHEMBL1790_adam_0.0005_15_128_0.8_True-300 sample_test_compound_file.txt
+python loadDEEPScreenModel.py  CHEMBL286 CNNModel_CHEMBL286_adam_0.0005_15_256_0.6_True-525 sample_test_compound_file.txt
 ```
 
 **Output of the script:**
 
-The script provides compound identifiers (as stated in the input test compounds file), which are predicted as active (i.e., interacting) for the corresponding target (CHEMBL1790 in our example):
+The script provides compound identifiers (as stated in the input test compounds file), which are predicted as active (i.e., interacting) for the corresponding target (CHEMBL286 in our example):
 
 ```
-ACTIVE PREDICTIONS:CHEMBL1790
-CHEMBL319636
-CHEMBL350383
-CHEMBL444956
-CHEMBL182627
-CHEMBL331956
+ACTIVE PREDICTIONS:CHEMBL286
+CHEMBL1825183
+CHEMBL302984
+CHEMBL3143484
+CHEMBL431854
+CHEMBL88356
+CHEMBL3400431
 ```
 
 **DEEPScreen_Largescale_DTI_predictions.zip** file contains the results of the DTI prediction run, where DEEPScreen targets were scanned against more than 1 million compound records in ChEMBL, as described above.
@@ -160,10 +161,10 @@ Step-by-step operation:
     * The drop-out keep rate
     * Save model (should be 1 to save the model or 0 for not saving)
 
-To train a model using the same hyper-parameter value selections as DEEPScreen, you can use the hyper-parameter values given in the file: **deepscreen_models_hyperparameters_performance_results.tsv**, which is located under the **resultFiles** folder. Below is a sample command to train a predictive model for target **CHEMBL1790**:
+To train a model using the same hyper-parameter value selections as DEEPScreen, you can use the hyper-parameter values given in the file: **deepscreen_models_hyperparameters_performance_results.tsv**, which is located under the **resultFiles** folder. Below is a sample command to train a predictive model for target Renin whose ChEMBL ID is **CHEMBL286**:
 
 ```
-python trainDEEPScreen.py CNNModel CHEMBL1790 adam 0.0005 15 128 0 0.8 1
+python trainDEEPScreen.py CNNModel CHEMBL286 adam 0.0005 15 256 0 0.6 1
 ```
 
 **Output of the script:**
@@ -175,19 +176,18 @@ The performance evaluation results and the specific predictions for the compound
 An example output of the command above:
 
 ```
-Test AUC:0.9445025083612041
-Test AUPRC:0.9379908635681835
-Test_f1score:0.88
-Test_mcc:0.78
-Test_accuracy:0.89
+Test AUC:0.9251733703190015
+Test AUPRC:0.9372649744647131
+Test_f1score:0.89
+Test_mcc:0.74
+Test_accuracy:0.88
 Test_precision:0.91
-Test_recall:0.85
-Test_tp:78
-Test_fp:8
-Test_tn:96
-Test_fn:14
-Test Predictions:
-CHEMBL435331,TP,ACT     CHEMBL3354592,TP,ACT    CHEMBL44134,TN,INACT    CHEMBL422701,TN,INACT   CHEMBL105961,FN,ACT ...,
+Test_recall:0.82
+Test_tp:181                
+Test_fp:18
+Test_tn:122
+Test_fn:25
+CHEMBL1934285,TN,INACT  CHEMBL61236,TN,INACT    CHEMBL3127099,TN,INACT  CHEMBL406475,TP,ACT     CHEMBL266334,TP,ACT, ...
 ```
 
 It is possible to observe a difference in performance measures (compared to the reported model performances) within a 10% range due to both random starting of weights at the beginning of each training run and the split of train/test instances.
