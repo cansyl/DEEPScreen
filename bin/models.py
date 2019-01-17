@@ -1,20 +1,8 @@
-import rdkit
-import tensorflow as tf
-import os
-import numpy as np
-import cv2
-import random
-import tflearn
-from tflearn.layers.conv import conv_2d, max_pool_2d
-from tflearn.layers.core import input_data, dropout, fully_connected
 from tflearn.layers.estimator import regression
 from tflearn.layers.normalization import local_response_normalization
 import tflearn
 import tflearn.activations as activations
-# Data loading and preprocessing
-import tflearn.datasets.oxflower17 as oxflower17
 from tflearn.activations import relu
-from tflearn.data_utils import shuffle, to_categorical
 from tflearn.layers.conv import avg_pool_2d, conv_2d, max_pool_2d
 from tflearn.layers.core import dropout, flatten, fully_connected, input_data
 from tflearn.layers.merge_ops import merge
