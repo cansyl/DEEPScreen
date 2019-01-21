@@ -223,7 +223,7 @@ python trainDEEPScreenDUDE.py ImageNetInceptionV2 hdac8 adam 0.0001 5 0 0 0.8 0
 python trainDEEPScreenLenselink.py ImageNetInceptionV2 CHEMBL274 adam 0.0001 5 0 0 0.8 0
 ```
 
-The output of these commads are same as the output of the script shown above. Please note that you should unzip the corresponding folders (**DUDEDatasetFiles.zip**, **MUVDatasetFiles.zip** or **Lenselink_Dataset_Files.zip**) before running the training scripts.
+The output of these commads are same as the output of the script shown above. Please note that you should unzip the corresponding folders (**DUDEDatasetFiles.zip**, **MUVDatasetFiles.zip** or **Lenselink_Dataset_Files.zip**) before running the training scripts. It is possible to observe differences in performance measures (compared to the reported model performances) due to the fact that negative training samples are selected randomly (equal to the number of positive samples) at the beginning of each run, and active/inactive sets are extremely unbalanced (the number of negatives are highher) in MUV and DUD-E datasets, which results in the selection of only a small portion of negative samples during training.
 
 
 ## License
