@@ -136,6 +136,8 @@ CHEMBL88356
 CHEMBL3400431
 ```
 
+The expected prediction run time for the example model on the provided sample input dataset on a "normal" desktop computer is around 10 seconds. Prediction run times are roughly linearly correlated with the number of input compounds.
+
 **DEEPScreen_Largescale_DTI_predictions.zip** file contains the results of the DTI prediction run, where DEEPScreen targets were scanned against more than 1 million compound records in ChEMBL, as described above.
 
 
@@ -190,7 +192,9 @@ Test_fn:25
 CHEMBL1934285,TN,INACT  CHEMBL61236,TN,INACT    CHEMBL3127099,TN,INACT  CHEMBL406475,TP,ACT     CHEMBL266334,TP,ACT, ...
 ```
 
-It is possible to observe a difference in performance measures (compared to the reported model performances) within a 10% range due to both random starting of weights at the beginning of each training run and the split of train/test instances.
+The expected training run time for the example model on the provided training dataset (with the given hyper-parameters) on a "normal" desktop computer is around 10 minutes. Training run times can dramatically change according to the selected hyper-parameters.
+
+It is possible to observe a difference in performance measures (compared to the reported model performances) within a 10% range due to both random starting of weights at the beginning of each training run and the random split of train/test instances.
 
 
 ## How to re-produce the results for DEEPScreen vs DL-based DTI predictors performance comparison
