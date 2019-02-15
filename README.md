@@ -136,7 +136,7 @@ CHEMBL88356
 CHEMBL3400431
 ```
 
-The expected prediction run time for the example model on the provided sample input dataset on a "normal" desktop computer is around 10 seconds. Prediction run times are roughly linearly correlated with the number of input compounds.
+The expected prediction run time for the example pre-trained model on the provided sample input dataset on a "normal" desktop computer is around 10 seconds. Prediction run times are roughly linearly correlated with the number of input compounds. There is no typical install time for the pre-trained models as they are ready to use. The only work required work is their download from ([here](https://www.dropbox.com/sh/x1w9wqe1fxmdl1w/AACD7gV2vRFPgoN653WCRjaia?dl=0)). The download time will depend on the connection speed and the model file sizes.
 
 **DEEPScreen_Largescale_DTI_predictions.zip** file contains the results of the DTI prediction run, where DEEPScreen targets were scanned against more than 1 million compound records in ChEMBL, as described above.
 
@@ -192,7 +192,7 @@ Test_fn:25
 CHEMBL1934285,TN,INACT  CHEMBL61236,TN,INACT    CHEMBL3127099,TN,INACT  CHEMBL406475,TP,ACT     CHEMBL266334,TP,ACT, ...
 ```
 
-The expected training run time for the example model on the provided training dataset (with the given hyper-parameters) on a "normal" desktop computer is around 10 minutes. Training run times can dramatically change according to the selected hyper-parameters.
+The expected training run time for the example model on the provided training dataset (with the given hyper-parameters) on a "normal" desktop computer is around 10 minutes. Training run times can dramatically change according to the selected hyper-parameters. Training run times can also be considered as install times for the DEEPScreen models.
 
 It is possible to observe a difference in performance measures (compared to the reported model performances) within a 10% range due to both random starting of weights at the beginning of each training run and the random split of train/test instances.
 
