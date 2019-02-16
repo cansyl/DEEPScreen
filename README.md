@@ -94,7 +94,7 @@ Step-by-step operation:
 
 3) Check if the target(s) of interest is among the 704 DEEPScreen targets, and if so, find the ChEMBL identifier(s) of the target(s) of interest. The source file for these operations: 'DEEPScreen_704_Targets_UniP_EntN_GenSym_Org_ChEid.txt'
 
-4) Search for the ChEMBL identifier of the target(s) of interest in the model files folder ([here](https://www.dropbox.com/sh/x1w9wqe1fxmdl1w/AACD7gV2vRFPgoN653WCRjaia?dl=0)) to find and to download the necessary model file triplet(s), as the model filenames contain ChEMBL identifiers (example below).
+4) Search for the ChEMBL identifier of the target(s) of interest in the model files folder ([here](https://www.dropbox.com/sh/x1w9wqe1fxmdl1w/AACD7gV2vRFPgoN653WCRjaia?dl=0)) to find and to download the necessary model file triplet(s), as the model filenames contain ChEMBL identifiers (example below). It is sufficient to download only the model file triplet of the target protein of interest, since target-based predictive models are independent from each other.
 
 5) Place the model file triplet(s) in the **tflearnModels** folder
 
@@ -136,12 +136,14 @@ CHEMBL88356
 CHEMBL3400431
 ```
 
-The expected prediction run time for the example pre-trained model on the provided sample input dataset on a "normal" desktop computer is around 10 seconds. Prediction run times are roughly linearly correlated with the number of input compounds. There is no typical install time for the pre-trained models as they are ready to use. The only work required work is their download from ([here](https://www.dropbox.com/sh/x1w9wqe1fxmdl1w/AACD7gV2vRFPgoN653WCRjaia?dl=0)). The download time will depend on the connection speed and the model file sizes.
+The expected prediction run time for the example pre-trained model on the provided sample input dataset on a "normal" desktop computer is around 10 seconds. Prediction run times are roughly linearly correlated with the number of input compounds. There is no typical install time for the pre-trained models as they are ready to use. The only requirement is their download from ([here](https://www.dropbox.com/sh/x1w9wqe1fxmdl1w/AACD7gV2vRFPgoN653WCRjaia?dl=0)). The download time will depend on the connection speed and the model file sizes.
 
 **DEEPScreen_Largescale_DTI_predictions.zip** file contains the results of the DTI prediction run, where DEEPScreen targets were scanned against more than 1 million compound records in ChEMBL, as described above.
 
 
 ## How to train a target-based DEEPScreen model
+
+Important note: Since highly optimized pre-trained models are already provided ([here](https://www.dropbox.com/sh/x1w9wqe1fxmdl1w/AACD7gV2vRFPgoN653WCRjaia?dl=0)), the user is not required to do any model training.
 
 Step-by-step operation:
 
@@ -192,7 +194,7 @@ Test_fn:25
 CHEMBL1934285,TN,INACT  CHEMBL61236,TN,INACT    CHEMBL3127099,TN,INACT  CHEMBL406475,TP,ACT     CHEMBL266334,TP,ACT, ...
 ```
 
-The expected training run time for the example model on the provided training dataset (with the given hyper-parameters) on a "normal" desktop computer is around 10 minutes. Training run times can dramatically change according to the selected hyper-parameters. Training run times can also be considered as install times for the DEEPScreen models.
+The expected training run time for the example model on the provided training dataset (with the given hyper-parameters) on a "normal" desktop computer is around 10 minutes. Training run times can dramatically change from a few minutes to several days on a "normal" desktop computer according to the selected hyper-parameters and the chosen DNN architecture (i.e., in-house CNN or the Inception network). Training run times can also be considered as install times for the DEEPScreen models.
 
 It is possible to observe a difference in performance measures (compared to the reported model performances) within a 10% range due to both random starting of weights at the beginning of each training run and the random split of train/test instances.
 
