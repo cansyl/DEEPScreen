@@ -34,7 +34,7 @@ def loadModel(target, model_fl):
     model = None
     #outnode, model_name, target, opt, learn_r, epch, dropout_keep_rate, save_model = False
     if model_name=="ImageNetInceptionV2":
-        model = ImageNetInceptionV2(2, params[0], params[1], params[2], float(params[3]), int(params[4]), float(params[5]), False)
+        model = ImageNetInceptionV2(2, params[0], params[1], params[2], float(params[3]), int(params[4]), float(params[5].split("-")[0]), False)
     else:
         model = CNNModel(2, params[0], params[1], params[2], float(params[3]), int(params[4]), int(params[5]), float(params[6]), False)
 
