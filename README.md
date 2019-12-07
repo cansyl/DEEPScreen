@@ -16,10 +16,13 @@
 * **inputDatasets** folder contains various traininig/test datasets mostly formatted for observational purposes and for employment in future studies (similar files, correctly formatted for direct programmatic use in DEEPScreen's system training and tests are given below, under 'trainingFiles' folder):
     * **ChEMBL23_preprocessed_activities_sp_b_pchembl.zip** contains drug/compound-target interactions from the ChEMBL database (v23) after the application of multiple filtering operations to obtain a clean training set,
     * **ChEMBL24_preprocessed_activities_sp_b_pchembl.zip** contains drug/compound-target interactions from the ChEMBL database (v24) after the application of the same filtering operations applied for 'ChEMBL23_preprocessed_activities_sp_b_pchembl.zip'. This dataset was used to extract novel bio-interactions that was not included in ChEMBL v23, for our analyses,
+    * **ChEMBLv23_Dtraining_All_Scaffolds.txt** contains the Murcko scaffolds for all compounds in the DEEPScreen training dataset,
+    * **ChEMBLv23_Dtraining_All_Scaffolds_Generic.txt** contains the generalized Murcko scaffolds for all compounds in the DEEPScreen training dataset,
     * **DEEPScreen_704_Targets_UniP_EntN_GenSym_Org_ChEid.txt** contains the information (i.e., UniProt accession, Entry name, Gene name, Organism and Target ChEMBL id) for the 704 DEEPScreen target proteins in tab-separated format,
     * **DEEPScreen_finalized_training_dataset_act_inact.txt** is the finalized training dataset of DEEPScreen. The file contains active and inactive compounds for each of the 704 target proteins. The files has the same format as 'act_inact_comps_10.0_20.0_chembl_preprocessed_sp_b_pchembl_data_blast_comp_20.txt', the only difference is that this file contains the information for 704 trained targets of DEEPScreen, instead of all ChEMBL targets,
     * **Renin_Molecular_Docking_Input_Files.zip** contains various input files/datasets for the molecular docking experiments on the renin target protein, to be used in the case study,
     * **RXRb_Molecular_Docking_Input_Files.zip** contains various input files/datasets for the molecular docking experiment on the RXRbeta target protein, to be used in the DEEPScreen vs conventional classifier comparison.
+    * **Representative_Targets_GeneName_UniProtAcc_ChEMBLid_Family_Size.txt** contains target protein related information for the representative targets dataset (an in-house chemical bias and negative selection bias free benchmark dataset constructred in this study), including gene names, UniProt accessions, ChEMBL ids, family information and the number of active compounds for each target.
 
 * **trainingFiles** folder includes the files directly used in the training and testing of the system:
     * **act_inact_comps_10.0_20.0_chembl_preprocessed_sp_b_pchembl_data.txt** contains the active and inactive compound information for each target protein in ChEMBL, before the similarity-based negative training dataset enrichment process. In this file, there are two lines for each target, in the following format:
@@ -35,7 +38,8 @@
     * **chembl_uniprot_mapping.txt** contains the id mapping between UniProt accessions and ChEMBL ids for proteins, in tab-separated format (Target UniProt accession, Target	ChEMBL id, Target protein name and Target type),
     * **DUDEDatasetFiles.zip** contains training/test dataset for the DUD-E dataset,
     * **Lenselink_Dataset_Files.zip** contains training/test datasets in Lenselink *et al.*'s study,
-    * **MUVDatasetFiles.zip** contains training/test dataset for the MUV dataset, together with the InChI representations for all ChEMBL compounds (version 23),
+    * **MUVDatasetFiles.zip** contains training/test dataset for the MUV dataset, together with the SMILES representations for all compounds in the dataset,
+    * **RepresentativeTargets_Benchmark_Dataset_Files.zip** contains training/test datasets for the Representative Targets benchmark (an in-house chemical bias and negative selection bias free benchmark dataset constructred in this study), including the SMILES representations for all compounds in the dataset (columns in each comma seperated file: compound ChEMBL id, SMILES, train or test),
     * **sample_test_compound_file.txt** contains the SMILES representations for an example set of query compounds, in tab-seperated format, with a header. The first column is the query compound identifier and the second colunmn is the SMILES,
     * **trained_target_families.txt** contains the high level protein family information for 704 targets of DEEPScreen, in tab-separated format (Target UniProt accession, Target ChEMBL id and protein family name).
     
@@ -48,16 +52,24 @@
 * **resultFiles** folder contains results of various tests/analyses:
     * **Conventional_ECFP4_Models_Performance_Test_Results.txt** contains the test performance results of the conventional/shallow classifiers (i.e., LR, FR and SVM) trained with compound molecular fingerprints (i.e., ECFP4), which represents the current state-of-the-art,
     * **Conventional_Image_Models_Performance_Test_Results.txt** contains the test performance results of the conventional/shallow classifiers (i.e., LR, FR and SVM) trained with compound 2-D image features (same as DEEPScreen),
+    * **XV10fold_deepscreen_performance_results.tsv** contains the 10 fold cross validation performance results of DEEPScreen models on selected targets (random split).
+    * **XV10fold_conventional_performance_results.tsv** contains the 10 fold cross validation performance results of the state-of-the-art models on selected targets (random split).
     * **DEEPScreen_Largescale_DTI_predictions.zip** contains the results of the large-scale DTI prediction run (only active/interacting compound-target pair predictions are included) for all of the DEEPScreen targets, in tab-separated format (i.e., Target ChEMBL id, Target UniProt accession, Compound ChEMBL id),
     * **deepscreen_models_hyperparameters_performance_results.tsv** stores the hyper-parameter values and the performance results of the finalized DEEPScreen models in the independent performance tests,
     * **DEEPScreen_Models_Performance_Test_Results.txt** same as 'deepscreen_models_hyperparameters_performance_results.tsv' but in a simplified format, where only the independent test performance results are included,
-    * **dude_models_hyperparameters_performance_results.tsv** stores the hyper-parameter values and the test performance results of the models trained with the DUD-E dataset,
-    * **lenselinks_models_hyperparameters_performance_results.tsv** stores the hyper-parameter values and the test performance results of the models trained with Lenselink *et al.*'s dataset,
+    * **RepresentativeTargets_deepscreen_performance_results.tsv** contains the test performance results of DEEPScreen models on the representative targets dataset.
+    * **RepresentativeTargets_conventional_performance_results.tsv** contains the test performance results of the state-of-the-art models on the representative targets dataset.
+    * **dude_models_hyperparameters_performance_results.tsv** stores the hyper-parameter values and the test performance results of the DEEPScreen models trained with the DUD-E dataset,
+    * **lenselinks_models_hyperparameters_performance_results.tsv** stores the hyper-parameter values and the test performance results of the DEEPScreen models trained with Lenselink *et al.*'s dataset,
     * **LOGS** folder contains the log files of the hyper-parameter opmization and performance test runs,
-    * **muv_models_hyperparameters_performance_results.tsv** stores the hyper-parameter values and the test performance results of the  models trained with the MUV dataset.
-    * **Renin_Active_Ligand_Drug_Predictions_ChEMBLid.txt** contains the interacting ligand predictions (only FDA approved or experimental drugs) for the renin target protein (ChEMBL compound ids), to be used in the case study.
-    * **Renin_Molecular_Docking_Results.zip** contains various results files of the molecular docking experiments on the renin target protein, to be used in the case study.
-    * **RXRb_Molecular_Docking_Results.zip** contains various results files of the molecular docking experiment on the RXRbeta target protein, to be used in the DEEPScreen vs conventional classifier comparison.
+    * **MUV_benchmark_deepscreen_performance_results.tsv** contains the test performance results of DEEPScreen models on the MUV dataset,
+    * **MUV_benchmark_conventional_performance_results.tsv** contains the test performance results of the state-of-the-art models on the MUV dataset,
+    * **muv_models_hyperparameters_performance_results.tsv** stores the hyper-parameter values and the test performance results of the DEEPScreen models trained with the MUV dataset,
+    * **Renin_Active_Ligand_Drug_Predictions_ChEMBLid.txt** contains the interacting ligand predictions (only FDA approved or experimental drugs) for the renin target protein (ChEMBL compound ids), to be used in the case study,
+    * **Renin_Molecular_Docking_Results.zip** contains various results files of the molecular docking experiments on the renin target protein, to be used in the case study,
+    * **RXRb_Molecular_Docking_Results.zip** contains various results files of the molecular docking experiment on the RXRbeta target protein, to be used in the DEEPScreen vs conventional classifier comparison,
+    * **Significant_Scaffolds_test_results.txt** contains the significantly enriched Murcko scaffolds in the compounds sets of targets, where DEEPScreen or the state-of-the-art methods performed better,
+    * **Significant_Generic_Scaffolds_test_results.txt** contains the significantly enriched generalized Murcko scaffolds in the compounds sets of targets, where DEEPScreen or the state-of-the-art methods performed better.
 
 
 ## Development and Dependencies
