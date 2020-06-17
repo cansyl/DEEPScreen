@@ -42,72 +42,10 @@ pip install -r requirements.txt
 * **resultFiles** folder contains results of various tests/analyses:
 
 
-
-## How to run pre-trained ready-to-use DEEPScreen models to generate DTI predictions
-
-* Each target protein has an individual model, consisting of three files (example below)
-* To be able to run a trained model, the necessary model files should be located in the **tflearnModels** folder
-* The trained model files for 704 DEEPScreen targets can be dowloaded from [here](https://www.dropbox.com/sh/x1w9wqe1fxmdl1w/AACD7gV2vRFPgoN653WCRjaia?dl=0)
-
-Step-by-step operation:
-
-1) Install the listed dependencies
-
-2) Clone the DEEPScreen repository
-
-3) Check if the target(s) of interest is among the 704 DEEPScreen targets, and if so, find the ChEMBL identifier(s) of the target(s) of interest. The source file for these operations: 'DEEPScreen_704_Targets_UniP_EntN_GenSym_Org_ChEid.txt'
-
-4) Search for the ChEMBL identifier of the target(s) of interest in the model files folder ([here](https://www.dropbox.com/sh/x1w9wqe1fxmdl1w/AACD7gV2vRFPgoN653WCRjaia?dl=0)) to find and to download the necessary model file triplet(s), as the model filenames contain ChEMBL identifiers (example below). It is sufficient to download only the model file triplet of the target protein of interest, since target-based predictive models are independent from each other.
-
-5) Place the model file triplet(s) in the **tflearnModels** folder
-
-6) Prepare the test compounds file including the SMILES representations of the compounds to be scanned against the target of interest, and place it under the **trainingFiles** folder. This should be a tab-seperated file with a header, where the first column is the query compound identifier and the second colunmn is the smiles strings. You could have additional columns, which will be discarded by the script. There is a sample file (i.e. **sample_test_compound_file.txt**) under the **trainingFiles** folder.
-
-7) Run the **loadDEEPScreenModel.py** script individually for each target of interest, to generate the predictions (example below).
-
-**Example:**
-
-The model files for an example target **CHEMBL286** (human renin protein, UniProt accession: P00797) are under **tflearnModels** folder. The the model files for the target **CHEMBL286** are as follows:
-
-* CNNModel_CHEMBL286_adam_0.0005_15_256_0.6_True-525.data-00000-of-00001
-* CNNModel_CHEMBL286_adam_0.0005_15_256_0.6_True-525.index
-* CNNModel_CHEMBL286_adam_0.0005_15_256_0.6_True-525.meta
-
-Run **loadDEEPScreenModel.py** script, while inside the **bin** folder of the local repository, to provide DTI predictions for a set of compounds. The arguments of this script are as follows:
-
-```
-python loadDEEPScreenModel.py  <target_id> <model_name> <filename_of_compound_smiles>
-```
-
-where **<target_id>** is the ChEMBL id of the target protein, **<model_name>** stands for the name of the model for the corresponding target stored under the **tflearnModels** folder (without the filename extension), and the last argument is the name of the test compounds file (including SMILES of the query compounds), inside the **trainingFiles** folder.  You can run the following script (while inside: /path-to-local-repository/bin) to generate DTI predictions for CHEMBL286 (renin) and the compounds in the sample file:
-
-```
-python loadDEEPScreenModel.py  CHEMBL286 CNNModel_CHEMBL286_adam_0.0005_15_256_0.6_True-525 sample_test_compound_file.txt
-```
-
-**Output of the script:**
-
-The script provides compound identifiers (as stated in the input test compounds file), which are predicted as active (i.e., interacting) for the corresponding target (CHEMBL286 in our example):
-
-```
-ACTIVE PREDICTIONS:CHEMBL286
-CHEMBL1825183
-CHEMBL302984
-CHEMBL3143484
-CHEMBL431854
-CHEMBL88356
-CHEMBL3400431
-```
-
-The expected prediction run time for the example pre-trained model on the provided sample input dataset on a "normal" desktop computer is around 10 seconds. Prediction run times are roughly linearly correlated with the number of input compounds. There is no typical install time for the pre-trained models as they are ready to use. The only requirement is their download from ([here](https://www.dropbox.com/sh/x1w9wqe1fxmdl1w/AACD7gV2vRFPgoN653WCRjaia?dl=0)). The download time will depend on the connection speed and the model file sizes.
-
-**DEEPScreen_Largescale_DTI_predictions.zip** file contains the results of the DTI prediction run, where DEEPScreen targets were scanned against more than 1 million compound records in ChEMBL, as described above.
-
 ## How to train DEEPScreen models and get performance results
 * Clone the Git Repository
 * Download the target matrices and copy them under **target_feature_vectors** of the corresponding dataset
-    * Download target features for Davis and Filtered Davis [here](https://www.dropbox.com/preview/CanSyL%20In-silico/MDeePred/Davis_DavisFiltered/davis_filtered_davis_target_feature_vectors_LEQ500.tar.gz?role=work)
-    * Download target features for PDBBind Refined [here](https://www.dropbox.com/s/0o90ophu8w6fudr/pdbbind_refined_target_feature_vectors_LEQ500.tar.gz?dl=0)
+    * Download train/validation/test split and image files for target [here](https://www.dropbox.com/sh/as18uxmctnf39kc/AADUqZX3XAiQRU6UVp3SsBRXa?dl=0)
 
 * Run the below commands for each dataset
 
@@ -131,17 +69,14 @@ The expected prediction run time for the example pre-trained model on the provid
 
 * **--en**: the name of the experiment (default: my_experiment)
 
-```
+#### To perform training for a target (CHEMBL286 in the below example):
 
-#### For PDBBind Refined Dataset
 ```
 python main_training.py --targetid CHEMBL286 --model CNNModel1 --fc1 128 --fc2 64 --lr 0.0001 --bs 32 --dropout 0.1 --epoch 2 --en my_chembl286_training
 ```
-#### Output of the scripts
-**main_training.py** creates a folder under named **experiment_name** (given as argument **--en**) under **result_files** folder. Two files are created under **results_files/<experiment_name>**: **predictions.txt** contains predictions for independent test dataset. The other one is named as **performance_results.txt** which contains the best performance results for each fold (if setting-1 is chosen) or for the test dataset (if setting-2 is chosen). Sample output files for Davis dataset is given under **results_files/davis_dataset_my_experiment**.
-#### Pre-trained Kinase Model
-PyTorch state dictionary for pretrained kinase model is available in [here](https://www.dropbox.com/s/92bmvglk5p5ln1z/pretrained_kinome_model_state_dict.pth?dl=0)
 
+#### Output of the scripts
+**main_training.py** creates a folder named **<experiment_name>** (given as argument **--en**)   under **result_files/experiments** folder. Two files are created under **results_files/experiments/<experiment_name>**: **predictions.txt** contains predictions for independent test dataset. The other one is named as **performance_results.txt** which contains the best test performance results. Sample output files for ChEMBL286 target is given under  **results_files/experiments/my_chembl286_training**.
 
 ## License
 
