@@ -9,7 +9,7 @@
 
 ## Installation
 
-Please run the below commands to install requirements for model training and testing. Dependencies are available in requirements.txt file which is located under bin directory.
+DEEPScreen is a collection of command-line based prediction models written in Python 3.7.1. DEEPScreen was developed and tested in MacOS but it should run in any Unix-like operating system. Please run the below commands to install requirements for model training and testing. Dependencies are available in requirements.txt file which is located under bin directory.
 
 ```
 conda create -n deepscreen_env python=3.7
@@ -22,15 +22,9 @@ pip install -r requirements.txt
 * **bin** folder includes the source code of DEEPScreen.
 
 * **training_files** folder contains various traininig/test datasets mostly formatted for observational purposes and for employment in future studies.
-    * **ChEMBL23_preprocessed_activities_sp_b_pchembl.zip** contains drug/compound-target interactions from the ChEMBL database (v23) after the application of multiple filtering operations to obtain a clean training set,
-    * **ChEMBL24_preprocessed_activities_sp_b_pchembl.zip** contains drug/compound-target interactions from the ChEMBL database (v24) after the application of the same filtering operations applied for 'ChEMBL23_preprocessed_activities_sp_b_pchembl.zip'. This dataset was used to extract novel bio-interactions that was not included in ChEMBL v23, for our analyses,
-    * **ChEMBLv23_Dtraining_All_Scaffolds.txt** contains the Murcko scaffolds for all compounds in the DEEPScreen training dataset,
-    * **ChEMBLv23_Dtraining_All_Scaffolds_Generic.txt** contains the generalized Murcko scaffolds for all compounds in the DEEPScreen training dataset,
-    * **DEEPScreen_704_Targets_UniP_EntN_GenSym_Org_ChEid.txt** contains the information (i.e., UniProt accession, Entry name, Gene name, Organism and Target ChEMBL id) for the 704 DEEPScreen target proteins in tab-separated format,
-    * **DEEPScreen_finalized_training_dataset_act_inact.txt** is the finalized training dataset of DEEPScreen. The file contains active and inactive compounds for each of the 704 target proteins. The files has the same format as 'act_inact_comps_10.0_20.0_chembl_preprocessed_sp_b_pchembl_data_blast_comp_20.txt', the only difference is that this file contains the information for 704 trained targets of DEEPScreen, instead of all ChEMBL targets,
-    * **Renin_Molecular_Docking_Input_Files.zip** contains various input files/datasets for the molecular docking experiments on the renin target protein, to be used in the case study,
-    * **RXRb_Molecular_Docking_Input_Files.zip** contains various input files/datasets for the molecular docking experiment on the RXRbeta target protein, to be used in the DEEPScreen vs conventional classifier comparison.
-    * **Representative_Targets_GeneName_UniProtAcc_ChEMBLid_Family_Size.txt** contains target protein related information for the representative targets dataset (an in-house chemical bias and negative selection bias free benchmark dataset constructred in this study), including gene names, UniProt accessions, ChEMBL ids, family information and the number of active compounds for each target.
+    * **chembl27_preprocessed_filtered_bioactivity_dataset.tsv.zip** updated version of ChEMBL preprocessed and filtered dataset contains drug/compound-target interactions from the ChEMBL database (v27) after the application of multiple filtering operations to obtain a clean training set,
+    * **chembl27_training_target_list.txt** list of target chembl ids,
+
 
 * **result_files** folder includes the files directly used in the training and testing of the system:
     * **act_inact_comps_10.0_20.0_chembl_preprocessed_sp_b_pchembl_data.txt** contains the active and inactive compound information for each target protein in ChEMBL, before the similarity-based negative training dataset enrichment process. In this file, there are two lines for each target, in the following format:
@@ -44,60 +38,9 @@ pip install -r requirements.txt
     * **act_inact_comps_10.0_20.0_chembl_preprocessed_sp_b_pchembl_data_blast_comp_20.txt** contains the active and inactive compound information for each target protein in ChEMBL, after the similarity-based negative training dataset enrichment process. The format of the file is same as above,
     * **chembl23_chemreps.txt.zip** contains the SMILES and InChI representations for all ChEMBL compounds (version 23),
     * **chembl_uniprot_mapping.txt** contains the id mapping between UniProt accessions and ChEMBL ids for proteins, in tab-separated format (Target UniProt accession, Target	ChEMBL id, Target protein name and Target type),
-    * **DUDEDatasetFiles.zip** contains training/test dataset for the DUD-E dataset,
-    * **Lenselink_Dataset_Files.zip** contains training/test datasets in Lenselink *et al.*'s study,
-    * **MUVDatasetFiles.zip** contains training/test dataset for the MUV dataset, together with the SMILES representations for all compounds in the dataset,
-    * **RepresentativeTargets_Benchmark_Dataset_Files.zip** contains training/test datasets for the Representative Targets benchmark (an in-house chemical bias and negative selection bias free benchmark dataset constructred in this study), including the SMILES representations for all compounds in the dataset (columns in each comma seperated file: compound ChEMBL id, SMILES, train or test),
-    * **sample_test_compound_file.txt** contains the SMILES representations for an example set of query compounds, in tab-seperated format, with a header. The first column is the query compound identifier and the second colunmn is the SMILES,
-    * **trained_target_families.txt** contains the high level protein family information for 704 targets of DEEPScreen, in tab-separated format (Target UniProt accession, Target ChEMBL id and protein family name).
-    
-* **tempImage** folder is only required for storing the temporarily generated 2-D images of compounds during model runs. 2-D images of the compounds in 'sample_test_compound_file.txt' are included in this folder as examples.
-    
-* **tflearnModels** folder is used for storing the trained predictive models: 
-    * it currently contains the predictive model files for only one example target protein (renin) with ChEMBL id: CHEMBL286,
-    * pre-trained model files for 704 DEEPScreen targets can be dowloaded from [here](https://www.dropbox.com/sh/x1w9wqe1fxmdl1w/AACD7gV2vRFPgoN653WCRjaia?dl=0) and should be placed under this folder (i.e., tflearnModels) in the local machine before running the scripts.
     
 * **resultFiles** folder contains results of various tests/analyses:
-    * **Conventional_ECFP4_Models_Performance_Test_Results.txt** contains the test performance results of the conventional/shallow classifiers (i.e., LR, FR and SVM) trained with compound molecular fingerprints (i.e., ECFP4), which represents the current state-of-the-art,
-    * **Conventional_Image_Models_Performance_Test_Results.txt** contains the test performance results of the conventional/shallow classifiers (i.e., LR, FR and SVM) trained with compound 2-D image features (same as DEEPScreen),
-    * **XV10fold_deepscreen_performance_results.tsv** contains the 10 fold cross validation performance results of DEEPScreen models on selected targets (random split).
-    * **XV10fold_conventional_performance_results.tsv** contains the 10 fold cross validation performance results of the state-of-the-art models on selected targets (random split).
-    * **DEEPScreen_Largescale_DTI_predictions.zip** contains the results of the large-scale DTI prediction run (only active/interacting compound-target pair predictions are included) for all of the DEEPScreen targets, in tab-separated format (i.e., Target ChEMBL id, Target UniProt accession, Compound ChEMBL id),
-    * **deepscreen_models_hyperparameters_performance_results.tsv** stores the hyper-parameter values and the performance results of the finalized DEEPScreen models in the independent performance tests,
-    * **DEEPScreen_Models_Performance_Test_Results.txt** same as 'deepscreen_models_hyperparameters_performance_results.tsv' but in a simplified format, where only the independent test performance results are included,
-    * **RepresentativeTargets_deepscreen_performance_results.tsv** contains the test performance results of DEEPScreen models on the representative targets dataset.
-    * **RepresentativeTargets_conventional_performance_results.tsv** contains the test performance results of the state-of-the-art models on the representative targets dataset.
-    * **dude_models_hyperparameters_performance_results.tsv** stores the hyper-parameter values and the test performance results of the DEEPScreen models trained with the DUD-E dataset,
-    * **lenselinks_models_hyperparameters_performance_results.tsv** stores the hyper-parameter values and the test performance results of the DEEPScreen models trained with Lenselink *et al.*'s dataset,
-    * **LOGS** folder contains the log files of the hyper-parameter opmization and performance test runs,
-    * **MUV_benchmark_deepscreen_performance_results.tsv** contains the test performance results of DEEPScreen models on the MUV dataset,
-    * **MUV_benchmark_conventional_performance_results.tsv** contains the test performance results of the state-of-the-art models on the MUV dataset,
-    * **muv_models_hyperparameters_performance_results.tsv** stores the hyper-parameter values and the test performance results of the DEEPScreen models trained with the MUV dataset,
-    * **Renin_Active_Ligand_Drug_Predictions_ChEMBLid.txt** contains the interacting ligand predictions (only FDA approved or experimental drugs) for the renin target protein (ChEMBL compound ids), to be used in the case study,
-    * **Renin_Molecular_Docking_Results.zip** contains various results files of the molecular docking experiments on the renin target protein, to be used in the case study,
-    * **RXRb_Molecular_Docking_Results.zip** contains various results files of the molecular docking experiment on the RXRbeta target protein, to be used in the DEEPScreen vs conventional classifier comparison,
-    * **Significant_Scaffolds_test_results.txt** contains the significantly enriched Murcko scaffolds in the compounds sets of targets, where DEEPScreen or the state-of-the-art methods performed better,
-    * **Significant_Generic_Scaffolds_test_results.txt** contains the significantly enriched generalized Murcko scaffolds in the compounds sets of targets, where DEEPScreen or the state-of-the-art methods performed better.
 
-
-## Development and Dependencies
-
-DEEPScreen is a collection of command-line based prediction models written in Python 3.x. DEEPScreen was developed and tested in MacOS but it should run in any Unix-like operating system.
-
-Pre-trained ready-to-use prediction models are available [here](https://www.dropbox.com/sh/x1w9wqe1fxmdl1w/AACD7gV2vRFPgoN653WCRjaia?dl=0). However, it is possible to build and run the models (for any target protein, as long as the training data is provided) with the desired hyper-parameters on any standard computer with a Unix-like operating system.
-
-Please install all dependencies listed below. The versions given below are the ones used in the development procedure; however, newer versions of the listed packages should work without problems. In the case that RDkit is installed using an environment, the other dependencies should be installed to the same environment as well. Also, Python version of the environment should be 3.x.
-
-#### [Python 3.5.2](https://www.python.org/downloads/)
-#### [Tensorflow 1.12.0](https://github.com/tensorflow/tensorflow/releases/tag/v1.12.0)
-#### [Tflearn 0.3.2](https://pypi.org/project/tflearn/)
-#### [Sklearn 0.19.2](https://scikit-learn.org/0.19/install.html)
-#### [Numpy 1.14.5](https://pypi.python.org/pypi/numpy/1.13.3)
-#### [CairoSVG 2.1.2](https://pypi.org/project/CairoSVG/)
-#### [RDkit 2016.09.4](http://rdkit.org/docs/Install.html)
-#### [OpenCV 3.3.0](https://opencv.org/opencv-3-3.html)
-
-Please refer to the following sections for step-by-step guidelines for using DEEPScreen.
 
 
 ## How to run pre-trained ready-to-use DEEPScreen models to generate DTI predictions
@@ -160,64 +103,6 @@ The expected prediction run time for the example pre-trained model on the provid
 
 **DEEPScreen_Largescale_DTI_predictions.zip** file contains the results of the DTI prediction run, where DEEPScreen targets were scanned against more than 1 million compound records in ChEMBL, as described above.
 
-
-## How to train a target-based DEEPScreen model
-
-Important note: Since highly optimized pre-trained models are already provided ([here](https://www.dropbox.com/sh/x1w9wqe1fxmdl1w/AACD7gV2vRFPgoN653WCRjaia?dl=0)), the user is not required to do any model training.
-
-Step-by-step operation:
-
-1) Install the listed dependencies
-
-2) Clone the DEEPScreen repository (large files under the **trainingFiles** folder: 'act_inact_comps_10.0_20.0_chembl_preprocessed_sp_b_pchembl_data_blast_comp_20.txt', 'chembl_23_chemreps.txt.zip' and 'Lenselink_Dataset_Files.zip' cannot be downloaded directly when the repository is cloned, these files should be downloaded and placed in the local **trainingFiles** folder manually)
-
-3) Decompress the zipped files
-
-4) Run DEEPScreen script by providing values for the following command line arguments:
-
-    * The selected DNN architecture (ImageNetInceptionV2 or CNNModel)
-    * target ChEMBL ID
-    * The optimizer type (adam, momentum or rmsprop)
-    * The learning rate
-    * The number of epochs
-    * The number of neurons in the first fully-connected layer
-    * The number of neurons in the second fully-connected layer
-    * The drop-out keep rate
-    * Save model (should be 1 to save the model or 0 for not saving)
-
-To train a model using the same hyper-parameter value selections as DEEPScreen, you can use the hyper-parameter values given in the file: **deepscreen_models_hyperparameters_performance_results.tsv**, which is located under the **resultFiles** folder. Below is a sample command to train a predictive model for renin protein whose ChEMBL ID is **CHEMBL286**:
-
-```
-python trainDEEPScreen.py CNNModel CHEMBL286 adam 0.0005 15 256 0 0.6 1
-```
-
-**Output of the script:**
-
-The performance evaluation results and the specific predictions for the compounds in the independent test set are given as the output. In the last line, the predictions for the test compounds are written in tab-separated format, where each field is separated by commas as:
-
-* <compound_id>,<prediction_outcome>,<true_label>
-
-An example output of the command above:
-
-```
-Test AUC:0.9251733703190015
-Test AUPRC:0.9372649744647131
-Test_f1score:0.89
-Test_mcc:0.74
-Test_accuracy:0.88
-Test_precision:0.91
-Test_recall:0.82
-Test_tp:181                
-Test_fp:18
-Test_tn:122
-Test_fn:25
-CHEMBL1934285,TN,INACT  CHEMBL61236,TN,INACT    CHEMBL3127099,TN,INACT  CHEMBL406475,TP,ACT     CHEMBL266334,TP,ACT, ...
-```
-
-The expected training run time for the example model on the provided training dataset (with the given hyper-parameters) on a "normal" desktop computer is around 10 minutes. Training run times can dramatically change from a few minutes to several days on a "normal" desktop computer according to the selected hyper-parameters and the chosen DNN architecture (i.e., in-house CNN or the Inception network). Training run times can also be considered as install times for the DEEPScreen models.
-
-It is possible to observe a difference in performance measures (compared to the reported model performances) within a 10% range due to both random starting of weights at the beginning of each training run and the random split of train/test instances.
-
 ## How to train DEEPScreen models and get performance results
 * Clone the Git Repository
 * Download the target matrices and copy them under **target_feature_vectors** of the corresponding dataset
@@ -226,38 +111,31 @@ It is possible to observe a difference in performance measures (compared to the 
 
 * Run the below commands for each dataset
 
-#### Explanation of Parameters
+## Explanation of Parameters
 
-**--targetid**: Target to be trained (default: CHEMBL286)
+* **--targetid**: Target to be trained (default: CHEMBL286)
 
-**--model**: CNN architecture to be used (default: CNNModel1)
+* **--model**: CNN architecture to be used (default: CNNModel1)
 
-**--fc1**: number of neurons in the first fully-connected layer (default:512)
+* **--fc1**: number of neurons in the first fully-connected layer (default:512)
 
-**--fc2**: number of neurons in the second fully-connected layer (default:256)
+* **--fc2**: number of neurons in the second fully-connected layer (default:256)
 
-**--lr**:learning rate (default: 0.001)
+* **--lr**:learning rate (default: 0.001)
 
-**--bs**: batch size (default: 32)
+* **--bs**: batch size (default: 32)
 
-**--dropout**: dropout rate (default: 0.1)
+* **--dropout**: dropout rate (default: 0.1)
 
-**--epoch**: number of epochs (default: 200)
+* **--epoch**: number of epochs (default: 200)
 
-**--en**: the name of the experiment (default: my_experiment)
+* **--en**: the name of the experiment (default: my_experiment)
 
-#### For Davis Dataset
-```
-python main_training.py --chln 1024_1024 --tlnaf 256 --lhln 1024_1024 --lr 0.0001 --bs 32 --td Davis --cf ecfp4 --tf sequencematrix500_ZHAC000103LEQ500_GRAR740104LEQ500_SIMK990101LEQ500_blosum62LEQ500 --setting 1 --dropout 0.1 --epoch 200 --en davis_dataset_retraining
-```
-#### For Filtered Davis Dataset
-```
-python main_training.py --chln 1024_1024 --tlnaf 128 --lhln 1024_512 --lr 0.0001 --bs 32 --td Davis_Filtered --cf ecfp4 --tf sequencematrix500_ZHAC000103LEQ500_GRAR740104LEQ500_SIMK990101LEQ500_blosum62LEQ500  --setting 1 --dropout 0.1 --epoch 200 --en davis_filtered_dataset_retraining
 ```
 
 #### For PDBBind Refined Dataset
 ```
-python main_training.py --chln 1024_1024 --tlnaf 128 --lhln 1024_512 --lr 0.0001 --bs 32 --td Davis_Filtered --cf ecfp4 --tf sequencematrix500_ZHAC000103LEQ500_GRAR740104LEQ500_SIMK990101LEQ500_blosum62LEQ500  --setting 2 --dropout 0.25 --epoch 200 --en pdbbind_refined_dataset_retraining
+python main_training.py --targetid CHEMBL286 --model CNNModel1 --fc1 128 --fc2 64 --lr 0.0001 --bs 32 --dropout 0.1 --epoch 2 --en my_chembl286_training
 ```
 #### Output of the scripts
 **main_training.py** creates a folder under named **experiment_name** (given as argument **--en**) under **result_files** folder. Two files are created under **results_files/<experiment_name>**: **predictions.txt** contains predictions for independent test dataset. The other one is named as **performance_results.txt** which contains the best performance results for each fold (if setting-1 is chosen) or for the test dataset (if setting-2 is chosen). Sample output files for Davis dataset is given under **results_files/davis_dataset_my_experiment**.
