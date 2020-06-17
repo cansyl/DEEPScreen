@@ -1,19 +1,27 @@
 # DEEPScreen: Virtual Screening with Deep Convolutional Neural Networks Using Compound Images
 
+* **Important notice**: This is the new version of DEEPScreen developed using PyTorch framework, please go the master branch of this repository to reach the old version and other information presented in the paper. We advice to use this version of DEEPScreen to train target-specific models. Please note that this version is planned to be improved further by adding more functionalities. 
 * DEEPScreen is a large-scale DTI prediction system, for early stage drug discovery, using deep convolutional neural networks
 * One of the main advantages of DEEPScreen is employing readily available 2-D structural representations of compounds at the input level instead of conventional descriptors that display limited performance
 * DEEPScreen learns complex features inherently from the 2-D representations, thus producing highly accurate predictions. 
-* DEEPScreen system was trained for 704 target proteins (using curated bioactivity data) and finalized with rigorous hyper-parameter optimization tests
-* DEEPScreen system was run on more than a million of compound records in ChEMBL database to produce nearly 21 million novel DTI predictions (file: resultFiles/DEEPScreen_Largescale_DTI_predictions.zip)
-* Ready-to-use target-based predictive models of DEEPScreen can be used to scan any small molecule against 704 target proteins (explained below) 
 
 ![alt text](https://github.com/cansyl/DEEPScreen/blob/master/DEEPScreen_Figure.png)
+
+## Installation
+
+    	Please run the below commands to install requirements for model training and testing. Dependencies are available in requirements.txt file which is located under bin directory.
+       ```
+	conda create -n deepscreen_env python=3.7
+	source activate deepscreen_env
+	pip install -r requirements.txt
+	    
+       ```
 
 ## Descriptions of folders and files in the DEEPScreen repository
 
 * **bin** folder includes the source code of DEEPScreen.
 
-* **inputDatasets** folder contains various traininig/test datasets mostly formatted for observational purposes and for employment in future studies (similar files, correctly formatted for direct programmatic use in DEEPScreen's system training and tests are given below, under 'trainingFiles' folder):
+* **training_files** folder contains various traininig/test datasets mostly formatted for observational purposes and for employment in future studies.
     * **ChEMBL23_preprocessed_activities_sp_b_pchembl.zip** contains drug/compound-target interactions from the ChEMBL database (v23) after the application of multiple filtering operations to obtain a clean training set,
     * **ChEMBL24_preprocessed_activities_sp_b_pchembl.zip** contains drug/compound-target interactions from the ChEMBL database (v24) after the application of the same filtering operations applied for 'ChEMBL23_preprocessed_activities_sp_b_pchembl.zip'. This dataset was used to extract novel bio-interactions that was not included in ChEMBL v23, for our analyses,
     * **ChEMBLv23_Dtraining_All_Scaffolds.txt** contains the Murcko scaffolds for all compounds in the DEEPScreen training dataset,
@@ -24,7 +32,7 @@
     * **RXRb_Molecular_Docking_Input_Files.zip** contains various input files/datasets for the molecular docking experiment on the RXRbeta target protein, to be used in the DEEPScreen vs conventional classifier comparison.
     * **Representative_Targets_GeneName_UniProtAcc_ChEMBLid_Family_Size.txt** contains target protein related information for the representative targets dataset (an in-house chemical bias and negative selection bias free benchmark dataset constructred in this study), including gene names, UniProt accessions, ChEMBL ids, family information and the number of active compounds for each target.
 
-* **trainingFiles** folder includes the files directly used in the training and testing of the system:
+* **result_files** folder includes the files directly used in the training and testing of the system:
     * **act_inact_comps_10.0_20.0_chembl_preprocessed_sp_b_pchembl_data.txt** contains the active and inactive compound information for each target protein in ChEMBL, before the similarity-based negative training dataset enrichment process. In this file, there are two lines for each target, in the following format:
     
        ```
@@ -209,6 +217,52 @@ CHEMBL1934285,TN,INACT  CHEMBL61236,TN,INACT    CHEMBL3127099,TN,INACT  CHEMBL40
 The expected training run time for the example model on the provided training dataset (with the given hyper-parameters) on a "normal" desktop computer is around 10 minutes. Training run times can dramatically change from a few minutes to several days on a "normal" desktop computer according to the selected hyper-parameters and the chosen DNN architecture (i.e., in-house CNN or the Inception network). Training run times can also be considered as install times for the DEEPScreen models.
 
 It is possible to observe a difference in performance measures (compared to the reported model performances) within a 10% range due to both random starting of weights at the beginning of each training run and the random split of train/test instances.
+
+## How to train DEEPScreen models and get performance results
+* Clone the Git Repository
+* Download the target matrices and copy them under **target_feature_vectors** of the corresponding dataset
+    * Download target features for Davis and Filtered Davis [here](https://www.dropbox.com/preview/CanSyL%20In-silico/MDeePred/Davis_DavisFiltered/davis_filtered_davis_target_feature_vectors_LEQ500.tar.gz?role=work)
+    * Download target features for PDBBind Refined [here](https://www.dropbox.com/s/0o90ophu8w6fudr/pdbbind_refined_target_feature_vectors_LEQ500.tar.gz?dl=0)
+
+* Run the below commands for each dataset
+
+#### Explanation of Parameters
+
+**--targetid**: Target to be trained (default: CHEMBL286)
+
+**--model**: CNN architecture to be used (default: CNNModel1)
+
+**--fc1**: number of neurons in the first fully-connected layer (default:512)
+
+**--fc2**: number of neurons in the second fully-connected layer (default:256)
+
+**--lr**:learning rate (default: 0.001)
+
+**--bs**: batch size (default: 32)
+
+**--dropout**: dropout rate (default: 0.1)
+
+**--epoch**: number of epochs (default: 200)
+
+**--en**: the name of the experiment (default: my_experiment)
+
+#### For Davis Dataset
+```
+python main_training.py --chln 1024_1024 --tlnaf 256 --lhln 1024_1024 --lr 0.0001 --bs 32 --td Davis --cf ecfp4 --tf sequencematrix500_ZHAC000103LEQ500_GRAR740104LEQ500_SIMK990101LEQ500_blosum62LEQ500 --setting 1 --dropout 0.1 --epoch 200 --en davis_dataset_retraining
+```
+#### For Filtered Davis Dataset
+```
+python main_training.py --chln 1024_1024 --tlnaf 128 --lhln 1024_512 --lr 0.0001 --bs 32 --td Davis_Filtered --cf ecfp4 --tf sequencematrix500_ZHAC000103LEQ500_GRAR740104LEQ500_SIMK990101LEQ500_blosum62LEQ500  --setting 1 --dropout 0.1 --epoch 200 --en davis_filtered_dataset_retraining
+```
+
+#### For PDBBind Refined Dataset
+```
+python main_training.py --chln 1024_1024 --tlnaf 128 --lhln 1024_512 --lr 0.0001 --bs 32 --td Davis_Filtered --cf ecfp4 --tf sequencematrix500_ZHAC000103LEQ500_GRAR740104LEQ500_SIMK990101LEQ500_blosum62LEQ500  --setting 2 --dropout 0.25 --epoch 200 --en pdbbind_refined_dataset_retraining
+```
+#### Output of the scripts
+**main_training.py** creates a folder under named **experiment_name** (given as argument **--en**) under **result_files** folder. Two files are created under **results_files/<experiment_name>**: **predictions.txt** contains predictions for independent test dataset. The other one is named as **performance_results.txt** which contains the best performance results for each fold (if setting-1 is chosen) or for the test dataset (if setting-2 is chosen). Sample output files for Davis dataset is given under **results_files/davis_dataset_my_experiment**.
+#### Pre-trained Kinase Model
+PyTorch state dictionary for pretrained kinase model is available in [here](https://www.dropbox.com/s/92bmvglk5p5ln1z/pretrained_kinome_model_state_dict.pth?dl=0)
 
 
 ## License
