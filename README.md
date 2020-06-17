@@ -9,13 +9,12 @@
 
 ## Installation
 
-    	Please run the below commands to install requirements for model training and testing. Dependencies are available in requirements.txt file which is located under bin directory.
-       ```
-	conda create -n deepscreen_env python=3.7
-	source activate deepscreen_env
-	pip install -r requirements.txt
-	    
-       ```
+Please run the below commands to install requirements for model training and testing. Dependencies are available in requirements.txt file which is located under bin directory.
+```
+conda create -n deepscreen_env python=3.7
+source activate deepscreen_env
+pip install -r requirements.txt
+```
 
 ## Descriptions of folders and files in the DEEPScreen repository
 
