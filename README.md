@@ -9,7 +9,7 @@
 
 ## Installation
 
-DEEPScreen is a collection of command-line based prediction models written in Python 3.7.1. DEEPScreen was developed and tested in MacOS but it should run in any Unix-like operating system. Please run the below commands to install requirements for model training and testing. Dependencies are available in requirements.txt file which is located under bin directory.
+DEEPScreen is a command-line prediction tool written in Python 3.7.1. DEEPScreen was developed and tested in MacOSx but it should run in any Unix-like operating system. Please run the below commands to install requirements for model training and testing. Dependencies are available in requirements.txt file which is located under bin directory.
 
 ```
 conda create -n deepscreen_env python=3.7
@@ -21,14 +21,12 @@ pip install -r requirements.txt
 
 * **bin** folder includes the source code of DEEPScreen.
 
-* **training_files** folder contains various traininig/test datasets mostly formatted for observational purposes and for employment in future studies.
+* **training_files** folder includes the files directly used in the training and testing of the system:
     * **chembl27_preprocessed_filtered_bioactivity_dataset.tsv.zip** updated version of ChEMBL preprocessed and filtered dataset contains drug/compound-target interactions from the ChEMBL database (v27) after the application of multiple filtering operations to obtain a clean training set,
     * **chembl27_training_target_list.txt** list of target chembl ids,
     * **target_training_datasets** contains a folder (e.g. CHEMBL286) for each target where each target folder contains 
-    	* a json file named  **train_val_test_dict.json**
-    	* a folder named **imgs** which holds images of compounds 
-
-* **result_files** folder includes the files directly used in the training and testing of the system:
+    	* a json file named  **train_val_test_dict.json** which includes train/validation/test compound ids,
+    	* a folder named **imgs** which holds images of compounds.
        
     * **chembl27_preprocessed_filtered_act_inact_comps_10.0_20.0_blast_comp_0.2.txt** contains the active and inactive compound information for each target protein in ChEMBL, after the similarity-based negative training dataset enrichment process. In this file, there are two lines for each target, in the following format:
         
@@ -41,13 +39,13 @@ pip install -r requirements.txt
        
     * **chembl27_uniprot_mapping.txt** contains the id mapping between UniProt accessions and ChEMBL ids for proteins, in tab-separated format (Target UniProt accession, Target	ChEMBL id, Target protein name and Target type),
     
-* **resultFiles** folder contains results of various tests/analyses:
+* **result_files** folder contains results of various tests/analyses:
 
 
-## How to train DEEPScreen models and get performance results
+## How to train DEEPScreen models and get performance results 
+
 * Clone the Git Repository
-* Download the target matrices and copy them under **target_feature_vectors** of the corresponding dataset
-    * Download train/validation/test split and image files for target [here](https://www.dropbox.com/sh/as18uxmctnf39kc/AADUqZX3XAiQRU6UVp3SsBRXa?dl=0)
+* Download the compressed the target  that you want to train  [here](https://www.dropbox.com/sh/as18uxmctnf39kc/AADUqZX3XAiQRU6UVp3SsBRXa?dl=0)
 
 * Run the below commands for each dataset
 
@@ -78,7 +76,9 @@ python main_training.py --targetid CHEMBL286 --model CNNModel1 --fc1 128 --fc2 6
 ```
 
 #### Output of the scripts
-**main_training.py** creates a folder named **<experiment_name>** (given as argument **--en**)   under **result_files/experiments** folder. Two files are created under **results_files/experiments/<experiment_name>**: **predictions.txt** contains predictions for independent test dataset. The other one is named as **performance_results.txt** which contains the best test performance results. Sample output files for ChEMBL286 target is given under  **results_files/experiments/my_chembl286_training**.
+**main_training.py** creates a folder named **<experiment_name>** (given as argument **--en**)   under **result_files/experiments** folder. Two files are created under **results_files/experiments/<experiment_name>**:
+* **best_val_test_predictions-<hyperparameters_seperated by dash>-<experiment_name>.txt** contains predictions for independent test dataset. 
+* **best_val_test_performance_results-<hyperparameters_seperated by dash>-<experiment_name>.txt** which contains the best test performance results. Sample output files for ChEMBL286 target is given under  **results_files/experiments/my_chembl286_training**.
 
 ## License
 
