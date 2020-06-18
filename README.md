@@ -50,7 +50,7 @@ pip install -r requirements.txt
 
 * Locate the zipped target file under **training_files/target_training_datasets** and unzip it
 
-* Run the below commands for each dataset
+* Run the **main_training.py** command as shown below
 
 ## Explanation of Parameters
 
