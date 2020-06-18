@@ -45,7 +45,10 @@ pip install -r requirements.txt
 ## How to train DEEPScreen models and get performance results 
 
 * Clone the Git Repository
-* Download the compressed the target  that you want to train  [here](https://www.dropbox.com/sh/as18uxmctnf39kc/AADUqZX3XAiQRU6UVp3SsBRXa?dl=0)
+
+* Download the compressed file for the target  that you want to train  [here](https://www.dropbox.com/sh/as18uxmctnf39kc/AADUqZX3XAiQRU6UVp3SsBRXa?dl=0)
+
+* Locate the zipped target file under **training_files/target_training_datasets** and unzip it
 
 * Run the below commands for each dataset
 
