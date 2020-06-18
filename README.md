@@ -24,6 +24,9 @@ pip install -r requirements.txt
 * **training_files** folder contains various traininig/test datasets mostly formatted for observational purposes and for employment in future studies.
     * **chembl27_preprocessed_filtered_bioactivity_dataset.tsv.zip** updated version of ChEMBL preprocessed and filtered dataset contains drug/compound-target interactions from the ChEMBL database (v27) after the application of multiple filtering operations to obtain a clean training set,
     * **chembl27_training_target_list.txt** list of target chembl ids,
+    * **target_training_datasets** contains a folder (e.g. CHEMBL286) for each target where each target folder contains 
+    	* a json file named  **train_val_test_dict.json**
+    	* a folder named **imgs** which holds images 
 
 
 * **result_files** folder includes the files directly used in the training and testing of the system:
