@@ -26,21 +26,20 @@ pip install -r requirements.txt
     * **chembl27_training_target_list.txt** list of target chembl ids,
     * **target_training_datasets** contains a folder (e.g. CHEMBL286) for each target where each target folder contains 
     	* a json file named  **train_val_test_dict.json**
-    	* a folder named **imgs** which holds images 
-
+    	* a folder named **imgs** which holds images of compounds 
 
 * **result_files** folder includes the files directly used in the training and testing of the system:
-    * **act_inact_comps_10.0_20.0_chembl_preprocessed_sp_b_pchembl_data.txt** contains the active and inactive compound information for each target protein in ChEMBL, before the similarity-based negative training dataset enrichment process. In this file, there are two lines for each target, in the following format:
-    
-       ```
+       
+    * **chembl27_preprocessed_filtered_act_inact_comps_10.0_20.0_blast_comp_0.2.txt** contains the active and inactive compound information for each target protein in ChEMBL, after the similarity-based negative training dataset enrichment process. In this file, there are two lines for each target, in the following format:
+        
+        ```
        CHEMBL286_act	CHEMBL1818056,CHEMBL2115367,CHEMBL344651,CHEMBL62054, ...
        CHEMBL286_inact	CHEMBL288434,CHEMBL584926,CHEMBL406111,CHEMBL151055, ...
        ```
-    
+       
        The list of active/inactive compounds separated by commas (i.e., the second tab seperated column: *CHEMBL1818056,C...*) for the correnponding target (i.e., the first column: *CHEMBL286_act*),
-    * **act_inact_comps_10.0_20.0_chembl_preprocessed_sp_b_pchembl_data_blast_comp_20.txt** contains the active and inactive compound information for each target protein in ChEMBL, after the similarity-based negative training dataset enrichment process. The format of the file is same as above,
-    * **chembl23_chemreps.txt.zip** contains the SMILES and InChI representations for all ChEMBL compounds (version 23),
-    * **chembl_uniprot_mapping.txt** contains the id mapping between UniProt accessions and ChEMBL ids for proteins, in tab-separated format (Target UniProt accession, Target	ChEMBL id, Target protein name and Target type),
+       
+    * **chembl27_uniprot_mapping.txt** contains the id mapping between UniProt accessions and ChEMBL ids for proteins, in tab-separated format (Target UniProt accession, Target	ChEMBL id, Target protein name and Target type),
     
 * **resultFiles** folder contains results of various tests/analyses:
 
