@@ -75,7 +75,7 @@ pip install -r requirements.txt
 #### To perform training for a target (CHEMBL286 in the below example):
 
 ```
-python main_training.py --targetid CHEMBL286 --model CNNModel1 --fc1 128 --fc2 64 --lr 0.0001 --bs 32 --dropout 0.1 --epoch 2 --en my_chembl286_training
+python main_training.py --targetid CHEMBL286 --model CNNModel1 --fc1 256 --fc2 128 --lr 0.01 --bs 64 --dropout 0.25 --epoch 100 --en my_chembl286_training
 ```
 
 #### Output of the scripts
