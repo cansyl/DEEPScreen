@@ -139,21 +139,36 @@ def train_validation_test_training(target_id, model_name, fully_layer_1, fully_l
             loss.backward()
             optimizer.step()
         print("Epoch {} training loss:".format(epoch), total_training_loss)
-        training_perf_dict = prec_rec_f1_acc_mcc(all_training_labels, all_training_preds)
+        training_perf_dict = dict()
+        try:
+        	training_perf_dict = prec_rec_f1_acc_mcc(all_training_labels, all_training_preds)
+        except:
+        	print("There was a problem during training performance calculation!")
         # print(training_perf_dict)
         model.eval()
         with torch.no_grad():  # torch.set_grad_enabled(False):
             print("Validation mode:", not model.training)
 
             total_val_loss, total_val_count, all_val_comp_ids, all_val_labels, val_predictions = calculate_val_test_loss(model, criterion, valid_loader, device)
-
-            print("Epoch {} validation loss:".format(epoch), total_val_loss)
-            val_perf_dict = prec_rec_f1_acc_mcc(all_val_labels, val_predictions)
+            
+            val_perf_dict = dict()
+            val_perf_dict["MCC"] = 0.0
+        	try:
+        		val_perf_dict = prec_rec_f1_acc_mcc(all_val_labels, val_predictions)
+        	except:
+        		print("There was a problem during validation performance calculation!")
+            
 
             total_test_loss, total_test_count, all_test_comp_ids, all_test_labels, test_predictions = calculate_val_test_loss(
                 model, criterion, test_loader, device)
 
-            test_perf_dict = prec_rec_f1_acc_mcc(all_test_labels, test_predictions)
+			test_perf_dict = dict()
+            test_perf_dict["MCC"] = 0.0
+        	try:
+        		test_perf_dict = prec_rec_f1_acc_mcc(all_test_labels, test_predictions)
+        	except:
+        		print("There was a problem during test performance calculation!")
+        		
 
             if val_perf_dict["MCC"] > best_val_mcc_score and test_perf_dict["MCC"]> best_test_mcc_score:
                 best_val_mcc_score = val_perf_dict["MCC"]
