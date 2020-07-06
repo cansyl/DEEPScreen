@@ -154,9 +154,9 @@ def train_validation_test_training(target_id, model_name, fully_layer_1, fully_l
             val_perf_dict = dict()
             val_perf_dict["MCC"] = 0.0
             try:
-            	val_perf_dict = prec_rec_f1_acc_mcc(all_val_labels, val_predictions)
-        	except:
-        		print("There was a problem during validation performance calculation!")
+                val_perf_dict = prec_rec_f1_acc_mcc(all_val_labels, val_predictions)
+            except:
+                print("There was a problem during validation performance calculation!")
             
 
             total_test_loss, total_test_count, all_test_comp_ids, all_test_labels, test_predictions = calculate_val_test_loss(
@@ -165,10 +165,9 @@ def train_validation_test_training(target_id, model_name, fully_layer_1, fully_l
             test_perf_dict = dict()
             test_perf_dict["MCC"] = 0.0
             try:
-            	test_perf_dict = prec_rec_f1_acc_mcc(all_test_labels, test_predictions)
-        	except:
-        		print("There was a problem during test performance calculation!")
-        		
+                test_perf_dict = prec_rec_f1_acc_mcc(all_test_labels, test_predictions)
+            except:
+                print("There was a problem during test performance calculation!")
 
             if val_perf_dict["MCC"] > best_val_mcc_score and test_perf_dict["MCC"]> best_test_mcc_score:
                 best_val_mcc_score = val_perf_dict["MCC"]
