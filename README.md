@@ -4,7 +4,7 @@
 * DEEPScreen is a large-scale DTI prediction system, for early stage drug discovery, using deep convolutional neural networks
 * One of the main advantages of DEEPScreen is employing readily available 2-D structural representations of compounds at the input level instead of conventional descriptors that display limited performance
 * DEEPScreen learns complex features inherently from the 2-D representations, thus producing highly accurate predictions.
-* More information can be obtained from [DEEPScreen journal article](https://doi.org/10.1039/C9SC03414E): Rifaioglu, A. S., Nalbat, E., Atalay, V., Martin, M. J., Cetin-Atalay, R., & Doğan, T. (2020). DEEPScreen: high performance drug–target interaction prediction with convolutional neural networks using 2-D structural compound representations. *Chemical Science, 11*(9), 2531-2557.
+* More information can be obtained from [DEEPScreen journal article](https://doi.org/10.1039/C9SC03414E).
 
 
 ![alt text](https://github.com/cansyl/DEEPScreen/blob/master/DEEPScreen_Figure.png)
@@ -85,7 +85,8 @@ python main_training.py --targetid CHEMBL286 --model CNNModel1 --fc1 256 --fc2 1
 * **best_val_test_predictions-<hyperparameters_seperated by dash>-<experiment_name>.txt** contains predictions for independent test dataset. 
 * **best_val_test_performance_results-<hyperparameters_seperated by dash>-<experiment_name>.txt** which contains the best test performance results. Sample output files for ChEMBL286 target is given under  **results_files/experiments/my_chembl286_training**.
 
-<br></br>
+## Article
+
 If you use DEEPScreen please consider citing:
 <br></br>
 Rifaioglu, A. S., Nalbat, E., Atalay, V., Martin, M. J., Cetin-Atalay, R., & Doğan, T. (2020). DEEPScreen: high performance drug–target interaction prediction with convolutional neural networks using 2-D structural compound representations. *Chemical Science, 11*(9), 2531-2557.
