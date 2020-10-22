@@ -3,7 +3,9 @@
 * **Important notice**: This is the new version of DEEPScreen developed using PyTorch framework, please go the master branch of this repository to reach the old version and other information presented in the paper. We advice to use this version of DEEPScreen to train target-specific models. Please note that this version is planned to be improved further by adding more functionalities. 
 * DEEPScreen is a large-scale DTI prediction system, for early stage drug discovery, using deep convolutional neural networks
 * One of the main advantages of DEEPScreen is employing readily available 2-D structural representations of compounds at the input level instead of conventional descriptors that display limited performance
-* DEEPScreen learns complex features inherently from the 2-D representations, thus producing highly accurate predictions. 
+* DEEPScreen learns complex features inherently from the 2-D representations, thus producing highly accurate predictions.
+* More information can be obtained from [DEEPScreen journal paper](https://doi.org/10.1039/C9SC03414E): Rifaioglu, A. S., Nalbat, E., Atalay, V., Martin, M. J., Cetin-Atalay, R., & Doğan, T. (2020). DEEPScreen: high performance drug–target interaction prediction with convolutional neural networks using 2-D structural compound representations. Chemical Science, 11(9), 2531-2557.
+
 
 ![alt text](https://github.com/cansyl/DEEPScreen/blob/master/DEEPScreen_Figure.png)
 
