@@ -1,6 +1,6 @@
 # DEEPScreen: Virtual Screening with Deep Convolutional Neural Networks Using Compound Images
 
-* **Important notice**: This is the new version of DEEPScreen developed using PyTorch framework, please go the master branch of this repository to reach the old version and other information presented in the paper. We advice to use this version of DEEPScreen to train target-specific models. Please note that this version is planned to be improved further by adding more functionalities. 
+* **Important notice**: This is the new version of DEEPScreen developed using PyTorch framework, please go the master branch of this repository to reach the old version and other information presented in the paper. We advice to use this new version of DEEPScreen to train target-specific models. Please note that this version is planned to be improved further by adding more functionalities. 
 * DEEPScreen is a large-scale DTI prediction system, for early stage drug discovery, using deep convolutional neural networks
 * One of the main advantages of DEEPScreen is employing readily available 2-D structural representations of compounds at the input level instead of conventional descriptors that display limited performance
 * DEEPScreen learns complex features inherently from the 2-D representations, thus producing highly accurate predictions.
