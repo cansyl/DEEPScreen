@@ -7,6 +7,19 @@ from sklearn.metrics import confusion_matrix
 
 def prec_rec_f1_acc_mcc(y_true, y_pred):
     performance_threshold_dict  = dict()
+
+    ### ADDED on 28 July 2020 by YIP YEW MUN ###
+    y_true_tmp = []
+    for each_y_true in y_true:
+        y_true_tmp.append(each_y_true.item())
+    y_true = y_true_tmp
+
+    y_pred_tmp = []
+    for each_y_pred in y_pred:
+        y_pred_tmp.append(each_y_pred.item())
+    y_pred = y_pred_tmp
+    ### ADDED on 28 July 2020 by YIP YEW MUN ###
+
     precision = metrics.precision_score(y_true, y_pred)
     recall = metrics.recall_score(y_true, y_pred)
     f1_score = metrics.f1_score(y_true, y_pred)
