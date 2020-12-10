@@ -46,7 +46,7 @@ pip install -r requirements.txt
 * **2-D images of:** 
    - 409,311 ChEMBL compounds in the train/validation/test datasets of 812 target proteins of DEEPScreen can be downloaded from [here](https://drive.google.com/file/d/1E7ZpLN_fMdXmPJPP7WH3IPWPceleP_3a/view?usp=sharing)
    - all compounds (~2M) in ChEMBL v27 can be downloaded from [here](https://drive.google.com/file/d/16T8NI1Umf8A0qeLu90Akbx3ic-vdAbUO/view?usp=sharing)
-   - all drugs (~10K) in DrugBank v5.1.7 can be downloaded from [here](https://drive.google.com/file/d/11vSqg1SgX7y25TbX4EzNOjWNkSFVZzek/view?usp=sharing)
+   - all drugs (~11K) in DrugBank v5.1.7 can be downloaded from [here](https://drive.google.com/file/d/11vSqg1SgX7y25TbX4EzNOjWNkSFVZzek/view?usp=sharing)
 
 ## How to train DEEPScreen models and get performance results 
 
