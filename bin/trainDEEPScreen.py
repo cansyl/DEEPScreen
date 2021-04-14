@@ -109,6 +109,7 @@ def trainModelTarget(model_name, target, optimizer, learning_rate, epch,  n_of_h
     else:
         model.fit(X, Y, n_epoch=epch, validation_set=({'input': validation_x}, {'targets': validation_y}),
                   show_metric=True, batch_size=32)
+    
     test_predictions = model.predict(test_x)
     validation_predictions = model.predict(validation_x)
 
@@ -190,12 +191,13 @@ def trainModelTarget(model_name, target, optimizer, learning_rate, epch,  n_of_h
         threshold -= 0.01
 
 
-    print("Test_f1score:{}\nTest_mcc:{}\nTest_accuracy:{}\nTest_precision:{}\nTest_recall:{}\nTest_tp:{}\nTest_fp:{}\nTest_tn:{}\nTest_fn:{}".format(
+    print("Test_f1score:{}\nTest_mcc:{}\nTest_accuracy:{}\nTest_precision:{}\nTest_recall:{}\nTest_tp:{}\nTest_fp:{}\nTest_tn:{}\nTest_fn:{}\nBest_threshold:{}".format(
         round(best_test_mcc_list[0], 2), round(best_test_mcc_list[1], 2), round(best_test_mcc_list[2], 2),
         round(best_test_mcc_list[3], 2), round(best_test_mcc_list[4], 2), int(best_test_mcc_list[5]),
         int(best_test_mcc_list[6]),
         int(best_test_mcc_list[7]),
-        int(best_test_mcc_list[8])))
+        int(best_test_mcc_list[8]),
+        best_test_mcc_list[-1]))
 
     best_test_threshold = round(best_test_mcc_list[-1], 2)
     str_predictions = ""
@@ -215,6 +217,7 @@ def trainModelTarget(model_name, target, optimizer, learning_rate, epch,  n_of_h
         elif test_y[i] == 0 and temp_pos_pred >= best_test_threshold:
             str_predictions += "{},{},{}\t".format(test_comp_name[i], "FP", "INACT")
     print(str_predictions)
+    
 
 
 model_name = sys.argv[1]

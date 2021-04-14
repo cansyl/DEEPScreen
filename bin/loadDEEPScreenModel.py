@@ -44,7 +44,7 @@ def loadModel(target, model_fl):
 
     model.load("{}/{}".format(model_files_path, model_fl))
 
-    chembl_target_threshold_dict = getModelThresholds("deepscreen_models_hyperparameters_performance_results.tsv")
+    #chembl_target_threshold_dict = getModelThresholds("deepscreen_models_hyperparameters_performance_results.tsv")
 
     compound_smiles_dict = getSMILEsFromFileWithHeader(test_fl)
     comp_id_list = list(compound_smiles_dict.keys())
@@ -71,7 +71,7 @@ def loadModel(target, model_fl):
 
         test_predictions = model.predict(test_x)
         test_predictions = test_predictions[:, 0]
-        test_pred_labels = [int(round(i, 2) >= chembl_target_threshold_dict[target]) for i in test_predictions]
+        test_pred_labels = [int(round(i, 2) >= threshold) for i in test_predictions]
 
         for i in range(len(test_predictions)):
             if test_pred_labels[i] == 1:
@@ -85,5 +85,6 @@ def loadModel(target, model_fl):
 chembl_target = sys.argv[1]
 model_fl = sys.argv[2]
 test_fl  = sys.argv[3]
+threshold = float(sys.argv[4])
 loadModel(chembl_target, model_fl)
 
