@@ -125,13 +125,13 @@ The model files for an example target **CHEMBL286** (human renin protein, UniPro
 Run **loadDEEPScreenModel.py** script, while inside the **bin** folder of the local repository, to provide DTI predictions for a set of compounds. The arguments of this script are as follows:
 
 ```
-python loadDEEPScreenModel.py  <target_id> <model_name> <filename_of_compound_smiles>
+python loadDEEPScreenModel.py  <target_id> <model_name> <filename_of_compound_smiles> <best_threshold_value> 
 ```
 
-where **<target_id>** is the ChEMBL id of the target protein, **<model_name>** stands for the name of the model for the corresponding target stored under the **tflearnModels** folder (without the filename extension), and the last argument is the name of the test compounds file (including SMILES of the query compounds), inside the **trainingFiles** folder.  You can run the following script (while inside: /path-to-local-repository/bin) to generate DTI predictions for CHEMBL286 (renin) and the compounds in the sample file:
+where **<target_id>** is the ChEMBL id of the target protein, **<model_name>** stands for the name of the model for the corresponding target stored under the **tflearnModels** folder (without the filename extension), **<filename_of_compound_smiles>** is the name of the test compounds file (including SMILES of the query compounds) inside the **trainingFiles** folder, and **<best_threshold_value>** is the score cut-off (threshold) value used for the binary prediction decision (active/interacting/positive vs. inactive/non-interacting/negative) that yielded the best pedictive performance during model training/validation/test (this value is printed on screen as the output of model training, as explained below). You can run the following script (while inside: /path-to-local-repository/bin) to generate DTI predictions for CHEMBL286 (renin) and the compounds in the sample compounds file:
 
 ```
-python loadDEEPScreenModel.py  CHEMBL286 CNNModel_CHEMBL286_adam_0.0005_15_256_0.6_True-525 sample_test_compound_file.txt
+python loadDEEPScreenModel.py  CHEMBL286 CNNModel_CHEMBL286_adam_0.0005_15_256_0.6_True-525 sample_test_compound_file.txt 0.83
 ```
 
 **Output of the script:**
@@ -185,7 +185,7 @@ python trainDEEPScreen.py CNNModel CHEMBL286 adam 0.0005 15 256 0 0.6 1
 
 **Output of the script:**
 
-The performance evaluation results and the specific predictions for the compounds in the independent test set are given as the output. In the last line, the predictions for the test compounds are written in tab-separated format, where each field is separated by commas as:
+The performance evaluation results and the specific predictions for the compounds in the independent test set are given as the output. After that, score cut-off (threshold) value that yield the best performance is given. Saving the threshold value is critical since this value should be given as an input argument while using the trained model for inference/prediction. In the last line, the predictions for the test compounds are written in tab-separated format, where each field is separated by commas as:
 
 * <compound_id>,<prediction_outcome>,<true_label>
 
@@ -203,6 +203,7 @@ Test_tp:181
 Test_fp:18
 Test_tn:122
 Test_fn:25
+Best_threshold:0.8299999999999998
 CHEMBL1934285,TN,INACT  CHEMBL61236,TN,INACT    CHEMBL3127099,TN,INACT  CHEMBL406475,TP,ACT     CHEMBL266334,TP,ACT, ...
 ```
 
