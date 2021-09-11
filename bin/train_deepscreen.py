@@ -169,7 +169,7 @@ def train_validation_test_training(target_id, model_name, fully_layer_1, fully_l
             except:
                 print("There was a problem during test performance calculation!")
 
-            if val_perf_dict["MCC"] > best_val_mcc_score and test_perf_dict["MCC"]> best_test_mcc_score:
+            if val_perf_dict["MCC"] > best_val_mcc_score:
                 best_val_mcc_score = val_perf_dict["MCC"]
                 best_test_mcc_score = test_perf_dict["MCC"]
 
